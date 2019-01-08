@@ -213,14 +213,16 @@
     };
     firebase.initializeApp(config);
 
-    // /* Disable context/right-click menu */document.oncontextmenu = function() {
+    /* Disable context/right-click menu */
+    // document.oncontextmenu = function() {
     //     return false;
     // }
 
-    <!-- Define vars, trial procedure, etc -->
+    /* Define more variables */
     const numStudy = 72;
     const numPractice = 72;
     const numTest = 144;
+    let curTrial = 0;
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -263,59 +265,45 @@
         sex = 'm';
       } else if (sex == 'F' || sex == 'f' || sex == 'female' || sex == 'Female') {
         sex = 'f';
+      } else if (sex == 'B' || sex == 'b') {
+        sex = 'b';
+      } else if (sex == 'NA' || sex == 'na') {
+        sex = 'na';
       }
 
       alert('Your subject ID is: ' + chance1.seed + '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is saved only at the very beginning and the very end of the experiment.')
 
       // save a file letting me know that someone made it this far
-      const blobx = new Blob([JSON.stringify(WORKERID)], {
+      const blobx = new Blob([JSON.stringify(chance1.seed)], {
         type: "application/json"
       });
       const storageRefx = firebase.storage().ref('started/' + chance1.seed + '.json');
       storageRefx.put(blobx);
 
       $('#instructions').hide();
-      NextTrial();
+      NextStudyTrial();
     }
 
-    /* Next Trial / Check if finished */
-    function NextTrial() {
-      repeat = 0;
-      currentTrial++;
+    /* Study Phase Start */
+    function NextStudyTrial() {
+      curTrial++;
 
-      if (nextTrialStart == 0) { // if not first trial
-        if (currentTrial >= numTrialsPerPart[currentPart] && currentPart == 0) { // if end of practice
-          // alert("You will now see previously displayed objects again, one at a time. Please move your mouse around the color wheel to adjust the color of the object until it matches its original color (please be as precise as possible). Then click to lock in your response.\n\nPress [ENTER] to continue.");
+      if (curTrial > numStudy) { // if end of study
+          alert("End of Study Phase!");
           $('#showTrial').hide();
-          nextTrialStart = 1;
-          NextFeedTrial(); /* Start continuous color report trials */
+          curPractice = 0;
+          NextPracTrial(); // start Practice Phase
           return; // need return; otherwise the ShowTrial below executes
-        } else if (currentTrial % trialsPerBlock == 0 && currentPart == 1) { //if end of a test block
-          if (currentTrial == numTrialsPerPart[1]) { //if last trial
-            $('#showTrial').hide();
-            Survey1();
-            return;
-          }
-          numCD = 0;
-          nextTrialStart = 1;
-          block++;
-          alert("Starting Block " + block + " of " + totBlocks + ".");
-          ShowTrial(r_totalTrials[currentPart][currentTrial]);
-          return;
-        }
       }
-      nextTrialStart = 0;
-      ShowTrial(r_totalTrials[currentPart][currentTrial]);
+      ShowStudy();
     }
 
     /* Display Object */
-    function ShowTrial(trialStruct) {
+    function ShowStudy() {
       //Wait for click; then show the stimuli for this trial; then delay for fixed ISI; then call ShowContinuousReport
       start(ctxA, trialStruct.itemA_col, 50, 50, imgWidth, imgHeight, flip, imgA, itemA);
-      start(ctxB, trialStruct.itemB_col, 50, 50, imgWidth, imgHeight, flip, imgB, itemB);
 
       imgA.src = $('#' + trialStruct.itemA_id)[0].src;
-      imgB.src = $('#' + trialStruct.itemB_id)[0].src;
 
       $('#allItems').css('margin-top', -1000);
       $('#showTrial').show();
@@ -326,10 +314,6 @@
             ctxA.drawImage(Mask, 50, 50, imgWidth, imgHeight);
           }
           ctxA.drawImage(Mask, 50, 50, imgWidth, imgHeight);
-          ctxB.onload = function() {
-            ctxB.drawImage(Mask, 50, 50, imgWidth, imgHeight);
-          }
-          ctxB.drawImage(Mask, 50, 50, imgWidth, imgHeight);
           setTimeout(function() {
             $('#allItems').css('margin-top', -1000);
             setTimeout(function() {
