@@ -36,8 +36,7 @@
     <p><b>Your participation is voluntary.</b></p>
     <p>Please consider the information carefully. Feel free to email questions to the researchers before making your decision whether or not to participate. If you decide to participate, you will be asked to click a button below this form.</p>
     <p><b>Purpose:</b> In this experiment, we are interested in understanding how humans are able to control their attention to focus on relevant information, and how attention is related to other cognitive abilities and traits.</p>
-    <p><b>Procedures/Tasks:</b> Your participation involves watching various visual events on a computer screen and responding to what you saw. Additionally, you may be asked to complete a survey. You will be provided with detailed written
-      instructions at the start of each task or survey.</p>
+    <p><b>Procedures/Tasks:</b> Your participation involves watching various visual events on a computer screen and responding to what you saw. You will be provided with detailed written instructions at the start of each task.</p>
     <p><b>Duration:</b> The experiment is expected to take the duration listed on the next page. You may leave the study at any time. If you decide to stop participating in the study, there will be no penalty to you, and you will not lose
       any benefits to which you are otherwise entitled. Your decision will not affect your future relationship with The Ohio State University.</p>
     <p><b>Risks and Benefits:</b> There is no more risk associated with participation than you would normally encounter while playing a simple video game. Benefits include advancing scientific knowledge, experiencing the research process, and
@@ -112,10 +111,8 @@
   <div id="showTrial">
     <div id="fixation">+</div>
     <div id="allItems">
-      <div id='itemA_abs' style="position:absolute; top:150px; left:0px;">
+      <div id='itemA_abs' style="position:absolute; top:150px; left:150px;">
         <canvas id="itemA" width=300 height=300></canvas></div>
-      <div id='itemB_abs' style="position:absolute; top:150; left:300px;">
-        <canvas id="itemB" width=300 height=300></canvas></div>
       <canvas id="CDitem" width=300 height=300></canvas>
     </div><br><br>
     <center><a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden; ">Same</a>
@@ -126,79 +123,12 @@
     </center>
   </div>
 
-  <!-- Continuous Report HTML -->
-  <div id="continuousReport">
-    <div id='contItem_abs' style="position:absolute;">
-      <canvas id="contItemA" width=600 height=600></canvas></div>
-    <!-- <div id='contItemB_abs' style="position:absolute; top:150; left:300px;">
-<canvas id="contItemB" width=300 height=300></canvas></div> -->
-    <canvas id="ringItemA" width=600 height=600 style="position: absolute;"></canvas>
-    <!-- <canvas id="ringItemB"  width=280 height=280 style="position: absolute; top:160px; left:310px;"></canvas> -->
-    <div id="pointer"></div>
-    <div id="popQuiz">
-      <p>What was the color of this object?/p>
-    </div>
-    <div id="underText">
-      <p></p>
-    </div>
-  </div>
-
   <!-- Continuous Report Feedback (Practice) HTML -->
   <div id="feedback">
     <div id="feedbackReportedText">Your response:</div><canvas id="feedbackReportedTri" width=300 height=300></canvas>
     <div id="feedbackCorrectText">Correct response:</div><canvas id="feedbackCorrectTri" width=300 height=300></canvas>
     <div id="feedbackError">Your error was: 10 deg (aim for less than 50 degrees!).<br>Click to continue.</div>
   </div>
-
-  <!-- Survey: Strategy? -->
-  <form id="survey1" style="display: none;">
-    <center>
-      <div id="doneText">
-        <p>You finished! Just a few questions before you go:<p><br>
-            <p>What strategy (if any) did you use when selecting the colors of objects?</p>
-      </div>
-      <br><br><br><br>
-      <textarea name="strategy" id="strategy" style="width: 400px; height: 200px"></textarea><br><br>
-      <a href="javascript:void(0);" onclick="Done();" id="TextButton" style="display: inline;">Submit</a>
-    </center>
-  </form>
-
-  <!-- Survey: Regularities? -->
-  <form id="survey2" style="display: none;">
-    <center>
-      <div id="doneText">
-        <p>Do you think object colors were sampled randomly from the color wheel or do you think objects often shared approximately the same color?</p>
-      </div>
-      <br><br><br><br>
-      <input name="choice" type="radio" value="nope" id="surveyresponseRand" /> Each color chosen at random
-      <br><br>
-      <input name="choice" type="radio" value="yes" id="surveyresponsePref" /> Some portion of colors chosen more than others
-      <br><br><br><br>
-      <a href="javascript:void(0);" onclick="Survey();" id="TextButton" style="display: inline;">Submit</a>
-    </center>
-  </form>
-
-  <!-- Survey: Certainty? -->
-  <form id="survey3" style="display: none;">
-    <center>
-      <div id="doneText">
-        <p>How confident are you that the biased color region you selected is close to the actual experimental manipulation?</p>
-      </div>
-      <br><br><br><br>
-      <div class="likertButtons">
-        Less certain
-        <label for="likert1">1<input id="likertConfidence" type="radio" name="likertz" value="1"></label>
-        <label for="likert2">2<input id="likertConfidence" type="radio" name="likertz" value="2"></label>
-        <label for="likert3">3<input id="likertConfidence" type="radio" name="likertz" value="3"></label>
-        <label for="likert4">4<input id="likertConfidence" type="radio" name="likertz" value="4"></label>
-        <label for="likert5">5<input id="likertConfidence" type="radio" name="likertz" value="5"></label>
-        <label for="likert6">6<input id="likertConfidence" type="radio" name="likertz" value="6"></label>
-        More certain
-      </div>
-      <br><br>
-      <a href="javascript:void(0);" onclick="Done();" id="TextButton" style="display: inline;">Submit</a>
-    </center>
-  </form>
 
   <!-- Initializing JS -->
   <script>
@@ -222,7 +152,15 @@
     const numStudy = 72;
     const numPractice = 72;
     const numTest = 144;
-    let curTrial = 0;
+    let curStudy = 0;
+    let curPractice = 0;
+    let curTest = 0;
+    let RpPlusCnt = 0;
+    let RpMinusCnt = 0;
+    let NrpCnt = 0;
+    let PracLuresCnt = 0;
+    let RpTestLuresCnt = 0;
+    let NrpTestLuresCnt = 0;
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -244,9 +182,6 @@
     const ctxA = itemA.getContext("2d");
     const CDitem = document.getElementById("CDitem");
     const cdctx = CDitem.getContext("2d");
-
-    /* Start by hiding text */
-    $('#popQuiz').hide();
 
     /* Start Experiment */
     function StartExperiment() {
@@ -271,7 +206,8 @@
         sex = 'na';
       }
 
-      alert('Your subject ID is: ' + chance1.seed + '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is saved only at the very beginning and the very end of the experiment.')
+      alert('Your subject ID is: ' + chance1.seed +
+        '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is saved only at the very beginning and the very end of the experiment.')
 
       // save a file letting me know that someone made it this far
       const blobx = new Blob([JSON.stringify(chance1.seed)], {
@@ -286,22 +222,28 @@
 
     /* Study Phase Start */
     function NextStudyTrial() {
-      curTrial++;
+      curStudy++;
 
-      if (curTrial > numStudy) { // if end of study
-          alert("End of Study Phase!");
-          $('#showTrial').hide();
-          curPractice = 0;
-          NextPracTrial(); // start Practice Phase
-          return; // need return; otherwise the ShowTrial below executes
+      if (curStudy > numStudy) { // if end of study
+        alert("End of Study Phase!");
+        $('#showTrial').hide();
+        curPractice = 0;
+        NextPracTrial(); // start Practice Phase
+        return; // need return; otherwise the ShowTrial below executes
       }
       ShowStudy();
     }
 
     /* Display Object */
     function ShowStudy() {
-      //Wait for click; then show the stimuli for this trial; then delay for fixed ISI; then call ShowContinuousReport
-      start(ctxA, trialStruct.itemA_col, 50, 50, imgWidth, imgHeight, flip, imgA, itemA);
+      if (StudyTrialType[curStudy]) == 0 //RpPlus
+        start(ctxA, 200, 200, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        RpPlusCnt++;
+      } else if (StudyTrialType[curStudy]) == 1 //RpMinus
+
+      } else if (StudyTrialType[curStudy]) == 2 //Nrp
+
+      }
 
       imgA.src = $('#' + trialStruct.itemA_id)[0].src;
 
@@ -325,14 +267,14 @@
       }, 500);
     }
 
-    /* Decide next trial or next phase */
-    function NextFeedTrial() {
+    /* Practice Phase Start */
+    function NextPracTrial() {
       if (blockStart == 0) {
         currentFeedTrial++;
         if (currentFeedTrial > numTrialsPerPart[currentPart] - 1) { //if last test trial
           if (currentPart > 0) {
             $('showTrial').hide;
-            Survey1();
+            Done();
             return;
           } else { //if last practice trial
             currentFeedTrial = -1;
@@ -377,8 +319,10 @@
       mouseMoved = 0;
     }
 
-    let mouseX, mouseY;
+    /* Test Phase Start */
+
     /* Always track mouse */
+    let mouseX, mouseY;
     $(function() {
       $(document).bind('mousemove.overall', function(e) {
         mouseX = e.pageX;
@@ -386,764 +330,9 @@
       });
     });
 
-    /* Continuous Report */
-    function ShowContinuousReport(trialStruct) {
-      angleDeg = 0;
-      curError = 360;
-      startTime = new Date();
-      $("#continuousReport").show(); /* Refresh the page to update same context set to new img src */
-
-      $(document).bind('mousemove.curTrial', function(e) {
-        parentOffset = $('#continuousReport').offset();
-        relX = e.pageX - parentOffset.left - centerX;
-        relY = e.pageY - parentOffset.top - centerY;
-        curAngle = Math.atan2(relY, relX);
-        angleDeg = curAngle / Math.PI * 180.0;
-        if (mouseMoved == 0) {
-          if (mouseInit != mouseX) {
-            setTimeout(function() {
-              imgNum = Math.round(wrap([angleDeg - randrotate]));
-              startingColor = imgNum;
-              mouseMoved = 1;
-              // if (repeat == 0) {
-              // if (left_or_right == 1) {
-              start(ctx2a, imgNum, 200, 200, imgWidth, imgHeight, flip, imgA, itemA);
-              mouseMoved = 1;
-            }, 400);
-          }
-        } else {
-          imgNum = Math.round(wrap([angleDeg - randrotate]));
-          start(ctx2a, imgNum, 200, 200, imgWidth, imgHeight, flip, imgA, itemA);
-        }
-        // } else {
-        //   start(ctx2b,imgNum,50, 50,imgWidth,imgHeight,flip,imgB,itemB);
-        // }
-        // } else if (repeat == 1) {
-        //   start(ctx2,imgNum,50, 50,imgWidth,imgHeight,flip,imgPop);
-        // }
-
-        if (survey == 1 && repeat == 0) {
-          imgA.src = $('#999')[0].src;
-          // imgB.src = $('#999')[0].src;
-          // Draw fixed 45 degree highlight
-          // if (left_or_right == 1) {
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, curAngle + 180 + Math.PI * 4, curAngle, 1);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, curAngle + 180 - Math.PI * 4, curAngle, 0);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, curAngle + Math.PI / 4, curAngle, 1);
-          ctx2a.lineWidth = 40;
-          ctx2a.strokeStyle = 'black';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, curAngle - Math.PI / 4, curAngle, 0);
-          ctx2a.lineWidth = 40;
-          ctx2a.strokeStyle = 'black';
-          ctx2a.stroke();
-          // } else {
-          //   ctx2b.beginPath();
-          //   ctx2b.arc(centerX, centerY, radius, curAngle+180+Math.PI*4, curAngle, 1);
-          //   ctx2b.lineWidth = 30;
-          //   ctx2b.strokeStyle = 'white';
-          //   ctx2b.stroke();
-          //   ctx2b.beginPath();
-          //   ctx2b.arc(centerX, centerY, radius, curAngle+180-Math.PI*4, curAngle, 0);
-          //   ctx2b.lineWidth = 30;
-          //   ctx2b.strokeStyle = 'white';
-          //   ctx2b.stroke();
-          //   ctx2b.beginPath();
-          //   ctx2b.arc(centerX, centerY, radius, curAngle + Math.PI/4, curAngle, 1);
-          //   ctx2b.lineWidth = 25;
-          //   ctx2b.strokeStyle = 'black';
-          //   ctx2b.stroke();
-          //   ctx2b.beginPath();
-          //   ctx2b.arc(centerX, centerY, radius, curAngle - Math.PI/4, curAngle, 0);
-          //   ctx2b.lineWidth = 25;
-          //   ctx2b.strokeStyle = 'black';
-          //   ctx2b.stroke();
-          // }
-        } else {
-          imgA.src = $('#' + trialStruct.itemT_id)[0].src;
-          // imgB.src = $('#' + dx.pracimgB[currentFeedTrial])[0].src;
-        }
-
-        if (survey == 0) {
-          // if (left_or_right == 1) {
-          $('#pointer').css({
-            'left': centerX + Math.cos(curAngle) * ringSize - 9,
-            'top': centerY + Math.sin(curAngle) * ringSize - 9
-          });
-          // } else {
-          //   $('#pointer').css({'left': centerX+150 + Math.cos(curAngle)*ringSize-10,
-          //                     'top': centerY + Math.sin(curAngle)*ringSize-10});
-          // }
-        } else {
-          $('#pointer').hide();
-        }
-
-        if (survey == 1) {
-          // flip == 0? curError = Math.abs(wrap([imgNum-seed[0]])) : curError = Math.abs(wrap([wrap([180-imgNum])-seed[0]]));
-        } else {
-          // if (left_or_right == 1) {
-          curError = Math.abs(wrap([imgNum - trialStruct.itemT_col]));
-          // } else {
-          //   flip == 0? curError = Math.abs(wrap([imgNum-trialStruct.itemB])) : curError = Math.abs(wrap([wrap([180-imgNum])-trialStruct.itemB]));
-          // }
-        }
-        if (curError > 180) {
-          curError = Math.abs(360 - curError);
-        }
-
-        if (e.isFakeTrigger) { // this code only executes once before anything else happens, e.g. otherwise randrotate would be next trial's randrotate
-          trialStruct.startingColor = startingColor;
-          trialStruct.randrotate = randrotate;
-          trialStruct.flip = flip;
-          flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
-          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-          ringctxA.rotate(randrotate * Math.PI / 180);
-          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-          ringImg.onload = function() {
-            ringctxA.drawImage(ringImg, 50, 50, 500, 500);
-          }
-          ctx2a.onload = function() {
-            start(ctx2a, 'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA); //set starting color as grayscale
-          }
-          start(ctx2a, 'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA);
-        }
-        if ((currentFeedTrial % trialsPerBlock) == 0) { // needed special code for first item of test phase showing as grayscale, no idea why
-          if (tempVar) {
-            setTimeout(function() {
-              // if (left_or_right == 1) {
-              ctx2a.onload = function() {
-                start(ctx2a, 'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA); //set starting color as grayscale
-              }
-              start(ctx2a, 'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA);
-              //   start(ctx2a,'gray',175, 175, imgWidth, imgHeight, flip, imgA, itemA);
-              //   ctx2b.onload = function() {
-              //     start(ctx2b,trialStruct.itemB,50, 50, imgWidth, imgHeight, 0, imgB, itemB); //set starting color as grayscale
-              //   }
-              //   start(ctx2b,trialStruct.itemB,50, 50, imgWidth, imgHeight, 0, imgB, itemB);
-              // } else {
-              // ctx2b.onload = function() {
-              //   start(ctx2b,'gray',50, 50, imgWidth, imgHeight, flip, imgB, itemB); //set starting color as grayscale
-              // }
-              // start(ctx2b,'gray',50, 50, imgWidth, imgHeight, flip, imgB, itemB);
-              // }
-            }, 150);
-            tempVar = false;
-          }
-        }
-      });
-
-      $(document).bind('click.curTrial', function(e) {
-        if (survey == 1) {
-          explicitColor = flip == 0 ? Math.round(wrap([angleDeg - randrotate])) : Math.round(wrap([180 - wrap([angleDeg - randrotate])]));
-        } else if (currentPart == 2 && ((new Date()) - startTime) < 500) {
-          if (currentFeedTrial % trialsPerBlock != 0) {
-            alert('Please take your time when making responses! We will not be able to use your data if it is too noisy! Thanks.');
-          }
-          tooFast.push(1);
-        }
-
-        if (mouseMoved != 0) {
-          trialStruct.reportedAngle = Math.round(angleDeg);
-          trialStruct.reportedColor = Math.round(wrap([angleDeg - randrotate]));
-          trialStruct.rt = (new Date()) - startTime;
-          trialStruct.trialTimeStart = startTime;
-          trialStruct.col_diff = curError;
-          $(document).unbind('click.curTrial');
-          $(document).unbind('mousemove.curTrial');
-          $(document).unbind('mousedown.curTrial');
-          $(document).unbind('mouseup.curTrial');
-          $("#continuousReport").hide();
-          if (currentPart == 0 && currentFeedTrial == 0) {
-            alert('Now highlight the smallest range of colors you think contains the correct color. To highlight, click and drag, starting from one end of the highlight to the other end of the highlight.')
-          }
-          if (survey == 0) {
-            ShowConfidence(trialStruct, angleDeg);
-            $('#popQuiz').hide();
-          } else {
-            var expConfirm = confirm("Is this your selection? [Cancel] to redo.");
-            if (expConfirm == true) {
-              Survey3();
-            } else {
-              ShowContinuousReport({
-                mean: seed[0],
-                type: "color",
-                isPractice: 0,
-                items: 999
-              });
-              return;
-            }
-          }
-        }
-      });
-
-      e = $.Event('mousemove');
-      e.pageX = mouseX;
-      e.pageY = mouseY;
-      e.isFakeTrigger = true;
-      $(document).trigger(e);
-    }
-
-    /* Confidence Pt 1 */
-    function ShowConfidence(trialStruct, angleDeg) {
-      angleDeg2 = 0;
-      startTime = new Date();
-      startAngle = angleDeg * Math.PI / 180;
-      lastRot = 0;
-      noMore = 0;
-      diffAng2 = -999;
-
-      /* Confidence report */
-      $(document).bind('mousemove.curTrial', function(e) {
-        parentOffset = $('#continuousReport').offset();
-        relX = e.pageX - parentOffset.left - centerX;
-        relY = e.pageY - parentOffset.top - centerY;
-        curAngle = Math.atan2(relY, relX);
-        angleDeg2 = curAngle / Math.PI * 180.0;
-        diffAng2 = wrap([wrap([angleDeg]) - wrap([angleDeg2])]) > 180 ? wrap([wrap([angleDeg2]) - wrap([angleDeg])]) : wrap([wrap([angleDeg]) - wrap([angleDeg2])]);
-      });
-
-      $(document).bind('mousedown.curTrial', function(e) {
-        // if (left_or_right == 1) {
-        if (wrap([wrap([angleDeg]) - wrap([angleDeg2])]) < 180 && noMore == 0) {
-          /* conf is counterclockwise */
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle - Math.PI, curAngle, 1);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle, curAngle, 1);
-          ctx2a.lineWidth = 40;
-          ctx2a.strokeStyle = 'black';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle + Math.PI, curAngle, 0);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-          lastRot = 1;
-          lastRotMat.push(lastRot);
-        } else if (wrap([wrap([angleDeg]) - wrap([angleDeg2])]) > 180 && noMore == 0) {
-          /* conf is clockwise */
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle + Math.PI, curAngle, 0);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle, curAngle, 0);
-          ctx2a.lineWidth = 40;
-          ctx2a.strokeStyle = 'black';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle - Math.PI, curAngle, 1);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-          lastRot = 0;
-          lastRotMat.push(lastRot);
-        }
-        // } else {
-        //   if (wrap([wrap([angleDeg])-wrap([angleDeg2])])<180 && noMore == 0) { /* conf is counterclockwise */
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle - Math.PI, curAngle, 1);
-        //     ctx2b.lineWidth = 30;
-        //     ctx2b.strokeStyle = 'white';
-        //     ctx2b.stroke();
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle, curAngle, 1);
-        //     ctx2b.lineWidth = 25;
-        //     ctx2b.strokeStyle = 'black';
-        //     ctx2b.stroke();
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle + Math.PI, curAngle, 0);
-        //     ctx2b.lineWidth = 30;
-        //     ctx2b.strokeStyle = 'white';
-        //     ctx2b.stroke();
-        //     lastRot = 1; lastRotMat.push(lastRot);
-        //   } else if (wrap([wrap([angleDeg])-wrap([angleDeg2])])>180 && noMore == 0) { /* conf is clockwise */
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle + Math.PI, curAngle, 0);
-        //     ctx2b.lineWidth = 30;
-        //     ctx2b.strokeStyle = 'white';
-        //     ctx2b.stroke();
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle, curAngle, 0);
-        //     ctx2b.lineWidth = 25;
-        //     ctx2b.strokeStyle = 'black';
-        //     ctx2b.stroke();
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle - Math.PI, curAngle, 1);
-        //     ctx2b.lineWidth = 30;
-        //     ctx2b.strokeStyle = 'white';
-        //     ctx2b.stroke();
-        //     lastRot = 0; lastRotMat.push(lastRot);
-        //   }
-        // }
-        trialStruct.rt2 = (new Date()) - startTime;
-        imgNum3 = Math.round(wrap([angleDeg2 - randrotate])); // =imgNum2; in case they double click and imgNum3 doesnt get defined
-        ShowConfidence2(trialStruct, angleDeg, angleDeg2, diffAng2, lastRot);
-        noMore = 1;
-      })
-
-      $("#continuousReport").show();
-      e = $.Event('mousemove');
-      e.pageX = mouseX;
-      e.pageY = mouseY;
-      e.isFakeTrigger = true;
-      $(document).trigger(e);
-    }
-
-    /* Confidence Pt 2 */
-    function ShowConfidence2(trialStruct, angleDeg, angleDeg2, diffAng2, lastRot) {
-      angleDeg3 = 0;
-      startTime = new Date();
-      startAngle = angleDeg * Math.PI / 180;
-      startAngle2 = angleDeg2 * Math.PI / 180;
-      LastLock = 0;
-
-      /* Confidence report */
-      $(document).bind('mousemove.curTrial', function(e) {
-        parentOffset = $('#continuousReport').offset();
-        relX = e.pageX - parentOffset.left - centerX;
-        relY = e.pageY - parentOffset.top - centerY;
-        curAngle = Math.atan2(relY, relX);
-        angleDeg3 = curAngle / Math.PI * 180.0;
-        diffAng3 = wrap([wrap([angleDeg]) - wrap([angleDeg3])]) > 180 ? wrap([wrap([angleDeg3]) - wrap([angleDeg])]) : wrap([wrap([angleDeg]) - wrap([angleDeg3])]);
-        // if (left_or_right == 1) {
-        if (wrap([wrap([angleDeg]) - wrap([angleDeg3])]) < 180 + (180 - diffAng2) && lastRot == 0) {
-          /* conf is counterclockwise */
-          if (wrap([wrap([angleDeg2]) - wrap([angleDeg3])]) < 180) {
-            LastLock = 0;
-          } else {
-            LastLock = 1;
-          }
-          imgNum3 = Math.round(wrap([(curAngle / Math.PI * 180.0) - randrotate]));
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle, curAngle, 1);
-          ctx2a.lineWidth = 40;
-          ctx2a.strokeStyle = 'black';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle + diffAng2 * Math.PI / 180, curAngle, 0);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-        } else if (wrap([wrap([angleDeg]) - wrap([angleDeg3])]) > 180 - (180 - diffAng2) && lastRot == 1) {
-          /* conf is clockwise */
-          if (wrap([wrap([angleDeg2]) - wrap([angleDeg3])]) < 180) {
-            LastLock = 1;
-          } else {
-            LastLock = 0;
-          }
-          imgNum3 = Math.round(wrap([(curAngle / Math.PI * 180.0) - randrotate]));
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle, curAngle, 0);
-          ctx2a.lineWidth = 40;
-          ctx2a.strokeStyle = 'black';
-          ctx2a.stroke();
-          ctx2a.beginPath();
-          ctx2a.arc(centerX, centerY, radius, startAngle - diffAng2 * Math.PI / 180, curAngle, 1);
-          ctx2a.lineWidth = 50;
-          ctx2a.strokeStyle = 'white';
-          ctx2a.stroke();
-        }
-        // } else {
-        //   if (wrap([wrap([angleDeg])-wrap([angleDeg3])])<180+(180-diffAng2) && lastRot == 0) { /* conf is counterclockwise */
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle, curAngle, 1);
-        //     ctx2b.lineWidth = 25;
-        //     ctx2b.strokeStyle = 'black';
-        //     ctx2b.stroke();
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle + diffAng2*Math.PI/180, curAngle, 0);
-        //     ctx2b.lineWidth = 30;
-        //     ctx2b.strokeStyle = 'white';
-        //     ctx2b.stroke();
-        //   } else if (wrap([wrap([angleDeg])-wrap([angleDeg3])])>180-(180-diffAng2) && lastRot == 1) { /* conf is clockwise */
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle, curAngle, 0);
-        //     ctx2b.lineWidth = 25;
-        //     ctx2b.strokeStyle = 'black';
-        //     ctx2b.stroke();
-        //     ctx2b.beginPath();
-        //     ctx2b.arc(centerX, centerY, radius, startAngle - diffAng2*Math.PI/180, curAngle, 1);
-        //     ctx2b.lineWidth = 30;
-        //     ctx2b.strokeStyle = 'white';
-        //     ctx2b.stroke();
-        //   }
-        // }
-      });
-
-      $(document).bind('mouseup.curTrial', function(e) {
-        if (trialStruct.isPractice) {
-          var expConfirm2 = confirm("Continue or redo highlighting? [Cancel] to re-highlight.");
-          if (expConfirm2 == false) {
-            highlightedColors = [];
-            $(document).unbind('click.curTrial');
-            $(document).unbind('mousemove.curTrial');
-            $(document).unbind('mousedown.curTrial');
-            $(document).unbind('mouseup.curTrial');
-            ctx2a.beginPath();
-            ctx2a.arc(centerX, centerY, radius, Math.PI, Math.PI, 0);
-            ctx2a.arc(centerX, centerY, radius, Math.PI, -Math.PI, 0);
-            ctx2a.lineWidth = 50;
-            ctx2a.strokeStyle = 'white';
-            ctx2a.stroke();
-            ShowConfidence(trialStruct, angleDeg);
-            return;
-          } else {
-            ctx2a.clearRect(0, 0, 600, 600); // erases the black highlighting
-            // ctx2b.clearRect(0,0,600,600); // erases the black highlighting
-
-            pointsA = (curError - 45) / (0 - 45);
-            if (pointsA < 0) {
-              pointsA = 0;
-            }
-
-            encap = 0;
-            imgNum2 = Math.round(wrap([angleDeg2 - randrotate]));
-            ang1 = wrap(imgNum)
-            ang2 = wrap(imgNum2)
-            ang3 = wrap(imgNum3)
-
-            if (lastRot == 0 && ang1 != ang2) { //clockwise first (opposite if flip==1)
-              if (true) {
-                highlightedColors = counter(ang1, ang2);
-              } else {
-                highlightedColors = counter(ang2, ang1);
-              }
-            } else {
-              if (true) {
-                highlightedColors = counter(ang2, ang1);
-              } else {
-                highlightedColors = counter(ang1, ang2);
-              }
-            }
-            if (ang2 != ang3 && LastLock == 0) { //clockwise first (opposite if flip==1)
-              if (lastRot == 0) {
-                highlightedColors = highlightedColors.concat(counter(ang3, ang1))
-              } else {
-                highlightedColors = highlightedColors.concat(counter(ang1, ang3))
-              }
-            } else if (ang2 != ang3) {
-              if (lastRot == 0) {
-                highlightedColors = highlightedColors.concat(counter(ang3, ang1))
-              } else {
-                highlightedColors = highlightedColors.concat(counter(ang1, ang3))
-              }
-            }
-            highlightedColors = wrap(highlightedColors);
-
-            howdy = trialStruct.itemT_col;
-            if (true) {
-              if (highlightedColors.includes(wrap(howdy))) {
-                encap = 1
-              }
-            } else {
-              if (highlightedColors.includes(wrap(180 - howdy))) {
-                encap = 1
-              }
-            }
-            if (angleDeg2 == angleDeg3 & curError != 0) {
-              encap = 0
-            }
-
-            UniqueLen = highlightedColors.filter(function(val, i, arr) {
-              return arr.indexOf(val) === i;
-            }).length;
-
-            pointsB = (UniqueLen - 360) / (1 - 360);
-            if (pointsB < 0 || encap == 0) {
-              pointsB = 0;
-            }
-
-            pointsSum = pointsA + pointsB;
-            pointsSum = pointsSum.toFixed(2);
-            points = points + (pointsSum * .01);
-
-            if (pointsSum >= 1.50) {
-              feedText = 'Amazing!<br>(+ ' + pointsSum + '&#x00A2)';
-            } else if (pointsSum >= 1.00) {
-              feedText = 'Good!<br>(+ ' + pointsSum + '&#x00A2)';
-            } else {
-              feedText = '(+ ' + pointsSum + '&#x00A2)';
-            }
-            document.getElementById("fixation").innerHTML = feedText;
-            $("#continuousReport").hide();
-            $(document).unbind('click.curTrial');
-            $(document).unbind('mousemove.curTrial');
-            $(document).unbind('mousedown.curTrial');
-            $(document).unbind('mouseup.curTrial');
-            trialStruct.rt3 = (new Date()) - startTime;
-            trialStruct.conf2 = diffAng2;
-            trialStruct.conf3 = diffAng3;
-
-            if (trialStruct.isPractice) {
-              $('#feedbackError').html("Your error was: " + Math.round(curError) + " deg (aim for less than 30 deg.!)<br><br>Click to continue.");
-
-              imgNum = Math.round(wrap([angleDeg - randrotate]));
-              start(ctx3, imgNum, 80, 100, 200, 200, flip, imgA, itemA);
-              // imgNum = flip == 0? Math.round(trialStruct.itemT_col) : Math.round(wrap([180-trialStruct.itemT_col]));
-              imgNum = Math.round(trialStruct.itemT_col);
-              start(ctx4, imgNum, 40, 100, 200, 200, flip, imgA, itemA);
-
-              $('#feedback').show();
-              setTimeout(function() {
-                $(document).bind('click.feedback', function() {
-                  flip = Math.round(Math.random());
-                  randrotate = Math.floor(Math.random() * 360);
-                  $('#feedback').hide();
-                  document.getElementById("fixation").innerHTML = '+';
-                  $(document).unbind('click.feedback');
-                  NextTrial();
-                  return;
-                });
-              }, 500); // why do I need a timeout function here? i have no idea
-            } else {
-              $('#showTrial').show();
-              if (repeat == 1) {
-                imgPop.src = $('#' + trialStruct.itemT_id)[0].src;
-                numRepeats++;
-              } else if (currentFeedTrial < numTrialsPerPart[1] - 1) {
-                imgA.src = $('#' + r_totalTrials[currentPart][currentFeedTrial + 1].itemT_id)[0].src;
-                // imgB.src = $('#' + r_totalTrials[currentPart][currentFeedTrial+1].itemB)[0].src;
-              } else if (currentFeedTrial >= numTrialsPerPart[currentPart] - 1) {
-                /* this is to prepare the gray square in explicit test */
-                imgA.src = $('#999')[0].src;
-                // imgB.src = $('#999')[0].src;
-              }
-
-              setTimeout(function() {
-                flip = Math.round(Math.random());
-                randrotate = Math.floor(Math.random() * 360);
-                NextTrial();
-                document.getElementById("fixation").innerHTML = '+';
-              }, feedbackTime);
-            }
-          }
-        } else {
-          ctx2a.clearRect(0, 0, 600, 600); // erases the black highlighting
-          // ctx2b.clearRect(0,0,600,600); // erases the black highlighting
-
-          pointsA = (curError - 45) / (0 - 45);
-          if (pointsA < 0) {
-            pointsA = 0;
-          }
-
-          encap = 0;
-          imgNum2 = Math.round(wrap([angleDeg2 - randrotate]));
-          ang1 = wrap(imgNum)
-          ang2 = wrap(imgNum2)
-          ang3 = wrap(imgNum3)
-
-          if (lastRot == 0 && ang1 != ang2) { //clockwise first (opposite if flip==1)
-            if (true) {
-              highlightedColors = counter(ang1, ang2);
-            } else {
-              highlightedColors = counter(ang2, ang1);
-            }
-          } else {
-            if (true) {
-              highlightedColors = counter(ang2, ang1);
-            } else {
-              highlightedColors = counter(ang1, ang2);
-            }
-          }
-          if (ang2 != ang3 && LastLock == 0) { //clockwise first (opposite if flip==1)
-            if (lastRot == 0) {
-              highlightedColors = highlightedColors.concat(counter(ang3, ang1))
-            } else {
-              highlightedColors = highlightedColors.concat(counter(ang1, ang3))
-            }
-          } else if (ang2 != ang3) {
-            if (lastRot == 0) {
-              highlightedColors = highlightedColors.concat(counter(ang3, ang1))
-            } else {
-              highlightedColors = highlightedColors.concat(counter(ang1, ang3))
-            }
-          }
-          highlightedColors = wrap(highlightedColors);
-
-          howdy = trialStruct.itemT_col;
-          if (true) {
-            if (highlightedColors.includes(wrap(howdy))) {
-              encap = 1
-            }
-          } else {
-            if (highlightedColors.includes(wrap(howdy + 180))) {
-              encap = 1
-            }
-          }
-          if (angleDeg2 == angleDeg3 & curError != 0) {
-            encap = 0
-          }
-
-          UniqueLen = highlightedColors.filter(function(val, i, arr) {
-            return arr.indexOf(val) === i;
-          }).length;
-
-          totConfidence.push(UniqueLen);
-
-          pointsB = (UniqueLen - 360) / (1 - 360);
-          if (pointsB < 0 || encap == 0) {
-            pointsB = 0;
-          }
-
-          pointsSum = pointsA + pointsB;
-          pointsSum = pointsSum.toFixed(2);
-          points = points + (pointsSum * .01);
-
-          if (pointsSum >= 1.50) {
-            feedText = 'Amazing!<br>(+ ' + pointsSum + '&#x00A2)';
-          } else if (pointsSum >= 1.00) {
-            feedText = 'Good!<br>(+ ' + pointsSum + '&#x00A2)';
-          } else {
-            feedText = '(+ ' + pointsSum + '&#x00A2)';
-          }
-          document.getElementById("fixation").innerHTML = feedText;
-          $("#continuousReport").hide();
-          $(document).unbind('click.curTrial');
-          $(document).unbind('mousemove.curTrial');
-          $(document).unbind('mousedown.curTrial');
-          $(document).unbind('mouseup.curTrial');
-          trialStruct.rt3 = (new Date()) - startTime;
-          trialStruct.conf2 = diffAng2;
-          trialStruct.conf3 = diffAng3;
-
-          if (trialStruct.isPractice) {
-            $('#feedbackError').html("Your error was: " + Math.round(curError) + " deg (aim for less than 30 deg.!)<br><br>Click to continue.");
-
-            imgNum = Math.round(wrap([angleDeg - randrotate]));
-            start(ctx3, imgNum, 80, 100, 200, 200, flip, imgA, itemA);
-            imgNum = flip == 0 ? Math.round(trialStruct.itemT_col) : Math.round(wrap([180 - trialStruct.itemT_col]));
-            start(ctx4, imgNum, 40, 100, 200, 200, flip, imgA, itemA);
-
-            $('#feedback').show();
-            setTimeout(function() {
-              $(document).bind('click.feedback', function() {
-                flip = Math.round(Math.random());
-                randrotate = Math.floor(Math.random() * 360);
-                $('#feedback').hide();
-                document.getElementById("fixation").innerHTML = '+';
-                $(document).unbind('click.feedback');
-                NextTrial();
-                return;
-              });
-            }, 500); // why do I need a timeout function here? i have no idea
-          } else {
-            $('#showTrial').show();
-            if (repeat == 1) {
-              imgPop.src = $('#' + trialStruct.itemT_id)[0].src;
-              numRepeats++;
-            } else if (currentFeedTrial < numTrialsPerPart[1] - 1) {
-              imgA.src = $('#' + r_totalTrials[currentPart][currentFeedTrial + 1].itemT_id)[0].src;
-              // imgB.src = $('#' + r_totalTrials[currentPart][currentFeedTrial+1].itemB)[0].src;
-            } else if (currentFeedTrial >= numTrialsPerPart[currentPart] - 1) {
-              /* this is to prepare the gray square in explicit test */
-              imgA.src = $('#999')[0].src;
-              // imgB.src = $('#999')[0].src;
-            }
-
-            setTimeout(function() {
-              flip = Math.round(Math.random());
-              randrotate = Math.floor(Math.random() * 360);
-              NextTrial();
-              document.getElementById("fixation").innerHTML = '+';
-            }, feedbackTime);
-          }
-        }
-      });
-    }
-
-    /* Survey: Regularities Code */
-    function Survey() {
-      if (document.getElementById("surveyresponseRand").checked) {
-        radioResp = 1;
-      } else if (document.getElementById("surveyresponsePref").checked) {
-        radioResp = 2;
-      }
-      //proceed only if they picked one of two options
-      if (radioResp > 0) {
-        $('#instructions').hide();
-
-        // Now they have answered our multiple-coice question
-        $("#survey2").hide();
-        survey = 1;
-
-        /*Preload color wheel, first practice trial will have randrotate=0 and flip=0*/
-        // if (left_or_right == 1) {
-        ringctxA.restore();
-        ringctxA.drawImage(ringImg, 50, 50, 500, 500);
-        ringctxA.save();
-        // } else {
-        //   ringctxB.restore();
-        //   ringctxB.drawImage(ringImg,0,0,280,280);
-        //   ringctxB.save();
-        // }
-
-        if (radioResp == 1) {
-          document.getElementById("underText").innerHTML =
-            "We actually did manipulate what colors were presented. Specifically, 40% of objects were sampled from one quarter of the color wheel (90 degree region). Please select the range of colors you think matches our preferential color sampling.";
-        } else if (radioResp == 2) {
-          document.getElementById("underText").innerHTML =
-            "Yes, we did manipulate what colors were presented. Specifically, 40% of objects were sampled from one quarter of the color wheel (90 degree region). Please select the range of colors you think matches our preferential color sampling.";
-        }
-
-        ShowContinuousReport({
-          mean: seed[0],
-          type: "color",
-          isPractice: 0,
-          items: 999
-        });
-
-        alert(document.getElementById("underText").innerHTML);
-        mouseMoved = 0;
-      } else {
-        alert('Please select an option.');
-      }
-    }
-
-    /* Survey: Aware? */
-    function Survey1() {
-      $('#survey1').show();
-    }
-
-    /* Survey: Regularities? */
-    function Survey2() {
-      $('#survey1').hide();
-      $("#survey2").show();
-    }
-
-    /* Survey: Confidence? */
-    function Survey3() {
-      $('#survey3').show();
-    }
-
     /* Done with the experiment*/
     function Done() {
-      // wait for comments and for them to hit Save
-      //proceed only if they picked an option for survey3
-      // if (document.querySelector('input[name="likertz"]:checked').value > 0) {
-      // likertAns = document.querySelector('input[name="likertz"]:checked').value;
-      $("#survey1").hide();
       $('#done').show();
-      let cashpoints = points + basepay;
-      document.getElementById("cashPrize").innerHTML = "Total earnings: $" + cashpoints.toFixed(2);
-      points = points.toFixed(2); //round to 2 decimal places
-      /* } else {
-          alert('Please select an option.');
-      } */
     }
 
     /* What to save and put it on server */
@@ -1201,82 +390,10 @@
     }
 
     /* draw images on screen */
-    function start(context, deg, initX, initY, imgWidth, imgHeight, flip, image, itemID) {
-      flip == 0 ? colors = origColors : colors = flippedColors;
-      var col = [146.83, 146.83, 146.83]; // luminance-corrected gray
-      if (deg != 'gray') {
-        deg = (deg >= 360) ? deg - 360 : deg;
-        deg = (deg < 0) ? deg + 360 : deg;
-        col = colors[deg];
-      }
-      if (context == ctx3 || context == ctx4) {
+    function start(context, initX, initY, imgWidth, imgHeight, image) {
+      image.onload = function() {
         context.drawImage(image, initX, initY, imgWidth, imgHeight);
-        recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
-      } else {
-        image.onload = function() {
-          context.drawImage(image, initX, initY, imgWidth, imgHeight);
-          recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
-        }
-        recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
       }
-    }
-
-    /* color images on screen */
-    function recolor(context, newR, newG, newB, initX, initY, itemID) {
-      imgData = context.getImageData(initX, initY, itemID.width, itemID.height);
-      let data = imgData.data;
-      for (let i = 0; i < data.length; i += 4) {
-        let red = data[i];
-        let green = data[i + 1];
-        let blue = data[i + 2];
-        if (red > 5 && blue < 200) {
-          data[i] = newR;
-          data[i + 1] = newG;
-          data[i + 2] = newB;
-        }
-      }
-      context.putImageData(imgData, initX, initY);
-    }
-
-    /* Make number between 0 and 360: */
-    function wrap(v) {
-      for (let i = 0; i < v.length; i++) {
-        if (v[i] > 360) {
-          v[i] -= 360;
-        }
-        if (v[i] < 0) {
-          v[i] += 360;
-        }
-      }
-      if (v.length == undefined) {
-        if (v > 360) {
-          v -= 360;
-        }
-        if (v < 0) {
-          v += 360;
-        }
-        v = parseInt(v); // v becomes integer and not array
-      }
-      return v;
-    }
-
-    /* Deg difference in color space*/
-    function wrapDiff(input, comparison) {
-      if (input < comparison) {
-        a = input;
-        b = comparison
-      } else {
-        a = comparison;
-        b = input
-      }
-      degree = Math.abs(a - b);
-      if (degree > 180) {
-        degree = Math.abs(a - (b - 360))
-      }
-      if (degree < -180) {
-        degree = Math.abs(a - (b + 360))
-      }
-      return wrap(degree);
     }
 
     /*check all images are loaded before starting*/
