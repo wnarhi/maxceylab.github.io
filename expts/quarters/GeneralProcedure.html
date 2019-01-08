@@ -9,7 +9,10 @@
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/jcanvas.min.js"></script>
-  <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
+  <script src="https://maxceylab.github.io/expts/js_code/chance.js">
+  const chance1 = Chance(Date()); // Use current time as the shuffle seed, so you can trace back their trials
+  </script>
+
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js"></script> <!-- Allows _clone -->
   <!-- Preload images -->
   <script src="https://maxceylab.github.io/expts/quarters/loadimg.js"></script>
@@ -230,8 +233,6 @@ https://www.mturk.com/mturk/externalSubmit
     // /* Disable context/right-click menu */document.oncontextmenu = function() {
     //     return false;
     // }
-
-    const chance1 = Chance(WORKERID); // Use their ID as the shuffle seed, so you can trace back their trials
 
     /* Options: */
     const totalRepeats = 0; // 30 need be factor of r_TrialType.length (in this case it's 5)
