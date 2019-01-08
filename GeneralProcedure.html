@@ -264,9 +264,9 @@ https://www.mturk.com/mturk/externalSubmit
         };
         firebase.initializeApp(config);
 
-        /* Disable context/right-click menu */document.oncontextmenu = function() {
-            return false;
-        }
+        // /* Disable context/right-click menu */document.oncontextmenu = function() {
+        //     return false;
+        // }
 
         const chance1 = Chance(WORKERID); // Use their ID as the shuffle seed, so you can trace back their trials
 
@@ -558,7 +558,7 @@ https://www.mturk.com/mturk/externalSubmit
             ShowTrial(r_totalTrials[currentPart][currentTrial]);
         }
 
-        /* Display Object */function ShowTrial(trialStruct)
+        /* Display Object */function ShowTrial(trialStruct) {
         //Wait for click; then show the stimuli for this trial; then delay for fixed ISI; then call ShowContinuousReport
             start(ctxA, trialStruct.itemA_col, 50, 50, imgWidth, imgHeight, flip, imgA, itemA);
             start(ctxB, trialStruct.itemB_col, 50, 50, imgWidth, imgHeight, flip, imgB, itemB);
