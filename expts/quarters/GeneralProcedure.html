@@ -12,6 +12,7 @@
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
   <script>const chance1 = Chance(Date()); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
+
   <!-- Preload images -->
   <script src="https://maxceylab.github.io/expts/quarters/loadimg.js"></script>
   <script src="https://maxceylab.github.io/expts/quarters/initVariables.js"> </script>
@@ -217,9 +218,9 @@
     // }
 
     <!-- Define vars, trial procedure, etc -->
-    const numTrialsPerPart[0] = 72;
-    const numTrialsPerPart[1] = 72;
-    const numTrialsPerPart[2] = 144;
+    const numStudy = 72;
+    const numPractice = 72;
+    const numTest = 144;
 
     /* Setup reused image variable */
     let imgA = new Image();
