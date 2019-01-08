@@ -12,6 +12,9 @@
   <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/jcanvas.min.js"></script>
   <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/chance.js"></script>
   <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/lodash.core.js"></script> <!-- Allows _clone -->
+  <!-- Preload images -->
+  <script src="https://maxceylab.github.io/expts/quarters/loadimg.js"></script>
+  <script src="https://maxceylab.github.io/expts/quarters/initVariables.js"> </script>
 
   <!-- load Firebase server javascript, we are using it for storage -->
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
@@ -71,22 +74,24 @@
         <p>Please do not disable the creation of text dialogs as these will be used to relay instructions.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 5)</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 2)</a></p>
   </div>
 
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
-
-    <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="650px"></p>
-
+    <center><b>
     <p>You will be presented with 72 objects, one at a time, each presented for 5 seconds.</p>
-    <p>Study the visual details of these objects for a later memory test.</p>
-    <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p>
-    <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
+    <p>Study the visual details of these objects for a later memory test.</p><br>
 
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();StartExperiment();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Start Experiment</a></p>
+    <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
+
+    <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p><br>
+    <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
+    </b></center>
+    <br>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions5').hide();StartExperiment();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Start Experiment</a></p>
     <center>
-      <p id=loading>Images loading... Please wait.</p>
+        <p id=loading>Images loading... Please wait.</p>
   </div>
 
   <!-- Comment form -->
@@ -205,9 +210,6 @@ https://www.mturk.com/mturk/externalSubmit
     </center>
   </form>
 
-  <!-- Preload images -->
-  <script src="https://maxceylab.github.io/expts/quarters/loadimg.js"></script>
-
   <!-- Initializing JS -->
   <script>
     let WORKERID = (IsOnTurk()) ? GetWorkerId() : prompt("You don't look like an mTurker! " +
@@ -239,7 +241,6 @@ https://www.mturk.com/mturk/externalSubmit
     const trialsPerBlock = 20;
     const totBlocks = numTrialsPerPart[1] / trialsPerBlock;
   </script>
-  <script src="https://maxceylab.github.io/expts/quarters/initVariables.js"> </script>
 
   <!-- Define vars, trial procedure, etc -->
   <script>
