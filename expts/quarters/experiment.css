@@ -63,6 +63,44 @@ body {
 #DiffButton {
   display: none;
 }
+#Old {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#Old:hover {
+  border: 3px inset gray;
+}
+#Old:active {
+  border: 3px inset gray;
+}
+#Old {
+  display: none;
+}
+#New {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bNew;
+}
+#New:hover {
+  border: 3px inset gray;
+}
+#New:active {
+  border: 3px inset gray;
+}
+#New {
+  display: none;
+}
 
 #loading {
   display: inline-block;
