@@ -10,7 +10,7 @@
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/jcanvas.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
-  <script>const chance1 = Chance(Date()); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
+  <script>const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
 
   <!-- Preload images -->
@@ -87,7 +87,7 @@
         <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions5').hide();StartExperiment();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Start Experiment</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();StartExperiment();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Start Experiment</a></p>
     <center>
       <p id=loading>Images loading... Please wait.</p>
   </div>
@@ -117,7 +117,7 @@
     </div><br><br>
     <center><a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden; ">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();ChangeDetection();" id="DiffButton" style="display: hidden;">Different</a>
-      <div id="underText2">
+      <div id="underText">
         <p>Did this square stay the same color or change to a different color?</p>
       </div>
     </center>
@@ -152,9 +152,13 @@
     const numStudy = 72;
     const numPractice = 72;
     const numTest = 144;
-    let curStudy = 0;
-    let curPractice = 0;
-    let curTest = 0;
+    const displayTime = 5000; //in ms
+    const itiTime = 500;
+    const imgWidth = 200;
+    const imgHeight = 200;
+    let curStudy = -1;
+    let curPractice = -1;
+    let curTest = -1;
     let RpPlusCnt = 0;
     let RpMinusCnt = 0;
     let NrpCnt = 0;
@@ -166,16 +170,17 @@
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
 
-    /* Setup CD images */
-    let imgCD = new Image();
-    imgCD.crossOrigin = "anonymous";
-    imgCD.src = $('#diff1')[0].src;
-    let CDfix = new Image();
-    CDfix.crossOrigin = "anonymous";
-    CDfix.src = $('#CDfixation')[0].src;
-    let imgCDtest = new Image();
-    imgCDtest.crossOrigin = "anonymous";
-    imgCDtest.src = $('#diff2')[0].src;
+    // /* Setup CD images */
+    $('#underText').hide(); // hide text asking Same/Diff
+    // let imgCD = new Image();
+    // imgCD.crossOrigin = "anonymous";
+    // imgCD.src = $('#diff1')[0].src;
+    // let CDfix = new Image();
+    // CDfix.crossOrigin = "anonymous";
+    // CDfix.src = $('#CDfixation')[0].src;
+    // let imgCDtest = new Image();
+    // imgCDtest.crossOrigin = "anonymous";
+    // imgCDtest.src = $('#diff2')[0].src;
 
     /* Setting up canvas contexts */
     const itemA = document.getElementById("itemA");
@@ -224,7 +229,7 @@
     function NextStudyTrial() {
       curStudy++;
 
-      if (curStudy > numStudy) { // if end of study
+      if (curStudy >= numStudy) { // if end of study
         alert("End of Study Phase!");
         $('#showTrial').hide();
         curPractice = 0;
@@ -236,35 +241,26 @@
 
     /* Display Object */
     function ShowStudy() {
-      if (StudyTrialType[curStudy]) == 0 //RpPlus
-        start(ctxA, 200, 200, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+      if (StudyTrialType[curStudy] == 0) { //RpPlus
+        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
         RpPlusCnt++;
-      } else if (StudyTrialType[curStudy]) == 1 //RpMinus
-
-      } else if (StudyTrialType[curStudy]) == 2 //Nrp
-
+      } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+        RpMinusCnt++;
+      } else if (StudyTrialType[curStudy] == 2) {//Nrp
+        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+        NrpCnt++;
       }
 
-      imgA.src = $('#' + trialStruct.itemA_id)[0].src;
-
-      $('#allItems').css('margin-top', -1000);
       $('#showTrial').show();
+      $('#allItems').css('margin-top', 0);
       setTimeout(function() {
-        $('#allItems').css('margin-top', 0);
-        setTimeout(function() {
-          ctxA.onload = function() {
-            ctxA.drawImage(Mask, 50, 50, imgWidth, imgHeight);
-          }
-          ctxA.drawImage(Mask, 50, 50, imgWidth, imgHeight);
+          $('#allItems').css('margin-top', -1000);
           setTimeout(function() {
-            $('#allItems').css('margin-top', -1000);
-            setTimeout(function() {
-              $('#showTrial').hide();
-              NextFeedTrial();
-            }, isiTime);
-          }, maskTime);
-        }, displayTime);
-      }, 500);
+            $('#showTrial').hide();
+            NextStudyTrial();
+          }, itiTime);
+      }, displayTime);
     }
 
     /* Practice Phase Start */
@@ -340,38 +336,11 @@
       $('#done').children().hide();
       $('#saving').show();
       $('#assignmentId').val(GetAssignmentId());
-      const newDate = new Date();
+      const endDate = new Date();
       const d = {
-        "WORKERID": WORKERID,
-        "ASSIGNMENTID": ASSIGNMENTID,
-        "curTime": newDate.today() + " @ " + newDate.timeNow(),
-        "startExpTime": startExpTime,
-        "endExpTime": newDate,
-        "totalExpTime": newDate - startExpTime,
-        "userAgent": navigator.userAgent,
-        "windowWidth": $(window).width(),
-        "windowHeight": $(window).height(),
-        "screenWidth": screen.width,
-        "screenHeight": screen.height,
-        "comments": $('#comments').val(),
-        "strategy": $('#strategy').val(),
-        "pracTrials": r_totalTrials[0],
-        "studyTrials": r_totalTrials[1],
-        "testTrials": r_totalTrials[2],
-        "radioResponse": radioResp,
-        "explicitColor": explicitColor,
-        "LikertAns": likertAns,
-        "Bonus": points,
-        "Seeds": seed,
-        "StudyOrder": [dx.testimgA, dx.testimgB],
-        "leftColor": dx.imgAcolor,
-        "rightColor": dx.imgBcolor,
-        "colorChange": dx.sign,
-        "totConfidence": totConfidence,
-        "firstConfDir": lastRotMat,
-        "tooFastCount": tooFast,
-        "Age": age,
-        "Sex": sex
+        "Seed": chance1.seed,
+        "StartTime": startDate,
+        "EndTime": endDate
       };
 
       /* save to Firebase server */
@@ -391,8 +360,9 @@
 
     /* draw images on screen */
     function start(context, initX, initY, imgWidth, imgHeight, image) {
-      image.onload = function() {
-        context.drawImage(image, initX, initY, imgWidth, imgHeight);
+      imgA.src = $('#Obj' + image)[0].src;
+      imgA.onload = function() {
+        context.drawImage(imgA, initX, initY, imgWidth, imgHeight);
       }
     }
 
