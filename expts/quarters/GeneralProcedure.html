@@ -96,9 +96,9 @@
   <div id="done">
     <div id="doneText">
     </div>
-    <center>
-        <a href="javascript:void(0);" onclick="SaveData()" id="submitForm">Click to Submit</a>
-    </center>
+    <div>
+    <a href="javascript:void(0);" onclick="SaveData()" id="submitForm">Click to Submit</a>
+    </div>
   </div>
   <div id="saving">Saving . . .</div>
   </div>
@@ -213,7 +213,7 @@
       }
 
       alert('Your subject ID is: ' + chance1.seed +
-        '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is saved only at the very beginning and the very end of the experiment.')
+        '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment.')
 
       // save a file letting me know that someone made it this far
       const blobx = new Blob([JSON.stringify(chance1.seed)], {

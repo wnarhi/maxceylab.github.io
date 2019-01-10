@@ -216,14 +216,14 @@ body {
 
 
 #submitForm {
-  display: inline-block;
+  font-weight: bold;
   color: black;
   border: 3px outset gray;
-  background-color: #CCCCCC;
-  padding: 8px;
+  background: #CCC;
+  padding: 5px;
   text-decoration: none;
-  font-family: Arial, Helvetica;
-  font-weight: bold;
+  position: relative;
+  top: 60px;
 }
 
 #submitForm:hover {
