@@ -221,10 +221,7 @@ body {
   border: 3px outset gray;
   background: #CCC;
   padding: 5px;
-  text-decoration: none;
-  position: relative;
-  top: 60px;
-  left: 215px;
+  text-align: center;
 }
 
 #submitForm:hover {
