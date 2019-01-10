@@ -116,6 +116,7 @@
     </div><br><br>
     <center>
       <a href="javascript:void(0);" onclick="Old();NextPracTrial();" id="Old" style="display: hidden;">Old</a>
+      &nbsp &nbsp &nbsp &nbsp &nbsp <!--  add empty spaces between button boxes -->
       <a href="javascript:void(0);" onclick="New();NextPracTrial();" id="New" style="display: hidden;">New</a>
       <a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden; ">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();ChangeDetection();" id="DiffButton" style="display: hidden;">Different</a>
@@ -165,6 +166,10 @@
     let RpTestLuresCnt = 0;
     let NrpTestLuresCnt = 0;
     let numCD = 0;
+    let PracticeResp = [];
+    let PracticeAcc = [];
+    let TestResp = [];
+    let TestAcc = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -284,8 +289,6 @@
 
     /* Practice Phase Start */
     function NextPracTrial() {
-      curPractice++;
-
       if (curPractice >= numPractice) { // if end of study
         alert("End of Practice Phase!");
         ChangeDetection(); // start filler task
@@ -359,6 +362,16 @@
     }
 
     /* Test Phase Start */
+
+    function New() {
+      PracticeResp.push(1);
+      if (PracTrialType[curStudy] == 0) { //RpPlus
+        PracticeAcc.push(0);
+      } else if (PracTrialType[curStudy] == 3) { //PracLure
+        PracticeAcc.push(1);
+      }
+      curPractice++;
+    }
 
     /* Always track mouse */
     let mouseX, mouseY;
