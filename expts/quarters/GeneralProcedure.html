@@ -96,8 +96,9 @@
   <div id="done">
     <div id="doneText">
     </div>
-    <div>
+    <div><center>
     <a href="javascript:void(0);" onclick="SaveData()" id="submitForm">Click to Submit</a>
+  </center>
     </div>
   </div>
   <div id="saving">Saving . . .</div>
@@ -459,10 +460,9 @@
     function SaveData() {
       $('#done').children().hide();
       $('#saving').show();
-      $('#assignmentId').val(GetAssignmentId());
       const endDate = new Date().getTime();
       const d = {
-        "Seed": chance1.seed,
+        "ID": chance1.seed,
         "StartTime": startDate,
         "EndTime": endDate
       };
@@ -471,7 +471,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('intergroup/' + WORKERID + '.json');
+      const storageRef = firebase.storage().ref('Quarters/' + chance1.seed + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
