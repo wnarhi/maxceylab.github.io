@@ -1,7 +1,5 @@
-let RpCats = [02, 04, 10, 12, 14, 17];
-RpCats = chance1.shuffle(RpCats);
+let RpCats = [12, 14, 17, 02, 04, 10];
 let NrpCats = [01, 03, 05, 06, 07, 08];
-NrpCats = chance1.shuffle(NrpCats);
 let RpExemSlice = chance1.shuffle(counter(11, 28));
 let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
 let RpMinusExem = RpExemSlice.slice(3, 6); //type 1
@@ -29,34 +27,6 @@ let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
-
-// Quarters only protocol, assumes 144 test trials:
-let RandDispersed = [];
-RandDispersed = RandDispersed.concat(perm_concat(RpCats.slice(4,6),RpPlusExem),perm_concat(RpCats.slice(4,6),RpMinusExem),
-    perm_concat(RpCats.slice(4,6),RpTestLuresExem),perm_concat(NrpCats.slice(4,6),NrpExem),perm_concat(NrpCats.slice(4,6),NrpTestLuresExem));
-RandDispersed = chance1.shuffle(RandDispersed);
-
-let Q1 = [];
-Q1 = Q1.concat(perm_concat(RpCats.slice(0,1),RpPlusExem),perm_concat(RpCats.slice(0,1),RpMinusExem),
-  perm_concat(RpCats.slice(0,1),RpTestLuresExem),perm_concat(NrpCats.slice(0,1),NrpExem),perm_concat(NrpCats.slice(0,1),NrpTestLuresExem));
-Q1 = Q1.concat(RandDispersed.slice(0,12));
-
-let Q2 = []
-Q2 = Q2.concat(perm_concat(RpCats.slice(1,2),RpPlusExem),perm_concat(RpCats.slice(1,2),RpMinusExem),
-    perm_concat(RpCats.slice(1,2),RpTestLuresExem),perm_concat(NrpCats.slice(1,2),NrpExem),perm_concat(NrpCats.slice(1,2),NrpTestLuresExem));
-Q2 = Q2.concat(RandDispersed.slice(12,24));
-
-let Q3 = []
-Q3 = Q3.concat(perm_concat(RpCats.slice(2,3),RpPlusExem),perm_concat(RpCats.slice(2,3),RpMinusExem),
-        perm_concat(RpCats.slice(2,3),RpTestLuresExem),perm_concat(NrpCats.slice(2,3),NrpExem),perm_concat(NrpCats.slice(2,3),NrpTestLuresExem));
-Q3 = Q3.concat(RandDispersed.slice(24,36));
-
-let Q4 = []
-Q4 = Q4.concat(perm_concat(RpCats.slice(3,4),RpPlusExem),perm_concat(RpCats.slice(3,4),RpMinusExem),
-        perm_concat(RpCats.slice(3,4),RpTestLuresExem),perm_concat(NrpCats.slice(3,4),NrpExem),perm_concat(NrpCats.slice(3,4),NrpTestLuresExem));
-Q4 = Q4.concat(RandDispersed.slice(36,48));
-
-Q1 = chance1.shuffle(Q1); Q2 = chance1.shuffle(Q2); Q3 = chance1.shuffle(Q3); Q4 = chance1.shuffle(Q4);
 
 function repmat(array, count) {
   let result = [];

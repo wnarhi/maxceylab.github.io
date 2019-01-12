@@ -168,8 +168,6 @@
     let PracticeAcc = [];
     let TestResp = [];
     let TestAcc = [];
-    let curQ = 0;
-    let QRef = 0;
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -357,21 +355,6 @@
     /* Test Phase Start */
     function NextTestTrial() {
       $('#allItems').css('margin-top', -1000);
-      // Determine quarter array, assumes 144 test trials
-      if (curTest <= 36) {
-        curQ = Q1; QRef = curTest;
-      } else if (curTest <= 72) {
-        curQ = Q2; QRef = curTest-36;
-      } else if (curTest <= 108) {
-        curQ = Q3; QRef = curTest-72;
-      } else if (curTest <= 144) {
-        curQ = Q4; QRef = curTest-108;
-      }
-
-      // Determine current test trial type
-      // if (curQ[QRef].slice(0,2).toFloat indexOf(RpCats)R )
-      // NrpCats.includes(parseInt(curQ[0].slice(0,2)))
-
       // Preload the image of next trial
       if (TestTrialType[curTest] == 0) { //RpPlus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
