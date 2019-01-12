@@ -498,12 +498,49 @@
     /* What to save and put it on server */
     function SaveData() {
       $('#done').children().hide();
+      $('#done').hide();
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
         "ID": chance1.seed,
         "StartTime": startDate,
-        "EndTime": endDate
+        "EndTime": endDate,
+        "PracticeResp": PracticeResp,
+        "PracticeAcc": PracticeAcc,
+        "PracticeRT": PracticeRT,
+        "TestResp": TestResp,
+        "TestAcc": TestAcc,
+        "TestRT": TestRT,
+        "RpPlusCnt": RpPlusCnt,
+        "RpMinusCnt": RpMinusCnt,
+        "NrpCnt": NrpCnt,
+        "PracLuresCnt": PracLuresCnt,
+        "RpTestLuresCnt": RpTestLuresCnt,
+        "NrpTestLuresCnt": NrpTestLuresCnt,
+        "numCD": numCD,
+        "RpCats": RpCats,
+        "NrpCats": NrpCats,
+        "RpPlusExem": RpPlusExem,
+        "RpMinusExem": RpMinusExem,
+        "PracLuresExem": PracLuresExem,
+        "RpTestLuresExem": RpTestLuresExem,
+        "NrpExem": NrpExem,
+        "NrpTestLuresExem": NrpTestLuresExem,
+        "RpPlus": RpPlus,
+        "RpMinus": RpMinus,
+        "Nrp": Nrp,
+        "PracLures": PracLures,
+        "RpTestLures": RpTestLures,
+        "NrpTestLures": NrpTestLures,
+        "StudyTrialType": StudyTrialType,
+        "PracTrialType": PracTrialType,
+        "TestTrialType": TestTrialType,
+        "RandDispersed": RandDispersed,
+        "Q1": Q1,
+        "Q2": Q2,
+        "Q3": Q3,
+        "Q4": Q4,
+        "AllImages": AllImages
       };
 
       /* save to Firebase server */
