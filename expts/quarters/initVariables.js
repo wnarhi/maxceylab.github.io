@@ -1,7 +1,5 @@
-let RpCats = [02, 04, 10, 12, 14, 17];
-RpCats = chance1.shuffle(RpCats);
-let NrpCats = [01, 03, 05, 06, 07, 08];
-NrpCats = chance1.shuffle(NrpCats);
+let RpCats = chance1.shuffle([02, 04, 10, 12, 14, 17]);
+let NrpCats = chance1.shuffle([01, 03, 05, 06, 07, 08]);
 let RpExemSlice = chance1.shuffle(counter(11, 28));
 let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
 let RpMinusExem = RpExemSlice.slice(3, 6); //type 1

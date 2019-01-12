@@ -166,10 +166,13 @@
     let numCD = 0;
     let PracticeResp = [];
     let PracticeAcc = [];
+    let PracticeRT = [];
     let TestResp = [];
     let TestAcc = [];
+    let TestRT = [];
     let curQ = 0;
     let QTrial = 0;
+    let TestTrialType = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -238,6 +241,7 @@
       }
 
       $('#instructions').hide();
+      $('#showTrial').show();
       NextStudyTrial();
     }
 
@@ -255,7 +259,6 @@
 
     /* Display Object */
     function ShowStudy() {
-      $('#showTrial').show();
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
@@ -301,7 +304,7 @@
 
     /* Display Object & Old/New Judgment */
     function OldNewJudgment() {
-      $('#showTrial').show();
+      startTrial = new Date().getTime();
       $('#allItems').css('margin-top', 0);
       $('#Old').show();
       $('#New').show();
@@ -357,6 +360,7 @@
     /* Test Phase Start */
     function NextTestTrial() {
       $('#allItems').css('margin-top', -1000);
+
       // Determine quarter array, assumes 144 test trials
       if (curTest <= 36) {
         curQ = Q1; QTrial = curTest;
@@ -369,25 +373,40 @@
       }
 
       // Determine current test trial type
-      if (RpCats.includes(parseInt(curQ[QTrial].slice(0,2))))
+      if (RpCats.includes(parseInt(curQ[QTrial].slice(0,2)))) {
+          if (RpPlusExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
+            TestTrialType = TestTrialType.concat(0);
+          } else if (RpMinusExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
+            TestTrialType = TestTrialType.concat(1);
+          } else if (RpTestLuresExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
+            TestTrialType = TestTrialType.concat(4);
+          }
+      } else if (NrpCats.includes(parseInt(curQ[QTrial].slice(0,2)))) {
+        if (NrpExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
+          TestTrialType = TestTrialType.concat(2);
+        } else if (NrpTestLuresExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
+          TestTrialType = TestTrialType.concat(5);
+        }
+      }
 
-      // Preload the image of next trial
-      if (TestTrialType[curTest] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+      // Preload the image of next trial; slice(-1) indexes last number in array
+      if (TestTrialType.slice(-1) == 0) { //RpPlus
+        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         RpPlusCnt++;
-      } else if (TestTrialType[curTest] == 1) { //RpMinus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+      } else if (TestTrialType.slice(-1) == 1) { //RpMinus
+        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         RpMinusCnt++;
-      } else if (TestTrialType[curTest] == 2) { //Nrp
-        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+      } else if (TestTrialType.slice(-1) == 2) { //Nrp
+        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         NrpCnt++;
-      } else if (TestTrialType[curTest] == 4) { //RpTestLures
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpTestLures[RpTestLuresCnt]); //xcoord, ycoord, width, height, img
+      } else if (TestTrialType.slice(-1) == 4) { //RpTestLures
+        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         RpTestLuresCnt++;
-      } else if (TestTrialType[curTest] == 5) { //NrpTestLures
-        start(ctxA, 0, 0, imgWidth, imgHeight, NrpTestLures[NrpTestLuresCnt]); //xcoord, ycoord, width, height, img
+      } else if (TestTrialType.slice(-1) == 5) { //NrpTestLures
+        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         NrpTestLuresCnt++;
       }
+
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of study
           alert("End of Experiment!");
@@ -412,6 +431,7 @@
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(1);
         }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
         NextTestTrial();
       } else { // if practice phase
@@ -421,6 +441,7 @@
         } else if (PracTrialType[curStudy] == 3) { //PracLure
           PracticeAcc.push(1);
         }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curPractice++;
         NextPracTrial();
       }
@@ -440,6 +461,7 @@
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(0);
         }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
         NextTestTrial();
       } else { // if practice phase
@@ -449,6 +471,7 @@
         } else if (PracTrialType[curPractice] == 3) { //PracLure
           PracticeAcc.push(0);
         }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curPractice++;
         NextPracTrial();
       }
@@ -494,7 +517,7 @@
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.forms[0].submit();
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
       }, 3000);
     }
 
