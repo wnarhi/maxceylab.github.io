@@ -16,11 +16,11 @@ StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(3, PracLuresExem.length), RpCats.length));
 PracTrialType = chance1.shuffle(PracTrialType);
-let TestTrialType = [];
-TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length),
-  repmat(repmat(2, NrpExem.length), NrpCats.length), repmat(repmat(4, RpTestLuresExem.length),
-    RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
-TestTrialType = chance1.shuffle(TestTrialType);
+// let TestTrialType = [];
+// TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length),
+//   repmat(repmat(2, NrpExem.length), NrpCats.length), repmat(repmat(4, RpTestLuresExem.length),
+//     RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
+// TestTrialType = chance1.shuffle(TestTrialType);
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
 let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
 let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
