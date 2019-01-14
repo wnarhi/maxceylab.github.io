@@ -1,8 +1,26 @@
 % Image Manipulation & Posterization Tool (Paul Scotti 2019)
 
+%% HOW TO USE %%
+% Click 'run' and you will be asked to select a folder. Select the folder that contains your images. 
+% You will then have a pop-up of the first image in your folder, as well as another pop-up with an intensity histogram of the image. 
+% This histogram represents all the pixels in the image, with more leftward pixels being lighter and more rightward pixels being darker.
+% Generally there will be one bump in the center and a spike on the far right. Adjust the ends of the red vertical bars such that the image
+% looks better, which typically means moving the left red bar until it hits the start of the center bump, and moving the far right bar until 
+% it excludes any of the far-right spike. Here is an example: https://puu.sh/Cw7Da/0397428c6c.png. Once you've adjusted the red bars, 
+% type 'x' in the matlab command window and hit Enter. You could also type 'k' to move on to the next image in your folder without saving
+% the current image, or 'q' to quit. You will now be asked to adjust brightness. If the image seems like it looks fine, type '1' and hit enter.
+% If the image seems a bit dark, type a number lower than 1 and hit enter, and if the image seems a bit too bright, type a number 
+% larger than 1 (can be decimals) and hit enter. Repeat until it looks good, and then type 'x' and hit Enter. Now the image will change 
+% into a posterized form, meaning that only white, pink, and black pixel colors are in the image. You now need to adjust the threshold until
+% the image looks best. Click the image, then tap right arrow key to reduce the number of white pixels and left arrow key to increase number 
+% of white pixels. Up/down arrow keys adjust number of black pixels. Press 'q' to quit at any time and 's' to save the current image
+% in the output folder. As an example, this looks good (https://puu.sh/Cw7NT/f40a5a30f8.png) and this looks bad (https://puu.sh/Cw7Qt/f3c276f339.png).
+% It should look as recognizeable as possible as the original image, just with a constrained range of colors. 
+
 clc; clear; close all;
 
-imagedir = '../stimuli/objects/';
+% imagedir = '../stimuli/objects/';
+imagedir = uigetdir;
 
 addpath(imagedir);
 imagefiles = dir(fullfile(imagedir, ('*.jpg')));
@@ -73,7 +91,9 @@ for i=1:nfiles
    %initial posterized image
    maxThresh = 170; minThresh = 85; 
    [posterizedimage, alpha] = posterize_paul(currentimage,r1,g1,b1,minThresh,maxThresh);
-   f2 = figure;set(gcf,'Position',[0 0 0 0]);
+   global f2; 
+   f2 = figure;
+   set(gcf,'Position',[0 0 0 0]);
    f = figure;
    imshow(posterizedimage);
    
@@ -89,40 +109,48 @@ for i=1:nfiles
        break;
    end
    
-   g = imshow(posterizedimage);
+   global g
    disp(['Saved as ',currentfilename(1:end-4),'.png']);
+   try
    saveas(g,['output/' currentfilename(1:end-4) '.png']);
+   catch
+   mkdir('output');
+   saveas(g,['output/' currentfilename(1:end-4) '.png']);
+   end
+   
    close all;
 end
 
 function myfun(src,event,r1,g1,b1,currentimage,minThresh,maxThresh)
+   global g
+   global f2
    if strcmp(event.Key,'rightarrow')
        close;
        f = figure;
-       maxThresh = maxThresh + 2.5;
+       maxThresh = maxThresh + 5;
        [posterizedimage, alpha] = posterize_paul(currentimage,r1,g1,b1,100,maxThresh);
-       imshow(posterizedimage)
+       g = imshow(posterizedimage);
        set(f,'KeyPressFcn',{@myfun,r1,g1,b1,currentimage,minThresh,maxThresh});
    elseif strcmp(event.Key,'leftarrow')
        close;
        f = figure;
-       maxThresh = maxThresh - 2.5;
+       maxThresh = maxThresh - 5;
        [posterizedimage, alpha] = posterize_paul(currentimage,r1,g1,b1,minThresh,maxThresh);
-       imshow(posterizedimage)
+       g = imshow(posterizedimage);
        set(f,'KeyPressFcn',{@myfun,r1,g1,b1,currentimage,minThresh,maxThresh});
    elseif strcmp(event.Key,'uparrow')
        close;
        f = figure;
        minThresh = minThresh + 5;
        [posterizedimage, alpha] = posterize_paul(currentimage,r1,g1,b1,100,maxThresh);
-       imshow(posterizedimage)
+       g = imshow(posterizedimage);
        set(f,'KeyPressFcn',{@myfun,r1,g1,b1,currentimage,minThresh,maxThresh});
    elseif strcmp(event.Key,'downarrow')
        close;
        f = figure;
        minThresh = minThresh - 5;
        [posterizedimage, alpha] = posterize_paul(currentimage,r1,g1,b1,minThresh,maxThresh);
-       imshow(posterizedimage)
+       g = imshow(posterizedimage);
        set(f,'KeyPressFcn',{@myfun,r1,g1,b1,currentimage,minThresh,maxThresh});
    end
    fprintf('minThresh: %.1f, maxThresh: %.1f \n', minThresh, maxThresh)
@@ -132,6 +160,6 @@ function myfun(src,event,r1,g1,b1,currentimage,minThresh,maxThresh)
        close all;
    elseif strcmp(event.Key,'s')
        fprintf('minThresh: %.1f, maxThresh: %.1f \n', minThresh, maxThresh)
-       close all;
+       close(f2);
    end
 end

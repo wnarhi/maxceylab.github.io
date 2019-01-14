@@ -178,16 +178,16 @@
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
 
-    // /* Setup CD images */
-    // let imgCD = new Image();
-    // imgCD.crossOrigin = "anonymous";
-    // imgCD.src = $('#diff1')[0].src;
-    // let CDfix = new Image();
-    // CDfix.crossOrigin = "anonymous";
-    // CDfix.src = $('#CDfixation')[0].src;
-    // let imgCDtest = new Image();
-    // imgCDtest.crossOrigin = "anonymous";
-    // imgCDtest.src = $('#diff2')[0].src;
+    /* Setup CD images */
+    let imgCD = new Image();
+    imgCD.crossOrigin = "anonymous";
+    imgCD.src = $('#diff1')[0].src;
+    let CDfix = new Image();
+    CDfix.crossOrigin = "anonymous";
+    CDfix.src = $('#CDfix')[0].src;
+    let imgCDtest = new Image();
+    imgCDtest.crossOrigin = "anonymous";
+    imgCDtest.src = $('#diff1t')[0].src;
 
     /* Setting up canvas contexts */
     const itemA = document.getElementById("itemA");
@@ -312,42 +312,44 @@
 
     /* Filler Start */
     function ChangeDetection() {
-      // var now = new Date().getTime();
-      // var now2 = now;
-      // if (numCD == 0) {
-      //   confirm(
-      //     'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.\n\nPress [ENTER] to continue.'
-      //   );
-      // }
-      // while (now < (now2 - 300000)) { // 5 minutes long filler task
-      //   now2 = new Date().getTime();
-      //   numCD++;
-      //
-      //   $('#CDitem').show();
-      //   $('#allItems').css('margin-top', 0);
-      //
-      //   cdctx.drawImage(CDfix, 0, 0, 600, 600);
-      //   setTimeout(function() { // after 800 ms, show colored memory array
-      //     cdctx.drawImage(imgCD, 0, 0, 600, 600);
-      //     setTimeout(function() { // after 200 ms, show fixation again
-      //       cdctx.drawImage(CDfix, 0, 0, 600, 600);
-      //       setTimeout(function() { // after 900 ms, show test array
-      //         cdctx.drawImage(imgCDtest, 0, 0, 600, 600);
-      //         $('#SameButton').show();
-      //         $('#DiffButton').show();
-      //       }, 900);
-      //     }, 200);
-      //   }, 800);
-      // }
-      // // Preload the image of next trial
-      // if (PracTrialType[curStudy] == 0) { //RpPlus
-      //   start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-      //   RpPlusCnt++;
-      // } else if (StudyTrialType[curStudy] == 3) { //PracLure
-      //   start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
-      //   PracLuresCnt++;
-      // }
-      confirm('Finished task! On to test phase.\n\nPress [ENTER] to continue.');
+      var now = new Date().getTime();
+      var now2 = now;
+      if (numCD == 0) {
+        confirm(
+          'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
+        );
+      }
+      $('#CDitem').show();
+      $('#allItems').css('margin-top', 0);
+      while (now < (now2 - 300000)) { // 5 minutes long filler task
+        now2 = new Date().getTime();
+        numCD++;
+
+        imgCD.src = $('#same'+1)[0].src;
+        imgCDtest.src = $('#same'+1+'t')[0].src;
+
+        cdctx.drawImage(CDfix, 0, 0, 600, 600);
+        setTimeout(function() { // after 800 ms, show colored memory array
+          cdctx.drawImage(imgCD, 0, 0, 600, 600);
+          setTimeout(function() { // after 200 ms, show fixation again
+            cdctx.drawImage(CDfix, 0, 0, 600, 600);
+            setTimeout(function() { // after 900 ms, show test array
+              cdctx.drawImage(imgCDtest, 0, 0, 600, 600);
+              $('#SameButton').show();
+              $('#DiffButton').show();
+            }, 900);
+          }, 200);
+        }, 800);
+      }
+      // Preload the image of next trial
+      if (PracTrialType[curStudy] == 0) { //RpPlus
+        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        RpPlusCnt++;
+      } else if (StudyTrialType[curStudy] == 3) { //PracLure
+        start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
+        PracLuresCnt++;
+      }
+      confirm('Finished task! On to test phase.');
       RpPlusCnt = 0; //reset counter for RpPlus
       RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
       RpMinusCnt = 0;

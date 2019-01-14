@@ -166,8 +166,10 @@
     let numCD = 0;
     let PracticeResp = [];
     let PracticeAcc = [];
+    let PracticeRT = [];
     let TestResp = [];
     let TestAcc = [];
+    let TestRT = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -236,6 +238,7 @@
       }
 
       $('#instructions').hide();
+      $('#showTrial').show();
       NextStudyTrial();
     }
 
@@ -253,7 +256,6 @@
 
     /* Display Object */
     function ShowStudy() {
-      $('#showTrial').show();
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
@@ -299,7 +301,7 @@
 
     /* Display Object & Old/New Judgment */
     function OldNewJudgment() {
-      $('#showTrial').show();
+      startTrial = new Date().getTime();
       $('#allItems').css('margin-top', 0);
       $('#Old').show();
       $('#New').show();
@@ -311,7 +313,7 @@
       // var now2 = now;
       // if (numCD == 0) {
       //   confirm(
-      //     'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.\n\nPress [ENTER] to continue.'
+      //     'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
       //   );
       // }
       // while (now < (now2 - 300000)) { // 5 minutes long filler task
@@ -342,7 +344,7 @@
       //   start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
       //   PracLuresCnt++;
       // }
-      confirm('Finished task! On to test phase.\n\nPress [ENTER] to continue.');
+      confirm('Finished task! On to test phase.');
       RpPlusCnt = 0; //reset counter for RpPlus
       RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
       RpMinusCnt = 0;
@@ -355,6 +357,7 @@
     /* Test Phase Start */
     function NextTestTrial() {
       $('#allItems').css('margin-top', -1000);
+
       // Preload the image of next trial
       if (TestTrialType[curTest] == 0) { //RpPlus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
@@ -372,6 +375,7 @@
         start(ctxA, 0, 0, imgWidth, imgHeight, NrpTestLures[NrpTestLuresCnt]); //xcoord, ycoord, width, height, img
         NrpTestLuresCnt++;
       }
+
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of study
           alert("End of Experiment!");
@@ -396,6 +400,7 @@
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(1);
         }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
         NextTestTrial();
       } else { // if practice phase
@@ -405,6 +410,7 @@
         } else if (PracTrialType[curStudy] == 3) { //PracLure
           PracticeAcc.push(1);
         }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curPractice++;
         NextPracTrial();
       }
@@ -424,6 +430,7 @@
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(0);
         }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
         NextTestTrial();
       } else { // if practice phase
@@ -433,6 +440,7 @@
         } else if (PracTrialType[curPractice] == 3) { //PracLure
           PracticeAcc.push(0);
         }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curPractice++;
         NextPracTrial();
       }
@@ -459,12 +467,49 @@
     /* What to save and put it on server */
     function SaveData() {
       $('#done').children().hide();
+      $('#done').hide();
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
         "ID": chance1.seed,
         "StartTime": startDate,
-        "EndTime": endDate
+        "EndTime": endDate,
+        "PracticeResp": PracticeResp,
+        "PracticeAcc": PracticeAcc,
+        "PracticeRT": PracticeRT,
+        "TestResp": TestResp,
+        "TestAcc": TestAcc,
+        "TestRT": TestRT,
+        "RpPlusCnt": RpPlusCnt,
+        "RpMinusCnt": RpMinusCnt,
+        "NrpCnt": NrpCnt,
+        "PracLuresCnt": PracLuresCnt,
+        "RpTestLuresCnt": RpTestLuresCnt,
+        "NrpTestLuresCnt": NrpTestLuresCnt,
+        "numCD": numCD,
+        "RpCats": RpCats,
+        "NrpCats": NrpCats,
+        "RpPlusExem": RpPlusExem,
+        "RpMinusExem": RpMinusExem,
+        "PracLuresExem": PracLuresExem,
+        "RpTestLuresExem": RpTestLuresExem,
+        "NrpExem": NrpExem,
+        "NrpTestLuresExem": NrpTestLuresExem,
+        "RpPlus": RpPlus,
+        "RpMinus": RpMinus,
+        "Nrp": Nrp,
+        "PracLures": PracLures,
+        "RpTestLures": RpTestLures,
+        "NrpTestLures": NrpTestLures,
+        "StudyTrialType": StudyTrialType,
+        "PracTrialType": PracTrialType,
+        "TestTrialType": TestTrialType,
+        "RandDispersed": RandDispersed,
+        "Q1": Q1,
+        "Q2": Q2,
+        "Q3": Q3,
+        "Q4": Q4,
+        "AllImages": AllImages
       };
 
       /* save to Firebase server */
@@ -478,7 +523,7 @@
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.forms[0].submit();
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
       }, 3000);
     }
 
