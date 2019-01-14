@@ -132,12 +132,12 @@
   <script>
     /* Initialize Firebase */
     const config = {
-      apiKey: "AIzaSyBeD1E8RCvOck3CeWzXbg2hGURf-sSrx8A",
-      authDomain: "scotti-92222.firebaseapp.com",
-      databaseURL: "https://scotti-92222.firebaseio.com",
-      projectId: "scotti-92222",
-      storageBucket: "scotti-92222.appspot.com",
-      messagingSenderId: "123079954596"
+      apiKey: "AIzaSyB4FT9tacVGSKmDyWf203wy7WeiDYCDEFM",
+      authDomain: "maxceylab-25a85.firebaseapp.com",
+      databaseURL: "https://maxceylab-25a85.firebaseio.com",
+      projectId: "maxceylab-25a85",
+      storageBucket: "maxceylab-25a85.appspot.com",
+      messagingSenderId: "521427523696"
     };
     firebase.initializeApp(config);
 
@@ -516,7 +516,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Quarters/' + chance1.seed + '.json');
+      const storageRef = firebase.storage().ref('Letters/' + chance1.seed + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
