@@ -113,12 +113,8 @@
     </div><br><br>
     <center>
       <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
-      &nbsp &nbsp &nbsp &nbsp &nbsp
-      <!--  add empty spaces between button boxes -->
       <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
       <a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden;">Same</a>
-      &nbsp &nbsp &nbsp &nbsp &nbsp
-      <!--  add empty spaces between button boxes -->
       <a href="javascript:void(0);" onclick="DiffPress();ChangeDetection();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
   </div>
@@ -328,7 +324,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 5 minutes long filler task
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         // Preload the image of next trial
@@ -339,6 +335,11 @@
           start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
           PracLuresCnt++;
         }
+        $('#CDitem').show(); // make sure all components of CD task are hidden before moving on
+        $('#SameButton').hide();
+        $('#DiffButton').hide();
+        $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
+        $('#itemA').show();
 
         confirm('Finished task! On to test phase.');
         RpPlusCnt = 0; //reset counter for RpPlus
@@ -356,12 +357,12 @@
       now2 = new Date().getTime();
 
       if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
-        imgCD.src = $('#same'+(curCD % 25))[0].src; // memory array
-        imgCDtest.src = $('#same'+(curCD % 25)+'t')[0].src; // test array
+        imgCD.src = $('#same'+(curCD % 25 + 1))[0].src; // memory array
+        imgCDtest.src = $('#same'+(curCD % 25 + 1)+'t')[0].src; // test array
         CDType.push(0); // record what type of CD trial this was
       } else if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { //diff
-        imgCD.src = $('#diff'+(curCD % 25))[0].src;
-        imgCDtest.src = $('#diff'+(curCD % 25)+'t')[0].src;
+        imgCD.src = $('#diff'+(curCD % 25 + 1))[0].src;
+        imgCDtest.src = $('#diff'+(curCD % 25 + 1)+'t')[0].src;
         CDType.push(1);
       }
 
@@ -388,6 +389,8 @@
         CDaccuracy.push(0);
         alert('Incorrect...');
       }
+      $('#SameButton').hide();
+      $('#DiffButton').hide();
       curCD++;
     }
     function DiffPress() {
@@ -398,6 +401,8 @@
         CDaccuracy.push(0);
         alert('Incorrect...');
       }
+      $('#SameButton').hide();
+      $('#DiffButton').hide();
       curCD++;
     }
 
@@ -419,17 +424,17 @@
       // Determine current test trial type
       if (RpCats.includes(parseInt(curQ[QTrial].slice(0,2)))) {
           if (RpPlusExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
-            TestTrialType = TestTrialType.push(0);
+            TestTrialType = TestTrialType.concat(0);
           } else if (RpMinusExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
-            TestTrialType = TestTrialType.push(1);
+            TestTrialType = TestTrialType.concat(1);
           } else if (RpTestLuresExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
-            TestTrialType = TestTrialType.push(4);
+            TestTrialType = TestTrialType.concat(4);
           }
       } else if (NrpCats.includes(parseInt(curQ[QTrial].slice(0,2)))) {
         if (NrpExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
-          TestTrialType = TestTrialType.push(2);
+          TestTrialType = TestTrialType.concat(2);
         } else if (NrpTestLuresExem.includes(parseInt(curQ[QTrial].slice(3,5)))) {
-          TestTrialType = TestTrialType.push(5);
+          TestTrialType = TestTrialType.concat(5);
         }
       }
 
