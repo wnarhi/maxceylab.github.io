@@ -25,7 +25,7 @@ TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), R
     RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
 TestTrialType = chance1.shuffle(TestTrialType);
 
-let RpPlus = chance1.shuffle(repmat(perm_concat(RpCats,RpPlusExem),2)); //twice as many because of two practice trials
+let RpPlus = repmat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),2); //twice as many because of two practice trials
 let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
 let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
