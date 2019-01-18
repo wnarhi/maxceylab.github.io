@@ -59,6 +59,10 @@ Q4 = Q4.concat(RandDispersed.slice(36,48));
 
 Q1 = chance1.shuffle(Q1); Q2 = chance1.shuffle(Q2); Q3 = chance1.shuffle(Q3); Q4 = chance1.shuffle(Q4);
 
+let RpPlus_StudyOrder = [];
+let RpMinus_StudyOrder = [];
+let Nrp_StudyOrder = [];
+
 function repmat(array, count) {
   let result = [];
   while (count--) {

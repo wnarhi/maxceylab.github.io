@@ -35,6 +35,10 @@ let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
+let RpPlus_StudyOrder = [];
+let RpMinus_StudyOrder = [];
+let Nrp_StudyOrder = [];
+
 function repmat(array, count) {
   let result = [];
   while (count--) {

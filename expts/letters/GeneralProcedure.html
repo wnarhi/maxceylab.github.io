@@ -336,10 +336,13 @@
         $('#itemA').show();
 
         confirm('Finished task! On to test phase.');
+        RpPlus_StudyOrder = RpPlus;
         RpPlusCnt = 0; //reset counter for RpPlus
         RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
+        RpMinus_StudyOrder = RpMinus;
         RpMinusCnt = 0;
         RpMinus = chance1.shuffle(RpMinus);
+        Nrp_StudyOrder = Nrp;
         NrpCnt = 0;
         Nrp = chance1.shuffle(Nrp);
         NextTestTrial();
@@ -547,6 +550,10 @@
         "PracLures": PracLures,
         "RpTestLures": RpTestLures,
         "NrpTestLures": NrpTestLures,
+        "RpPlus_StudyOrder": RpPlus_StudyOrder,
+        "RpMinus_StudyOrder": RpMinus_StudyOrder,
+        "Nrp_StudyOrder": Nrp_StudyOrder,
+        "RpPlus_PracticeOrder": RpPlusPrac,
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
