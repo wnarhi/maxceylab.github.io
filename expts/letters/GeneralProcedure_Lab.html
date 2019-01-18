@@ -10,7 +10,7 @@
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/jcanvas.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
-  <script>const startDate = new Date().getTime(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
+  <script>const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
 
   <!-- Preload images -->
@@ -182,6 +182,7 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let subjID = "";
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -227,14 +228,17 @@
         sex = 'na';
       }
 
-      alert('Your subject ID is: ' + chance1.seed +
-        '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment.')
+      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
+
+      subjID = initials + startDate.getMonth() + startDate.getDate() + startDate.getHours();
+
+      alert('Your subject ID is: ' + subjID + '\nExperiment will now begin. Good luck!')
 
       // save a file letting me know that someone made it this far
       const blobx = new Blob([JSON.stringify(chance1.seed)], {
         type: "application/json"
       });
-      const storageRefx = firebase.storage().ref('started/' + chance1.seed + '.json');
+      const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
       storageRefx.put(blobx);
 
       // Preload the image of next trial
@@ -520,8 +524,8 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": chance1.seed,
-        "StartTime": startDate,
+        "ID": subjID,
+        "StartTime": startDate.getTime(),
         "EndTime": endDate,
         "PracticeResp": PracticeResp,
         "PracticeAcc": PracticeAcc,
@@ -557,21 +561,22 @@
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
-        "AllImages": AllImages
+        "AllImages": AllImages,
+        "seed": chance1.seed
       };
 
       /* save to Firebase server */
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Letters_PSYCH4510/' + chance1.seed + '.json');
+      const storageRef = firebase.storage().ref('Letters_Lab/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
       }, 3000);
     }
 
