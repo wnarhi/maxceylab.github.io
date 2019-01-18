@@ -328,7 +328,7 @@
           start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
           PracLuresCnt++;
         }
-        $('#CDitem').show(); // make sure all components of CD task are hidden before moving on
+        imgCD = new Image(); // remove last CD trial; make sure all components of CD task are hidden before moving on
         $('#SameButton').hide();
         $('#DiffButton').hide();
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen

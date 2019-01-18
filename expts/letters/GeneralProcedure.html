@@ -157,9 +157,9 @@
     // }
 
     /* Define more variables */
-    const numStudy = 3; // 60;
-    const numPractice = 5; // 60;
-    const numTest = 5; // 120;
+    const numStudy = 60; // 60;
+    const numPractice = 60; // 60;
+    const numTest = 120; // 120;
     const displayTime = 5000; //in ms
     const itiTime = 500;
     const imgWidth = 300;
@@ -306,6 +306,14 @@
         if (curPractice >= numPractice) { // if end of study
           curPractice++;
           alert("End of Practice Phase!");
+          now = new Date().getTime();
+          now2 = now;
+          confirm(
+            'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
+          );
+          $('#itemA').hide(); // hide object from last trial
+          $('#Old').hide(); // hide Old button
+          $('#New').hide(); // hide New button
           ChangeDetection(); // start filler task
           return; // need return; otherwise function below executes
         }
@@ -324,7 +332,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         // Preload the image of next trial
@@ -335,7 +343,7 @@
           start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
           PracLuresCnt++;
         }
-        $('#CDitem').show(); // make sure all components of CD task are hidden before moving on
+        imgCD = new Image(); // remove last CD trial; make sure all components of CD task are hidden before moving on
         $('#SameButton').hide();
         $('#DiffButton').hide();
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
