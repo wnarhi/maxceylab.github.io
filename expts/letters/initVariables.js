@@ -2,7 +2,7 @@ let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // rand
 
 let Fonts = chance1.shuffle(counter(11,20)); // 10 fonts/categories
 
-let RpCats = Fonts.slice(1,5);
+let RpCats = Fonts.slice(0,5);
 let NrpCats = Fonts.slice(5,10);
 let RpExemSlice = chance1.shuffle(counter(11, 34)); // letters I and O were excluded from imagesets due to lacking characteristic features
 let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
