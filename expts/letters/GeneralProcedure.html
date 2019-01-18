@@ -113,21 +113,10 @@
     </div><br><br>
     <center>
       <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
-      &nbsp &nbsp &nbsp &nbsp &nbsp
-      <!--  add empty spaces between button boxes -->
       <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
-      <a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden; ">Same</a>
-      &nbsp &nbsp &nbsp &nbsp &nbsp
-      <!--  add empty spaces between button boxes -->
+      <a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();ChangeDetection();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
-  </div>
-
-  <!-- Continuous Report Feedback (Practice) HTML -->
-  <div id="feedback">
-    <div id="feedbackReportedText">Your response:</div><canvas id="feedbackReportedTri" width=300 height=300></canvas>
-    <div id="feedbackCorrectText">Correct response:</div><canvas id="feedbackCorrectTri" width=300 height=300></canvas>
-    <div id="feedbackError">Your error was: 10 deg (aim for less than 50 degrees!).<br>Click to continue.</div>
   </div>
 
   <!-- Initializing JS -->
@@ -149,9 +138,9 @@
     // }
 
     /* Define more variables */
-    const numStudy = 3; // 72;
-    const numPractice = 5; // 72;
-    const numTest = 5; // 144;
+    const numStudy = 3; // 60;
+    const numPractice = 5; // 60;
+    const numTest = 5; // 120;
     const displayTime = 5000; //in ms
     const itiTime = 500;
     const imgWidth = 300;
@@ -165,7 +154,11 @@
     let PracLuresCnt = 0;
     let RpTestLuresCnt = 0;
     let NrpTestLuresCnt = 0;
-    let numCD = 0;
+    let now = new Date().getTime(); // used for 5 min filler task
+    let now2 = now;
+    let curCD = 0;
+    let CDaccuracy = [];
+    let CDType = [];
     let PracticeResp = [];
     let PracticeAcc = [];
     let PracticeRT = [];
@@ -177,16 +170,16 @@
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
 
-    // /* Setup CD images */
-    // let imgCD = new Image();
-    // imgCD.crossOrigin = "anonymous";
-    // imgCD.src = $('#diff1')[0].src;
-    // let CDfix = new Image();
-    // CDfix.crossOrigin = "anonymous";
-    // CDfix.src = $('#CDfixation')[0].src;
-    // let imgCDtest = new Image();
-    // imgCDtest.crossOrigin = "anonymous";
-    // imgCDtest.src = $('#diff2')[0].src;
+    /* Setup CD images */
+    let imgCD = new Image();
+    imgCD.crossOrigin = "anonymous";
+    imgCD.src = $('#diff1')[0].src;
+    let CDfix = new Image();
+    CDfix.crossOrigin = "anonymous";
+    CDfix.src = $('#CDfix')[0].src;
+    let imgCDtest = new Image();
+    imgCDtest.crossOrigin = "anonymous";
+    imgCDtest.src = $('#diff1t')[0].src;
 
     /* Setting up canvas contexts */
     const itemA = document.getElementById("itemA");
@@ -311,49 +304,87 @@
 
     /* Filler Start */
     function ChangeDetection() {
-      // var now = new Date().getTime();
-      // var now2 = now;
-      // if (numCD == 0) {
-      //   confirm(
-      //     'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
-      //   );
-      // }
-      // while (now < (now2 - 300000)) { // 5 minutes long filler task
-      //   now2 = new Date().getTime();
-      //   numCD++;
-      //
-      //   $('#CDitem').show();
-      //   $('#allItems').css('margin-top', 0);
-      //
-      //   cdctx.drawImage(CDfix, 0, 0, 600, 600);
-      //   setTimeout(function() { // after 800 ms, show colored memory array
-      //     cdctx.drawImage(imgCD, 0, 0, 600, 600);
-      //     setTimeout(function() { // after 200 ms, show fixation again
-      //       cdctx.drawImage(CDfix, 0, 0, 600, 600);
-      //       setTimeout(function() { // after 900 ms, show test array
-      //         cdctx.drawImage(imgCDtest, 0, 0, 600, 600);
-      //         $('#SameButton').show();
-      //         $('#DiffButton').show();
-      //       }, 900);
-      //     }, 200);
-      //   }, 800);
-      // }
-      // // Preload the image of next trial
-      // if (PracTrialType[curStudy] == 0) { //RpPlus
-      //   start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-      //   RpPlusCnt++;
-      // } else if (StudyTrialType[curStudy] == 3) { //PracLure
-      //   start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
-      //   PracLuresCnt++;
-      // }
-      confirm('Finished task! On to test phase.');
-      RpPlusCnt = 0; //reset counter for RpPlus
-      RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
-      RpMinusCnt = 0;
-      RpMinus = chance1.shuffle(RpMinus);
-      NrpCnt = 0;
-      Nrp = chance1.shuffle(Nrp);
-      NextTestTrial();
+      $('#allItems').css('margin-top', 0);
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
+        ChangeDetectionTrial();
+      } else {
+        // Preload the image of next trial
+        if (PracTrialType[curStudy] == 0) { //RpPlus
+          start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+          RpPlusCnt++;
+        } else if (StudyTrialType[curStudy] == 3) { //PracLure
+          start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
+          PracLuresCnt++;
+        }
+        $('#CDitem').show(); // make sure all components of CD task are hidden before moving on
+        $('#SameButton').hide();
+        $('#DiffButton').hide();
+        $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
+        $('#itemA').show();
+
+        confirm('Finished task! On to test phase.');
+        RpPlusCnt = 0; //reset counter for RpPlus
+        RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
+        RpMinusCnt = 0;
+        RpMinus = chance1.shuffle(RpMinus);
+        NrpCnt = 0;
+        Nrp = chance1.shuffle(Nrp);
+        NextTestTrial();
+      }
+    }
+
+    // Present CD trial
+    function ChangeDetectionTrial() {
+      now2 = new Date().getTime();
+
+      if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
+        imgCD.src = $('#same'+(curCD % 25 + 1))[0].src; // memory array
+        imgCDtest.src = $('#same'+(curCD % 25 + 1)+'t')[0].src; // test array
+        CDType.push(0); // record what type of CD trial this was
+      } else if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { //diff
+        imgCD.src = $('#diff'+(curCD % 25 + 1))[0].src;
+        imgCDtest.src = $('#diff'+(curCD % 25 + 1)+'t')[0].src;
+        CDType.push(1);
+      }
+
+      cdctx.drawImage(CDfix, 0, 0, 600, 600);
+      setTimeout(function() { // after 800 ms, show colored memory array
+        cdctx.drawImage(imgCD, 0, 0, 600, 600);
+        setTimeout(function() { // after 500 ms, show fixation again
+          cdctx.drawImage(CDfix, 0, 0, 600, 600);
+          setTimeout(function() { // after 900 ms, show test array
+            cdctx.drawImage(imgCDtest, 0, 0, 600, 600);
+            $('#SameButton').show();
+            $('#DiffButton').show();
+          }, 900);
+        }, 500);
+      }, 800);
+    }
+
+    // Responses for Change Detection
+    function SamePress() {
+      if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
+        CDaccuracy.push(1);
+        alert('Correct! Keep going!');
+      } else if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { // diff
+        CDaccuracy.push(0);
+        alert('Incorrect...');
+      }
+      $('#SameButton').hide();
+      $('#DiffButton').hide();
+      curCD++;
+    }
+    function DiffPress() {
+      if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { // diff
+        CDaccuracy.push(1);
+        alert('Correct! Keep going!');
+      } else if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
+        CDaccuracy.push(0);
+        alert('Incorrect...');
+      }
+      $('#SameButton').hide();
+      $('#DiffButton').hide();
+      curCD++;
     }
 
     /* Test Phase Start */

@@ -1,3 +1,5 @@
+let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
+
 let Fonts = chance1.shuffle(counter(11,20)); // 10 fonts/categories
 
 let RpCats = Fonts.slice(1,5);
