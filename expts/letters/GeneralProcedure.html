@@ -329,14 +329,6 @@
       if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
-        // Preload the image of next trial
-        if (PracTrialType[curStudy] == 0) { //RpPlus
-          start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-          RpPlusCnt++;
-        } else if (StudyTrialType[curStudy] == 3) { //PracLure
-          start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
-          PracLuresCnt++;
-        }
         cdctx.drawImage(CDfix, 0, 0, 600, 600); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
         $('#SameButton').hide();
         $('#DiffButton').hide();
@@ -461,7 +453,7 @@
         PracticeResp.push(1);
         if (PracTrialType[curPractice] == 0) { //RpPlus
           PracticeAcc.push(0);
-        } else if (PracTrialType[curStudy] == 3) { //PracLure
+        } else if (PracTrialType[curPractice] == 3) { //PracLure
           PracticeAcc.push(1);
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
