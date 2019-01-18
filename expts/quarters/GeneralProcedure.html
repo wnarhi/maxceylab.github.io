@@ -242,7 +242,6 @@
       if (curStudy >= numStudy) { // if end of study
         alert("End of Study Phase!");
         RpPlusCnt = 0; //reset counter for RpPlus
-        RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
         NextPracTrial(); // start Practice Phase
         return; // need return; otherwise the ShowTrial below executes
       }
@@ -277,7 +276,7 @@
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlusPrac[RpPlusCnt]); //xcoord, ycoord, width, height, img
         RpPlusCnt++;
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
@@ -325,7 +324,7 @@
           start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
           PracLuresCnt++;
         }
-        imgCD = new Image(); // remove last CD trial; make sure all components of CD task are hidden before moving on
+        cdctx.drawImage(CDfix, 0, 0, 600, 600); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
         $('#SameButton').hide();
         $('#DiffButton').hide();
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
