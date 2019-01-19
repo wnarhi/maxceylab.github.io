@@ -21,10 +21,6 @@ body {
   border: 3px inset gray;
 }
 
-#TextButton {
-  display: none;
-}
-
 #SameButton {
   display: inline-block;
   color: black;
