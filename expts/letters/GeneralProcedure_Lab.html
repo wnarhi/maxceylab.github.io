@@ -206,10 +206,13 @@
       // Preload the image of next trial
       if (StudyTrialType[curStudy] == 0) { //RpPlus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        RpPlusCnt++;
       } else if (StudyTrialType[curStudy] == 1) { //RpMinus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+        RpMinusCnt++;
       } else if (StudyTrialType[curStudy] == 2) { //Nrp
         start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+        NrpCnt++;
       }
 
       $('#instructions').hide();
@@ -236,13 +239,13 @@
         // Preload the image of next trial
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-          RpPlusCnt++;
+          if (RpPlusCnt <= RpPlus.length) { RpPlusCnt++; } // prevent problems if on last trial of condition
         } else if (StudyTrialType[curStudy] == 1) { //RpMinus
           start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-          RpMinusCnt++;
+          if (RpMinusCnt <= RpMinus.length) { RpMinusCnt++; }
         } else if (StudyTrialType[curStudy] == 2) { //Nrp
           start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-          NrpCnt++;
+          if (NrpCnt <= Nrp.length) { NrpCnt++; }
         }
         curStudy++;
         setTimeout(function() {
