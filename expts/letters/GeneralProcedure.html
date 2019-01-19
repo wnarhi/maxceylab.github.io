@@ -257,7 +257,7 @@
     /* Study Phase Start */
     function NextStudyTrial() {
       if (curStudy >= numStudy) { // if end of study
-        alert("End of Study Phase!");
+        alert("End of Study Phase! \n You will now see images one at a time and be asked whether you have seen this exact same image before. If so, press the 'old' button. If the image was not seen before, press the 'new' button.");
         RpPlusCnt = 0; //reset counter for RpPlus
         NextPracTrial(); // start Practice Phase
         return; // need return; otherwise the ShowTrial below executes
@@ -302,11 +302,11 @@
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of study
           curPractice++;
-          alert("End of Practice Phase!");
+          alert("End of Practice Phase! \n We will continue to test your memory after a short 5-minute task.");
           now = new Date().getTime();
           now2 = now;
           confirm(
-            'Before we test your memory, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
+            'Before we test your memory again, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
           );
           $('#itemA').hide(); // hide object from last trial
           $('#Old').hide(); // hide Old button
@@ -338,7 +338,7 @@
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
         $('#itemA').show();
 
-        confirm('Finished task! On to test phase.');
+        confirm('Finished! \n We will now test your memory for the initial study images once again, using the same procedure as before.');
         RpPlus_StudyOrder = RpPlus;
         RpPlusCnt = 0; //reset counter for RpPlus
         RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
