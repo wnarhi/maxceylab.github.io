@@ -216,12 +216,12 @@
       alert('Your subject ID is: ' + chance1.seed +
         '. Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment.')
 
-      // save a file letting me know that someone made it this far
-      const blobx = new Blob([JSON.stringify(chance1.seed)], {
-        type: "application/json"
-      });
-      const storageRefx = firebase.storage().ref('started/' + chance1.seed + '.json');
-      storageRefx.put(blobx);
+      // // save a file letting me know that someone made it this far
+      // const blobx = new Blob([JSON.stringify(chance1.seed)], {
+      //   type: "application/json"
+      // });
+      // const storageRefx = firebase.storage().ref('started/' + chance1.seed + '.json');
+      // storageRefx.put(blobx);
 
       // Preload the image of next trial
       if (StudyTrialType[curStudy] == 0) { //RpPlus

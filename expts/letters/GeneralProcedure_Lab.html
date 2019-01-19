@@ -230,16 +230,16 @@
 
       initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
-      subjID = initials + startDate.getMonth() + startDate.getDate() + startDate.getHours();
+      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
       alert('Your subject ID is: ' + subjID + '\nExperiment will now begin. Good luck!')
 
-      // save a file letting me know that someone made it this far
-      const blobx = new Blob([JSON.stringify(chance1.seed)], {
-        type: "application/json"
-      });
-      const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
-      storageRefx.put(blobx);
+      // // save a file letting me know that someone made it this far
+      // const blobx = new Blob([JSON.stringify(chance1.seed)], {
+      //   type: "application/json"
+      // });
+      // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
+      // storageRefx.put(blobx);
 
       // Preload the image of next trial
       if (StudyTrialType[curStudy] == 0) { //RpPlus
