@@ -2,10 +2,6 @@ body {
   font-family: Arial, Helvetica;
 }
 
-body:fullscreen, body:-webkit-full-screen, body:-moz-full-screen {
-    background-color: rgba(255,255,255,0);
-}
-
 #TextButton {
   display: inline-block;
   color: black;
