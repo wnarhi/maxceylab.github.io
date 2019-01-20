@@ -1,3 +1,4 @@
+/* ensure full screen doesnt chang bg to black */
 html {
   background-color: #ffffff !important;
 }
@@ -8,6 +9,7 @@ html:-moz-full-screen-ancestor {
 	background-color: inherit;
 }
 
+/* further ensure white bg; determine fonts */
 body {
   font-family: Arial, Helvetica;
   background-color: #ffffff !important;
