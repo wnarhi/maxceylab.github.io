@@ -1,6 +1,12 @@
 html {
   background-color: #ffffff !important;
 }
+html:-webkit-full-screen-ancestor {
+	background-color: inherit;
+}
+html:-moz-full-screen-ancestor {
+	background-color: inherit;
+}
 
 body {
   font-family: Arial, Helvetica;
