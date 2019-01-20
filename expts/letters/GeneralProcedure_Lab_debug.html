@@ -66,7 +66,7 @@
         <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/TerminalA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/TerminalZ.png" width="100px" height="100px"></p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();StartExperiment();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Start Experiment</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();requestFullScreen();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
     <center>
       <p id=loading>Images loading... Please wait.</p>
   </div>
@@ -96,6 +96,16 @@
       <a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();ChangeDetection();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
+  </div>
+
+  <!-- Modal Pop-up Box -->
+  <div id="openModal" class="modalDialog">
+  	<div>
+  		<a href="#close" title="Close" class="close">X</a>
+  		<h2>Modal Box</h2>
+  		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+  		<p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+  	</div>
   </div>
 
   <!-- Initializing JS -->
@@ -600,6 +610,31 @@
         $('body').html('Unfortunately this experiment does not work on mobile devices. It works on desktop versions of Chrome, Firefox, or Opera. Sorry!'); // dont allow mobile
       }
     });
+
+    function requestFullScreen() {
+
+      var el = document.body;
+
+      // Supports most browsers and their versions.
+      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
+      || el.mozRequestFullScreen || el.msRequestFullScreen;
+
+      if (requestMethod) {
+
+        // Native full screen.
+        requestMethod.call(el);
+
+      } else if (typeof window.ActiveXObject !== "undefined") {
+
+        // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+
+        if (wscript !== null) {
+          wscript.SendKeys("{F11}");
+        }
+      }
+    }
+
   </script>
 </body>
 
