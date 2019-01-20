@@ -33,7 +33,7 @@
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="#openModal" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
+    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
         (1 of 2)</a></p>
   </div>
 
@@ -41,8 +41,10 @@
   <div id="instructions2" style="display:none">
     <center><b>
         <p>You will be presented with 60 letters, one at a time, each presented for 5 seconds.</p>
-        <p><u>Memorize each letter AND its font.</u> You will later be tested on your memory for the studied letters. If you only memorize the letter but not its font, you will not do well on the test. Some letters may be presented in more than one font.<br></p>
-        <p>Take a minute to study all the fonts that will be used throughout the experiment, using the letters A and Z as examples. The letters A and Z will not be used for the actual experiment. We also provide a visual descriptor of each font in parentheses to aid as a mnemonic device.</p>
+        <p><u>Memorize each letter AND its font.</u> You will later be tested on your memory for the studied letters. If you only memorize the letter but not its font, you will not do well on the test. Some letters may be presented in more than one
+          font.<br></p>
+        <p>Take a minute to study all the fonts that will be used throughout the experiment, using the letters A and Z as examples. The letters A and Z will not be used for the actual experiment. We also provide a visual descriptor of each font in
+          parentheses to aid as a mnemonic device.</p>
         <br>
         Algerian (Double-lined)
         <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/AlgerianA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/AlgerianZ.png" width="100px" height="100px"></p>
@@ -74,7 +76,7 @@
   <!-- Modal Pop-up Box -->
   <div id="openModal" class="modalDialog">
     <div>
-      <a href="#close" onclick="okContinue()" title="Close" class="close">X</a>
+      <a href="#close" onclick="modalContinue()" title="Close" class="close">X</a>
       <p id="openModal_text">Hi!</p>
     </div>
   </div>
@@ -83,9 +85,10 @@
   <div id="done">
     <div id="doneText">
     </div>
-    <div><center>
-    <a href="javascript:void(0);" onclick="SaveData()" id="submitForm">Click to Submit</a>
-  </center>
+    <div>
+      <center>
+        <a href="javascript:void(0);" onclick="SaveData()" id="submitForm">Click to Submit</a>
+      </center>
     </div>
   </div>
   <div id="saving">Saving . . .</div>
@@ -125,7 +128,7 @@
     // }
 
     /* Define more variables */
-    let okToContinue = false;
+    let modalClosed = false;
     const numStudy = 3; // 60;
     const numPractice = 5; // 60;
     const numTest = 5; // 120;
@@ -203,54 +206,72 @@
 
       subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
-      requestFullScreen();
-
-      // alert('Your subject ID is: ' + subjID + '\nExperiment will now begin. Good luck!')
-
-      // open pop-up to tell them their subject ID:
-      okToContinue = false;
-      document.getElementById("openModal_text").innerHTML =
-      "Hola!"
-      window.location.href = '#openModal';
-      checkFlag();
-
       // // save a file letting me know that someone made it this far
       // const blobx = new Blob([JSON.stringify(chance1.seed)], {
       //   type: "application/json"
       // });
       // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
       // storageRefx.put(blobx);
-      function checkFlag() {
-        if(okToContinue == false) {
-           window.setTimeout(checkFlag, 100); /* this checks the flag every 100 milliseconds*/
-        } else {
-          // Preload the image of next trial
-          if (StudyTrialType[curStudy] == 0) { //RpPlus
-            start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-            RpPlusCnt++;
-          } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-            start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-            RpMinusCnt++;
-          } else if (StudyTrialType[curStudy] == 2) { //Nrp
-            start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-            NrpCnt++;
-          }
 
+      // Preload the image of next trial
+      if (StudyTrialType[curStudy] == 0) { //RpPlus
+        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        RpPlusCnt++;
+      } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+        RpMinusCnt++;
+      } else if (StudyTrialType[curStudy] == 2) { //Nrp
+        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+        NrpCnt++;
+      }
+
+      requestFullScreen();
+
+      // open pop-up:
+      modalClosed = false;
+      document.getElementById("openModal_text").innerHTML =
+        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
+      window.location.href = '#openModal';
+      checkFlag1();
+
+      function checkFlag1() {
+        if (modalClosed == false) {
+          window.setTimeout(checkFlag1, 100); /* this checks the flag every 100 milliseconds*/
+        } else {
           $('#instructions').hide();
           $('#showTrial').show();
           NextStudyTrial();
+        }
       }
-    }
 
     }
 
     /* Study Phase Start */
     function NextStudyTrial() {
       if (curStudy >= numStudy) { // if end of study
-        alert("End of Study Phase! \n You will now see images one at a time and be asked whether you have seen this exact same image before. If so, press the 'old' button. If the image was not seen before, press the 'new' button.");
-        RpPlusCnt = 0; //reset counter for RpPlus
-        NextPracTrial(); // start Practice Phase
-        return; // need return; otherwise the ShowTrial below executes
+        now = new Date().getTime();
+        now2 = now;
+        $('#itemA').hide(); // hide object from last trial
+        $('#Old').hide(); // hide Old button
+        $('#New').hide(); // hide New button
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'End of Study Phase! <br><br> Before we test your memory for the studied letters, we will do a short task. <br><br> You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.';
+        window.location.href = '#openModal';
+        checkFlag2();
+        return;
+
+        function checkFlag2() {
+          if (modalClosed == false) {
+            window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
+          } else {
+            RpPlusCnt = 0; //reset counter for RpPlus
+            ChangeDetection(); // start Practice Phase
+            return; // need return; otherwise the ShowTrial below executes
+          }
+        }
       }
       ShowStudy();
     }
@@ -263,13 +284,19 @@
         // Preload the image of next trial
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-          if (RpPlusCnt <= RpPlus.length) { RpPlusCnt++; } // prevent problems if on last trial of condition
+          if (RpPlusCnt <= RpPlus.length) {
+            RpPlusCnt++;
+          } // prevent problems if on last trial of condition
         } else if (StudyTrialType[curStudy] == 1) { //RpMinus
           start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-          if (RpMinusCnt <= RpMinus.length) { RpMinusCnt++; }
+          if (RpMinusCnt <= RpMinus.length) {
+            RpMinusCnt++;
+          }
         } else if (StudyTrialType[curStudy] == 2) { //Nrp
           start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-          if (NrpCnt <= Nrp.length) { NrpCnt++; }
+          if (NrpCnt <= Nrp.length) {
+            NrpCnt++;
+          }
         }
         curStudy++;
         setTimeout(function() {
@@ -292,17 +319,29 @@
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of study
           curPractice++;
-          alert("End of Practice Phase! \n We will continue to test your memory after a short 5-minute task.");
+
           now = new Date().getTime();
           now2 = now;
-          confirm(
-            'Before we test your memory again, please complete a 5-minute change detection task. You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.'
-          );
           $('#itemA').hide(); // hide object from last trial
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
-          ChangeDetection(); // start filler task
-          return; // need return; otherwise function below executes
+
+          // open pop-up:
+          modalClosed = false;
+          document.getElementById("openModal_text").innerHTML =
+            'Good work so far! <br> We will continue to test your memory after some more change detection trials.';
+          window.location.href = '#openModal';
+          checkFlag3();
+          return;
+
+          function checkFlag3() {
+            if (modalClosed == false) {
+              window.setTimeout(checkFlag3, 100); /* this checks the flag every 100 milliseconds*/
+            } else {
+              ChangeDetection(); // start filler task
+              return; // need return; otherwise function below executes
+            }
+          }
         }
         OldNewJudgment();
       }, itiTime);
@@ -328,7 +367,6 @@
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
         $('#itemA').show();
 
-        confirm('Finished! \n We will now test your memory for the initial study images once again, using the same procedure as before.');
         RpPlus_StudyOrder = RpPlus;
         RpPlusCnt = 0; //reset counter for RpPlus
         RpPlus = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
@@ -338,7 +376,23 @@
         Nrp_StudyOrder = Nrp;
         NrpCnt = 0;
         Nrp = chance1.shuffle(Nrp);
-        NextTestTrial();
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see images one at a time and be asked if you have seen the exact same image before. If so, press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button.';
+        window.location.href = '#openModal';
+        checkFlag6();
+
+        function checkFlag6() {
+          if (modalClosed == false) {
+            window.setTimeout(checkFlag6, 100); /* this checks the flag every 100 milliseconds*/
+          } else if (curPractice > numPractice) {
+            NextTestTrial();
+          } else {
+            NextPracTrial();
+          }
+        }
       }
     }
 
@@ -346,13 +400,13 @@
     function ChangeDetectionTrial() {
       now2 = new Date().getTime();
 
-      if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
-        imgCD.src = $('#same'+(curCD % 25 + 1))[0].src; // memory array
-        imgCDtest.src = $('#same'+(curCD % 25 + 1)+'t')[0].src; // test array
+      if ([0].includes(parseInt(CDSet[curCD].slice(0, 2)))) { // same
+        imgCD.src = $('#same' + (curCD % 25 + 1))[0].src; // memory array
+        imgCDtest.src = $('#same' + (curCD % 25 + 1) + 't')[0].src; // test array
         CDType.push(0); // record what type of CD trial this was
-      } else if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { //diff
-        imgCD.src = $('#diff'+(curCD % 25 + 1))[0].src;
-        imgCDtest.src = $('#diff'+(curCD % 25 + 1)+'t')[0].src;
+      } else if ([1].includes(parseInt(CDSet[curCD].slice(0, 2)))) { //diff
+        imgCD.src = $('#diff' + (curCD % 25 + 1))[0].src;
+        imgCDtest.src = $('#diff' + (curCD % 25 + 1) + 't')[0].src;
         CDType.push(1);
       }
 
@@ -372,28 +426,52 @@
 
     // Responses for Change Detection
     function SamePress() {
-      if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
+      if ([0].includes(parseInt(CDSet[curCD].slice(0, 2)))) { // same
         CDaccuracy.push(1);
-        alert('Correct! Keep going!');
-      } else if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { // diff
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Correct! Keep going!';
+        window.location.href = '#openModal';
+
+        checkFlag5();
+
+      } else if ([1].includes(parseInt(CDSet[curCD].slice(0, 2)))) { // diff
         CDaccuracy.push(0);
-        alert('Incorrect...');
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Incorrect...';
+        window.location.href = '#openModal';
+
+        checkFlag5();
       }
-      $('#SameButton').hide();
-      $('#DiffButton').hide();
-      curCD++;
     }
+
     function DiffPress() {
-      if ([1].includes(parseInt(CDSet[curCD].slice(0,2)))) { // diff
+      if ([1].includes(parseInt(CDSet[curCD].slice(0, 2)))) { // diff
         CDaccuracy.push(1);
-        alert('Correct! Keep going!');
-      } else if ([0].includes(parseInt(CDSet[curCD].slice(0,2)))) { // same
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Correct! Keep going!';
+        window.location.href = '#openModal';
+
+        checkFlag5();
+      } else if ([0].includes(parseInt(CDSet[curCD].slice(0, 2)))) { // same
         CDaccuracy.push(0);
-        alert('Incorrect...');
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Incorrect...';
+        window.location.href = '#openModal';
+
+        checkFlag5();
       }
-      $('#SameButton').hide();
-      $('#DiffButton').hide();
-      curCD++;
     }
 
     /* Test Phase Start */
@@ -419,10 +497,26 @@
       }
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
-        if (curTest >= numTest) { // if end of study
-          alert("End of Experiment!");
-          Done(); // finish up experiment
-          return; // need return; otherwise function below executes
+        if (curTest >= numTest) { // if end of test
+          $('#itemA').hide(); // hide object from last trial
+          $('#Old').hide(); // hide Old button
+          $('#New').hide(); // hide New button
+
+          // open pop-up:
+          modalClosed = false;
+          document.getElementById("openModal_text").innerHTML =
+            'End of Experiment!';
+          window.location.href = '#openModal';
+          checkFlag4();
+
+          function checkFlag4() {
+            if (modalClosed == false) {
+              window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
+            } else {
+              Done(); // finish up experiment
+              return; // need return; otherwise function below executes
+            }
+          }
         }
         OldNewJudgment();
       }, itiTime);
@@ -500,8 +594,9 @@
     /* Done with the experiment*/
     function Done() {
       // calculate their overall accuracy (Practice + Test)
-      const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length))*100).toFixed(2);
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Any comments for us? (What strategy did you use? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc + '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
+      const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Any comments for us? (What strategy did you use? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
+        '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
     }
@@ -568,6 +663,15 @@
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
         document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
+
+        // close full screen if still full-screened
+        if (document.cancelFullScreen) {
+            document.cancelFullScreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitCancelFullScreen) {
+            document.webkitCancelFullScreen();
+        }
       }, 3000);
     }
 
@@ -630,8 +734,8 @@
       var el = document.body;
 
       // Supports most browsers and their versions.
-      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
-      || el.mozRequestFullScreen || el.msRequestFullScreen;
+      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen ||
+        el.mozRequestFullScreen || el.msRequestFullScreen;
 
       if (requestMethod) {
 
@@ -649,10 +753,43 @@
       }
     }
 
-    function okContinue() {
-      okToContinue=true;
+    function requestFullScreen() {
+
+      var el = document.body;
+
+      // Supports most browsers and their versions.
+      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen ||
+        el.mozRequestFullScreen || el.msRequestFullScreen;
+
+      if (requestMethod) {
+
+        // Native full screen.
+        requestMethod.call(el);
+
+      } else if (typeof window.ActiveXObject !== "undefined") {
+
+        // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+
+        if (wscript !== null) {
+          wscript.SendKeys("{F11}");
+        }
+      }
     }
 
+    function modalContinue() {
+      modalClosed = true;
+    }
+
+    function checkFlag5() {
+      if (modalClosed == false) {
+        window.setTimeout(checkFlag5, 100); /* this checks the flag every 100 milliseconds*/
+      } else {
+        $('#SameButton').hide();
+        $('#DiffButton').hide();
+        curCD++;
+      }
+    }
   </script>
 </body>
 
