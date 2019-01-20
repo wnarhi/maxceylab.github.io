@@ -33,7 +33,7 @@
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
+    <p style="text-align: center"><a href="#openModal" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
         (1 of 2)</a></p>
   </div>
 
@@ -66,9 +66,17 @@
         <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/TerminalA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/TerminalZ.png" width="100px" height="100px"></p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();requestFullScreen();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
     <center>
       <p id=loading>Images loading... Please wait.</p>
+  </div>
+
+  <!-- Modal Pop-up Box -->
+  <div id="openModal" class="modalDialog">
+    <div>
+      <a href="#close" onclick="okContinue()" title="Close" class="close">X</a>
+      <p id="openModal_text">Hi!</p>
+    </div>
   </div>
 
   <!-- Screen after submitting expt -->
@@ -98,16 +106,6 @@
     </center>
   </div>
 
-  <!-- Modal Pop-up Box -->
-  <div id="openModal" class="modalDialog">
-  	<div>
-  		<a href="#close" title="Close" class="close">X</a>
-  		<h2>Modal Box</h2>
-  		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
-  		<p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
-  	</div>
-  </div>
-
   <!-- Initializing JS -->
   <script>
     /* Initialize Firebase */
@@ -127,6 +125,7 @@
     // }
 
     /* Define more variables */
+    let okToContinue = false;
     const numStudy = 3; // 60;
     const numPractice = 5; // 60;
     const numTest = 5; // 120;
@@ -204,7 +203,16 @@
 
       subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
-      alert('Your subject ID is: ' + subjID + '\nExperiment will now begin. Good luck!')
+      requestFullScreen();
+
+      // alert('Your subject ID is: ' + subjID + '\nExperiment will now begin. Good luck!')
+
+      // open pop-up to tell them their subject ID:
+      okToContinue = false;
+      document.getElementById("openModal_text").innerHTML =
+      "Hola!"
+      window.location.href = '#openModal';
+      checkFlag();
 
       // // save a file letting me know that someone made it this far
       // const blobx = new Blob([JSON.stringify(chance1.seed)], {
@@ -212,22 +220,28 @@
       // });
       // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
       // storageRefx.put(blobx);
+      function checkFlag() {
+        if(okToContinue == false) {
+           window.setTimeout(checkFlag, 100); /* this checks the flag every 100 milliseconds*/
+        } else {
+          // Preload the image of next trial
+          if (StudyTrialType[curStudy] == 0) { //RpPlus
+            start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+            RpPlusCnt++;
+          } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+            start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+            RpMinusCnt++;
+          } else if (StudyTrialType[curStudy] == 2) { //Nrp
+            start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+            NrpCnt++;
+          }
 
-      // Preload the image of next trial
-      if (StudyTrialType[curStudy] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-        RpPlusCnt++;
-      } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-        RpMinusCnt++;
-      } else if (StudyTrialType[curStudy] == 2) { //Nrp
-        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-        NrpCnt++;
+          $('#instructions').hide();
+          $('#showTrial').show();
+          NextStudyTrial();
       }
+    }
 
-      $('#instructions').hide();
-      $('#showTrial').show();
-      NextStudyTrial();
     }
 
     /* Study Phase Start */
@@ -633,6 +647,10 @@
           wscript.SendKeys("{F11}");
         }
       }
+    }
+
+    function okContinue() {
+      okToContinue=true;
     }
 
   </script>

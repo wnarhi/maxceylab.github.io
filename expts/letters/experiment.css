@@ -1,5 +1,10 @@
 body {
   font-family: Arial, Helvetica;
+
+  background: #fff;
+	background: -moz-linear-gradient(#fff, #999);
+	background: -webkit-linear-gradient(#fff, #999);
+	background: -o-linear-gradient(#fff, #999);
 }
 
 #TextButton {
@@ -250,7 +255,6 @@ body {
 
 .modalDialog {
 	position: fixed;
-	font-family: Arial, Helvetica, sans-serif;
 	top: 0;
 	right: 0;
 	bottom: 0;
