@@ -1,9 +1,10 @@
 html {
-    background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 
 body {
   font-family: Arial, Helvetica;
+  background-color: #ffffff !important;
 }
 
 #TextButton {
