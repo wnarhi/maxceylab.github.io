@@ -1,10 +1,9 @@
 body {
   font-family: Arial, Helvetica;
+}
 
-  background: #fff;
-	background: -moz-linear-gradient(#fff, #999);
-	background: -webkit-linear-gradient(#fff, #999);
-	background: -o-linear-gradient(#fff, #999);
+*:fullscreen, *:-webkit-full-screen, *:-moz-full-screen {
+    background-color: rgba(255,255,255,0);
 }
 
 #TextButton {
