@@ -192,7 +192,6 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
-    let subjID = "";
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -237,10 +236,6 @@
       } else if (sex == 'NA' || sex == 'na') {
         sex = 'na';
       }
-
-      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
-
-      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
       // // save a file letting me know that someone made it this far
       // const blobx = new Blob([JSON.stringify(chance1.seed)], {
@@ -637,6 +632,8 @@
       $('#done').show();
     }
 
+    var Date_info = startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+
     /* What to save and put it on server */
     function SaveData() {
       $('#done').children().hide();
@@ -644,7 +641,7 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": subjID,
+        "ID": chance1.seed,
         "age": age,
         "sex": sex,
         "StartTime": startDate.getTime(),
@@ -684,21 +681,21 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
-        "seed": chance1.seed
+        "date": Date_info
       };
 
       /* save to Firebase server */
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Letters_PSYC4510/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Letters_PSYC4510/' + chance1.seed + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
 
         // close full screen if still full-screened
         if (document.cancelFullScreen) {
