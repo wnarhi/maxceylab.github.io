@@ -302,10 +302,14 @@
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlusPrac[RpPlusCnt]); //xcoord, ycoord, width, height, img
-        RpPlusCnt++;
+        if (RpPlusCnt <= RpPlus.length*2) {
+          RpPlusCnt++;
+        }
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
-        PracLuresCnt++;
+        if (PracLuresCnt <= PracLures.length) {
+          PracLuresCnt++;
+        }
       }
 
       setTimeout(function() {
@@ -473,19 +477,29 @@
       // Preload the image of next trial
       if (TestTrialType[curTest] == 0) { //RpPlus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-        RpPlusCnt++;
+        if (RpPlusCnt <= RpPlus.length) {
+          RpPlusCnt++;
+        }
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-        RpMinusCnt++;
+        if (RpMinusCnt <= RpMinus.length) {
+          RpMinusCnt++;
+        }
       } else if (TestTrialType[curTest] == 2) { //Nrp
         start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-        NrpCnt++;
+        if (NrpCnt <= Nrp.length) {
+          NrpCnt++;
+        }
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         start(ctxA, 0, 0, imgWidth, imgHeight, RpTestLures[RpTestLuresCnt]); //xcoord, ycoord, width, height, img
-        RpTestLuresCnt++;
+        if (RpTestLuresCnt <= RpTestLures.length) {
+          RpTestLuresCnt++;
+        }
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         start(ctxA, 0, 0, imgWidth, imgHeight, NrpTestLures[NrpTestLuresCnt]); //xcoord, ycoord, width, height, img
-        NrpTestLuresCnt++;
+        if (NrpTestLuresCnt <= NrpTestLures.length) {
+          NrpTestLuresCnt++;
+        }
       }
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
