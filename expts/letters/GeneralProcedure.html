@@ -86,7 +86,7 @@
   <!-- Modal Pop-up Box -->
   <div id="openModal" class="modalDialog">
     <div>
-      <a href="#close" onclick="modalContinue()" title="Close" class="close">X</a>
+      <a href="#close" onclick="requestFullScreen();modalContinue();" title="Close" class="close">X</a>
       <p id="openModal_text">Hi!</p>
     </div>
   </div>
@@ -229,8 +229,6 @@
         start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
         NrpCnt++;
       }
-
-      requestFullScreen();
 
       // open pop-up:
       modalClosed = false;
