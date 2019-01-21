@@ -114,8 +114,8 @@
     <center>
       <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
       <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
-      <a href="javascript:void(0);" onclick="SamePress();ChangeDetection();" id="SameButton" style="display: hidden;">Same</a>
-      <a href="javascript:void(0);" onclick="DiffPress();ChangeDetection();" id="DiffButton" style="display: hidden;">Different</a>
+      <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
+      <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
   </div>
 
@@ -795,6 +795,7 @@
         $('#SameButton').hide();
         $('#DiffButton').hide();
         curCD++;
+        ChangeDetection()
       }
     }
   </script>
