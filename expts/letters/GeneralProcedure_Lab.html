@@ -213,18 +213,6 @@
       // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
       // storageRefx.put(blobx);
 
-      // Preload the image of next trial
-      if (StudyTrialType[curStudy] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-        RpPlusCnt++;
-      } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-        RpMinusCnt++;
-      } else if (StudyTrialType[curStudy] == 2) { //Nrp
-        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-        NrpCnt++;
-      }
-
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
@@ -666,7 +654,8 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
-        "seed": chance1.seed
+        "seed": chance1.seed,
+        "comments": $('#comments').val()
       };
 
       /* save to Firebase server */
