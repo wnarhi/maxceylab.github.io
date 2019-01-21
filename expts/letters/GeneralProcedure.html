@@ -359,7 +359,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         cdctx.drawImage(CDfix, 0, 0, 600, 600); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
