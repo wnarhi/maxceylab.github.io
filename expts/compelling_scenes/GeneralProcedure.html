@@ -134,9 +134,9 @@
     firebase.initializeApp(config);
 
     // /* Disable context/right-click menu */
-    document.oncontextmenu = function() {
-        return false;
-    }
+    // document.oncontextmenu = function() {
+    //     return false;
+    // }
 
     /* Define more variables */
     let modalClosed = false;
@@ -167,6 +167,7 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let curScene = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -247,20 +248,27 @@
       // Preload the image of next trial
       if (StudyTrialType[curStudy] == 0) { //RpPlus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        start(ctxB, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt+1]); //xcoord, ycoord, width, height, img
+        curScene = ["scene" + parseInt(RpPlus[RpPlusCnt].slice(0,2))];
         if (RpPlusCnt <= RpPlus.length) {
-          RpPlusCnt++;
+          RpPlusCnt++;RpPlusCnt++;
         } // prevent problems if on last trial of condition
       } else if (StudyTrialType[curStudy] == 1) { //RpMinus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+        start(ctxB, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt+1]); //xcoord, ycoord, width, height, img
+        curScene = ["scene" + parseInt(RpMinus[RpMinusCnt].slice(0,2))];
         if (RpMinusCnt <= RpMinus.length) {
-          RpMinusCnt++;
+          RpMinusCnt++;RpMinusCnt++;
         }
       } else if (StudyTrialType[curStudy] == 2) { //Nrp
         start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+        start(ctxB, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt+1]); //xcoord, ycoord, width, height, img
+        curScene = ["scene" + parseInt(Nrp[NrpCnt].slice(0,2))];
         if (NrpCnt <= Nrp.length) {
-          NrpCnt++;
+          NrpCnt++;NrpCnt++;
         }
       }
+      start(scenectx, 0, 0, imgWidth, imgHeight, curScene); //xcoord, ycoord, width, height, img
 
       setTimeout(function() {
         if (curStudy >= numStudy) { // if end of study
@@ -269,6 +277,7 @@
           now = new Date().getTime();
           now2 = now;
           $('#itemA').hide(); // hide object from last trial
+          $('#itemB').hide();
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
 
@@ -329,6 +338,7 @@
           now = new Date().getTime();
           now2 = now;
           $('#itemA').hide(); // hide object from last trial
+          $('#itemB').hide();
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
 
@@ -371,7 +381,7 @@
         $('#SameButton').hide();
         $('#DiffButton').hide();
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
-        $('#itemA').show();
+        $('#itemA').show(); $('#itemB').show();
 
         RpPlus_StudyOrder = RpPlus;
         RpPlusCnt = 0; //reset counter for RpPlus
@@ -515,6 +525,7 @@
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
           $('#itemA').hide(); // hide object from last trial
+          $('#itemB').hide();
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
 
