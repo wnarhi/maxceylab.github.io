@@ -32,9 +32,8 @@ let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
 let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
-let Scenes = ["scene01","scene02","scene03","scene04","scene05","scene06","scene07","scene08","scene09","scene10","scene11","scene12"];
 let AllImages = [];
-AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures,Scenes);
+AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
 let RpPlus_StudyOrder = [];
 let RpMinus_StudyOrder = [];
