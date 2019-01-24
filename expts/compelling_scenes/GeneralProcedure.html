@@ -84,13 +84,13 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
-    <div id="fixation">+</div>
     <div id="allItems">
       <canvas id="sceneA" width=600 height=600></canvas>
-      <canvas id="itemA" width=280 height=280 style="position:absolute; top:170px; left:0px;"></canvas>
-      <canvas id="itemB" width=280 height=280 style="position:absolute; top:170px; left:300px;"></canvas>
+      <canvas id="itemA" width=200 height=200 style="position:absolute; top:200px; left:50px;"></canvas>
+      <canvas id="itemB" width=200 height=200 style="position:absolute; top:200px; right:50px;"></canvas>
       <canvas id="CDitem" width=600 height=600></canvas>
-    </div><br><br>
+    </div>
+    <div id="fixation">+</div><br><br>
     <center>
       <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
       <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
@@ -124,8 +124,8 @@
     const numTest = 120; // 120;
     const displayTime = 5000; //in ms
     const itiTime = 500;
-    const imgWidth = 300;
-    const imgHeight = 300;
+    const imgWidth = 200;
+    const imgHeight = 200;
     let curStudy = 0;
     let curPractice = 0;
     let curTest = 0;
@@ -151,6 +151,10 @@
     /* Setup reused image variable */
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
+    let imgB = new Image();
+    imgB.crossOrigin = "anonymous";
+    let imgS = new Image();
+    imgS.crossOrigin = "anonymous";
 
     /* Setup CD images */
     let imgCD = new Image();
@@ -167,7 +171,7 @@
     const itemA = document.getElementById("itemA");
     const ctxA = itemA.getContext("2d");
     const itemB = document.getElementById("itemB");
-    const ctxB = itemA.getContext("2d");
+    const ctxB = itemB.getContext("2d");
     const CDitem = document.getElementById("CDitem");
     const cdctx = CDitem.getContext("2d");
     const sceneA = document.getElementById("sceneA");
@@ -229,9 +233,9 @@
         start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
         start(ctxB, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt+1]); //xcoord, ycoord, width, height, img
         curScene = ["scene" + parseInt(RpPlus[RpPlusCnt].slice(0,2))];
-        if (RpPlusCnt <= RpPlus.length) {
+        if (RpPlusCnt <= RpPlus.length) { // prevent problems if on last trial of condition
           RpPlusCnt++;RpPlusCnt++;
-        } // prevent problems if on last trial of condition
+        }
       } else if (StudyTrialType[curStudy] == 1) { //RpMinus
         start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
         start(ctxB, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt+1]); //xcoord, ycoord, width, height, img
@@ -247,7 +251,7 @@
           NrpCnt++;NrpCnt++;
         }
       }
-      start(scenectx, 0, 0, imgWidth, imgHeight, curScene); //xcoord, ycoord, width, height, img
+      start(scenectx, 0, 0, 600, 600, curScene); //xcoord, ycoord, width, height, img
 
       setTimeout(function() {
         if (curStudy >= numStudy) { // if end of study
@@ -686,9 +690,21 @@
 
     /* draw images on screen */
     function start(context, initX, initY, imgWidth, imgHeight, image) {
-      imgA.src = $('#Obj' + image)[0].src;
-      imgA.onload = function() {
-        context.drawImage(imgA, initX, initY, imgWidth, imgHeight);
+      if (context.canvas.id == 'itemA') {
+        imgA.src = $('#Obj' + image)[0].src;
+        imgA.onload = function() {
+          context.drawImage(imgA, initX, initY, imgWidth, imgHeight);
+        }
+      } else if (context.canvas.id == 'itemB') {
+        imgB.src = $('#Obj' + image)[0].src;
+        imgB.onload = function() {
+          context.drawImage(imgB, initX, initY, imgWidth, imgHeight);
+        }
+      } else if (context.canvas.id == 'sceneA') {
+        imgS.src = $('#' + image)[0].src;
+        imgS.onload = function() {
+          context.drawImage(imgS, initX, initY, imgWidth, imgHeight);
+        }
       }
     }
 
