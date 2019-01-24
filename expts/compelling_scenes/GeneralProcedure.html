@@ -229,27 +229,11 @@
     /* Study Phase Start */
     function NextStudyTrial() {
       // Preload the image of next trial
-      if (StudyTrialType[curStudy] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
-        start(ctxB, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt+1]); //xcoord, ycoord, width, height, img
-        curScene = ["scene" + parseInt(RpPlus[RpPlusCnt].slice(0,2))];
-        if (RpPlusCnt <= RpPlus.length) { // prevent problems if on last trial of condition
-          RpPlusCnt++;RpPlusCnt++;
-        }
-      } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
-        start(ctxB, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt+1]); //xcoord, ycoord, width, height, img
-        curScene = ["scene" + parseInt(RpMinus[RpMinusCnt].slice(0,2))];
-        if (RpMinusCnt <= RpMinus.length) {
-          RpMinusCnt++;RpMinusCnt++;
-        }
-      } else if (StudyTrialType[curStudy] == 2) { //Nrp
-        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
-        start(ctxB, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt+1]); //xcoord, ycoord, width, height, img
-        curScene = ["scene" + parseInt(Nrp[NrpCnt].slice(0,2))];
-        if (NrpCnt <= Nrp.length) {
-          NrpCnt++;NrpCnt++;
-        }
+      start(ctxA, 0, 0, imgWidth, imgHeight, AllStudy[StudyTrialType[curStudy]]); //xcoord, ycoord, width, height, img
+      start(ctxB, 0, 0, imgWidth, imgHeight, AllStudy[StudyTrialType[curStudy+1]]); //xcoord, ycoord, width, height, img
+      curScene = ["scene" + parseInt(AllStudy[StudyTrialType[curStudy]].slice(0,2))];
+      if (RpPlusCnt <= RpPlus.length) { // prevent problems if on last trial of condition
+        RpPlusCnt++;RpPlusCnt++;
       }
       start(scenectx, 0, 0, 600, 600, curScene); //xcoord, ycoord, width, height, img
 
