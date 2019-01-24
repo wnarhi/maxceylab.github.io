@@ -1,7 +1,8 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let RpCats = chance1.shuffle([02, 04, 10, 12, 14, 17]);
-let NrpCats = chance1.shuffle([01, 03, 05, 06, 07, 08]);
+let RpCats = chance1.shuffle([02, 03, 04, 05, 07, 08]);
+let NrpCats = chance1.shuffle([01, 06, 09, 12, 10, 11]);
+
 let RpExemSlice = chance1.shuffle(counter(11, 28));
 let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
 let RpMinusExem = RpExemSlice.slice(3, 6); //type 1
