@@ -8,7 +8,6 @@
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
-  <script src="https://maxceylab.github.io/expts/js_code/jcanvas.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
   <script>const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
@@ -85,10 +84,11 @@
   <!-- Display Object HTML -->
   <div id="showTrial">
     <div id="allItems">
-      <canvas id="sceneA" width=600 height=600></canvas>
-      <canvas id="itemA" width=200 height=200 style="position:absolute; top:200px; left:50px;"></canvas>
-      <canvas id="itemB" width=200 height=200 style="position:absolute; top:200px; right:50px;"></canvas>
-      <canvas id="CDitem" width=600 height=600></canvas>
+      <img id="sceneA" src="https://maxceylab.github.io/stimuli/scenes/scene1.jpg" width=600 height=600></img>
+      <img id="itemA" src="https://maxceylab.github.io/stimuli/compelling_objects/Obj01_11.jpg" width=200 height=200 style="position:absolute; top:200px; left:50px;"></img>
+      <img id="itemB" src="https://maxceylab.github.io/stimuli/compelling_objects/Obj01_11.jpg" width=200 height=200 style="position:absolute; top:200px; right:50px;"></img>
+      <img id="itemC" src="https://maxceylab.github.io/stimuli/compelling_objects/Obj01_11.jpg" width=200 height=200 style="position:absolute; top:200px; left:200px;"></img>
+      <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
     </div>
     <div id="fixation">+</div><br><br>
     <center>
@@ -119,11 +119,11 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 60; // 60;
-    const numPractice = 60; // 60;
-    const numTest = 120; // 120;
-    const displayTime = 5000; //in ms
-    const itiTime = 500;
+    const numStudy = 36; // 36;
+    const numPractice = 72; // 72;
+    const numTest = 144; // 144;
+    const displayTime = 1000; //in ms (5000)
+    const itiTime = 50; // 500
     const imgWidth = 200;
     const imgHeight = 200;
     let curStudy = 0;
@@ -148,14 +148,6 @@
     let TestRT = [];
     let curScene = [];
 
-    /* Setup reused image variable */
-    let imgA = new Image();
-    imgA.crossOrigin = "anonymous";
-    let imgB = new Image();
-    imgB.crossOrigin = "anonymous";
-    let imgS = new Image();
-    imgS.crossOrigin = "anonymous";
-
     /* Setup CD images */
     let imgCD = new Image();
     imgCD.crossOrigin = "anonymous";
@@ -167,18 +159,17 @@
     imgCDtest.crossOrigin = "anonymous";
     imgCDtest.src = $('#diff1t')[0].src;
 
-    /* Setting up canvas contexts */
+    /* Setting up image contexts */
     const itemA = document.getElementById("itemA");
-    const ctxA = itemA.getContext("2d");
     const itemB = document.getElementById("itemB");
-    const ctxB = itemB.getContext("2d");
+    const itemC = document.getElementById("itemC");
     const CDitem = document.getElementById("CDitem");
-    const cdctx = CDitem.getContext("2d");
     const sceneA = document.getElementById("sceneA");
-    const scenectx = sceneA.getContext("2d");
 
     /* Start Experiment */
     function StartExperiment() {
+      $('#itemC').hide(); // dont show middle image canvas at start
+
       age = prompt('Before we start, can you tell me how old you are (in years)?');
 
       while (!(age > 0)) {
@@ -228,44 +219,47 @@
 
     /* Study Phase Start */
     function NextStudyTrial() {
-      // Preload the image of next trial
-      start(ctxA, 0, 0, imgWidth, imgHeight, AllStudy[StudyTrialType[curStudy]]); //xcoord, ycoord, width, height, img
-      start(ctxB, 0, 0, imgWidth, imgHeight, AllStudy[StudyTrialType[curStudy+1]]); //xcoord, ycoord, width, height, img
-      curScene = ["scene" + parseInt(AllStudy[StudyTrialType[curStudy]].slice(0,2))];
-      if (RpPlusCnt <= RpPlus.length) { // prevent problems if on last trial of condition
-        RpPlusCnt++;RpPlusCnt++;
-      }
-      start(scenectx, 0, 0, 600, 600, curScene); //xcoord, ycoord, width, height, img
+      if (curStudy >= numStudy) { // if end of study
+        curStudy++;
 
-      setTimeout(function() {
-        if (curStudy >= numStudy) { // if end of study
-          curStudy++;
+        now = new Date().getTime();
+        now2 = now;
+        $('#itemA').hide(); // hide object from last trial
+        $('#itemB').hide();
+        $('#itemC').hide();
+        $('#sceneA').hide();
+        $('#Old').hide(); // hide Old button
+        $('#New').hide(); // hide New button
 
-          now = new Date().getTime();
-          now2 = now;
-          $('#itemA').hide(); // hide object from last trial
-          $('#itemB').hide();
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'End of Study Phase! <br><br> Before we test your memory for the studied letters, we will do a short task. <br><br> You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.';
+        window.location.href = '#openModal';
+        checkFlag2();
+        return;
 
-          // open pop-up:
-          modalClosed = false;
-          document.getElementById("openModal_text").innerHTML =
-            'End of Study Phase! <br><br> Before we test your memory for the studied letters, we will do a short task. <br><br> You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.';
-          window.location.href = '#openModal';
-          checkFlag2();
-          return;
-
-          function checkFlag2() {
-            if (modalClosed == false) {
-              window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
-            } else {
-              RpPlusCnt = 0; //reset counter for RpPlus
-              ChangeDetection(); // start Practice Phase
-              return; // need return; otherwise the ShowTrial below executes
-            }
+        function checkFlag2() {
+          if (modalClosed == false) {
+            window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
+          } else {
+            ChangeDetection(); // start Practice Phase
+            return; // need return; otherwise the ShowTrial below executes
           }
         }
+      } else {
+        // Preload the image of next trial
+        if (Math.round(Math.random()) == 0) { // randomize left or right
+          $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
+          $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
+        } else {
+          $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
+          $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
+        }
+        curScene = ["scene" + parseInt(AllStudy[StudyTrialType[curStudy]].slice(0,2))];
+        $('#sceneA').attr('src', $('#' + curScene)[0].src);
+      }
+      setTimeout(function() {
         ShowStudy();
       }, itiTime);
     }
@@ -287,16 +281,19 @@
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlusPrac[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + RpPlusPrac[RpPlusCnt])[0].src);
+        curScene = ["scene" + parseInt(RpPlusPrac[RpPlusCnt].slice(0,2))];
         if (RpPlusCnt <= RpPlus.length*2) {
           RpPlusCnt++;
         }
       } else if (PracTrialType[curPractice] == 3) { //PracLure
-        start(ctxA, 0, 0, imgWidth, imgHeight, PracLures[PracLuresCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + PracLures[PracLuresCnt])[0].src);
+        curScene = ["scene" + parseInt(PracLures[PracLuresCnt].slice(0,2))];
         if (PracLuresCnt <= PracLures.length) {
           PracLuresCnt++;
         }
       }
+      $('#sceneA').attr('src', $('#' + curScene)[0].src);
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of study
@@ -304,8 +301,10 @@
 
           now = new Date().getTime();
           now2 = now;
-          $('#itemA').hide(); // hide object from last trial
-          $('#itemB').hide();
+          $('#itemC').hide(); // hide object from last trial
+          $('#fixation').show();
+          $('#CDitem').show();
+          $('#sceneA').hide();
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
 
@@ -341,14 +340,17 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
-        cdctx.drawImage(CDfix, 0, 0, 600, 600); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
+        $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
+        $('#CDitem').hide();
         $('#SameButton').hide();
         $('#DiffButton').hide();
+        $('#fixation').hide();
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
-        $('#itemA').show(); $('#itemB').show();
+        $('#itemC').show();
+        $('#sceneA').show();
 
         RpPlus_StudyOrder = RpPlus;
         RpPlusCnt = 0; //reset counter for RpPlus
@@ -393,13 +395,13 @@
         CDType.push(1);
       }
 
-      cdctx.drawImage(CDfix, 0, 0, 600, 600);
+      $('#CDitem').attr('src', CDfix.src);
       setTimeout(function() { // after 800 ms, show colored memory array
-        cdctx.drawImage(imgCD, 0, 0, 600, 600);
+        $('#CDitem').attr('src', imgCD.src);
         setTimeout(function() { // after 500 ms, show fixation again
-          cdctx.drawImage(CDfix, 0, 0, 600, 600);
+          $('#CDitem').attr('src', CDfix.src);
           setTimeout(function() { // after 900 ms, show test array
-            cdctx.drawImage(imgCDtest, 0, 0, 600, 600);
+            $('#CDitem').attr('src', imgCDtest.src);
             $('#SameButton').show();
             $('#DiffButton').show();
           }, 900);
@@ -463,36 +465,41 @@
 
       // Preload the image of next trial
       if (TestTrialType[curTest] == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpPlus[RpPlusCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
+        curScene = ["scene" + parseInt(RpPlus[RpPlusCnt].slice(0,2))];
         if (RpPlusCnt <= RpPlus.length) {
           RpPlusCnt++;
         }
       } else if (TestTrialType[curTest] == 1) { //RpMinus
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpMinus[RpMinusCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + RpMinus[RpMinusCnt])[0].src);
+        curScene = ["scene" + parseInt(RpMinus[RpMinusCnt].slice(0,2))];
         if (RpMinusCnt <= RpMinus.length) {
           RpMinusCnt++;
         }
       } else if (TestTrialType[curTest] == 2) { //Nrp
-        start(ctxA, 0, 0, imgWidth, imgHeight, Nrp[NrpCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + Nrp[NrpCnt])[0].src);
+        curScene = ["scene" + parseInt(Nrp[NrpCnt].slice(0,2))];
         if (NrpCnt <= Nrp.length) {
           NrpCnt++;
         }
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
-        start(ctxA, 0, 0, imgWidth, imgHeight, RpTestLures[RpTestLuresCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + RpTestLures[RpTestLuresCnt])[0].src);
+        curScene = ["scene" + parseInt(RpTestLures[RpTestLuresCnt].slice(0,2))];
         if (RpTestLuresCnt <= RpTestLures.length) {
           RpTestLuresCnt++;
         }
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
-        start(ctxA, 0, 0, imgWidth, imgHeight, NrpTestLures[NrpTestLuresCnt]); //xcoord, ycoord, width, height, img
+        $('#itemC').attr('src', $('#Obj' + NrpTestLures[NrpTestLuresCnt])[0].src);
+        curScene = ["scene" + parseInt(NrpTestLures[NrpTestLuresCnt].slice(0,2))];
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
         }
       }
+      $('#sceneA').attr('src', $('#' + curScene)[0].src);
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
-          $('#itemA').hide(); // hide object from last trial
-          $('#itemB').hide();
+          $('#showTrial').hide(); // hide object from last trial
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
 
@@ -670,26 +677,6 @@
             document.webkitCancelFullScreen();
         }
       }, 3000);
-    }
-
-    /* draw images on screen */
-    function start(context, initX, initY, imgWidth, imgHeight, image) {
-      if (context.canvas.id == 'itemA') {
-        imgA.src = $('#Obj' + image)[0].src;
-        imgA.onload = function() {
-          context.drawImage(imgA, initX, initY, imgWidth, imgHeight);
-        }
-      } else if (context.canvas.id == 'itemB') {
-        imgB.src = $('#Obj' + image)[0].src;
-        imgB.onload = function() {
-          context.drawImage(imgB, initX, initY, imgWidth, imgHeight);
-        }
-      } else if (context.canvas.id == 'sceneA') {
-        imgS.src = $('#' + image)[0].src;
-        imgS.onload = function() {
-          context.drawImage(imgS, initX, initY, imgWidth, imgHeight);
-        }
-      }
     }
 
     /*check all images are loaded before starting*/
