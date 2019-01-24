@@ -13,7 +13,7 @@ let NrpExem = NrpExemSlice.slice(0, 6); //type 2
 let NrpTestLuresExem = NrpExemSlice.slice(6, 12); //type 5
 
 let StudyTrialType = [];
-StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length));
+StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length/2), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length/2)); // half as many study trials
 StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(3, PracLuresExem.length), RpCats.length));

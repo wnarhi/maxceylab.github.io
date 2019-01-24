@@ -107,7 +107,9 @@
   <div id="showTrial">
     <div id="fixation">+</div>
     <div id="allItems">
-      <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
+      <canvas id="sceneA" width=600 height=600></canvas>
+      <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:0px;"></canvas>
+      <canvas id="itemB" width=300 height=300 style="position:absolute; top:150px; left:300px;"></canvas>
       <canvas id="CDitem" width=600 height=600></canvas>
     </div><br><br>
     <center>
@@ -184,8 +186,12 @@
     /* Setting up canvas contexts */
     const itemA = document.getElementById("itemA");
     const ctxA = itemA.getContext("2d");
+    const itemB = document.getElementById("itemB");
+    const ctxB = itemA.getContext("2d");
     const CDitem = document.getElementById("CDitem");
     const cdctx = CDitem.getContext("2d");
+    const sceneA = document.getElementById("sceneA");
+    const scenectx = sceneA.getContext("2d");
 
     /* Start Experiment */
     function StartExperiment() {
