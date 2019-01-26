@@ -25,32 +25,10 @@
 </head>
 
 <body>
-  <!-- Consent statement -->
-  <div id="consentDiv">
-    <h1>The Ohio State University</h1>
-    <p>We would like to inform you that the experiment that you are about to participate in is not approved by the Institutional Review Board for Protection of Human Subjects in Research (IRB). Meaning that the typical rights and regulations enforced by the IRB are not guaranteed by the Board. The reasons we are not beholden to IRB approval for this experiment are:</p>
-    <ul>
-      <li>This experiment will not share data, nor will it be published outside of the university in a public setting.</li>
-      <li>We are not keeping your data for long-term storage.</li>
-      <li>We are not utilizing participants in a live setting.</li>
-    </ul>
-    <p>To fully inform you, these are the rights that would be afforded to you:</p>
-    <ol>
-      <li>Respect for Persons: Promise of confidentiality and respect, as well as other protections.</li>
-      <li>Beneficence: Guaranteed minimization of any risks and a promise of getting the most from the research (as stated by the board).</li>
-      <li>Justice: Non-biased selection of participants. </li>
-    </ol>
-    <p>These rights, as commonly afforded to you by the IRB, are ideas that we desire to continue to maintain, but due to the aforementioned reasons, we are unable to attain that guarantee. However, our own moral and ethical compasses compel us to follow the same ideas. As such, all of your information will be strictly confidential, we personally have minimized any risks, and our selection was unbiased (to our standards). Remember, you are able to exit at any time during the experiment. We thank you for your participation in this experiment.</p>
-    <br><br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').show()" id="TextButton" style="display: inline;">I
-        understand and agree to participate in this study</a></p>
-  </div>
-
   <!-- Instructions page1 -->
-  <div id="instructions" style="display: none">
+  <div id="instructions">
     <center><b>
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
-        <p>Do not complete this experiment more than once, and please refrain from prolonged breaks once the experiment begins.</p>
       </b></center>
     <br>
     <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
@@ -214,10 +192,14 @@
       // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
       // storageRefx.put(blobx);
 
+      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
+
+      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + chance1.seed + '<br><br>Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment. <br><br> Experiment will now begin. Good luck!';
+        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
       window.location.href = '#openModal';
       checkFlag1();
 
@@ -357,7 +339,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
@@ -628,7 +610,7 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": chance1.seed,
+        "ID": subjID,
         "age": age,
         "sex": sex,
         "StartTime": startDate.getTime(),
@@ -669,7 +651,7 @@
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
         "AllStudy": AllStudy,
-        "date": Date_info,
+        "seed": chance1.seed,
         "comments": $('#comments').val()
       };
 
@@ -677,14 +659,14 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('CompellingScenes_PSYC4510/' + chance1.seed + '.json');
+      const storageRef = firebase.storage().ref('CompellingScenes_Lab/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
 
         // close full screen if still full-screened
         if (document.cancelFullScreen) {
