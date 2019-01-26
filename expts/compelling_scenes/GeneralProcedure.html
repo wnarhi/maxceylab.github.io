@@ -26,10 +26,22 @@
 
 <body>
   <!-- Consent statement -->
-  <div id="consentDiv"><center>
+  <div id="consentDiv">
     <h1>The Ohio State University</h1>
-      <b>This study is not run under IRB approval. You data will be anonymized, not published, and not presented off-campus.</b>
-    <br></center><br>
+    <p>We would like to inform you that the experiment that you are about to participate in is not approved by the Institutional Review Board for Protection of Human Subjects in Research (IRB). Meaning that the typical rights and regulations enforced by the IRB are not guaranteed by the Board. The reasons we are not beholden to IRB approval for this experiment are:</p>
+    <ul>
+      <li>This experiment will not share data, nor will it be published outside of the university in a public setting.</li>
+      <li>We are not keeping your data for long-term storage.</li>
+      <li>We are not utilizing participants in a live setting.</li>
+    </ul>
+    <p>To fully inform you, these are the rights that would be afforded to you:</p>
+    <ol>
+      <li>Respect for Persons: Promise of confidentiality and respect, as well as other protections.</li>
+      <li>Beneficence: Guaranteed minimization of any risks and a promise of getting the most from the research (as stated by the board).</li>
+      <li>Justice: Non-biased selection of participants. </li>
+    </ol>
+    <p>These rights, as commonly afforded to you by the IRB, are ideas that we desire to continue to maintain, but due to the aforementioned reasons, we are unable to attain that guarantee. However, our own moral and ethical compasses compel us to follow the same ideas. As such, all of your information will be strictly confidential, we personally have minimized any risks, and our selection was unbiased (to our standards). Remember, you are able to exit at any time during the experiment. We thank you for your participation in this experiment.</p>
+    <br><br>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').show()" id="TextButton" style="display: inline;">I
         understand and agree to participate in this study</a></p>
   </div>
@@ -656,6 +668,7 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
+        "AllStudy": AllStudy,
         "date": Date_info,
         "comments": $('#comments').val()
       };
