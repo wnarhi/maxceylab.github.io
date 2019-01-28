@@ -1,18 +1,20 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let RpCats = chance1.shuffle([02, 03, 04, 05, 07, 08]);
-let NrpCats = chance1.shuffle([01, 06, 09, 12, 10, 11]);
+let Cats = chance1.shuffle(counter2(1,24));
 
-let RpExemSlice = chance1.shuffle(counter(11, 28));
-let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
-let RpMinusExem = RpExemSlice.slice(3, 6); //type 1
-let PracLuresExem = RpExemSlice.slice(6, 12); //type 3
-let RpTestLuresExem = RpExemSlice.slice(12, 18); //type 4
-let NrpExemSlice = chance1.shuffle(counter(11, 22));
-let NrpExem = NrpExemSlice.slice(0, 6); //type 2
-let NrpTestLuresExem = NrpExemSlice.slice(6, 12); //type 5
+let RpCats = Cats.slice(0,12);
+let NrpCats = Cats.slice(12,24);
 
-let StudyTrialType = counter(0,71,2);
+let RpExemSlice = chance1.shuffle(counter(11,22));
+let RpPlusExem = RpExemSlice.slice(0,1); //type 0
+let RpMinusExem = RpExemSlice.slice(1,2); //type 1
+let PracLuresExem = RpExemSlice.slice(2,3); //type 3
+let RpTestLuresExem = RpExemSlice.slice(4,6); //type 4
+let NrpExemSlice = chance1.shuffle(counter(11,22));
+let NrpExem = NrpExemSlice.slice(0,2); //type 2
+let NrpTestLuresExem = NrpExemSlice.slice(2,4); //type 5
+
+let StudyTrialType = counter(0,47,2);
 StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(3, PracLuresExem.length), RpCats.length));
@@ -59,6 +61,22 @@ function counter(start, end, interval) {
   }
   while (start <= end) {
     result = result.concat(start);
+    start = start + interval;
+  }
+  return result;
+}
+
+function counter2(start, end, interval) {
+  if (interval == undefined) {
+    interval = 1;
+  }
+  let result = [];
+  while (start <= end) {
+    if (start < 10) {
+      result = result.concat("0" + start.toString());
+    } else {
+      result = result.concat(start.toString());
+    }
     start = start + interval;
   }
   return result;

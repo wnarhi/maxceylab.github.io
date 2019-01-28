@@ -1,25 +1,21 @@
 clc; clear;
-cwd = '/Users/scotti.5/Documents/GitHub/maxceylab.github.io/stimuli/scenes';
-imagefiles = dir(fullfile(cwd, ('scene*.jpg')));
+cwd = '/Users/scotti.5/Documents/GitHub/maxceylab.github.io/stimuli/come';
+imagefiles = dir(fullfile(cwd, ('*pool.jpg')));
 nfiles = length(imagefiles);    % Number of files found
 
 cd output 
 
-preset = ['<img id="IDN" src="https://maxceylab.github.io/stimuli/scenes/Object.jpg" style="margin-left:-1000px;margin-top:-1000px">'];
+preset = ['<img id="IDN" src="https://maxceylab.github.io/stimuli/compelling_objects/Object.jpg" style="margin-left:-1000px;margin-top:-2000px">'];
 code = [];
 for i = 1:nfiles
-    if i < 10
-        presetNew = strrep(preset,'Object',['scene0',num2str(i)]);
-        presetNew = strrep(presetNew,'IDN',['scene0',num2str(i)]);
-    else
-        presetNew = strrep(preset,'Object',['scene',num2str(i)]);
-        presetNew = strrep(presetNew,'IDN',['scene',num2str(i)]);
-    end
+    presetNew = strrep(preset,'Object',['Obj24_',num2str(10+i)]);
+    presetNew = strrep(presetNew,'IDN',['Obj24_',num2str(10+i)]);
     code = strcat(code,presetNew);
     presetNew = [];
     % rename image file
-%     copyfile(fullfile(cwd,[imagefiles(i).name]),['Obj',num2str(10+i),'.png']);
+    copyfile(fullfile(cwd,[imagefiles(i).name]),['Obj24_',num2str(10+i),'.jpg']);
 end
+
 
 % code2 = [];
 % imgnum = ['x,'];
