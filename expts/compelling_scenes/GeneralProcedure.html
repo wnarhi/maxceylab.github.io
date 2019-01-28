@@ -407,7 +407,7 @@
         imgCD.src = $('#same' + (curCD % 25 + 1))[0].src; // memory array
         imgCDtest.src = $('#same' + (curCD % 25 + 1) + 't')[0].src; // test array
         CDType.push(0); // record what type of CD trial this was
-      } else if ([1].includes(parseInt(CDSet[curCD].slice(0, 2)))) { //diff
+      } else { //diff
         imgCD.src = $('#diff' + (curCD % 25 + 1))[0].src;
         imgCDtest.src = $('#diff' + (curCD % 25 + 1) + 't')[0].src;
         CDType.push(1);
