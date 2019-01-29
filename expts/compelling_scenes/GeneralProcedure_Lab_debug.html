@@ -495,6 +495,8 @@
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
+          curTest++;
+          $('#showTrial').hide();
           $('#itemC').hide();
 
           // open pop-up:
@@ -508,9 +510,10 @@
             if (modalClosed == false) {
               window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
             } else {
+              $('#showTrial').show();
               $('#itemA').show();
               $('#itemB').show();
-              FourthPhase(); // finish up experiment
+              NextFourthPhase(); // finish up experiment
               return; // need return; otherwise function below executes
             }
           }
@@ -520,13 +523,13 @@
     }
 
     /* Fourth Phase (pair knowledge test) */
-    function FourthPhase() {
+    function NextFourthPhase() {
       $('#allItems').css('margin-top', -1000);
 
       // Preload the image of next trial
-      $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curStudy]])[0].src);
-      $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curStudy]+1])[0].src);
-      curScene = ["scene" + parseInt(AllStudy[FourthTrialType[curStudy]].slice(0,2))];
+      $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+      $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+      curScene = ["scene" + parseInt(AllStudy[FourthTrialType[curFourth]].slice(0,2))];
       $('#sceneA').attr('src', $('#' + curScene)[0].src);
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
@@ -556,7 +559,12 @@
     }
 
     function New() {
-      if (curPractice > numPractice) { // if test phase
+      if (curTest > numTest) { // if fourth Phase
+        TestResp.push(1);
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curFourth++;
+        NextFourthPhase();
+      } else if (curPractice > numPractice) { // if test phase
         TestResp.push(1);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(0);
@@ -586,7 +594,12 @@
     }
 
     function Old() {
-      if (curPractice > numPractice) { // if test phase
+      if (curTest > numTest) { // if fourth Phase
+        TestResp.push(0);
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curFourth++;
+        NextFourthPhase();
+      } else if (curPractice > numPractice) { // if test phase
         TestResp.push(0);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(1);
@@ -724,8 +737,6 @@
               if ($('#Obj' + AllImages[k])[0].complete) {
                 totImages++;
               }
-            } else {
-              alert('#Obj' + AllImages[k]);
             }
           }
           if (totImages >= AllImages.length) {
