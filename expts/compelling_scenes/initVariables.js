@@ -44,7 +44,7 @@ let RpPlus_StudyOrder = [];
 let RpMinus_StudyOrder = [];
 let Nrp_StudyOrder = [];
 
-let FourthValidity = chance1.shuffle(repmat([0,1],12));
+let FourthValidity = chance1.shuffle(repmat([0,0,1,2],6));
 
 // Fourth phase: testing pairs (24 trials, half old half new) (new: pair consists of one old and one new)
 
