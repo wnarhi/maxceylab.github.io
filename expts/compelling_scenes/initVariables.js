@@ -43,6 +43,8 @@ let RpPlus_StudyOrder = [];
 let RpMinus_StudyOrder = [];
 let Nrp_StudyOrder = [];
 
+// Fourth phase: testing pairs (24 trials, half old half new) (new: pair consists of one old and one new)
+
 function repmat(array, count) {
   let result = [];
   while (count--) {

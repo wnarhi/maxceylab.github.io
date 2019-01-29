@@ -686,10 +686,13 @@
         var readyLoad = 0;
         while (readyLoad == 0) {
           for (let k = 0; k < AllImages.length; k++) {
+            console.log(totImages);
             if ($('#Obj' + AllImages[k])[0] != null) {
               if ($('#Obj' + AllImages[k])[0].complete) {
                 totImages++;
               }
+            } else {
+              alert('#Obj' + AllImages[k]);
             }
           }
           if (totImages >= AllImages.length) {
