@@ -112,9 +112,10 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 3; // 36;
-    const numPractice = 5; // 72;
-    const numTest = 5; // 144;
+    const numStudy = 3; // 24;
+    const numPractice = 4; // 48;
+    const numTest = 4; // 96;
+    const numFourth = 24; // 24;
     const displayTime = 5000; //in ms (5000)
     const itiTime = 500; // 500
     const imgWidth = 200;
@@ -122,6 +123,7 @@
     let curStudy = 0;
     let curPractice = 0;
     let curTest = 0;
+    let curFourth = 0;
     let RpPlusCnt = 0;
     let RpMinusCnt = 0;
     let NrpCnt = 0;
@@ -248,13 +250,8 @@
         }
       } else {
         // Preload the image of next trial
-        if (Math.round(Math.random()) == 0) { // randomize left or right
-          $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
-          $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
-        } else {
-          $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
-          $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
-        }
+        $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
+        $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
         curScene = ["scene" + parseInt(AllStudy[StudyTrialType[curStudy]].slice(0,2))];
         $('#sceneA').attr('src', $('#' + curScene)[0].src);
       }
@@ -498,7 +495,43 @@
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
-          $('#showTrial').hide(); // hide object from last trial
+          $('#itemC').hide();
+
+          // open pop-up:
+          modalClosed = false;
+          document.getElementById("openModal_text").innerHTML =
+            'Almost at the end!<br><br>We will now show you pairs of objects, like how you initially studied the objects. The test is if you have seen these exact pairs of images before. If you have not seen one or more of the images before, then press the "New" button. Otherwise, press the "Old" button. All "Old" pairs of images will appear with the same background and positioning that they appeared in at the very beginning of the experiment.';
+          window.location.href = '#openModal';
+          checkFlag4();
+
+          function checkFlag4() {
+            if (modalClosed == false) {
+              window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
+            } else {
+              $('#itemA').show();
+              $('#itemB').show();
+              FourthPhase(); // finish up experiment
+              return; // need return; otherwise function below executes
+            }
+          }
+        }
+        OldNewJudgment();
+      }, itiTime);
+    }
+
+    /* Fourth Phase (pair knowledge test) */
+    function FourthPhase() {
+      $('#allItems').css('margin-top', -1000);
+
+      // Preload the image of next trial
+      $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curStudy]])[0].src);
+      $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curStudy]+1])[0].src);
+      curScene = ["scene" + parseInt(AllStudy[FourthTrialType[curStudy]].slice(0,2))];
+      $('#sceneA').attr('src', $('#' + curScene)[0].src);
+
+      setTimeout(function() { // fixation at beginning of trial for itiTime
+        if (curFourth >= numFourth) { // if end
+          $('#showTrial').hide();
           $('#Old').hide(); // hide Old button
           $('#New').hide(); // hide New button
 
@@ -507,11 +540,11 @@
           document.getElementById("openModal_text").innerHTML =
             'End of Experiment!';
           window.location.href = '#openModal';
-          checkFlag4();
+          checkFlag7();
 
-          function checkFlag4() {
+          function checkFlag7() {
             if (modalClosed == false) {
-              window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
+              window.setTimeout(checkFlag7, 100); /* this checks the flag every 100 milliseconds*/
             } else {
               Done(); // finish up experiment
               return; // need return; otherwise function below executes

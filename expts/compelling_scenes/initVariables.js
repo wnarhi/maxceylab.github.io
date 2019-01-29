@@ -24,6 +24,7 @@ TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), R
   repmat(repmat(2, NrpExem.length), NrpCats.length), repmat(repmat(4, RpTestLuresExem.length),
     RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
 TestTrialType = chance1.shuffle(TestTrialType);
+let FourthTrialType = chance1.shuffle(StudyTrialType);
 
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
 let RpPlusPrac = [];
