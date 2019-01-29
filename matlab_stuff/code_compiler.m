@@ -13,7 +13,7 @@ for i = 1:nfiles
     code = strcat(code,presetNew);
     presetNew = [];
     % rename image file
-    copyfile(fullfile(cwd,[imagefiles(i).name]),['Obj20_',num2str(10+i),'.jpg']);
+%     copyfile(fullfile(cwd,[imagefiles(i).name]),['Obj20_',num2str(10+i),'.jpg']);
 end
 
 
