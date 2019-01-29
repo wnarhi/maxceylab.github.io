@@ -40,7 +40,7 @@ FourthTestLures = FourthTestLures.concat(perm_concat(RpCats,FourthTestLuresExem)
 FourthTestLures = FourthTestLures.sort();
 let AllStudy = []
 AllStudy = AllStudy.concat(RpPlus,RpMinus,Nrp);
-AllStudy = AllStudy.sort();
+AllStudy = fourth_repeat(AllStudy.sort());
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
@@ -103,4 +103,12 @@ function perm_concat(array1, array2) {
     }
   }
   return result;
+}
+
+function fourth_repeat(array1) {
+  let result = [];
+  for (let i = 0; i < array1.length; i++) {
+    result = result.concat(array1[i]);
+    result = result.concat(array1[i]);
+  }
 }
