@@ -527,11 +527,17 @@
       $('#allItems').css('margin-top', -1000);
 
       // Preload the image of next trial
-      if (FourthValidity[curFourth] == 0 ) { // Old
-
+      if (FourthValidity[curFourth] == 0) { // Old
+        $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+        $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+      } else if (FourthValidity[curFourth] == 1) { // New (left one changed)
+        $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+        $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+      } else if (FourthValidity[curFourth] == 2) { // New (right one changed)
+        $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+        $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
       }
-      $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
-      $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+
       curScene = ["scene" + parseInt(AllStudy[FourthTrialType[curFourth]].slice(0,2))];
       $('#sceneA').attr('src', $('#' + curScene)[0].src);
 

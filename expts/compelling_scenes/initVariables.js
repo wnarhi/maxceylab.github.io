@@ -13,6 +13,7 @@ let RpTestLuresExem = RpExemSlice.slice(4,6); //type 4
 let NrpExemSlice = chance1.shuffle(counter(11,22));
 let NrpExem = NrpExemSlice.slice(0,2); //type 2
 let NrpTestLuresExem = NrpExemSlice.slice(2,4); //type 5
+let FourthTestLuresExem = NrpExemSlice.slice(4,5); //type undefined
 
 let StudyTrialType = counter(0,47,2);
 StudyTrialType = chance1.shuffle(StudyTrialType);
@@ -34,6 +35,9 @@ let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
 let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
+let FourthTestLures = [];
+FourthTestLures = FourthTestLures.concat(perm_concat(RpCats,FourthTestLuresExem),perm_concat(NrpCats,FourthTestLuresExem)); // 12 New Fourth phase trials
+FourthTestLures = FourthTestLures.sort();
 let AllStudy = []
 AllStudy = AllStudy.concat(RpPlus,RpMinus,Nrp);
 AllStudy = AllStudy.sort();
