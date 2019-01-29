@@ -141,6 +141,9 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let Test2Resp = [];
+    let Test2Acc = [];
+    let Test2RT = [];
     let curScene = [];
 
     /* Setup CD images */
@@ -534,8 +537,8 @@
         $('#itemA').attr('src', $('#Obj' + FourthTestLures[FourthTrialType[curFourth]])[0].src);
         $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
       } else if (FourthValidity[curFourth] == 2) { // New (right one changed)
-        $('#itemA').attr('src', $('#Obj' + FourthTestLures[FourthTrialType[curFourth]])[0].src);
-        $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+        $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+        $('#itemB').attr('src', $('#Obj' + FourthTestLures[FourthTrialType[curFourth]+1])[0].src);
       }
 
       curScene = ["scene" + parseInt(AllStudy[FourthTrialType[curFourth]].slice(0,2))];
@@ -569,8 +572,13 @@
 
     function New() {
       if (curTest > numTest) { // if fourth Phase
-        TestResp.push(1);
-        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        if (FourthValidity[curFourth] < 1) { // is old trial
+          Test2Acc.push(0);
+        } else {
+          Test2Acc.push(1);
+        }
+        Test2Resp.push(1);
+        Test2RT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curFourth++;
         NextFourthPhase();
       } else if (curPractice > numPractice) { // if test phase
@@ -604,8 +612,13 @@
 
     function Old() {
       if (curTest > numTest) { // if fourth Phase
-        TestResp.push(0);
-        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        if (FourthValidity[curFourth] < 1) { // is old trial
+          Test2Acc.push(1);
+        } else {
+          Test2Acc.push(0);
+        }
+        Test2Resp.push(0);
+        Test2RT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curFourth++;
         NextFourthPhase();
       } else if (curPractice > numPractice) { // if test phase
@@ -676,6 +689,9 @@
         "TestResp": TestResp,
         "TestAcc": TestAcc,
         "TestRT": TestRT,
+        "Test2Resp": Test2Resp,
+        "Test2Acc": Test2Acc,
+        "Test2RT": Test2RT,
         "RpPlusCnt": RpPlusCnt,
         "RpMinusCnt": RpMinusCnt,
         "NrpCnt": NrpCnt,
