@@ -28,19 +28,9 @@
   <!-- Consent statement -->
   <div id="consentDiv">
     <h1>The Ohio State University</h1>
-    <p>We would like to inform you that the experiment that you are about to participate in is not approved by the Institutional Review Board for Protection of Human Subjects in Research (IRB). Meaning that the typical rights and regulations enforced by the IRB are not guaranteed by the Board. The reasons we are not beholden to IRB approval for this experiment are:</p>
-    <ul>
-      <li>This experiment will not share data, nor will it be published outside of the university in a public setting.</li>
-      <li>We are not keeping your data for long-term storage.</li>
-      <li>We are not utilizing participants in a live setting.</li>
-    </ul>
-    <p>To fully inform you, these are the rights that would be afforded to you:</p>
-    <ol>
-      <li>Respect for Persons: Promise of confidentiality and respect, as well as other protections.</li>
-      <li>Beneficence: Guaranteed minimization of any risks and a promise of getting the most from the research (as stated by the board).</li>
-      <li>Justice: Non-biased selection of participants. </li>
-    </ol>
-    <p>These rights, as commonly afforded to you by the IRB, are ideas that we desire to continue to maintain, but due to the aforementioned reasons, we are unable to attain that guarantee. However, our own moral and ethical compasses compel us to follow the same ideas. As such, all of your information will be strictly confidential, we personally have minimized any risks, and our selection was unbiased (to our standards). Remember, you are able to exit at any time during the experiment. We thank you for your participation in this experiment.</p>
+    <p>Dear Participant,<p>
+    <p>This paragraph is to inform you that the present study is NOT being conducted under university Institutional Review Board approval. The following details explain important information that directly relates to you as a participant. Your participation is entirely voluntary, there is no incentive to participate, and any data that you provide will not be used outside of the class for which it is being conducted. Further, the research team will not collect any form of personally identifiable information, including your IP address. The research team asks that you complete the study fully, however you may decline to participate or leave the study at any time without any loss or penalty.</p>
+    <p>If you have any questions or concerns, please feel free to contact the research team at dollu.1@osu.edu.</p>
     <br><br>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').show()" id="TextButton" style="display: inline;">I
         understand and agree to participate in this study</a></p>
@@ -83,7 +73,7 @@
     </div>
   </div>
 
-  <!-- Screen when submitting expt -->
+  <!-- Screen after submitting expt -->
   <div id="done">
     <div id="doneText">
     </div>
@@ -145,6 +135,7 @@
     let curStudy = 0;
     let curPractice = 0;
     let curTest = 0;
+    let curFourth = 0;
     let RpPlusCnt = 0;
     let RpMinusCnt = 0;
     let NrpCnt = 0;
@@ -162,6 +153,9 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let Test2Resp = [];
+    let Test2Acc = [];
+    let Test2RT = [];
     let curScene = [];
 
     /* Setup CD images */
@@ -218,8 +212,8 @@
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + chance1.seed + '<br><br>Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment. <br><br> Experiment will now begin. Good luck!';
-      window.location.href = '#openModal';
+      'Your subject ID is: ' + chance1.seed + '<br><br>Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment. <br><br> Experiment will now begin. Good luck!';
+    window.location.href = '#openModal';
       checkFlag1();
 
       function checkFlag1() {
@@ -267,13 +261,8 @@
         }
       } else {
         // Preload the image of next trial
-        if (Math.round(Math.random()) == 0) { // randomize left or right
-          $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
-          $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
-        } else {
-          $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
-          $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
-        }
+        $('#itemA').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]])[0].src);
+        $('#itemB').attr('src', $('#Obj' + AllStudy[StudyTrialType[curStudy]+1])[0].src);
         curScene = ["scene" + parseInt(AllStudy[StudyTrialType[curStudy]].slice(0,2))];
         $('#sceneA').attr('src', $('#' + curScene)[0].src);
       }
@@ -297,54 +286,55 @@
     /* Practice Phase Start */
     function NextPracTrial() {
       $('#allItems').css('margin-top', -1000);
-      // Preload the image of next trial
-      if (PracTrialType[curPractice] == 0) { //RpPlus
-        $('#itemC').attr('src', $('#Obj' + RpPlusPrac[RpPlusCnt])[0].src);
-        curScene = ["scene" + parseInt(RpPlusPrac[RpPlusCnt].slice(0,2))];
-        if (RpPlusCnt <= RpPlus.length*2) {
-          RpPlusCnt++;
-        }
-      } else if (PracTrialType[curPractice] == 3) { //PracLure
-        $('#itemC').attr('src', $('#Obj' + PracLures[PracLuresCnt])[0].src);
-        curScene = ["scene" + parseInt(PracLures[PracLuresCnt].slice(0,2))];
-        if (PracLuresCnt <= PracLures.length) {
-          PracLuresCnt++;
-        }
-      }
-      $('#sceneA').attr('src', $('#' + curScene)[0].src);
 
-      setTimeout(function() {
-        if (curPractice >= numPractice) { // if end of study
-          curPractice++;
+      if (curPractice >= numPractice) { // if end of study
+        curPractice++;
 
-          now = new Date().getTime();
-          now2 = now;
-          $('#itemC').hide(); // hide object from last trial
-          $('#fixation').show();
-          $('#CDitem').show();
-          $('#sceneA').hide();
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
+        now = new Date().getTime();
+        now2 = now;
+        $('#itemC').hide(); // hide object from last trial
+        $('#fixation').show();
+        $('#CDitem').show();
+        $('#sceneA').hide();
+        $('#Old').hide(); // hide Old button
+        $('#New').hide(); // hide New button
 
-          // open pop-up:
-          modalClosed = false;
-          document.getElementById("openModal_text").innerHTML =
-            'Good work so far! <br> We will continue to test your memory after some more change detection trials.';
-          window.location.href = '#openModal';
-          checkFlag3();
-          return;
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Good work so far! <br> We will continue to test your memory after some more change detection trials.';
+        window.location.href = '#openModal';
+        checkFlag3();
+        return;
 
-          function checkFlag3() {
-            if (modalClosed == false) {
-              window.setTimeout(checkFlag3, 100); /* this checks the flag every 100 milliseconds*/
-            } else {
-              ChangeDetection(); // start filler task
-              return; // need return; otherwise function below executes
-            }
+        function checkFlag3() {
+          if (modalClosed == false) {
+            window.setTimeout(checkFlag3, 100); /* this checks the flag every 100 milliseconds*/
+          } else {
+            ChangeDetection(); // start filler task
           }
         }
-        OldNewJudgment();
-      }, itiTime);
+      } else {
+        // Preload the image of next trial
+        if (PracTrialType[curPractice] == 0) { //RpPlus
+          $('#itemC').attr('src', $('#Obj' + RpPlusPrac[RpPlusCnt])[0].src);
+          curScene = ["scene" + parseInt(RpPlusPrac[RpPlusCnt].slice(0,2))];
+          if (RpPlusCnt <= RpPlus.length*2) {
+            RpPlusCnt++;
+          }
+        } else if (PracTrialType[curPractice] == 3) { //PracLure
+          $('#itemC').attr('src', $('#Obj' + PracLures[PracLuresCnt])[0].src);
+          curScene = ["scene" + parseInt(PracLures[PracLuresCnt].slice(0,2))];
+          if (PracLuresCnt <= PracLures.length) {
+            PracLuresCnt++;
+          }
+        }
+        $('#sceneA').attr('src', $('#' + curScene)[0].src);
+
+        setTimeout(function() {
+          OldNewJudgment();
+        }, itiTime);
+      }
     }
 
     /* Display Object & Old/New Judgment */
@@ -358,7 +348,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
@@ -481,68 +471,126 @@
     function NextTestTrial() {
       $('#allItems').css('margin-top', -1000);
 
-      // Preload the image of next trial
-      if (TestTrialType[curTest] == 0) { //RpPlus
-        $('#itemC').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
-        curScene = ["scene" + parseInt(RpPlus[RpPlusCnt].slice(0,2))];
-        if (RpPlusCnt <= RpPlus.length) {
-          RpPlusCnt++;
-        }
-      } else if (TestTrialType[curTest] == 1) { //RpMinus
-        $('#itemC').attr('src', $('#Obj' + RpMinus[RpMinusCnt])[0].src);
-        curScene = ["scene" + parseInt(RpMinus[RpMinusCnt].slice(0,2))];
-        if (RpMinusCnt <= RpMinus.length) {
-          RpMinusCnt++;
-        }
-      } else if (TestTrialType[curTest] == 2) { //Nrp
-        $('#itemC').attr('src', $('#Obj' + Nrp[NrpCnt])[0].src);
-        curScene = ["scene" + parseInt(Nrp[NrpCnt].slice(0,2))];
-        if (NrpCnt <= Nrp.length) {
-          NrpCnt++;
-        }
-      } else if (TestTrialType[curTest] == 4) { //RpTestLures
-        $('#itemC').attr('src', $('#Obj' + RpTestLures[RpTestLuresCnt])[0].src);
-        curScene = ["scene" + parseInt(RpTestLures[RpTestLuresCnt].slice(0,2))];
-        if (RpTestLuresCnt <= RpTestLures.length) {
-          RpTestLuresCnt++;
-        }
-      } else if (TestTrialType[curTest] == 5) { //NrpTestLures
-        $('#itemC').attr('src', $('#Obj' + NrpTestLures[NrpTestLuresCnt])[0].src);
-        curScene = ["scene" + parseInt(NrpTestLures[NrpTestLuresCnt].slice(0,2))];
-        if (NrpTestLuresCnt <= NrpTestLures.length) {
-          NrpTestLuresCnt++;
-        }
-      }
-      $('#sceneA').attr('src', $('#' + curScene)[0].src);
+      if (curTest >= numTest) { // if end of test
+        curTest++;
+        $('#showTrial').hide();
+        $('#itemC').hide();
 
-      setTimeout(function() { // fixation at beginning of trial for itiTime
-        if (curTest >= numTest) { // if end of test
-          $('#showTrial').hide(); // hide object from last trial
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'Almost at the end!<br><br>This last test phase will show you pairs of objects, one pair at a time. If you have not seen one or more of the objects before, press the "New" button. Otherwise, if you have studied the exact pair of objects before, press the "Old" button. <br><br>All "Old" pairs of objects will appear with the same background and positions that they appeared in at the beginning of the experiment.';
+        window.location.href = '#openModal';
+        checkFlag4();
 
-          // open pop-up:
-          modalClosed = false;
-          document.getElementById("openModal_text").innerHTML =
-            'End of Experiment!';
-          window.location.href = '#openModal';
-          checkFlag4();
-
-          function checkFlag4() {
-            if (modalClosed == false) {
-              window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
-            } else {
-              Done(); // finish up experiment
-              return; // need return; otherwise function below executes
-            }
+        function checkFlag4() {
+          if (modalClosed == false) {
+            window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
+          } else {
+            $('#showTrial').show();
+            $('#itemA').show();
+            $('#itemB').show();
+            NextFourthPhase(); // finish up experiment
           }
         }
-        OldNewJudgment();
-      }, itiTime);
+      } else {
+        // Preload the image of next trial
+        if (TestTrialType[curTest] == 0) { //RpPlus
+          $('#itemC').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
+          curScene = ["scene" + parseInt(RpPlus[RpPlusCnt].slice(0,2))];
+          if (RpPlusCnt <= RpPlus.length) {
+            RpPlusCnt++;
+          }
+        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          $('#itemC').attr('src', $('#Obj' + RpMinus[RpMinusCnt])[0].src);
+          curScene = ["scene" + parseInt(RpMinus[RpMinusCnt].slice(0,2))];
+          if (RpMinusCnt <= RpMinus.length) {
+            RpMinusCnt++;
+          }
+        } else if (TestTrialType[curTest] == 2) { //Nrp
+          $('#itemC').attr('src', $('#Obj' + Nrp[NrpCnt])[0].src);
+          curScene = ["scene" + parseInt(Nrp[NrpCnt].slice(0,2))];
+          if (NrpCnt <= Nrp.length) {
+            NrpCnt++;
+          }
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          $('#itemC').attr('src', $('#Obj' + RpTestLures[RpTestLuresCnt])[0].src);
+          curScene = ["scene" + parseInt(RpTestLures[RpTestLuresCnt].slice(0,2))];
+          if (RpTestLuresCnt <= RpTestLures.length) {
+            RpTestLuresCnt++;
+          }
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          $('#itemC').attr('src', $('#Obj' + NrpTestLures[NrpTestLuresCnt])[0].src);
+          curScene = ["scene" + parseInt(NrpTestLures[NrpTestLuresCnt].slice(0,2))];
+          if (NrpTestLuresCnt <= NrpTestLures.length) {
+            NrpTestLuresCnt++;
+          }
+        }
+        $('#sceneA').attr('src', $('#' + curScene)[0].src);
+
+        setTimeout(function() { // fixation at beginning of trial for itiTime
+          OldNewJudgment();
+        }, itiTime);
+      }
+    }
+
+    /* Fourth Phase (pair knowledge test) */
+    function NextFourthPhase() {
+      $('#allItems').css('margin-top', -1000);
+
+      if (curFourth >= numFourth) { // if end
+        $('#showTrial').hide();
+        $('#Old').hide(); // hide Old button
+        $('#New').hide(); // hide New button
+
+        // open pop-up:
+        modalClosed = false;
+        document.getElementById("openModal_text").innerHTML =
+          'End of Experiment!';
+        window.location.href = '#openModal';
+        checkFlag7();
+
+        function checkFlag7() {
+          if (modalClosed == false) {
+            window.setTimeout(checkFlag7, 100); /* this checks the flag every 100 milliseconds*/
+          } else {
+            Done(); // finish up experiment
+          }
+        }
+      } else {
+        // Preload the image of next trial
+        if (FourthValidity[curFourth] == 0) { // Old
+          $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+          $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+        } else if (FourthValidity[curFourth] == 1) { // New (left one changed)
+          $('#itemA').attr('src', $('#Obj' + FourthTestLures[FourthTrialType[curFourth]])[0].src);
+          $('#itemB').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]+1])[0].src);
+        } else if (FourthValidity[curFourth] == 2) { // New (right one changed)
+          $('#itemA').attr('src', $('#Obj' + AllStudy[FourthTrialType[curFourth]])[0].src);
+          $('#itemB').attr('src', $('#Obj' + FourthTestLures[FourthTrialType[curFourth]+1])[0].src);
+        }
+
+        curScene = ["scene" + parseInt(AllStudy[FourthTrialType[curFourth]].slice(0,2))];
+        $('#sceneA').attr('src', $('#' + curScene)[0].src);
+
+        setTimeout(function() { // fixation at beginning of trial for itiTime
+          OldNewJudgment();
+        }, itiTime);
+      }
     }
 
     function New() {
-      if (curPractice > numPractice) { // if test phase
+      if (curTest > numTest) { // if fourth Phase
+        if (FourthValidity[curFourth] < 1) { // is old trial
+          Test2Acc.push(0);
+        } else {
+          Test2Acc.push(1);
+        }
+        Test2Resp.push(1);
+        Test2RT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curFourth++;
+        NextFourthPhase();
+      } else if (curPractice > numPractice) { // if test phase
         TestResp.push(1);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(0);
@@ -572,7 +620,17 @@
     }
 
     function Old() {
-      if (curPractice > numPractice) { // if test phase
+      if (curTest > numTest) { // if fourth Phase
+        if (FourthValidity[curFourth] < 1) { // is old trial
+          Test2Acc.push(1);
+        } else {
+          Test2Acc.push(0);
+        }
+        Test2Resp.push(0);
+        Test2RT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curFourth++;
+        NextFourthPhase();
+      } else if (curPractice > numPractice) { // if test phase
         TestResp.push(0);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(1);
@@ -640,6 +698,9 @@
         "TestResp": TestResp,
         "TestAcc": TestAcc,
         "TestRT": TestRT,
+        "Test2Resp": Test2Resp,
+        "Test2Acc": Test2Acc,
+        "Test2RT": Test2RT,
         "RpPlusCnt": RpPlusCnt,
         "RpMinusCnt": RpMinusCnt,
         "NrpCnt": NrpCnt,
@@ -655,12 +716,14 @@
         "RpTestLuresExem": RpTestLuresExem,
         "NrpExem": NrpExem,
         "NrpTestLuresExem": NrpTestLuresExem,
+        "FourthTestLuresExem": FourthTestLuresExem,
         "RpPlus": RpPlus,
         "RpMinus": RpMinus,
         "Nrp": Nrp,
         "PracLures": PracLures,
         "RpTestLures": RpTestLures,
         "NrpTestLures": NrpTestLures,
+        "FourthTestLures": FourthTestLures,
         "RpPlus_StudyOrder": RpPlus_StudyOrder,
         "RpMinus_StudyOrder": RpMinus_StudyOrder,
         "Nrp_StudyOrder": Nrp_StudyOrder,
@@ -668,6 +731,8 @@
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
+        "FourthTrialType": FourthTrialType,
+        "FourthValidity": FourthValidity,
         "AllImages": AllImages,
         "AllStudy": AllStudy,
         "date": Date_info,

@@ -131,7 +131,7 @@
     const numStudy = 60; // 60;
     const numPractice = 60; // 60;
     const numTest = 120; // 120;
-    const displayTime = 500; //in ms 5000
+    const displayTime = 1000; //in ms 5000
     const itiTime = 50; //500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -350,7 +350,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 300)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on

@@ -112,12 +112,12 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 3; // 24;
-    const numPractice = 4; // 48;
-    const numTest = 4; // 96;
+    const numStudy = 24; // 24;
+    const numPractice = 48; // 48;
+    const numTest = 96; // 96;
     const numFourth = 24; // 24;
-    const displayTime = 5000; //in ms (5000)
-    const itiTime = 500; // 500
+    const displayTime = 2000; //in ms (5000)
+    const itiTime = 50; // 500
     const imgWidth = 200;
     const imgHeight = 200;
     let curStudy = 0;
@@ -735,7 +735,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('CompellingScenes_Lab/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('CompellingScenes_Lab_debug/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
