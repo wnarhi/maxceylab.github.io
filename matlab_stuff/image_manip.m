@@ -34,7 +34,8 @@ global quit_out
 quit_out = 0;
 
 for i=1:nfiles
-   gamma = 1;
+   gamma = 1; 
+   global g;
    currentfilename = imagefiles(i).name;
    currentimage = imread([currentfilename]); 
    
@@ -95,7 +96,7 @@ for i=1:nfiles
    f2 = figure;
    set(gcf,'Position',[0 0 0 0]);
    f = figure;
-   imshow(posterizedimage);
+   g = imshow(posterizedimage);
    
    disp('Click image and use left/right arrows to adjust darkness threshold & up/down to adjust lightness threshold.');
    disp('Press s key to save and proceed to next image. q key to quit.');
@@ -109,7 +110,6 @@ for i=1:nfiles
        break;
    end
    
-   global g
    disp(['Saved as ',currentfilename(1:end-4),'.png']);
    try
    saveas(g,['output/' currentfilename(1:end-4) '.png']);
