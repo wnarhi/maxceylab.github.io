@@ -41,7 +41,12 @@ for i=1:nfiles
    
    disp(['Current file:' currentfilename]);
    
+   try
    e = imresize(rgb2gray(currentimage),[256,256]);
+   catch
+   e = imresize(currentimage,[256,256]);
+   end
+   
    imshow(e)
    imcontrast()
    
