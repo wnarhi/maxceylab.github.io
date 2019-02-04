@@ -389,10 +389,12 @@
         imgCD.src = $('#same' + (curCD % 25 + 1))[0].src; // memory array
         imgCDtest.src = $('#same' + (curCD % 25 + 1) + 't')[0].src; // test array
         CDType.push(0); // record what type of CD trial this was
+        console.log('#same' + (curCD % 25 + 1) + 't');
       } else { //diff
         imgCD.src = $('#diff' + (curCD % 25 + 1))[0].src;
         imgCDtest.src = $('#diff' + (curCD % 25 + 1) + 't')[0].src;
         CDType.push(1);
+        console.log('#diff' + (curCD % 25 + 1) + 't');
       }
 
       $('#CDitem').attr('src', CDfix.src);
