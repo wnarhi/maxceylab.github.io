@@ -68,11 +68,11 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
-    <div id="fixation">+</div>
     <div id="allItems">
       <img id="itemA" src="https://maxceylab.github.io/stimuli/objects/Obj11_11.png" width=300 height=300 style="position:absolute; top:150px; left:150px;"></img>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
-    </div><br><br>
+    </div>
+    <div id="fixation">+</div><br><br>
     <center>
       <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
       <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
@@ -104,8 +104,8 @@
     const numStudy = 72; // 72;
     const numPractice = 72; // 72;
     const numTest = 144; // 144;
-    const displayTime = 5000; //in ms 5000
-    const itiTime = 500; //500 ms
+    const displayTime = 50; //in ms 5000
+    const itiTime = 50; //500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     let curStudy = 0;
@@ -326,7 +326,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
@@ -476,31 +476,26 @@
 
       // Preload the image of next trial; slice(-1) indexes last number in array
       if (TestTrialType.slice(-1) == 0) { //RpPlus
-        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         $('#itemA').attr('src', $('#Obj' + curQ[QTrial])[0].src);
         if (RpPlusCnt <= RpPlus.length) {
           RpPlusCnt++;
         }
       } else if (TestTrialType.slice(-1) == 1) { //RpMinus
-        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         $('#itemA').attr('src', $('#Obj' + curQ[QTrial])[0].src);
         if (RpMinusCnt <= RpMinus.length) {
           RpMinusCnt++;
         }
       } else if (TestTrialType.slice(-1) == 2) { //Nrp
-        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         $('#itemA').attr('src', $('#Obj' + curQ[QTrial])[0].src);
         if (NrpCnt <= Nrp.length) {
           NrpCnt++;
         }
       } else if (TestTrialType.slice(-1) == 4) { //RpTestLures
-        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         $('#itemA').attr('src', $('#Obj' + curQ[QTrial])[0].src);
         if (RpTestLuresCnt <= RpTestLures.length) {
           RpTestLuresCnt++;
         }
       } else if (TestTrialType.slice(-1) == 5) { //NrpTestLures
-        start(ctxA, 0, 0, imgWidth, imgHeight, curQ[QTrial]); //xcoord, ycoord, width, height, img
         $('#itemA').attr('src', $('#Obj' + curQ[QTrial])[0].src);
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
@@ -700,6 +695,8 @@
               if ($('#Obj' + AllImages[k])[0].complete) {
                 totImages++;
               }
+            } else {
+              console.log('#Obj' + AllImages[k]);
             }
           }
           if (totImages >= AllImages.length) {
