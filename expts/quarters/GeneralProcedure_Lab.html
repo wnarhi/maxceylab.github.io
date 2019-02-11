@@ -447,13 +447,13 @@
       $('#allItems').css('margin-top', -1000);
 
       // Determine quarter array, assumes 144 test trials
-      if (curTest <= 36) {
+      if (curTest < 36) {
         curQ = Q1; QTrial = curTest;
-      } else if (curTest <= 72) {
+      } else if (curTest < 72) {
         curQ = Q2; QTrial = curTest-36;
-      } else if (curTest <= 108) {
+      } else if (curTest < 108) {
         curQ = Q3; QTrial = curTest-72;
-      } else if (curTest <= 144) {
+      } else if (curTest < 144) {
         curQ = Q4; QTrial = curTest-108;
       }
 
