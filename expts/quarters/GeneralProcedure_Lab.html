@@ -37,7 +37,15 @@
 
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
-    <center></center>
+    <center><b>
+        <p>You will be presented with 72 objects, one at a time, each presented for 5 seconds.</p>
+        <p>Study the visual details of these objects for a later memory test.</p><br>
+
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
+
+        <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p><br>
+        <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
+      </b></center>
     <br>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
     <center>
@@ -104,8 +112,8 @@
     const numStudy = 72; // 72;
     const numPractice = 72; // 72;
     const numTest = 144; // 144;
-    const displayTime = 50; //in ms 5000
-    const itiTime = 50; //500 ms
+    const displayTime = 5000; //in ms 5000
+    const itiTime = 500; //500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     let curStudy = 0;
@@ -326,7 +334,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
