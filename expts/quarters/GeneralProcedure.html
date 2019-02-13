@@ -617,7 +617,7 @@
     function Done() {
       // calculate their overall accuracy (Practice + Test)
       const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Any comments for us? (What strategy did you use? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Any comments for us? (What strategy did you use? Any technical difficulties?)<br><br>(If you are an experimenter testing out this experiment (not a participant), please type TEST below)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
         '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
