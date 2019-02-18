@@ -82,7 +82,7 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
-    <div id="fixation">+</div>
+    <div id="fixation"></div>
     <div id="RemOrForget">+</div>
     <div id="allItems">
       <img id="itemA" src="https://maxceylab.github.io/stimuli/objects/Obj11_11.png" width=300 height=300 style="position:absolute; top:150px; left:150px;"></img>
@@ -280,6 +280,7 @@
 
     /* Display Object */
     function ShowStudy() {
+      document.getElementById('fixation').innerHTML = "";
       $('#allItems').css('margin-top', 0);
       if (StudyTrialType[curStudy] == 6) { //Forget
         document.getElementById('RemOrForget').innerHTML = "Forget";
@@ -290,6 +291,7 @@
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
           document.getElementById('RemOrForget').innerHTML = "";
+          document.getElementById('fixation').innerHTML = "+";
           setTimeout(function() {
             curStudy++;
             NextStudyTrial();

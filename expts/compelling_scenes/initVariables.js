@@ -42,7 +42,7 @@ let AllStudy = []
 AllStudy = AllStudy.concat(RpPlus,RpMinus,Nrp);
 AllStudy = AllStudy.sort();
 let AllImages = [];
-AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures,FourthTestLuresExem);
+AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
 let RpPlus_StudyOrder = [];
 let RpMinus_StudyOrder = [];

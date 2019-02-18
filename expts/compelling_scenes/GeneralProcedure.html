@@ -784,7 +784,11 @@
             if ($('#Obj' + AllImages[k])[0] != null) {
               if ($('#Obj' + AllImages[k])[0].complete) {
                 totImages++;
+              } else {
+                console.log('#Obj' + AllImages[k]);
               }
+            } else {
+              console.log('#Obj' + AllImages[k]);
             }
           }
           if (totImages >= AllImages.length) {
