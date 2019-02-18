@@ -242,6 +242,7 @@
             window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
           } else {
             RpPlusCnt = 0; //reset counter for RpPlus
+            document.getElementById('fixation').innerHTML = "+";
             ChangeDetection(); // start Practice Phase
             return; // need return; otherwise the ShowTrial below executes
           }
