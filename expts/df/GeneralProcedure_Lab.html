@@ -39,12 +39,18 @@
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
     <center><b>
-        <p>You will be presented with 72 objects, one at a time, each presented for 5 seconds.</p>
+        <p>You will be presented with 90 objects, one at a time, each presented for 5 seconds.</p>
         <p>Study the visual details of these objects for a later memory test.</p><br>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
 
-        <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p><br>
+        <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p>
+
+        <p>After every object, you will see the word "remember" or the word "forget". If "forget" is displayed, this means that you should forget about the previously displayed object -- it will not be useful for testing.</p>
+
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/remember.png" width="200px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/forget.pn" width="200px"></p>
+
         <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
       </b></center>
     <br>
@@ -110,10 +116,10 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 60; // 60;
+    const numStudy = 90; // 90;
     const numPractice = 60; // 60;
-    const numTest = 120; // 120;
-    const displayTime = 5000; //in ms 5000
+    const numTest = 180; // 180;
+    const displayTime = 5000; //5000 ms
     const itiTime = 500; //500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -242,6 +248,7 @@
         }
       } else {
         // Preload the image of next trial
+        console.log(StudyTrialType[curStudy])
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           $('#itemA').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
           if (RpPlusCnt <= RpPlus.length) {
@@ -264,6 +271,7 @@
           }
         }
       }
+
       setTimeout(function() {
         ShowStudy();
       }, itiTime);
@@ -272,6 +280,11 @@
     /* Display Object */
     function ShowStudy() {
       $('#allItems').css('margin-top', 0);
+      if (StudyTrialType[curStudy] == 6) { //Forget
+        document.getElementById('fixation').innerHTML = "Forget";
+      } else {
+        document.getElementById('fixation').innerHTML = "Remember";
+      }
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
@@ -603,7 +616,7 @@
       });
     });
 
-    /* Done with the experiment*/
+    /* Done with the experiment */
     function Done() {
       // calculate their overall accuracy (Practice + Test)
       const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
@@ -705,7 +718,11 @@
             if ($('#Obj' + AllImages[k])[0] != null) {
               if ($('#Obj' + AllImages[k])[0].complete) {
                 totImages++;
+              } else {
+                console.log('#Obj' + AllImages[k]);
               }
+            } else {
+              console.log('#Obj' + AllImages[k]);
             }
           }
           if (totImages >= AllImages.length) {
