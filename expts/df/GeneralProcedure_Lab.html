@@ -120,7 +120,7 @@
     const numPractice = 60; // 60;
     const numTest = 180; // 180;
     const displayTime = 5000; //5000 ms
-    const itiTime = 500; //500 ms
+    let itiTime = 3000; // 3000 (500 when used as fixation cross)
     const imgWidth = 300;
     const imgHeight = 300;
     let curStudy = 0;
@@ -243,13 +243,13 @@
           } else {
             RpPlusCnt = 0; //reset counter for RpPlus
             document.getElementById('fixation').innerHTML = "+";
+            itiTime = 500; // fixation cross now instead of Remember/Forget, changed to 500 ms
             ChangeDetection(); // start Practice Phase
             return; // need return; otherwise the ShowTrial below executes
           }
         }
       } else {
         // Preload the image of next trial
-        console.log(StudyTrialType[curStudy])
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           $('#itemA').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
           if (RpPlusCnt <= RpPlus.length) {
