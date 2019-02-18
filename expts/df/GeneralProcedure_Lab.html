@@ -83,6 +83,7 @@
   <!-- Display Object HTML -->
   <div id="showTrial">
     <div id="fixation">+</div>
+    <div id="RemOrForget">+</div>
     <div id="allItems">
       <img id="itemA" src="https://maxceylab.github.io/stimuli/objects/Obj11_11.png" width=300 height=300 style="position:absolute; top:150px; left:150px;"></img>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
@@ -120,7 +121,8 @@
     const numPractice = 60; // 60;
     const numTest = 180; // 180;
     const displayTime = 5000; //5000 ms
-    let itiTime = 3000; // 3000 (500 when used as fixation cross)
+    const itiTime = 500; // 500 ms
+    const RemForgetTime = 3000; // 3000 ms remember or forget text
     const imgWidth = 300;
     const imgHeight = 300;
     let curStudy = 0;
@@ -242,8 +244,6 @@
             window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
           } else {
             RpPlusCnt = 0; //reset counter for RpPlus
-            document.getElementById('fixation').innerHTML = "+";
-            itiTime = 500; // fixation cross now instead of Remember/Forget, changed to 500 ms
             ChangeDetection(); // start Practice Phase
             return; // need return; otherwise the ShowTrial below executes
           }
@@ -282,16 +282,19 @@
     function ShowStudy() {
       $('#allItems').css('margin-top', 0);
       if (StudyTrialType[curStudy] == 6) { //Forget
-        document.getElementById('fixation').innerHTML = "Forget";
+        document.getElementById('RemOrForget').innerHTML = "Forget";
       } else {
-        document.getElementById('fixation').innerHTML = "Remember";
+        document.getElementById('RemOrForget').innerHTML = "Remember";
       }
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
-          curStudy++;
-          NextStudyTrial();
-        }, itiTime);
+          document.getElementById('RemOrForget').innerHTML = "";
+          setTimeout(function() {
+            curStudy++;
+            NextStudyTrial();
+          }, itiTime);
+        }, RemForgetTime);
       }, displayTime);
     }
 
