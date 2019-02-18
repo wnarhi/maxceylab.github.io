@@ -78,7 +78,7 @@
   <div id="showTrial">
     <div id="fixation">+</div>
     <div id="allItems">
-      <img id="itemA" src="https://maxceylab.github.io/stimuli/df/Obj11_11.png" width=300 height=300 style="position:absolute; top:150px; left:150px;"></img>
+      <img id="itemA" src="https://maxceylab.github.io/stimuli/objects/Obj11_11.png" width=300 height=300 style="position:absolute; top:150px; left:150px;"></img>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
     </div>
     <br><br>
@@ -139,9 +139,6 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
-    let ForgetResp = [];
-    let ForgetAcc = [];
-    let ForgetRT = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -491,6 +488,16 @@
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
         }
+      } else if (TestTrialType[curTest] == 6) { //Forget
+        $('#itemA').attr('src', $('#Obj' + Forget[ForgetCnt])[0].src);
+        if (ForgetCnt <= Forget.length) {
+          ForgetCnt++;
+        }
+      } else if (TestTrialType[curTest] == 7) { //ForgetLures
+        $('#itemA').attr('src', $('#Obj' + ForgetLures[ForgetLuresCnt])[0].src);
+        if (ForgetLuresCnt <= ForgetLures.length) {
+          ForgetLuresCnt++;
+        }
       }
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
@@ -532,6 +539,10 @@
           TestAcc.push(1);
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 6) { //Forget
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          TestAcc.push(1);
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -561,6 +572,10 @@
         } else if (TestTrialType[curTest] == 4) { //RpTestLures
           TestAcc.push(0);
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 6) { //Forget
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures
           TestAcc.push(0);
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
@@ -624,6 +639,8 @@
         "PracLuresCnt": PracLuresCnt,
         "RpTestLuresCnt": RpTestLuresCnt,
         "NrpTestLuresCnt": NrpTestLuresCnt,
+        "ForgetCnt": ForgetCnt,
+        "ForgetLuresCnt": ForgetLuresCnt,
         "CDaccuracy": CDaccuracy,
         "RpCats": RpCats,
         "NrpCats": NrpCats,
@@ -639,9 +656,12 @@
         "PracLures": PracLures,
         "RpTestLures": RpTestLures,
         "NrpTestLures": NrpTestLures,
+        "Forget": Forget,
+        "ForgetLures": ForgetLures,
         "RpPlus_StudyOrder": RpPlus_StudyOrder,
         "RpMinus_StudyOrder": RpMinus_StudyOrder,
         "Nrp_StudyOrder": Nrp_StudyOrder,
+        "Forget_StudyOrder": Forget_StudyOrder,
         "RpPlus_PracticeOrder": RpPlusPrac,
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,

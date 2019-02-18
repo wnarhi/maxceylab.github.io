@@ -47,7 +47,7 @@ let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
 let Forget = chance1.shuffle(perm_concat(ForgetCats,ForgetExem));
 let ForgetLures = chance1.shuffle(perm_concat(ForgetCats,ForgetLuresExem));
 let AllImages = [];
-AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
+AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures,Forget,ForgetLures);
 
 let RpPlus_StudyOrder = [];
 let RpMinus_StudyOrder = [];
