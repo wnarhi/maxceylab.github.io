@@ -4,7 +4,7 @@ let Cats = chance1.shuffle([01,02,03,06,07,11,14,15]); // 8 cats
 // has 26: 02 04 05 08 10
 
 // ensure that RPCats does not contain any category that has less than 18 exemplars
-while (Cats.slice(0,5).includes(02)) {
+while (Cats.slice(0,4).includes(02)) {
   Cats = chance1.shuffle([01,02,03,06,07,11,14,15]);
 }
 
