@@ -46,13 +46,6 @@
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
 
         <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p>
-
-        <p>After every object, you will see the word "remember" or the word "forget". If "forget" is displayed, this means that you should forget about the previously displayed object -- it will not be useful for testing.</p>
-        <p>If "remember" is displayed, you should retain the previously displayed obejct in memory. This means the object will be important for testing.</p>
-
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/remember.png" width="350px"></p>
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/forget.png" width="350px"></p>
-
         <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
       </b></center>
     <br>
@@ -168,8 +161,12 @@
     imgCDtest.crossOrigin = "anonymous";
     imgCDtest.src = $('#diff1t')[0].src;
 
-    /* Setting up image contexts */
+    /* Setting up canvas contexts */
     const itemA = document.getElementById("itemA");
+    const ctxA = itemA.getContext("2d");
+    const ringItemA = document.getElementById("ringItemA");
+    const ringctxA = ringItemA.getContext("2d");
+    /* Set up non-canvas contexts */
     const CDitem = document.getElementById("CDitem");
 
     /* Start Experiment */
@@ -255,6 +252,8 @@
         // Preload the image of next trial
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           $('#itemA').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
+          start(ctxA, color, 50, 50, imgWidth, imgHeight, flip, imgA, itemA);
+
           if (RpPlusCnt <= RpPlus.length) {
             RpPlusCnt++;
           } // prevent problems if on last trial of condition
