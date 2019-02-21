@@ -84,8 +84,7 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
-    <div id="fixation"></div>
-    <div id="RemOrForget">+</div>
+    <div id="fixation">+</div>
     <div id="allItems">
       <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
@@ -118,9 +117,9 @@
     firebase.initializeApp(config);
 
     // /* Disable context/right-click menu */
-    document.oncontextmenu = function() {
-        return false;
-    }
+    // document.oncontextmenu = function() {
+    //     return false;
+    // }
 
     /* Define more variables */
     let modalClosed = false;
@@ -129,7 +128,6 @@
     const numTest = 180; // 180;
     const displayTime = 5000; //5000 ms
     const itiTime = 500; // 500 ms
-    const RemForgetTime = 3000; // 3000 ms remember or forget text
     const imgWidth = 300;
     const imgHeight = 300;
     let curStudy = 0;
@@ -141,8 +139,6 @@
     let PracLuresCnt = 0;
     let RpTestLuresCnt = 0;
     let NrpTestLuresCnt = 0;
-    let ForgetCnt = 0;
-    let ForgetLuresCnt = 0;
     let now = new Date().getTime(); // used for 5 min filler task
     let now2 = now;
     let curCD = 0;
@@ -154,7 +150,9 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
-
+    </script>
+    <script src="https://maxceylab.github.io/mturk/InterGroup_Spatial_files/colors_blocked.js"> </script>
+    <script>
     /* Setup reused image variable */
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
@@ -235,8 +233,6 @@
         now = new Date().getTime();
         now2 = now;
         $('#itemA').hide(); // hide object from last trial
-        $('#Old').hide(); // hide Old button
-        $('#New').hide(); // hide New button
 
         // open pop-up:
         modalClosed = false;
@@ -272,11 +268,6 @@
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
-        } else if (StudyTrialType[curStudy] == 6) { //Forget
-          $('#itemA').attr('src', $('#Obj' + Forget[ForgetCnt])[0].src);
-          if (ForgetCnt <= Forget.length) {
-            ForgetCnt++;
-          }
         }
       }
 
@@ -287,23 +278,13 @@
 
     /* Display Object */
     function ShowStudy() {
-      document.getElementById('fixation').innerHTML = "";
       $('#allItems').css('margin-top', 0);
-      if (StudyTrialType[curStudy] == 6) { //Forget
-        document.getElementById('RemOrForget').innerHTML = "Forget";
-      } else {
-        document.getElementById('RemOrForget').innerHTML = "Remember";
-      }
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
-          document.getElementById('RemOrForget').innerHTML = "";
-          document.getElementById('fixation').innerHTML = "+";
-          setTimeout(function() {
-            curStudy++;
-            NextStudyTrial();
-          }, itiTime);
-        }, RemForgetTime);
+          curStudy++;
+          NextStudyTrial();
+        }, itiTime);
       }, displayTime);
     }
 
@@ -330,8 +311,6 @@
           now = new Date().getTime();
           now2 = now;
           $('#itemA').hide(); // hide object from last trial
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
 
           // open pop-up:
           modalClosed = false;
@@ -358,8 +337,6 @@
     function OldNewJudgment() {
       startTrial = new Date().getTime();
       $('#allItems').css('margin-top', 0);
-      $('#Old').show();
-      $('#New').show();
     }
 
     /* Filler Start */
@@ -383,9 +360,6 @@
         Nrp_StudyOrder = Nrp;
         NrpCnt = 0;
         Nrp = chance1.shuffle(Nrp);
-        Forget_StudyOrder = Forget;
-        ForgetCnt = 0;
-        Forget = chance1.shuffle(Forget);
 
         // open pop-up:
         modalClosed = false;
@@ -514,23 +488,11 @@
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
         }
-      } else if (TestTrialType[curTest] == 6) { //Forget
-        $('#itemA').attr('src', $('#Obj' + Forget[ForgetCnt])[0].src);
-        if (ForgetCnt <= Forget.length) {
-          ForgetCnt++;
-        }
-      } else if (TestTrialType[curTest] == 7) { //ForgetLures
-        $('#itemA').attr('src', $('#Obj' + ForgetLures[ForgetLuresCnt])[0].src);
-        if (ForgetLuresCnt <= ForgetLures.length) {
-          ForgetLuresCnt++;
-        }
       }
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
           $('#itemA').hide(); // hide object from last trial
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
 
           // open pop-up:
           modalClosed = false;
@@ -565,10 +527,6 @@
           TestAcc.push(1);
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 6) { //Forget
-          TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 7) { //ForgetLures
-          TestAcc.push(1);
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -598,10 +556,6 @@
         } else if (TestTrialType[curTest] == 4) { //RpTestLures
           TestAcc.push(0);
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
-          TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 6) { //Forget
-          TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 7) { //ForgetLures
           TestAcc.push(0);
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
@@ -665,8 +619,6 @@
         "PracLuresCnt": PracLuresCnt,
         "RpTestLuresCnt": RpTestLuresCnt,
         "NrpTestLuresCnt": NrpTestLuresCnt,
-        "ForgetCnt": ForgetCnt,
-        "ForgetLuresCnt": ForgetLuresCnt,
         "CDaccuracy": CDaccuracy,
         "RpCats": RpCats,
         "NrpCats": NrpCats,
@@ -682,12 +634,9 @@
         "PracLures": PracLures,
         "RpTestLures": RpTestLures,
         "NrpTestLures": NrpTestLures,
-        "Forget": Forget,
-        "ForgetLures": ForgetLures,
         "RpPlus_StudyOrder": RpPlus_StudyOrder,
         "RpMinus_StudyOrder": RpMinus_StudyOrder,
         "Nrp_StudyOrder": Nrp_StudyOrder,
-        "Forget_StudyOrder": Forget_StudyOrder,
         "RpPlus_PracticeOrder": RpPlusPrac,
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
@@ -748,6 +697,60 @@
         $('a#TextButton').show();
       }, 3000);
     };
+
+    function start(context, deg, initX, initY, imgWidth, imgHeight, flip, image, itemID) {
+        flip == 0 ? colors = origColors : colors = flippedColors;
+        var col = [146.83, 146.83, 146.83]; // luminance-corrected gray
+        if (deg != 'gray') {
+            deg = (deg >= 360) ? deg - 360 : deg;
+            deg = (deg < 0) ? deg + 360 : deg;
+            col = colors[deg];
+        }
+        if (context == ctx3 || context == ctx4) {
+            context.drawImage(image, initX, initY, imgWidth, imgHeight);
+            recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
+        } else {
+            image.onload = function() {
+                context.drawImage(image, initX, initY, imgWidth, imgHeight);
+                recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
+            }
+            recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
+        }
+    }
+
+    function recolor(context, newR, newG, newB, initX, initY, itemID) {
+        imgData = context.getImageData(initX, initY, itemID.width, itemID.height);
+        let data = imgData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            let red = data[i];
+            let green = data[i + 1];
+            let blue = data[i + 2];
+            if (red > 5 && blue < 200) {
+                data[i] = newR;
+                data[i + 1] = newG;
+                data[i + 2] = newB;
+            }
+        }
+        context.putImageData(imgData, initX, initY);
+    }
+
+    function wrapDiff(input, comparison) { // deg difference in color space
+        if (input < comparison) {
+            a = input;
+            b = comparison
+        } else {
+            a = comparison;
+            b = input
+        }
+        degree = Math.abs(a - b);
+        if (degree > 180) {
+            degree = Math.abs(a - (b - 360))
+        }
+        if (degree < -180) {
+            degree = Math.abs(a - (b + 360))
+        }
+        return wrap(degree);
+    }
 
     /* running on IE? */
     function isIE() {

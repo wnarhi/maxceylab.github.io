@@ -34,13 +34,19 @@ TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), R
 TestTrialType = chance1.shuffle(TestTrialType);
 
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
+let RpPlusC = wrap(counter(1,360,360/RpPlus.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let RpPlusPrac = [];
 RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
 let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
+let RpMinusC = wrap(counter(1,360,360/RpMinus.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
+let NrpC = wrap(counter(1,360,360/Nrp.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
+let PracLuresC = wrap(counter(1,360,360/PracLures.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
+let RpTestLuresC = wrap(counter(1,360,360/RpTestLures.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
+let NrpTestLuresC = wrap(counter(1,360,360/NrpTestLures.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
@@ -83,4 +89,26 @@ function perm_concat(array1, array2) {
     }
   }
   return result;
+}
+
+/* Make sure number is between 0 and 360: */
+function wrap(v) {
+    for (let i = 0; i < v.length; i++) {
+        if (v[i] > 360) {
+            v[i] -= 360;
+        }
+        if (v[i] < 0) {
+            v[i] += 360;
+        }
+    }
+    if (v.length == undefined) {
+        if (v > 360) {
+            v -= 360;
+        }
+        if (v < 0) {
+            v += 360;
+        }
+        v = parseInt(v); // v becomes integer and not array
+    }
+    return v;
 }
