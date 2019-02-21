@@ -700,11 +700,7 @@
         while (readyLoad == 0) {
           for (let k = 0; k < AllImages.length; k++) {
             if ($('#Obj' + AllImages[k])[0] != null) {
-              if ($('#Obj' + AllImages[k])[0].complete) {
-                totImages++;
-              } else {
-                console.log('#Obj' + AllImages[k]);
-              }
+              totImages++;
             } else {
               console.log('#Obj' + AllImages[k]);
             }
