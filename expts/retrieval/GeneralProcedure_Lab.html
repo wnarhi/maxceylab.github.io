@@ -121,7 +121,7 @@
     const numStudy = 48; // 48;
     const numPractice = 48; // 48;
     const numTest = 96; // 96;
-    const displayTime = 5000; //5000 ms
+    const displayTime = 1000; //5000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -243,7 +243,7 @@
         // open pop-up:
         modalClosed = false;
         document.getElementById("openModal_text").innerHTML =
-          'End of Study Phase! <br><br> Before we test your memory for the studied df, we will do a short task. <br><br> You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.';
+          'End of Study Phase! <br><br> Before we test your memory for the studied objects, we will do a short task. <br><br> You will see an array of colored squares appear for a brief moment. Then, one colored square will be presented. The task is to select whether the colored square is the same color or a different color than it was before.';
         window.location.href = '#openModal';
         checkFlag2();
         return;
@@ -350,13 +350,15 @@
     /* Display Object & Old/New Judgment */
     function OldNewJudgment() {
       startTrial = new Date().getTime();
+      $('#Old').show();
+      $('#New').show();
       $('#allItems').css('margin-top', 0);
     }
 
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
