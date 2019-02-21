@@ -13,30 +13,21 @@
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
 
   <!-- Preload images -->
-  <script src="https://maxceylab.github.io/expts/df/loadimg.js"></script>
-  <script src="https://maxceylab.github.io/expts/df/initVariables.js"> </script>
+  <script src="https://maxceylab.github.io/expts/retrieval/loadimg.js"></script>
+  <script src="https://maxceylab.github.io/expts/retrieval/initVariables.js"> </script>
 
   <!-- load Firebase server javascript, we are using it for storage -->
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/df/contReport.css">
-  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/df/showTrials.css">
-  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/df/experiment.css">
+  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/retrieval/contReport.css">
+  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/retrieval/showTrials.css">
+  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/retrieval/experiment.css">
 
 </head>
 
 <body>
-  <!-- Consent statement -->
-  <div id="consentDiv">
-    <h1>The Ohio State University</h1>
-    <p>The results of this experiment will not be viewed outside of an academic setting, and thus we are not operating under Institutional Review Board approval. The IRB ensures that an experiment does not violate the rights of the subjects and the experiment is conducted in a moral method that does not harm subjects or leave them without an understanding of the experiment. With this in mind, we must clarify that this experiment is voluntary and you may stop at any time. There is no compensation. Please complete the survey to your best ability and understand that you are free to leave the experiment at any time. Thank you for your participation in our study.</p>
-    <br><br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').show()" id="TextButton" style="display: inline;">I
-        understand and agree to participate in this study</a></p>
-  </div>
-
   <!-- Instructions page1 -->
-  <div id="instructions" style="display: none">
+  <div id="instructions">
     <center><b>
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
@@ -200,9 +191,9 @@
         sex = 'na';
       }
 
-      // initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
+      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
-      // subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
       // // save a file letting me know that someone made it this far
       // const blobx = new Blob([JSON.stringify(chance1.seed)], {
@@ -214,7 +205,7 @@
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + chance1.seed + '<br><br>Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment. <br><br> Experiment will now begin. Good luck!';
+        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
       window.location.href = '#openModal';
       checkFlag1();
 
@@ -651,7 +642,7 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": chance1.seed,
+        "ID": subjID,
         "age": age,
         "sex": sex,
         "StartTime": startDate.getTime(),
@@ -696,7 +687,7 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
-        "date": Date_info,
+        "seed": chance1.seed,
         "comments": $('#comments').val()
       };
 
@@ -704,14 +695,14 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('DF_PSYC4510/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_Lab/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
 
         // close full screen if still full-screened
         if (document.cancelFullScreen) {
