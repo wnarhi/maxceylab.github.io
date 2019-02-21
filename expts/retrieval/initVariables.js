@@ -1,10 +1,10 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let Cats = chance1.shuffle([01,02,03,06,07,11,14,15]); // 8 cats
+let Cats = chance1.shuffle([01,02,04,06,07,11,14,15]); // 8 cats
 // has 26: 02 04 05 08 10
 
 // ensure that RPCats does not contain any category that has less than 18 exemplars
-while (Cats.slice(0,4).includes(02)) {
+while (Cats.slice(0,4).includes(02) || Cats.slice(0,4).includes(04)) {
   Cats = chance1.shuffle([01,02,03,06,07,11,14,15]);
 }
 

@@ -123,6 +123,9 @@
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
+    </script>
+    <script src="https://maxceylab.github.io/expts/retrieval/colors_blocked.js"> </script>
+    <script>
     let curStudy = 0;
     let curPractice = 0;
     let curTest = 0;
@@ -143,9 +146,11 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
-    </script>
-    <script src="https://maxceylab.github.io/expts/retrieval/colors_blocked.js"> </script>
-    <script>
+    let flip = 0;
+    const origColors = _.clone(colors); // clone is required to copy a variable without it accidentally referencing the same thing
+    let flippedColors = _.clone(colors).reverse();
+    flippedColors = flippedColors.concat(flippedColors.splice(0, 180)); // shift array 180
+
     /* Setup reused image variable */
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
@@ -251,19 +256,20 @@
       } else {
         // Preload the image of next trial
         if (StudyTrialType[curStudy] == 0) { //RpPlus
-          $('#itemA').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
-          start(ctxA, color, 50, 50, imgWidth, imgHeight, flip, imgA, itemA);
-
+          start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+          imgA.src = $('#Obj' + RpPlus[RpPlusCnt])[0].src;
           if (RpPlusCnt <= RpPlus.length) {
             RpPlusCnt++;
           } // prevent problems if on last trial of condition
         } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-          $('#itemA').attr('src', $('#Obj' + RpMinus[RpMinusCnt])[0].src);
+          start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+          imgA.src = $('#Obj' + RpMinus[RpMinusCnt])[0].src;
           if (RpMinusCnt <= RpMinus.length) {
             RpMinusCnt++;
           }
         } else if (StudyTrialType[curStudy] == 2) { //Nrp
-          $('#itemA').attr('src', $('#Obj' + Nrp[NrpCnt])[0].src);
+          start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+          imgA.src = $('#Obj' + Nrp[NrpCnt])[0].src;
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
@@ -277,6 +283,9 @@
 
     /* Display Object */
     function ShowStudy() {
+      ctxA.onload = function() {
+          ctxA.drawImage(imgA, 50, 50, imgWidth, imgHeight);
+      }
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
@@ -705,16 +714,11 @@
             deg = (deg < 0) ? deg + 360 : deg;
             col = colors[deg];
         }
-        if (context == ctx3 || context == ctx4) {
+        image.onload = function() {
             context.drawImage(image, initX, initY, imgWidth, imgHeight);
             recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
-        } else {
-            image.onload = function() {
-                context.drawImage(image, initX, initY, imgWidth, imgHeight);
-                recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
-            }
-            recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
         }
+        recolor(context, Math.round(col[0]), Math.round(col[1]), Math.round(col[2]), initX, initY, itemID);
     }
 
     function recolor(context, newR, newG, newB, initX, initY, itemID) {
@@ -724,7 +728,7 @@
             let red = data[i];
             let green = data[i + 1];
             let blue = data[i + 2];
-            if (red > 5 && blue < 200) {
+            if (red > 10 && blue < 250) {
                 data[i] = newR;
                 data[i + 1] = newG;
                 data[i + 2] = newB;
