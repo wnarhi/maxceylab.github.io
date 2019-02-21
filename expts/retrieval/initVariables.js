@@ -21,7 +21,7 @@ let NrpExem = NrpExemSlice.slice(0, 6); //type 2
 let NrpTestLuresExem = NrpExemSlice.slice(6, 12); //type 5
 
 let StudyTrialType = [];
-StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length), repmat(repmat(6, ForgetExem.length), ForgetCats.length));
+StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length));
 StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(3, PracLuresExem.length), RpCats.length));
@@ -29,8 +29,7 @@ PracTrialType = chance1.shuffle(PracTrialType);
 let TestTrialType = [];
 TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length),
   repmat(repmat(2, NrpExem.length), NrpCats.length), repmat(repmat(4, RpTestLuresExem.length),
-    RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length),
-  repmat(repmat(6, ForgetExem.length), ForgetCats.length), repmat(repmat(7, ForgetLuresExem.length), ForgetCats.length));
+    RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
 TestTrialType = chance1.shuffle(TestTrialType);
 
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
