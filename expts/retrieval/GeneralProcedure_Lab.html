@@ -112,9 +112,9 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 48; // 48;
-    const numPractice = 48; // 48;
-    const numTest = 96; // 96;
+    const numStudy = 72; // 72;
+    const numPractice = 72; // 72;
+    const numTest = 144; // 144;
     const displayTime = 1000; //5000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
@@ -131,6 +131,12 @@
     let PracLuresCnt = 0;
     let RpTestLuresCnt = 0;
     let NrpTestLuresCnt = 0;
+    let RpPlusRCnt = 0;
+    let RpMinusRCnt = 0;
+    let NrpRCnt = 0;
+    let PracLuresRCnt = 0;
+    let RpTestLuresRCnt = 0;
+    let NrpTestLuresRCnt = 0;
     let now = new Date().getTime(); // used for 5 min filler task
     let now2 = now;
     let curCD = 0;
@@ -285,6 +291,24 @@
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
+        } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
+          start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+          imgA.src = $('#Obj' + RpPlusR[RpPlusRCnt])[0].src;
+          if (RpPlusRCnt <= RpPlus.length) {
+            RpPlusRCnt++;
+          }
+        } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
+          start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+          imgA.src = $('#Obj' + RpMinusR[RpMinusRCnt])[0].src;
+          if (RpMinusRCnt <= RpMinus.length) {
+            RpMinusRCnt++;
+          }
+        } else if (StudyTrialType[curStudy] == 12) { //NrpR
+          start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+          imgA.src = $('#Obj' + NrpR[NrpRCnt])[0].src;
+          if (NrpRCnt <= Nrp.length) {
+            NrpRCnt++;
+          }
         }
       }
 
@@ -320,6 +344,18 @@
         imgA.src = $('#Obj' + PracLures[PracLuresCnt])[0].src;
         if (PracLuresCnt <= PracLures.length) {
           PracLuresCnt++;
+        }
+      } else if (PracTrialType[curPractice] == 10) { //RpPlusR
+        start(ctxA, RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        imgA.src = $('#Obj' + RpPlusPracR[RpPlusRCnt])[0].src;
+        if (RpPlusRCnt <= RpPlus.length*2) {
+          RpPlusRCnt++;
+        }
+      } else if (PracTrialType[curPractice] == 13) { //PracLureR
+        start(ctxA, PracLuresRC[PracLuresRCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        imgA.src = $('#Obj' + PracLuresR[PracLuresRCnt])[0].src;
+        if (PracLuresRCnt <= PracLures.length) {
+          PracLuresRCnt++;
         }
       }
 
