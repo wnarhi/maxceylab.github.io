@@ -32,13 +32,13 @@ TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), R
     RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
 TestTrialType = chance1.shuffle(TestTrialType);
 
-let RandStart = Math.floor(Math.random()*360)+1; // random number from 1 to 360
+// let RandStart = Math.floor(Math.random()*360)+1; // random number from 1 to 360
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
-let RpPlusC = wrap(counter(RandStart,RandStart+144,144/RpPlus.length));
+let RpPlusC = wrap(counter(1,360,360/RpPlus.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let RpPlusPrac = [];
 RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
 let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
-let RpMinusC = wrap(counter(RandStart+180,RandStart+324,144/RpMinus.length));
+let RpMinusC = wrap(counter(1,360,360/RpMinus.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
 let NrpC = wrap(counter(1,360,360/Nrp.length).map(function(entry) {  return entry+(Math.floor(Math.random()*360)+1); }));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
