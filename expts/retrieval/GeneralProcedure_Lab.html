@@ -78,6 +78,7 @@
   <!-- Display Object HTML -->
   <div id="showTrial">
     <div id="fixation">+</div>
+    <canvas id="ringItemA" width=600 height=600 style="position: absolute;"></canvas>
     <div id="allItems">
       <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
@@ -89,13 +90,6 @@
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
-  </div>
-
-  <!-- Structure for continuous report after the trial: -->
-  <div id="continuousReport">
-      <div id='contItem_abs' style="position:absolute;">
-          <canvas id="contItemA" width=300 height=300></canvas></div>
-      <canvas id="ringItemA" width=600 height=600 style="position: absolute;"></canvas>
   </div>
 
   <!-- Initializing JS -->
@@ -152,10 +146,23 @@
     const origColors = _.clone(colors); // clone is required to copy a variable without it accidentally referencing the same thing
     let flippedColors = _.clone(colors).reverse();
     flippedColors = flippedColors.concat(flippedColors.splice(0, 180)); // shift array 180
+    let tempVar = true;
+    let startingColor = -999;
+    let mouseMoved = 0;
+    let angleDeg = -999;
+    let curError = -999;
+    const radius = 242;
+    const ringSize = 242;
+    const centerX = 300;
+    const centerY = 300;
+    let randrotate = 0;
 
-    /* Setup reused image variable */
+    /* Setup reused image and color ring variables */
     let imgA = new Image();
     imgA.crossOrigin = "anonymous";
+    let ringImg = new Image();
+    ringImg.crossOrigin = "anonymous";
+    ringImg.src = $('#ring')[0].src;
 
     /* Setup CD images */
     let imgCD = new Image();
@@ -223,6 +230,7 @@
         } else {
           $('#instructions').hide();
           $('#showTrial').show();
+          $('#ringItemA').hide();
           NextStudyTrial();
         }
       }
@@ -344,6 +352,83 @@
         }
         OldNewJudgment();
       }, itiTime);
+    }
+
+    function PracTrialContinuous() {
+      ringctxA.restore();
+      ringctxA.drawImage(ringImg, 50, 50, 500, 500);
+      ringctxA.save();
+      if (!(curPractice == 0)) { //dont clear ring if its first time ever presented, otherwise first practice trial has no ring
+          ringctxA.clearRect(0, 0, 600, 600);
+      }
+      mouseInit = mouseX;
+      mouseMoved = 0;
+      $('#ringItemA').show();
+
+      // Show continuous report
+      angleDeg = 0;
+      curError = 360;
+      startTimeC = new Date();
+
+      $(document).bind('mousemove.curTrial', function(e) {
+        parentOffset = $('#showTrial').offset();
+        relX = e.pageX - parentOffset.left - centerX;
+        relY = e.pageY - parentOffset.top - centerY;
+        curAngle = Math.atan2(relY, relX);
+        angleDeg = curAngle / Math.PI * 180.0;
+        if (mouseMoved == 0) {
+            if (mouseInit != mouseX) {
+                setTimeout(function() {
+                    imgNum = Math.round(wrap([angleDeg - randrotate]));
+                    startingColor = imgNum;
+                    mouseMoved = 1;
+                    start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+                    mouseMoved = 1;
+                }, 400);
+            }
+        } else {
+            imgNum = Math.round(wrap([angleDeg - randrotate]));
+            start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        }
+        $('#pointer').css({
+            'left': centerX + Math.cos(curAngle) * ringSize - 9,
+            'top': centerY + Math.sin(curAngle) * ringSize - 9
+        });
+        // curError = Math.abs(wrap([imgNum - trialStruct.itemT_col]));
+        // if (curError > 180) {
+        //     curError = Math.abs(360 - curError);
+        // }
+        if (e.isFakeTrigger) { // this code only executes once before anything else happens, e.g. otherwise randrotate would be next trial's randrotate
+            flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
+            ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+            ringctxA.rotate(randrotate * Math.PI / 180);
+            ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+            ringImg.onload = function() {
+                ringctxA.drawImage(ringImg, 50, 50, 500, 500);
+            }
+            ctxA.onload = function() {
+                start(ctxA,'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA); //set starting color as grayscale
+            }
+            start(ctxA,'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        }
+        // if ((currentFeedTrial % trialsPerBlock) == 0) { // needed special code for first item of test phase showing as grayscale, no idea why
+        //     if (tempVar) {
+        //         setTimeout(function() {
+        //             ctxA.onload = function() {
+        //                 start(ctxA,'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA); //set starting color as grayscale
+        //             }
+        //             start(ctxA,'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA);
+        //         }, 150);
+        //       tempVar = false;
+        //     }
+        // }
+      });
+      $(document).bind('mouseup.curTrial', function(e) {
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          NextPracTrial();
+          return;
+      });
     }
 
     /* Display Object & Old/New Judgment */
@@ -582,7 +667,8 @@
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
-        NextTestTrial();
+        TestTrialContinuous();
+        // NextTestTrial();
       } else { // if practice phase
         PracticeResp.push(0);
         if (PracTrialType[curPractice] == 0) { //RpPlus
@@ -592,7 +678,8 @@
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curPractice++;
-        NextPracTrial();
+        PracTrialContinuous();
+        // NextPracTrial();
       }
     }
 
