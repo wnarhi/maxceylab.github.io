@@ -1,15 +1,15 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let Cats = chance1.shuffle([01,02,04,05,06,07,11,15]); // 8 cats
-// has 26: 02 04 05 08 10
+let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 12 cats
+// has 26: 02 04 05 08 10 16
 
 // ensure that RPCats does not contain any category that has less than 18 exemplars
 while (Cats.slice(0,4).includes(02) || Cats.slice(0,4).includes(04) || Cats.slice(0,4).includes(05)) {
   Cats = chance1.shuffle([01,02,04,05,06,07,11,15]);
 }
 
-let RpCats = Cats.slice(0,4); // 4 categories
-let NrpCats = Cats.slice(4,8); // 4 categories
+let RpCats = Cats.slice(0,6); // 6 categories
+let NrpCats = Cats.slice(6,12); // 6 categories
 
 let RpExemSlice = chance1.shuffle(counter(11, 28));
 let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
