@@ -758,18 +758,20 @@
 
     /*check all images are loaded before starting*/
     function ImagesReady() {
-      setTimeout(function() { // dont start the check at the same time as the document is loading
-        var totImages = 0;
-        var readyLoad = 0;
-        while (readyLoad == 0) {
-          $('img.mustLoad').on('load',function(){
-              readyLoad = 1;
-          }
+      var totImages = 0;
+      var readyLoad = 0;
+      while (readyLoad == 0) {
+        $("img").on("load", function() {
+          totImages++;
         }
+        if (totImages >= $("img").length) {
+          readyLoad = 1;
+        }
+      } else {
         $('#loading').hide();
         $('a#TextButton').show();
-      }, 3000);
-    };
+      }
+    }
 
     /* running on IE? */
     function isIE() {
