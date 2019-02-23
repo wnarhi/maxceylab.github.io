@@ -766,7 +766,7 @@
               percentage = percentage.toFixed(0).toString() + ' %';
 
               document.getElementById("loading").innerHTML =
-                'Loading images ... ' + percentage + '<br>If percentage is not updating, please refresh page.';
+                'Loading images ... ' + percentage + '<br>If more than a minute elapses, try refreshing page.';
               setTimeout('ImagesReady()', 20);
               return;
           }

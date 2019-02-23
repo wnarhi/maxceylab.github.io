@@ -704,7 +704,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('DF_PSYC4510/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('DF_PSYC4510/' + chance1.seed + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
@@ -732,7 +732,7 @@
               percentage = percentage.toFixed(0).toString() + ' %';
 
               document.getElementById("loading").innerHTML =
-                'Loading images ... ' + percentage + '<br>If percentage is not updating, please refresh page.';
+                'Loading images ... ' + percentage + '<br>If more than a minute elapses, try refreshing page.';
               setTimeout('ImagesReady()', 20);
               return;
           }
