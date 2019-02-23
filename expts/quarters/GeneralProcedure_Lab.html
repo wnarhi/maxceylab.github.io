@@ -694,26 +694,19 @@
 
     /*check all images are loaded before starting*/
     function ImagesReady() {
-      setTimeout(function() { // dont start the check at the same time as the document is loading
-        var totImages = 0;
-        var readyLoad = 0;
-        while (readyLoad == 0) {
-          for (let k = 0; k < AllImages.length; k++) {
-            if ($('#Obj' + AllImages[k])[0] != null) {
-              totImages++;
-            } else {
-              console.log('#Obj' + AllImages[k]);
-            }
+      for (var i = 0; i < AllImages.length; i++) {
+          if (!$('#Obj' + AllImages[i])[0].complete) {
+              var percentage = i * 100.0 / (AllImages.length);
+              percentage = percentage.toFixed(0).toString() + ' %';
+
+              document.getElementById("loading").innerHTML =
+                'Loading images ... ' + percentage + '<br>If percentage is not updating, please refresh page.';
+              setTimeout('ImagesReady()', 20);
+              return;
           }
-          if (totImages >= AllImages.length) {
-            readyLoad = 1;
-          } else {
-            totImages = 0;
-          }
-        }
-        $('#loading').hide();
-        $('a#TextButton').show();
-      }, 3000);
+      }
+      $('#loading').hide();
+      $('a#TextButton').show();
     };
 
     /* running on IE? */
