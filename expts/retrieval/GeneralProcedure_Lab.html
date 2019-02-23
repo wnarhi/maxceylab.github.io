@@ -78,11 +78,12 @@
   <!-- Display Object HTML -->
   <div id="showTrial">
     <div id="fixation">+</div>
-    <canvas id="ringItemA" width=600 height=600 style="position: absolute;"></canvas>
     <div id="allItems">
       <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
     </div>
+    <canvas id="ringItemA" width=600 height=600 style="position: absolute;"></canvas>
+    <div id="pointer"></div>
     <br><br>
     <center>
       <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
@@ -115,8 +116,8 @@
     const numStudy = 72; // 72;
     const numPractice = 72; // 72;
     const numTest = 144; // 144;
-    const displayTime = 1000; //5000 ms
-    const itiTime = 500; // 500 ms
+    const displayTime = 200; //5000 ms
+    const itiTime = 50; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -236,6 +237,7 @@
         } else {
           $('#instructions').hide();
           $('#showTrial').show();
+          $('#pointer').hide();
           $('#ringItemA').hide();
           NextStudyTrial();
         }
@@ -331,6 +333,8 @@
 
     /* Practice Phase Start */
     function NextPracTrial() {
+      $(document).unbind('mousemove.curTrial');
+      $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
@@ -391,17 +395,17 @@
     }
 
     function PracTrialContinuous() {
-      ringctxA.restore();
-      ringctxA.drawImage(ringImg, 50, 50, 500, 500);
-      ringctxA.save();
-      if (!(curPractice == 0)) { //dont clear ring if its first time ever presented, otherwise first practice trial has no ring
-          ringctxA.clearRect(0, 0, 600, 600);
+      $('#ringItemA').show();
+      $('#CDitem').hide();
+      $('#Old').hide();
+      $('#New').hide();
+
+      ringImg.onload = function() {
+        ringctxA.drawImage(ringImg, 50, 50, 500, 500);
       }
+
       mouseInit = mouseX;
       mouseMoved = 0;
-      $('#ringItemA').show();
-
-      // Show continuous report
       angleDeg = 0;
       curError = 360;
       startTimeC = new Date();
@@ -430,38 +434,16 @@
             'left': centerX + Math.cos(curAngle) * ringSize - 9,
             'top': centerY + Math.sin(curAngle) * ringSize - 9
         });
+        $('#pointer').show();
         // curError = Math.abs(wrap([imgNum - trialStruct.itemT_col]));
         // if (curError > 180) {
         //     curError = Math.abs(360 - curError);
         // }
-        if (e.isFakeTrigger) { // this code only executes once before anything else happens, e.g. otherwise randrotate would be next trial's randrotate
-            flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
-            ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-            ringctxA.rotate(randrotate * Math.PI / 180);
-            ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-            ringImg.onload = function() {
-                ringctxA.drawImage(ringImg, 50, 50, 500, 500);
-            }
-            ctxA.onload = function() {
-                start(ctxA,'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA); //set starting color as grayscale
-            }
-            start(ctxA,'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
-        }
-        // if ((currentFeedTrial % trialsPerBlock) == 0) { // needed special code for first item of test phase showing as grayscale, no idea why
-        //     if (tempVar) {
-        //         setTimeout(function() {
-        //             ctxA.onload = function() {
-        //                 start(ctxA,'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA); //set starting color as grayscale
-        //             }
-        //             start(ctxA,'gray', 200, 200, imgWidth, imgHeight, flip, imgA, itemA);
-        //         }, 150);
-        //       tempVar = false;
-        //     }
-        // }
       });
       $(document).bind('mouseup.curTrial', function(e) {
-          flip = Math.round(Math.random());
-          randrotate = Math.floor(Math.random() * 360);
+          $('#ringItemA').hide();
+          $('#pointer').hide();
+          curPractice++;
           NextPracTrial();
           return;
       });
@@ -470,6 +452,7 @@
     /* Display Object & Old/New Judgment */
     function OldNewJudgment() {
       startTrial = new Date().getTime();
+      $('#CDitem').show();
       $('#Old').show();
       $('#New').show();
       $('#allItems').css('margin-top', 0);
@@ -713,7 +696,13 @@
           PracticeAcc.push(0);
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
-        curPractice++;
+        flip = Math.round(Math.random());
+        randrotate = Math.floor(Math.random() * 360);
+        flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
+        ringctxA.clearRect(0, 0, 600, 600);
+        ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+        ringctxA.rotate(randrotate * Math.PI / 180);
+        ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
         PracTrialContinuous();
         // NextPracTrial();
       }

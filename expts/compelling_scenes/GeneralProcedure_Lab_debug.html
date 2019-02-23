@@ -762,17 +762,8 @@
         var totImages = 0;
         var readyLoad = 0;
         while (readyLoad == 0) {
-          for (let k = 0; k < AllImages.length; k++) {
-            if ($('#Obj' + AllImages[k])[0] != null) {
-              if ($('#Obj' + AllImages[k])[0].complete) {
-                totImages++;
-              }
-            }
-          }
-          if (totImages >= AllImages.length) {
-            readyLoad = 1;
-          } else {
-            totImages = 0;
+          $('img.mustLoad').on('load',function(){
+              readyLoad = 1;
           }
         }
         $('#loading').hide();
