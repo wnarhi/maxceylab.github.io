@@ -758,20 +758,20 @@
 
     /*check all images are loaded before starting*/
     function ImagesReady() {
-      var totImages = 0;
-      var readyLoad = 0;
-      while (readyLoad == 0) {
-        $("img").on("load", function() {
-          totImages++;
-        }
-        if (totImages >= $("img").length) {
-          readyLoad = 1;
-        }
-      } else {
-        $('#loading').hide();
-        $('a#TextButton').show();
+      for (var i = 0; i < AllImages.length; i++) {
+          if (!$('#Obj' + AllImages[i])[0].complete) {
+              var percentage = i * 100.0 / (AllImages.length);
+              percentage = percentage.toFixed(0).toString() + ' %';
+
+              document.getElementById("loading").innerHTML =
+                'Loading images ... ' + percentage + '<br>If not updating, please refresh page.';
+              setTimeout('ImagesReady()', 20);
+              return;
+          }
       }
-    }
+      $('#loading').hide();
+      $('a#TextButton').show();
+    };
 
     /* running on IE? */
     function isIE() {
