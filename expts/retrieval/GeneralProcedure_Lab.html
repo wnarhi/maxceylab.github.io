@@ -113,11 +113,11 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 72; // 72;
-    const numPractice = 72; // 72;
+    const numStudy = 2; // 72;
+    const numPractice = 2; // 72;
     const numTest = 144; // 144;
-    const displayTime = 200; //5000 ms
-    const itiTime = 50; // 500 ms
+    const displayTime = 100; //5000 ms
+    const itiTime = 500; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -338,25 +338,25 @@
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
-        start(ctxA, RpPlusC[arrayContains(RpPlusPrac[RpPlusCnt],RpPlus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + RpPlusPrac[RpPlusCnt])[0].src;
+        start(ctxA, RpPlusC[arrayContains(RpPlusPrac[RpPlusCnt],RpPlus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (RpPlusCnt <= RpPlus.length*2) {
           RpPlusCnt++;
         }
       } else if (PracTrialType[curPractice] == 3) { //PracLure
-        start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + PracLures[PracLuresCnt])[0].src;
+        start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (PracLuresCnt <= PracLures.length) {
           PracLuresCnt++;
         }
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
-        start(ctxA, RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         imgA.src = $('#Obj' + RpPlusPracR[RpPlusRCnt])[0].src;
         if (RpPlusRCnt <= RpPlus.length*2) {
           RpPlusRCnt++;
         }
       } else if (PracTrialType[curPractice] == 13) { //PracLureR
-        start(ctxA, PracLuresRC[PracLuresRCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        // PracLuresRC[PracLuresRCnt]
         imgA.src = $('#Obj' + PracLuresR[PracLuresRCnt])[0].src;
         if (PracLuresRCnt <= PracLures.length) {
           PracLuresRCnt++;
@@ -364,7 +364,7 @@
       }
 
       setTimeout(function() {
-        if (curPractice >= numPractice) { // if end of study
+        if (curPractice >= numPractice) { // if end of practice
           curPractice++;
 
           now = new Date().getTime();
@@ -390,11 +390,14 @@
             }
           }
         }
+        if (PracTrialType[curPractice] > 9) {
+          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        }
         OldNewJudgment();
       }, itiTime);
     }
 
-    function PracTrialContinuous() {
+    function Continuous() {
       $('#ringItemA').show();
       $('#CDitem').hide();
       $('#Old').hide();
@@ -423,7 +426,6 @@
                     startingColor = imgNum;
                     mouseMoved = 1;
                     start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
-                    mouseMoved = 1;
                 }, 400);
             }
         } else {
@@ -435,17 +437,20 @@
             'top': centerY + Math.sin(curAngle) * ringSize - 9
         });
         $('#pointer').show();
-        // curError = Math.abs(wrap([imgNum - trialStruct.itemT_col]));
-        // if (curError > 180) {
-        //     curError = Math.abs(360 - curError);
-        // }
       });
       $(document).bind('mouseup.curTrial', function(e) {
+        if (new Date() - startTimeC > 750) {
           $('#ringItemA').hide();
           $('#pointer').hide();
-          curPractice++;
-          NextPracTrial();
+          if (curPractice > numPractice) { // if test phase
+            curTest++;
+            NextTestTrial();
+          } else { // if practice phase
+            curPractice++;
+            NextPracTrial();
+          }
           return;
+        };
       });
     }
 
@@ -461,6 +466,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
+      $('#CDitem').show();
       if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
@@ -472,13 +478,23 @@
 
         RpPlus_StudyOrder = RpPlus;
         RpPlusCnt = 0; //reset counter for RpPlus
-        let RpPlusT = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
+        RpPlusT = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
         RpMinus_StudyOrder = RpMinus;
         RpMinusCnt = 0;
-        let RpMinusT = chance1.shuffle(RpMinus);
+        RpMinusT = chance1.shuffle(RpMinus);
         Nrp_StudyOrder = Nrp;
         NrpCnt = 0;
-        let NrpT = chance1.shuffle(Nrp);
+        NrpT = chance1.shuffle(Nrp);
+
+        RpPlusR_StudyOrder = RpPlusR;
+        RpPlusRCnt = 0; //reset counter for RpPlus
+        RpPlusRT = chance1.shuffle(RpPlusR); //reshuffle ordering of RpPlus
+        RpMinusR_StudyOrder = RpMinusR;
+        RpMinusRCnt = 0;
+        RpMinusRT = chance1.shuffle(RpMinusR);
+        NrpR_StudyOrder = NrpR;
+        NrpRCnt = 0;
+        NrpRT = chance1.shuffle(NrpR);
 
         // open pop-up:
         modalClosed = false;
@@ -579,38 +595,64 @@
 
     /* Test Phase Start */
     function NextTestTrial() {
+      $(document).unbind('mousemove.curTrial');
+      $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
-
       // Preload the image of next trial
       if (TestTrialType[curTest] == 0) { //RpPlus
-        start(ctxA, RpPlusC[arrayContains(RpPlusT[RpPlusCnt],RpPlus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + RpPlusT[RpPlusCnt])[0].src;
+        start(ctxA, RpPlusC[arrayContains(RpPlusT[RpPlusCnt],RpPlus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (RpPlusCnt <= RpPlus.length) {
           RpPlusCnt++;
         }
       } else if (TestTrialType[curTest] == 1) { //RpMinus
-        start(ctxA, RpMinusC[arrayContains(RpMinusT[RpMinusCnt],RpMinus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + RpMinusT[RpMinusCnt])[0].src;
+        start(ctxA, RpMinusC[arrayContains(RpMinusT[RpMinusCnt],RpMinus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (RpMinusCnt <= RpMinus.length) {
           RpMinusCnt++;
         }
       } else if (TestTrialType[curTest] == 2) { //Nrp
-        start(ctxA, NrpC[arrayContains(NrpT[NrpCnt],Nrp)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + NrpT[NrpCnt])[0].src;
+        start(ctxA, NrpC[arrayContains(NrpT[NrpCnt],Nrp)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (NrpCnt <= Nrp.length) {
           NrpCnt++;
         }
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
-        start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + RpTestLures[RpTestLuresCnt])[0].src;
+        start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (RpTestLuresCnt <= RpTestLures.length) {
           RpTestLuresCnt++;
         }
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
-        start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         imgA.src = $('#Obj' + NrpTestLures[NrpTestLuresCnt])[0].src;
+        start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
+        }
+      } else if (TestTrialType[curTest] == 10) { //RpPlusR
+        imgA.src = $('#Obj' + RpPlusRT[RpPlusRCnt])[0].src;
+        if (RpPlusRCnt <= RpPlus.length) {
+          RpPlusRCnt++;
+        }
+      } else if (TestTrialType[curTest] == 11) { //RpMinusR
+        imgA.src = $('#Obj' + RpMinusRT[RpMinusRCnt])[0].src;
+        if (RpMinusRCnt <= RpMinus.length) {
+          RpMinusRCnt++;
+        }
+      } else if (TestTrialType[curTest] == 12) { //NrpR
+        imgA.src = $('#Obj' + NrpRT[NrpRCnt])[0].src;
+        if (NrpRCnt <= Nrp.length) {
+          NrpRCnt++;
+        }
+      } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
+        imgA.src = $('#Obj' + RpTestLuresR[RpTestLuresRCnt])[0].src;
+        if (RpTestLuresRCnt <= RpTestLures.length) {
+          RpTestLuresRCnt++;
+        }
+      } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
+        imgA.src = $('#Obj' + NrpTestLuresR[NrpTestLuresRCnt])[0].src;
+        if (NrpTestLuresRCnt <= NrpTestLures.length) {
+          NrpTestLuresRCnt++;
         }
       }
 
@@ -636,6 +678,9 @@
             }
           }
         }
+        if (TestTrialType[curTest] > 9) {
+          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        }
         OldNewJudgment();
       }, itiTime);
     }
@@ -653,20 +698,62 @@
           TestAcc.push(1);
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 10) { //RpPlusR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 11) { //RpMinusR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 12) { //NrpR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
+          TestAcc.push(1);
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
-        curTest++;
-        NextTestTrial();
+
+        if (TestTrialType[curTest] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curTest++;
+          NextTestTrial();
+        }
       } else { // if practice phase
         PracticeResp.push(1);
         if (PracTrialType[curPractice] == 0) { //RpPlus
           PracticeAcc.push(0);
         } else if (PracTrialType[curPractice] == 3) { //PracLure
           PracticeAcc.push(1);
+        } else if (PracTrialType[curPractice] == 10) { //RpPlusR
+          PracticeAcc.push(0);
+        } else if (PracTrialType[curPractice] == 13) { //PracLureR
+          PracticeAcc.push(1);
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
-        curPractice++;
-        NextPracTrial();
+
+        if (PracTrialType[curPractice] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curPractice++;
+          NextPracTrial();
+        }
       }
     }
 
@@ -683,28 +770,62 @@
           TestAcc.push(0);
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 10) { //RpPlusR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 11) { //RpMinusR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 12) { //NrpR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
+          TestAcc.push(0);
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
-        curTest++;
-        TestTrialContinuous();
-        // NextTestTrial();
+
+        if (TestTrialType[curTest] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curTest++;
+          NextTestTrial();
+        }
       } else { // if practice phase
         PracticeResp.push(0);
         if (PracTrialType[curPractice] == 0) { //RpPlus
           PracticeAcc.push(1);
         } else if (PracTrialType[curPractice] == 3) { //PracLure
           PracticeAcc.push(0);
+        } else if (PracTrialType[curPractice] == 10) { //RpPlusR
+          PracticeAcc.push(1);
+        } else if (PracTrialType[curPractice] == 13) { //PracLureR
+          PracticeAcc.push(0);
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
-        flip = Math.round(Math.random());
-        randrotate = Math.floor(Math.random() * 360);
-        flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
-        ringctxA.clearRect(0, 0, 600, 600);
-        ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-        ringctxA.rotate(randrotate * Math.PI / 180);
-        ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-        PracTrialContinuous();
-        // NextPracTrial();
+
+        if (PracTrialType[curPractice] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curPractice++;
+          NextPracTrial();
+        }
       }
     }
 
@@ -852,23 +973,23 @@
         context.putImageData(imgData, initX, initY);
     }
 
-    function wrapDiff(input, comparison) { // deg difference in color space
-        if (input < comparison) {
-            a = input;
-            b = comparison
-        } else {
-            a = comparison;
-            b = input
-        }
-        degree = Math.abs(a - b);
-        if (degree > 180) {
-            degree = Math.abs(a - (b - 360))
-        }
-        if (degree < -180) {
-            degree = Math.abs(a - (b + 360))
-        }
-        return wrap(degree);
-    }
+    // function wrapDiff(input, comparison) { // deg difference in color space
+    //     if (input < comparison) {
+    //         a = input;
+    //         b = comparison
+    //     } else {
+    //         a = comparison;
+    //         b = input
+    //     }
+    //     degree = Math.abs(a - b);
+    //     if (degree > 180) {
+    //         degree = Math.abs(a - (b - 360))
+    //     }
+    //     if (degree < -180) {
+    //         degree = Math.abs(a - (b + 360))
+    //     }
+    //     return wrap(degree);
+    // }
 
     function arrayContains(needle, arrhaystack) {
       return arrhaystack.indexOf(needle);
