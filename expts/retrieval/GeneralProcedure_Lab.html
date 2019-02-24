@@ -106,7 +106,7 @@
 
         <p>If you are unsure of the original color, move your mouse around and click what feels right. Please be as precise as possible in selecting what you think is the object's original color.</p>
 
-        <p><b>Even if you select "New", you will still need to select a color.</b> This means that you will sometimes be asked to select the color of an object you have never seen before! When this happens, just make a guess on the color wheel to continue.</p>
+        <p><b>Even if you select "New", you will still need to select a color.</b> This means that you will sometimes be asked to select the color of an object you have never seen before! When this happens, just make a random selection on the color wheel to continue.</p>
 
         <hr>
 
@@ -179,8 +179,8 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 2; // 72;
-    const numPractice = 2; // 72;
+    const numStudy = 72; // 72;
+    const numPractice = 72; // 72;
     const numTest = 144; // 144;
     const displayTime = 5000; //5000 ms
     const itiTime = 500; // 500 ms
@@ -437,6 +437,12 @@
       }
 
       setTimeout(function() {
+        if (PracTrialType[curPractice] > 9) {
+          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        }
+      }, itiTime/2);
+
+      setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
           curPractice++;
 
@@ -463,9 +469,6 @@
             }
           }
         }
-        if (PracTrialType[curPractice] > 9) {
-          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
-        }
         OldNewJudgment();
       }, itiTime);
     }
@@ -481,6 +484,7 @@
       }
 
       mouseInit = mouseX;
+      imgNum = -999;
       mouseMoved = 0;
       angleDeg = 0;
       curError = 360;
@@ -576,7 +580,7 @@
         // open pop-up:
         modalClosed = false;
         document.getElementById("openModal_text").innerHTML =
-          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see images one at a time and be asked if you have seen the exact same image before. If so, press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button.';
+          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see objects one at a time and be asked if you have seen the object before. If so, press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button.';
         window.location.href = '#openModal';
         checkFlag6();
 
@@ -733,6 +737,12 @@
         }
       }
 
+      setTimeout(function() {
+        if (TestTrialType[curTest] > 9) {
+          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        }
+      }, itiTime/2);
+
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
           $('#itemA').hide(); // hide object from last trial
@@ -754,9 +764,6 @@
               return; // need return; otherwise function below executes
             }
           }
-        }
-        if (TestTrialType[curTest] > 9) {
-          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
         }
         OldNewJudgment();
       }, itiTime);
