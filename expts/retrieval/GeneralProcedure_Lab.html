@@ -33,26 +33,41 @@
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
-        (1 of 2)</a></p>
+    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 4)</a></p>
   </div>
 
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
     <center><b>
-        <p>You will be presented with 90 objects, one at a time, each presented for 5 seconds.</p>
-        <p>Study the visual details of these objects for a later memory test.</p><br>
+        <p>You will be presented with 72 objects, one at a time, each presented for 5 seconds.</p>
+        <p>For example:</p><br>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink1.png" width="200px"></p>
 
-        <p>Memory for objects will need to be as detailed as "white grand piano", for example, simply memorizing "piano" for the above image would not be helpful during testing.</p>
-        <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
+        <p>Study the color and identity of each object for a later memory test.
+        <br>Every object will have a color associated with it that you will later be tested on.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
-    <center>
-      <p id=loading>Images loading... Please wait a minute or refresh the page.</p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();$('#instructions3').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (2 of 4)</a></p>
   </div>
+
+  <!-- Instructions page3 -->
+  <div id="instructions3" style="display:none">
+    <center><b>
+        <p>Studied objected will often be similar to each other. For instance, you may encounter several different colored cookie jars.</p>
+
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink2.png" width="200px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink3.png" width="200px"></p>
+
+        <p>It is therefore not sufficient to remember "green cookie jar". Your memory will need to be as specific as "green Garfield cookie jar".</p>
+        <p>After you have studied all the objects, we will test your memory.</p>
+      </b></center>
+    <br>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions3').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
+    <center><p id=loading>Images loading... Please wait a minute or refresh the page.</p></center>
+  </div>
+
+  <!-- $('a#TextButton').hide();ImagesReady(); -->
 
   <!-- Modal Pop-up Box -->
   <div id="openModal" class="modalDialog">
@@ -116,7 +131,7 @@
     const numStudy = 2; // 72;
     const numPractice = 2; // 72;
     const numTest = 144; // 144;
-    const displayTime = 100; //5000 ms
+    const displayTime = 5000; //5000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -146,10 +161,17 @@
     let PracticeResp = [];
     let PracticeAcc = [];
     let PracticeRT = [];
+    let PracticeColRT = [];
+    let PracticeColResp = [];
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let TestColRT = [];
+    let TestColResp = [];
     let flip = 0;
+    let flipList = [];
+    let randrotate = 0;
+    let randrotateList = [];
     const origColors = _.clone(colors); // clone is required to copy a variable without it accidentally referencing the same thing
     let flippedColors = _.clone(colors).reverse();
     flippedColors = flippedColors.concat(flippedColors.splice(0, 180)); // shift array 180
@@ -162,7 +184,6 @@
     const ringSize = 242;
     const centerX = 300;
     const centerY = 300;
-    let randrotate = 0;
 
     /* Setup reused image and color ring variables */
     let imgA = new Image();
@@ -443,9 +464,13 @@
           $('#ringItemA').hide();
           $('#pointer').hide();
           if (curPractice > numPractice) { // if test phase
+            TestColRT.push(new Date() - startTimeC);
+            TestColResp.push(imgNum);
             curTest++;
             NextTestTrial();
           } else { // if practice phase
+            PracticeColRT.push(new Date() - startTimeC);
+            PracticeColResp.push(imgNum);
             curPractice++;
             NextPracTrial();
           }
@@ -713,7 +738,9 @@
 
         if (TestTrialType[curTest] > 9) { // if continuous report trial
           flip = Math.round(Math.random());
+          flipList.push(flip);
           randrotate = Math.floor(Math.random() * 360);
+          randrotateList.push(randrotate);
           flip == 0 ? ringImg.src = $('#ring')[0].src : ringImg.src = $('#ringFlip')[0].src;
           ringctxA.clearRect(0, 0, 600, 600);
           ringctxA.restore();
@@ -865,15 +892,25 @@
         "PracticeResp": PracticeResp,
         "PracticeAcc": PracticeAcc,
         "PracticeRT": PracticeRT,
+        "PracticeColRT": PracticeColRT,
+        "PracticeColResp": PracticeColResp,
         "TestResp": TestResp,
         "TestAcc": TestAcc,
         "TestRT": TestRT,
+        "TestColRT": TestColRT,
+        "TestColResp": TestColResp,
         "RpPlusCnt": RpPlusCnt,
         "RpMinusCnt": RpMinusCnt,
         "NrpCnt": NrpCnt,
         "PracLuresCnt": PracLuresCnt,
         "RpTestLuresCnt": RpTestLuresCnt,
         "NrpTestLuresCnt": NrpTestLuresCnt,
+        "RpPlusRCnt": RpPlusRCnt,
+        "RpMinusRCnt": RpMinusRCnt,
+        "NrpRCnt": NrpRCnt,
+        "PracLuresRCnt": PracLuresRCnt,
+        "RpTestLuresRCnt": RpTestLuresRCnt,
+        "NrpTestLuresRCnt": NrpTestLuresRCnt,
         "CDaccuracy": CDaccuracy,
         "RpCats": RpCats,
         "NrpCats": NrpCats,
@@ -883,20 +920,52 @@
         "RpTestLuresExem": RpTestLuresExem,
         "NrpExem": NrpExem,
         "NrpTestLuresExem": NrpTestLuresExem,
+        "RpCatsR": RpCatsR,
+        "NrpCatsR": NrpCatsR,
+        "RpPlusRExem": RpPlusRExem,
+        "RpMinusRExem": RpMinusRExem,
+        "PracLuresRExem": PracLuresRExem,
+        "RpTestLuresRExem": RpTestLuresRExem,
+        "NrpRExem": NrpRExem,
+        "NrpTestLuresRExem": NrpTestLuresRExem,
+        "RpPlusC": RpPlusC,
+        "RpMinusC": RpMinusC,
+        "NrpC": NrpC,
+        "PracLuresC": PracLuresC,
+        "RpTestLuresC": RpTestLuresC,
+        "NrpTestLuresC": NrpTestLuresC,
+        "RpPlusRC": RpPlusRC,
+        "RpMinusRC": RpMinusRC,
+        "NrpRC": NrpRC,
+        "PracLuresRC": PracLuresRC,
+        "RpTestLuresRC": RpTestLuresRC,
+        "NrpTestLuresRC": NrpTestLuresRC,
         "RpPlus": RpPlusT,
         "RpMinus": RpMinusT,
         "Nrp": NrpT,
+        "RpPlusR": RpPlusRT,
+        "RpMinusR": RpMinusRT,
+        "NrpR": NrpRT,
         "PracLures": PracLures,
         "RpTestLures": RpTestLures,
         "NrpTestLures": NrpTestLures,
+        "PracLuresR": PracLuresR,
+        "RpTestLuresR": RpTestLuresR,
+        "NrpTestLuresR": NrpTestLuresR,
         "RpPlus_StudyOrder": RpPlus_StudyOrder,
         "RpMinus_StudyOrder": RpMinus_StudyOrder,
         "Nrp_StudyOrder": Nrp_StudyOrder,
+        "RpPlusR_StudyOrder": RpPlusR_StudyOrder,
+        "RpMinusR_StudyOrder": RpMinusR_StudyOrder,
+        "NrpR_StudyOrder": NrpR_StudyOrder,
         "RpPlus_PracticeOrder": RpPlusPrac,
+        "RpPlus_PracticeOrder": RpPlusPracR,
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
+        "randrotate": randrotateList,
+        "flip": flipList,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
