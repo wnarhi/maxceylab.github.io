@@ -29,51 +29,48 @@
 <body>
   <!-- Instructions page1 -->
   <div id="instructions">
-    <center><b>
+    <center>
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
-      </b></center>
-    <br>
+      </center>
     <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 5)</a></p>
   </div>
 
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
-    <center><b>
+    <center>
         <p>You will be presented with 72 objects, one at a time, each presented for 5 seconds.</p>
-        <p>For example:</p><br>
+        <p>For example:</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink1.png" width="600px"></p>
 
         <p>Study the color and identity of each object for a later memory test.
         <br>Every object will have a color associated with it that you will later be tested on.</p>
-      </b></center>
-    <br>
+      </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();$('#instructions3').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (2 of 5)</a></p>
   </div>
 
   <!-- Instructions page3 -->
   <div id="instructions3" style="display:none">
-    <center><b>
-        <p>Studied objected will often be similar to each other. For instance, you may encounter several different colored cookie jars.</p>
+    <center>
+        <p>Studied objects will often be similar to each other. For instance, you may encounter several different types of cookie jars.</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink2.png" width="600px"></p>
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink3.png" width="600px"></p>
 
-        <p>It is therefore not sufficient to remember "purple cookie jar". Your memory will need to be as specific as "purple Garfield cookie jar".</p>
+        <p>It is therefore not sufficient to remember "purple cookie jar". Your memory will need to be as precise as "purple Garfield cookie jar".</p>
         <p>After you have studied all the objects, we will test your memory.</p>
-      </b></center>
-    <br>
+      </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions3').hide();$('#instructions4').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (3 of 5)</a></p>
   </div>
 
   <!-- Instructions page4 -->
   <div id="instructions4" style="display:none">
-    <center><b>
+    <center>
         <p>There are two possible ways we may test your memory.</p>
 
         <p><h2>1. Recognition Test:</h2></p>
 
-        <p>In <i>Recognition</i> trials, a colored object is presented with two buttons beneath, "Old" and "New". For example:</p>
+        <p>In <i>Recognition</i> test trials, a colored object is presented with two buttons beneath, "Old" and "New". For example:</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink7.png" width="600px"></p>
 
@@ -85,34 +82,38 @@
 
         <p>Since you have not seen the above cookie jar before, you'd click the "New" button.</p>
 
-        <p><b>We will never trick you by presenting an object you have seen before in the incorrect color.</b> E.g., we would never present a yellow Garfield cookie jar.</p>
-      </b></center>
-    <br>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions3').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').hide();ImagesReady();" id="TextButton">Next (4 of 5)</a></p>
+        <p><b>We will never trick you by presenting a previously seen object in the incorrect color.</b> E.g., we would never present a yellow Garfield cookie jar.</p>
+      </center>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();$('#instructions5').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').hide();ImagesReady();" id="TextButton">Next (4 of 5)</a></p>
   </div>
 
-  <!-- Instructions page4 -->
-  <div id="instructions4" style="display:none">
-    <center><b>
+  <!-- Instructions page5 -->
+  <div id="instructions5" style="display:none">
+    <center>
         <p><h2>2. Color Test:</h2></p>
 
         In <i>Color</i> test trials, an object is presented in <u>grayscale</u> with two buttons beneath, "Old" and "New". For example:
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink4.png" width="600px"></p>
 
-        <p>Just like the <i>Recognition</i> trials, if you have seen the object before, click the "Old" button. Otherwise, click the "New" button.</p>
+        <p>Just like the <i>Recognition</i> test trials, if you have seen the object before, click the "Old" button. Otherwise, click the "New" button.</p>
 
-        <p>After clicking one of the buttons, a color wheel is presented. Move your mouse around the color wheel to change the color of the displayed object. Find the original color of the object and then click using your mouse to confirm your choice.</p>
+        <p>In this case, since you have seen the above object before, you would click the "Old" button (even though it is not presented in its original color).</p>
+
+        <p>After clicking one of the buttons, a color wheel will be presented. Move your mouse around the color wheel to change the color of the displayed object. Find the original color of the object and then click using your mouse to confirm your selection.</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink5.png" width="600px"></p>
 
-        <p>If you are unsure of the original color, move your mouse around and click what feels right.</p>
+        <p>If you are unsure of the original color, move your mouse around and click what feels right. Please be as precise as possible in selecting what you think is the object's original color.</p>
 
-        <p>Even if you select "New" you will still need to select a color. That means that sometimes you will be asked to select the color of an object you have never seen before! In that case, just make a guess on the color wheel to continue.</p>
+        <p><b>Even if you select "New", you will still need to select a color.</b> This means that you will sometimes be asked to select the color of an object you have never seen before! When this happens, just make a guess on the color wheel to continue.</p>
 
-        <p>Ready to start? Again, please set aside approximately 45 minutes to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 45 minutes! You will start by studying a series of 72 objects.</p>
-      </b></center>
-    <br>
+        <hr>
+
+        <p>Ready to start? You will begin by studying a series of 72 colored objects.</p>
+
+        <p><i>Please set aside approximately 45 minutes to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 45 minutes!</i></p>
+      </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
     <center><p id=loading>Images loading... Please wait a minute or refresh the page.</p></center>
   </div>
@@ -288,6 +289,10 @@
 
       subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
+      $('#instructions5').hide();
+      $('#pointer').hide();
+      $('#ringItemA').hide();
+
       // // save a file letting me know that someone made it this far
       // const blobx = new Blob([JSON.stringify(chance1.seed)], {
       //   type: "application/json"
@@ -306,10 +311,7 @@
         if (modalClosed == false) {
           window.setTimeout(checkFlag1, 100); /* this checks the flag every 100 milliseconds*/
         } else {
-          $('#instructions').hide();
           $('#showTrial').show();
-          $('#pointer').hide();
-          $('#ringItemA').hide();
           NextStudyTrial();
         }
       }
