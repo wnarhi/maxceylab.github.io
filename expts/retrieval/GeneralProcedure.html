@@ -1033,7 +1033,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_Lab/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_PSYC4510/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
