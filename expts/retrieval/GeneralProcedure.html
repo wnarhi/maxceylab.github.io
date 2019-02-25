@@ -27,8 +27,21 @@
 </head>
 
 <body>
+  <!-- Consent statement -->
+  <div id="consentDiv">
+    <h1>The Ohio State University</h1>
+    <p>Dear participants,</p>
+
+    <p>Thank you for taking the time to look into this experiment. Before we begin, we want to inform you of a few things. The Institutional Review Board (IRB) is the board who oversees all experimentation ensuring that subjects rights are protected. Because we are not publishing the results of this experiment, or using presenting them outside of a classroom environment, the experiment in which you are about to participate is not beholden to IRB approval. While we are interested in the results, this experiment is meant to teach us about the research process as a whole. Not being under IRB approval does not mean you have no rights. All information collected is confidential and anonymous. Also, this is a noninvasive experiment where you will be asked simple questions regarding a series of images. Participation is completely voluntary (we are not gluing you to your computer and forcing you to complete it). At any time, you can stop the experiment and leave without any penalty.</p>
+
+    <p>We hope you continue the experiment. Thank you for your time!</p>
+    <br><br>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').show()" id="TextButton" style="display: inline;">I
+        understand and agree to participate in this study</a></p>
+  </div>
+
   <!-- Instructions page1 -->
-  <div id="instructions">
+  <div id="instructions"  style="display:none">
     <center>
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </center>
@@ -285,9 +298,9 @@
         sex = 'na';
       }
 
-      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
+      // initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
-      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+      // subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
       $('#instructions5').hide();
       $('#pointer').hide();
@@ -303,7 +316,7 @@
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
+        'Your subject ID is: ' + chance1.seed + '<br><br>Hold on to this ID in case you ever need the experimenter to look up your data, or in case technical difficulties arise. Note that your work is only saved at the end of the experiment. <br><br> Experiment will now begin. Good luck!';
       window.location.href = '#openModal';
       checkFlag1();
 
@@ -943,7 +956,7 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": subjID,
+        "ID": chance1.seed,
         "age": age,
         "sex": sex,
         "StartTime": startDate.getTime(),
@@ -1025,7 +1038,7 @@
         "AllImages": AllImages,
         "randrotate": randrotateList,
         "flip": flipList,
-        "seed": chance1.seed,
+        "date": Date_info,
         "comments": $('#comments').val()
       };
 
@@ -1033,14 +1046,14 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_PSYC4510/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_PSYC4510/' + chance1.seed + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
 
         // close full screen if still full-screened
         if (document.cancelFullScreen) {
