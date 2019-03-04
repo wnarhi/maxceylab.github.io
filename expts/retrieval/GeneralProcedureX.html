@@ -192,9 +192,9 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 72; // 72;
-    const numPractice = 72; // 72;
-    const numTest = 144; // 144;
+    const numStudy = 2; // 72;
+    const numPractice = 2; // 72;
+    const numTest = 4; // 144;
     const displayTime = 5000; //5000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
@@ -561,7 +561,7 @@
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
       $('#CDitem').show();
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 30)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
@@ -1040,7 +1040,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_PSYC4510/' + chance1.seed + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_test/' + chance1.seed + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
