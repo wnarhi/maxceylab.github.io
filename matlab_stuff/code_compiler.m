@@ -1,11 +1,12 @@
 clc; clear;
-cwd = '/Users/scotti.5/Documents/GitHub/maxceylab.github.io/stimuli/pinkobjects';
-imagefiles = dir(fullfile(cwd, ('Obj*.png')));
+% cwd = '/Users/scotti.5/Documents/GitHub/maxceylab.github.io/stimuli/pinkobjects';
+cwd = '/Users/scotti.5/Downloads/BigSmallObjects';
+imagefiles = dir(fullfile(cwd, ('big*.png')));
 nfiles = length(imagefiles);    % Number of files found
 
 % cd output
 
-preset = ['<img id="IDN" src="https://maxceylab.github.io/stimuli/pinkobjects/Object.png" style="margin-left:-1000px;margin-top:-2000px">'];
+preset = ['<img id="IDN" src="https://paulscotti.github.io/mturk/sizestim/Object.png" style="margin-left:-1000px;margin-top:-2000px">'];
 code = [];
 for i = 1:nfiles
     presetNew = strrep(preset,'Object.png',[imagefiles(i).name]);
