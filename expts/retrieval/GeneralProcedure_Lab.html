@@ -214,11 +214,13 @@
     let PracticeRT = [];
     let PracticeColRT = [];
     let PracticeColResp = [];
+    let PracColOriginal = [];
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
     let TestColRT = [];
     let TestColResp = [];
+    let TestColOriginal = [];
     let flip = 0;
     let flipList = [];
     let randrotate = 0;
@@ -413,23 +415,27 @@
       if (PracTrialType[curPractice] == 0) { //RpPlus
         imgA.src = $('#Obj' + RpPlusPrac[RpPlusCnt])[0].src;
         start(ctxA, RpPlusC[arrayContains(RpPlusPrac[RpPlusCnt],RpPlus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        PracColOriginal.push(RpPlusC[arrayContains(RpPlusPrac[RpPlusCnt],RpPlus)]);
         if (RpPlusCnt <= RpPlus.length*2) {
           RpPlusCnt++;
         }
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         imgA.src = $('#Obj' + PracLures[PracLuresCnt])[0].src;
         start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        PracColOriginal.push(PracLuresC[PracLuresCnt]);
         if (PracLuresCnt <= PracLures.length) {
           PracLuresCnt++;
         }
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
         // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
+        PracColOriginal.push(RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]);
         imgA.src = $('#Obj' + RpPlusPracR[RpPlusRCnt])[0].src;
         if (RpPlusRCnt <= RpPlus.length*2) {
           RpPlusRCnt++;
         }
       } else if (PracTrialType[curPractice] == 13) { //PracLureR
         // PracLuresRC[PracLuresRCnt]
+        PracColOriginal.push(PracLuresRC[PracLuresRCnt]);
         imgA.src = $('#Obj' + PracLuresR[PracLuresRCnt])[0].src;
         if (PracLuresRCnt <= PracLures.length) {
           PracLuresRCnt++;
@@ -687,55 +693,65 @@
       if (TestTrialType[curTest] == 0) { //RpPlus
         imgA.src = $('#Obj' + RpPlusT[RpPlusCnt])[0].src;
         start(ctxA, RpPlusC[arrayContains(RpPlusT[RpPlusCnt],RpPlus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        TestColOriginal.push(RpPlusC[arrayContains(RpPlusT[RpPlusCnt],RpPlus)]);
         if (RpPlusCnt <= RpPlus.length) {
           RpPlusCnt++;
         }
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         imgA.src = $('#Obj' + RpMinusT[RpMinusCnt])[0].src;
         start(ctxA, RpMinusC[arrayContains(RpMinusT[RpMinusCnt],RpMinus)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        TestColOriginal.push(RpMinusC[arrayContains(RpMinusT[RpMinusCnt],RpMinus)]);
         if (RpMinusCnt <= RpMinus.length) {
           RpMinusCnt++;
         }
       } else if (TestTrialType[curTest] == 2) { //Nrp
         imgA.src = $('#Obj' + NrpT[NrpCnt])[0].src;
         start(ctxA, NrpC[arrayContains(NrpT[NrpCnt],Nrp)], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        TestColOriginal.push(NrpC[arrayContains(NrpT[NrpCnt],Nrp)]);
         if (NrpCnt <= Nrp.length) {
           NrpCnt++;
         }
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         imgA.src = $('#Obj' + RpTestLures[RpTestLuresCnt])[0].src;
         start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        TestColOriginal.push(RpTestLuresC[RpTestLuresCnt]);
         if (RpTestLuresCnt <= RpTestLures.length) {
           RpTestLuresCnt++;
         }
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         imgA.src = $('#Obj' + NrpTestLures[NrpTestLuresCnt])[0].src;
         start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
+        TestColOriginal.push(NrpTestLuresC[NrpTestLuresCnt]);
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
         }
       } else if (TestTrialType[curTest] == 10) { //RpPlusR
         imgA.src = $('#Obj' + RpPlusRT[RpPlusRCnt])[0].src;
+        TestColOriginal.push(RpPlusRC[arrayContains(RpPlusRT[RpPlusRCnt],RpPlusR)]);
         if (RpPlusRCnt <= RpPlus.length) {
           RpPlusRCnt++;
         }
       } else if (TestTrialType[curTest] == 11) { //RpMinusR
         imgA.src = $('#Obj' + RpMinusRT[RpMinusRCnt])[0].src;
+        TestColOriginal.push(RpMinusRC[arrayContains(RpMinusRT[RpMinusRCnt],RpMinusR)]);
         if (RpMinusRCnt <= RpMinus.length) {
           RpMinusRCnt++;
         }
       } else if (TestTrialType[curTest] == 12) { //NrpR
         imgA.src = $('#Obj' + NrpRT[NrpRCnt])[0].src;
+        TestColOriginal.push(NrpC[arrayContains(NrpRT[NrpRCnt],NrpR)]);
         if (NrpRCnt <= Nrp.length) {
           NrpRCnt++;
         }
       } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
         imgA.src = $('#Obj' + RpTestLuresR[RpTestLuresRCnt])[0].src;
+        TestColOriginal.push(RpTestLuresRC[RpTestLuresRCnt]);
         if (RpTestLuresRCnt <= RpTestLures.length) {
           RpTestLuresRCnt++;
         }
       } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
         imgA.src = $('#Obj' + NrpTestLuresR[NrpTestLuresRCnt])[0].src;
+        TestColOriginal.push(NrpTestLuresRC[NrpTestLuresRCnt]);
         if (NrpTestLuresRCnt <= NrpTestLures.length) {
           NrpTestLuresRCnt++;
         }
