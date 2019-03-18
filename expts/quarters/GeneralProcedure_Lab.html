@@ -139,6 +139,7 @@
     let curQ = 0;
     let QTrial = 0;
     let TestTrialType = [];
+    let TestedImage = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -481,6 +482,7 @@
           TestTrialType = TestTrialType.concat(5);
         }
       }
+      TestedImage.push(curQ[QTrial]);
 
       // Preload the image of next trial; slice(-1) indexes last number in array
       if (TestTrialType.slice(-1) == 0) { //RpPlus
@@ -664,6 +666,12 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
+        "TestedImage": TestedImage,
+        "RandDispersed": RandDispersed,
+        "Q1": Q1,
+        "Q2": Q1,
+        "Q3": Q3,
+        "Q4": Q4,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };

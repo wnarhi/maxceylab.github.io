@@ -237,6 +237,7 @@
     const ringSize = 242;
     const centerX = 300;
     const centerY = 300;
+    let TestedImage = [];
 
     /* Setup reused image and color ring variables */
     let imgA = new Image();
@@ -761,6 +762,8 @@
       console.log(TestTrialType[curTest]);
       console.log(imgA.src);
 
+      TestedImage.push(imgA.src);
+
       setTimeout(function() {
         if (TestTrialType[curTest] > 9) {
           start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imgA, itemA);
@@ -1043,6 +1046,7 @@
         "AllImages": AllImages,
         "randrotate": randrotateList,
         "flip": flipList,
+        "TestedImage": TestedImage,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
