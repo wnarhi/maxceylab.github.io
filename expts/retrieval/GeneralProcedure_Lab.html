@@ -232,7 +232,6 @@
     let startingColor = -999;
     let mouseMoved = 0;
     let angleDeg = -999;
-    let curError = -999;
     const radius = 242;
     const ringSize = 242;
     const centerX = 300;
@@ -506,7 +505,6 @@
       imgNum = -999;
       mouseMoved = 0;
       angleDeg = 0;
-      curError = 360;
       startTimeC = new Date();
 
       $(document).bind('mousemove.curTrial', function(e) {
@@ -991,6 +989,7 @@
         "EndTime": endDate,
         "PracticeResp": PracticeResp,
         "PracticeAcc": PracticeAcc,
+        "PracColOriginal": PracColOriginal,
         "PracticeRT": PracticeRT,
         "PracticeColRT": PracticeColRT,
         "PracticeColResp": PracticeColResp,
@@ -999,6 +998,7 @@
         "TestRT": TestRT,
         "TestColRT": TestColRT,
         "TestColResp": TestColResp,
+        "TestColOriginal": TestColOriginal,
         "RpPlusCnt": RpPlusCnt,
         "RpMinusCnt": RpMinusCnt,
         "NrpCnt": NrpCnt,
