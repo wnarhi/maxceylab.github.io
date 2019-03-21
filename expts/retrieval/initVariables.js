@@ -6,25 +6,25 @@ let RpCats = Cats.slice(0,3); // 3 categories
 let NrpCats = Cats.slice(3,6);
 
 let RpExemSlice = chance1.shuffle(counter(11, 28));
-let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
-let RpMinusExem = RpExemSlice.slice(3, 6); //type 1
-let PracLuresExem = RpExemSlice.slice(6, 12); //type 3
-let RpTestLuresExem = RpExemSlice.slice(12, 18); //type 4
+let RpPlusExem = RpExemSlice.slice(0, 2); //type 0
+let RpMinusExem = RpExemSlice.slice(2, 4); //type 1
+let PracLuresExem = RpExemSlice.slice(4, 8); //type 3
+let RpTestLuresExem = RpExemSlice.slice(8, 12); //type 4
 let NrpExemSlice = chance1.shuffle(counter(11, 22));
-let NrpExem = NrpExemSlice.slice(0, 6); //type 2
-let NrpTestLuresExem = NrpExemSlice.slice(6, 12); //type 5
+let NrpExem = NrpExemSlice.slice(0, 4); //type 2
+let NrpTestLuresExem = NrpExemSlice.slice(4, 8); //type 5
 
 let RpCatsR = Cats.slice(6,9); // 3 categories
 let NrpCatsR = Cats.slice(9,12);
 
 let RpExemSliceR = chance1.shuffle(counter(11, 28));
-let RpPlusExemR = RpExemSliceR.slice(0, 3); //type 10
-let RpMinusExemR = RpExemSliceR.slice(3, 6); //type 11
-let PracLuresExemR = RpExemSliceR.slice(6, 12); //type 13
-let RpTestLuresExemR = RpExemSliceR.slice(12, 18); //type 14
+let RpPlusExemR = RpExemSliceR.slice(0, 2); //type 10
+let RpMinusExemR = RpExemSliceR.slice(2, 4); //type 11
+let PracLuresExemR = RpExemSliceR.slice(4, 8); //type 13
+let RpTestLuresExemR = RpExemSliceR.slice(8, 12); //type 14
 let NrpExemSliceR = chance1.shuffle(counter(11, 22));
-let NrpExemR = NrpExemSliceR.slice(0, 6); //type 12
-let NrpTestLuresExemR = NrpExemSliceR.slice(6, 12); //type 15
+let NrpExemR = NrpExemSliceR.slice(0, 4); //type 12
+let NrpTestLuresExemR = NrpExemSliceR.slice(4, 8); //type 15
 
 let StudyTrialType = [];
 StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length),
