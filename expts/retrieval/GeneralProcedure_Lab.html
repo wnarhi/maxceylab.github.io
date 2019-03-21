@@ -400,7 +400,7 @@
 
       setTimeout(function() {
         ShowStudy();
-      }, itiTime/2);
+      }, itiTime/2); // wait a tad just to ensure image got switch
     }
 
     /* Display Object */
@@ -411,7 +411,7 @@
         setTimeout(function() {
           curStudy++;
           NextStudyTrial();
-        }, itiTime/2);
+        }, itiTime/2); // fulfill rest of itiTime before showing study image
       }, displayTime);
     }
 
@@ -786,7 +786,7 @@
         if (TestTrialType[curTest] > 9) {
           start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
         }
-      }, itiTime/4);
+      }, itiTime/4); // wait a little bit just to make sure image got switched in time
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
