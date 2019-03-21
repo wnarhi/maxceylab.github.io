@@ -461,7 +461,7 @@
       console.log(PracTrialType[curPractice]);
       console.log(imageDic[curDic]);
 
-      PracTestedImage.push(curDic);
+      PracTestedImage.push(imageDic[curDic]);
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
@@ -780,7 +780,7 @@
       console.log(TestTrialType[curTest]);
       console.log(imageDic[curDic]);
 
-      TestedImage.push(curDic);
+      TestedImage.push(imageDic[curDic]);
 
       setTimeout(function() {
         if (TestTrialType[curTest] > 9) {
