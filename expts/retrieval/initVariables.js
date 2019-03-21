@@ -5,24 +5,24 @@ let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 12 cats
 let RpCats = Cats.slice(0,3); // 3 categories
 let NrpCats = Cats.slice(3,6);
 
-let RpExemSlice = chance1.shuffle(counter(11, 28));
+let RpExemSlice = chance1.shuffle(counter(11, 22)); // used to be 11, 28
 let RpPlusExem = RpExemSlice.slice(0, 2); //type 0
 let RpMinusExem = RpExemSlice.slice(2, 4); //type 1
 let PracLuresExem = RpExemSlice.slice(4, 8); //type 3
 let RpTestLuresExem = RpExemSlice.slice(8, 12); //type 4
-let NrpExemSlice = chance1.shuffle(counter(11, 22));
+let NrpExemSlice = chance1.shuffle(counter(11, 18)); // used to be 11, 22
 let NrpExem = NrpExemSlice.slice(0, 4); //type 2
 let NrpTestLuresExem = NrpExemSlice.slice(4, 8); //type 5
 
 let RpCatsR = Cats.slice(6,9); // 3 categories
 let NrpCatsR = Cats.slice(9,12);
 
-let RpExemSliceR = chance1.shuffle(counter(11, 28));
+let RpExemSliceR = chance1.shuffle(counter(11, 22));
 let RpPlusExemR = RpExemSliceR.slice(0, 2); //type 10
 let RpMinusExemR = RpExemSliceR.slice(2, 4); //type 11
 let PracLuresExemR = RpExemSliceR.slice(4, 8); //type 13
 let RpTestLuresExemR = RpExemSliceR.slice(8, 12); //type 14
-let NrpExemSliceR = chance1.shuffle(counter(11, 22));
+let NrpExemSliceR = chance1.shuffle(counter(11, 18));
 let NrpExemR = NrpExemSliceR.slice(0, 4); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(4, 8); //type 15
 
