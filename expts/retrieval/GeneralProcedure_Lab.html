@@ -237,6 +237,7 @@
     const ringSize = 242;
     const centerX = 300;
     const centerY = 300;
+    let PracTestedImage = [];
     let TestedImage = [];
 
     /* Setup reused image and color ring variables */
@@ -458,7 +459,9 @@
       console.log('---p');
       console.log(curPractice);
       console.log(PracTrialType[curPractice]);
-      console.log(curDic);
+      console.log(imageDic[curDic]);
+
+      PracTestedImage.push(curDic);
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
@@ -775,7 +778,7 @@
       console.log('---t')
       console.log(curTest);
       console.log(TestTrialType[curTest]);
-      console.log(curDic);
+      console.log(imageDic[curDic]);
 
       TestedImage.push(curDic);
 
@@ -1058,6 +1061,7 @@
         "randrotate": randrotateList,
         "flip": flipList,
         "TestedImage": TestedImage,
+        "PracTestedImage": PracTestedImage,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
