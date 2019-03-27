@@ -423,6 +423,7 @@
       if (PracTrialType[curPractice] == 0) { //RpPlus
         curDicX = RpPlusPrac[RpPlusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -433,6 +434,7 @@
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         curDicX = PracLures[PracLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -445,6 +447,7 @@
         curDicX = RpPlusPracR[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         PracColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (RpPlusRCnt <= RpPlus.length*2) {
           RpPlusRCnt++;
         }
@@ -453,6 +456,7 @@
         PracColOriginal.push(PracLuresRC[PracLuresRCnt]);
         curDicX = PracLuresR[PracLuresRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (PracLuresRCnt <= PracLures.length) {
           PracLuresRCnt++;
         }
@@ -708,6 +712,7 @@
       if (TestTrialType[curTest] == 0) { //RpPlus
         curDicX = RpPlusT[RpPlusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -718,6 +723,7 @@
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         curDicX = RpMinusT[RpMinusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -728,6 +734,7 @@
       } else if (TestTrialType[curTest] == 2) { //Nrp
         curDicX = NrpT[NrpCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -738,6 +745,7 @@
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         curDicX = RpTestLures[RpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -748,6 +756,7 @@
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         curDicX = NrpTestLures[NrpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         }, itiTime/4);
@@ -759,6 +768,7 @@
         curDicX = RpPlusRT[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (RpPlusRCnt <= RpPlus.length) {
           RpPlusRCnt++;
         }
@@ -766,6 +776,7 @@
         curDicX = RpMinusRT[RpMinusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpMinusRC[arrayContains(imageDic[curDic].id,RpMinusR)]);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (RpMinusRCnt <= RpMinus.length) {
           RpMinusRCnt++;
         }
@@ -773,6 +784,7 @@
         curDicX = NrpRT[NrpRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,NrpR)]);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (NrpRCnt <= Nrp.length) {
           NrpRCnt++;
         }
@@ -780,6 +792,7 @@
         curDicX = RpTestLuresR[RpTestLuresRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpTestLuresRC[RpTestLuresRCnt]);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (RpTestLuresRCnt <= RpTestLures.length) {
           RpTestLuresRCnt++;
         }
@@ -787,6 +800,7 @@
         curDicX = NrpTestLuresR[NrpTestLuresRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(NrpTestLuresRC[NrpTestLuresRCnt]);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (NrpTestLuresRCnt <= NrpTestLures.length) {
           NrpTestLuresRCnt++;
         }
