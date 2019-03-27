@@ -426,22 +426,22 @@
         start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          PracColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
+          if (RpPlusCnt <= RpPlus.length*2) {
+            RpPlusCnt++;
+          }
         }, itiTime/4);
-        PracColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
-        if (RpPlusCnt <= RpPlus.length*2) {
-          RpPlusCnt++;
-        }
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         curDicX = PracLures[PracLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          PracColOriginal.push(PracLuresC[PracLuresCnt]);
+          if (PracLuresCnt <= PracLures.length) {
+            PracLuresCnt++;
+          }
         }, itiTime/4);
-        PracColOriginal.push(PracLuresC[PracLuresCnt]);
-        if (PracLuresCnt <= PracLures.length) {
-          PracLuresCnt++;
-        }
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
         // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         curDicX = RpPlusPracR[RpPlusRCnt];
@@ -715,55 +715,55 @@
         start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
+          if (RpPlusCnt <= RpPlus.length) {
+            RpPlusCnt++;
+          }
         }, itiTime/4);
-        TestColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
-        if (RpPlusCnt <= RpPlus.length) {
-          RpPlusCnt++;
-        }
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         curDicX = RpMinusT[RpMinusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)]);
+          if (RpMinusCnt <= RpMinus.length) {
+            RpMinusCnt++;
+          }
         }, itiTime/4);
-        TestColOriginal.push(RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)]);
-        if (RpMinusCnt <= RpMinus.length) {
-          RpMinusCnt++;
-        }
       } else if (TestTrialType[curTest] == 2) { //Nrp
         curDicX = NrpT[NrpCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,Nrp)]);
+          if (NrpCnt <= Nrp.length) {
+            NrpCnt++;
+          }
         }, itiTime/4);
-        TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,Nrp)]);
-        if (NrpCnt <= Nrp.length) {
-          NrpCnt++;
-        }
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         curDicX = RpTestLures[RpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(RpTestLuresC[RpTestLuresCnt]);
+          if (RpTestLuresCnt <= RpTestLures.length) {
+            RpTestLuresCnt++;
+          }
         }, itiTime/4);
-        TestColOriginal.push(RpTestLuresC[RpTestLuresCnt]);
-        if (RpTestLuresCnt <= RpTestLures.length) {
-          RpTestLuresCnt++;
-        }
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         curDicX = NrpTestLures[NrpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         setTimeout(function() {
           start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(NrpTestLuresC[NrpTestLuresCnt]);
+          if (NrpTestLuresCnt <= NrpTestLures.length) {
+            NrpTestLuresCnt++;
+          }
         }, itiTime/4);
-        TestColOriginal.push(NrpTestLuresC[NrpTestLuresCnt]);
-        if (NrpTestLuresCnt <= NrpTestLures.length) {
-          NrpTestLuresCnt++;
-        }
       } else if (TestTrialType[curTest] == 10) { //RpPlusR
         curDicX = RpPlusRT[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
