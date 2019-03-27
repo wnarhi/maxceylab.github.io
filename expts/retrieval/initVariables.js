@@ -45,34 +45,34 @@ TestTrialType = chance1.shuffle(TestTrialType);
 
 // let RandStart = Math.floor(chance1.random()*360)+1; // random number from 1 to 360
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
-let RpPlusC = wrap(counter(1,360,360/RpPlus.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let RpPlusC = wrap(RandStart(counter(1,360,360/RpPlus.length)));
 let RpPlusPrac = [];
 RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
 let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
-let RpMinusC = wrap(counter(1,360,360/RpMinus.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let RpMinusC = wrap(RandStart(counter(1,360,360/RpMinus.length)));
 let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
-let NrpC = wrap(counter(1,360,360/Nrp.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let NrpC = wrap(RandStart(counter(1,360,360/Nrp.length)));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
-let PracLuresC = wrap(counter(1,360,360/PracLures.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let PracLuresC = wrap(RandStart(counter(1,360,360/PracLures.length)));
 let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
-let RpTestLuresC = wrap(counter(1,360,360/RpTestLures.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let RpTestLuresC = wrap(RandStart(counter(1,360,360/RpTestLures.length)));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
-let NrpTestLuresC = wrap(counter(1,360,360/NrpTestLures.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let NrpTestLuresC = wrap(RandStart(counter(1,360,360/NrpTestLures.length)));
 
 let RpPlusR = chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR));
-let RpPlusRC = wrap(counter(1,360,360/RpPlusR.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let RpPlusRC = wrap(RandStart(counter(1,360,360/RpPlusR.length)));
 let RpPlusPracR = [];
 RpPlusPracR = RpPlusPracR.concat(chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR)),chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR))); //twice because of two practice trials
 let RpMinusR = chance1.shuffle(perm_concat(RpCatsR,RpMinusExemR));
-let RpMinusRC = wrap(counter(1,360,360/RpMinusR.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let RpMinusRC = wrap(RandStart(counter(1,360,360/RpMinusR.length)));
 let NrpR = chance1.shuffle(perm_concat(NrpCatsR,NrpExemR));
-let NrpRC = wrap(counter(1,360,360/NrpR.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let NrpRC = wrap(RandStart(counter(1,360,360/NrpR.length)));
 let PracLuresR = chance1.shuffle(perm_concat(RpCatsR,PracLuresExemR));
-let PracLuresRC = wrap(counter(1,360,360/PracLuresR.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let PracLuresRC = wrap(RandStart(counter(1,360,360/PracLuresR.length)));
 let RpTestLuresR = chance1.shuffle(perm_concat(RpCatsR,RpTestLuresExemR));
-let RpTestLuresRC = wrap(counter(1,360,360/RpTestLuresR.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let RpTestLuresRC = wrap(RandStart(counter(1,360,360/RpTestLuresR.length)));
 let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
-let NrpTestLuresRC = wrap(counter(1,360,360/NrpTestLuresR.length).map(function(entry) {  return entry+(Math.floor(chance1.random()*360)+1); }));
+let NrpTestLuresRC = wrap(RandStart(counter(1,360,360/NrpTestLuresR.length)));
 
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures,
@@ -143,4 +143,12 @@ function wrap(v) {
         v = parseInt(v); // v becomes integer and not array
     }
     return v;
+}
+
+function RandStart(array) {
+  v = Math.floor(chance1.random()*360)+1;
+  for (let i = 0; i < array.length; i++) {
+    array[i] = array[i] + v;
+  }
+  return array;
 }
