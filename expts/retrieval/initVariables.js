@@ -61,11 +61,12 @@ let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
 let NrpTestLuresC = wrap(RandStart(counter(1,360,360/NrpTestLures.length)));
 
 let RpPlusR = chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR));
-let RpPlusRC = wrap(RandStart(counter(1,360,360/RpPlusR.length)));
+let RpRC = chance1.shuffle(wrap(RandStart(counter(1,360,360/(RpPlusR.length*2)))));
+let RpPlusRC = RpRC.slice(0,RpPlusR.length);
 let RpPlusPracR = [];
 RpPlusPracR = RpPlusPracR.concat(chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR)),chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR))); //twice because of two practice trials
 let RpMinusR = chance1.shuffle(perm_concat(RpCatsR,RpMinusExemR));
-let RpMinusRC = wrap(RandStart(counter(1,360,360/RpMinusR.length)));
+let RpMinusRC = RpRC.slice(RpPlusR.length,RpRC.length);
 let NrpR = chance1.shuffle(perm_concat(NrpCatsR,NrpExemR));
 let NrpRC = wrap(RandStart(counter(1,360,360/NrpR.length)));
 let PracLuresR = chance1.shuffle(perm_concat(RpCatsR,PracLuresExemR));
