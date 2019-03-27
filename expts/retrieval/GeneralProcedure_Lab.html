@@ -355,42 +355,42 @@
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           curDicX = RpPlus[RpPlusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
           if (RpPlusCnt <= RpPlus.length) {
             RpPlusCnt++;
           } // prevent problems if on last trial of condition
         } else if (StudyTrialType[curStudy] == 1) { //RpMinus
           curDicX = RpMinus[RpMinusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
           if (RpMinusCnt <= RpMinus.length) {
             RpMinusCnt++;
           }
         } else if (StudyTrialType[curStudy] == 2) { //Nrp
           curDicX = Nrp[NrpCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
         } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
           curDicX = RpPlusR[RpPlusRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
           if (RpPlusRCnt <= RpPlus.length) {
             RpPlusRCnt++;
           }
         } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
           curDicX = RpMinusR[RpMinusRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
           if (RpMinusRCnt <= RpMinus.length) {
             RpMinusRCnt++;
           }
         } else if (StudyTrialType[curStudy] == 12) { //NrpR
           curDicX = NrpR[NrpRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
           if (NrpRCnt <= Nrp.length) {
             NrpRCnt++;
           }
@@ -423,7 +423,7 @@
       if (PracTrialType[curPractice] == 0) { //RpPlus
         curDicX = RpPlusPrac[RpPlusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         PracColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
         if (RpPlusCnt <= RpPlus.length*2) {
           RpPlusCnt++;
@@ -431,7 +431,7 @@
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         curDicX = PracLures[PracLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         PracColOriginal.push(PracLuresC[PracLuresCnt]);
         if (PracLuresCnt <= PracLures.length) {
           PracLuresCnt++;
@@ -700,7 +700,7 @@
       if (TestTrialType[curTest] == 0) { //RpPlus
         curDicX = RpPlusT[RpPlusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         TestColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
         if (RpPlusCnt <= RpPlus.length) {
           RpPlusCnt++;
@@ -708,7 +708,7 @@
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         curDicX = RpMinusT[RpMinusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         TestColOriginal.push(RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)]);
         if (RpMinusCnt <= RpMinus.length) {
           RpMinusCnt++;
@@ -716,7 +716,7 @@
       } else if (TestTrialType[curTest] == 2) { //Nrp
         curDicX = NrpT[NrpCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,Nrp)]);
         if (NrpCnt <= Nrp.length) {
           NrpCnt++;
@@ -724,7 +724,7 @@
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         curDicX = RpTestLures[RpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         TestColOriginal.push(RpTestLuresC[RpTestLuresCnt]);
         if (RpTestLuresCnt <= RpTestLures.length) {
           RpTestLuresCnt++;
@@ -732,7 +732,7 @@
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         curDicX = NrpTestLures[NrpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+        start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         TestColOriginal.push(NrpTestLuresC[NrpTestLuresCnt]);
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
