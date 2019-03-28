@@ -472,7 +472,7 @@
         if (PracTrialType[curPractice] > 9) {
           start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
         }
-      }, itiTime/2); // wait a little bit just to make sure image got switched in time
+      }, itiTime+1); // wait a little bit just to make sure image got switched in time
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
@@ -816,7 +816,7 @@
         if (TestTrialType[curTest] > 9) {
           start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
         }
-      }, itiTime/2); // wait a little bit just to make sure image got switched in time
+      }, itiTime+1); // wait a little bit just to make sure image got switched in time
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
