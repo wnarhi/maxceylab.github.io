@@ -430,7 +430,7 @@
           if (RpPlusCnt <= RpPlus.length*2) {
             RpPlusCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         curDicX = PracLures[PracLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -441,7 +441,7 @@
           if (PracLuresCnt <= PracLures.length) {
             PracLuresCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
         // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         curDicX = RpPlusPracR[RpPlusRCnt];
@@ -472,7 +472,7 @@
         if (PracTrialType[curPractice] > 9) {
           start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
         }
-      }, itiTime/4); // wait a little bit just to make sure image got switched in time
+      }, itiTime/2); // wait a little bit just to make sure image got switched in time
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
@@ -719,7 +719,7 @@
           if (RpPlusCnt <= RpPlus.length) {
             RpPlusCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         curDicX = RpMinusT[RpMinusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -730,7 +730,7 @@
           if (RpMinusCnt <= RpMinus.length) {
             RpMinusCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 2) { //Nrp
         curDicX = NrpT[NrpCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -741,7 +741,7 @@
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         curDicX = RpTestLures[RpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -752,7 +752,7 @@
           if (RpTestLuresCnt <= RpTestLures.length) {
             RpTestLuresCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         curDicX = NrpTestLures[NrpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -763,7 +763,7 @@
           if (NrpTestLuresCnt <= NrpTestLures.length) {
             NrpTestLuresCnt++;
           }
-        }, itiTime/4);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 10) { //RpPlusR
         curDicX = RpPlusRT[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -816,7 +816,7 @@
         if (TestTrialType[curTest] > 9) {
           start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
         }
-      }, itiTime/4); // wait a little bit just to make sure image got switched in time
+      }, itiTime/2); // wait a little bit just to make sure image got switched in time
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
