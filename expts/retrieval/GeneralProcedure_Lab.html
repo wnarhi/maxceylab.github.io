@@ -223,6 +223,8 @@
     let TestColOriginal = [];
     let flip = 0;
     let flipList = [0];
+    let PracTypeList = [];
+    let TestTypeList = [];
     let randrotate = 0;
     let randrotateList = [];
     const origColors = _.clone(colors); // clone is required to copy a variable without it accidentally referencing the same thing
@@ -555,6 +557,7 @@
               imgNum = origColors.findIndex(k => k==a);
             }
             TestColResp.push(wrap(imgNum));
+            TestTypeList.push(TestTrialType[curTest]);
             curTest++;
             NextTestTrial();
           } else { // if practice phase
@@ -564,6 +567,7 @@
               imgNum = origColors.findIndex(k => k==a);
             }
             PracticeColResp.push(wrap(imgNum));
+            PracTypeList.push(PracTypeList[curPractice]);
             curPractice++;
             NextPracTrial();
           }
@@ -1103,6 +1107,8 @@
         "flip": flipList,
         "TestedImage": TestedImage,
         "PracTestedImage": PracTestedImage,
+        "PracTypeList": PracTypeList,
+        "TestTypeList": TestTypeList,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
