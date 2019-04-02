@@ -550,12 +550,20 @@
           $('#pointer').hide();
           if (curPractice > numPractice) { // if test phase
             TestColRT.push(new Date() - startTimeC);
-            TestColResp.push(imgNum);
+            if (flip == 1) {
+              a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
+              imgNum = origColors.findIndex(k => k==a);
+            }
+            TestColResp.push(wrap(imgNum));
             curTest++;
             NextTestTrial();
           } else { // if practice phase
             PracticeColRT.push(new Date() - startTimeC);
-            PracticeColResp.push(imgNum);
+            if (flip == 1) {
+              a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
+              imgNum = origColors.findIndex(k => k==a);
+            }
+            PracticeColResp.push(wrap(imgNum));
             curPractice++;
             NextPracTrial();
           }
@@ -901,6 +909,7 @@
 
         if (PracTrialType[curPractice] > 9) { // if continuous report trial
           flip = Math.round(Math.random());
+          flipList.push(flip);
           randrotate = Math.floor(Math.random() * 360);
           ringctxA.clearRect(0, 0, 600, 600);
           ringctxA.restore();
@@ -1102,7 +1111,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_Lab/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_Lab_new/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";

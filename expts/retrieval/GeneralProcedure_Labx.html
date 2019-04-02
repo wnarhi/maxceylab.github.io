@@ -15,7 +15,7 @@
 
   <!-- Preload images -->
   <script src="https://maxceylab.github.io/expts/retrieval/loadimg.js"></script>
-  <script src="https://maxceylab.github.io/expts/retrieval/initVariables_x.js"> </script>
+  <script src="file:///Users/scotti.5/Documents/GitHub/maxceylab.github.io/expts/retrieval/initVariables_x.js"> </script>
 
   <!-- load Firebase server javascript, we are using it for storage -->
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
@@ -179,10 +179,10 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 48; // 48, used to be 72;
-    const numPractice = 4; // 48, used to be 72;
-    const numTest = 96; // 96, used to be 144;
-    const displayTime = 1000; //5000 ms
+    const numStudy = 8; // 48, used to be 72;
+    const numPractice = 8; // 48, used to be 72;
+    const numTest = 16; // 96, used to be 144;
+    const displayTime = 2000; //5000 ms
     const itiTime = 250; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -430,7 +430,7 @@
           if (RpPlusCnt <= RpPlus.length*2) {
             RpPlusCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (PracTrialType[curPractice] == 3) { //PracLure
         curDicX = PracLures[PracLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -441,7 +441,7 @@
           if (PracLuresCnt <= PracLures.length) {
             PracLuresCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
         RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         curDicX = RpPlusPracR[RpPlusRCnt];
@@ -550,12 +550,20 @@
           $('#pointer').hide();
           if (curPractice > numPractice) { // if test phase
             TestColRT.push(new Date() - startTimeC);
-            TestColResp.push(imgNum);
+            if (flip == 1) {
+              a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
+              imgNum = origColors.findIndex(k => k==a);
+            }
+            TestColResp.push(wrap(imgNum));
             curTest++;
             NextTestTrial();
           } else { // if practice phase
             PracticeColRT.push(new Date() - startTimeC);
-            PracticeColResp.push(imgNum);
+            if (flip == 1) {
+              a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
+              imgNum = origColors.findIndex(k => k==a);
+            }
+            PracticeColResp.push(wrap(imgNum));
             curPractice++;
             NextPracTrial();
           }
@@ -719,7 +727,7 @@
           if (RpPlusCnt <= RpPlus.length) {
             RpPlusCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 1) { //RpMinus
         curDicX = RpMinusT[RpMinusCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -730,7 +738,7 @@
           if (RpMinusCnt <= RpMinus.length) {
             RpMinusCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 2) { //Nrp
         curDicX = NrpT[NrpCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -741,7 +749,7 @@
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
         curDicX = RpTestLures[RpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -752,7 +760,7 @@
           if (RpTestLuresCnt <= RpTestLures.length) {
             RpTestLuresCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
         curDicX = NrpTestLures[NrpTestLuresCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -763,7 +771,7 @@
           if (NrpTestLuresCnt <= NrpTestLures.length) {
             NrpTestLuresCnt++;
           }
-        }, itiTime+20);
+        }, itiTime/2);
       } else if (TestTrialType[curTest] == 10) { //RpPlusR
         curDicX = RpPlusRT[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -901,6 +909,7 @@
 
         if (PracTrialType[curPractice] > 9) { // if continuous report trial
           flip = Math.round(Math.random());
+          flipList.push(flip);
           randrotate = Math.floor(Math.random() * 360);
           ringctxA.clearRect(0, 0, 600, 600);
           ringctxA.restore();
