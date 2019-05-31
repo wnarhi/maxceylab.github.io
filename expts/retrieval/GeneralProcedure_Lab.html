@@ -248,6 +248,7 @@
     let PracTestedImage = [];
     let TestedImage = [];
     let basepay = 4;
+    let numRepeats = 0;
     let spacebarpoints = 0;
     locked = 0; spacebar = 0;
 
@@ -466,6 +467,7 @@
         setTimeout(function() {
           if (Repeats.includes(curStudy) && locked==0) {
             locked=1;
+            numRepeats = numRepeats+1;
             NextStudyTrial();
           } else {
             locked=0;
@@ -1179,6 +1181,7 @@
         "PracTestedImage": PracTestedImage,
         "PracTypeList": PracTypeList,
         "TestTypeList": TestTypeList,
+        "numRepeats": numRepeats,
         "Repeats": Repeats,
         "spacebarpoints": spacebarpoints,
         "seed": chance1.seed,
