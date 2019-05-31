@@ -47,7 +47,7 @@ TestTrialType = chance1.shuffle(TestTrialType);
 
 // let RandStart = Math.floor(chance1.random()*360)+1; // random number from 1 to 360
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
-let RpC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/(RpPlusR.length*2))))));
+let RpC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/(RpPlus.length*2))))));
 let RpPlusC = RpC.slice(0,RpPlus.length);
 let RpPlusPrac = [];
 RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
