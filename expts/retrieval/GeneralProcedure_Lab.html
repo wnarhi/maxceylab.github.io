@@ -38,13 +38,12 @@
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
     <center>
-        <p>You will be presented with 48 objects, one at a time, each presented for 5 seconds.</p>
-        <p>For example:</p>
+        <p>You will be presented with 48 objects, one at a time, each presented for 3 seconds. Each object will repeat three times during this study phase.</p>
+        <p>Example of an object:</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink1.png" width="600px"></p>
 
-        <p>Study the color and identity of each object for a later memory test.
-        <br>Every object will have a color associated with it that you will later be tested on.</p>
+        <p>The task is to study the color and identity of each object for a later memory test.</p>
       </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();$('#instructions3').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (2 of 5)</a></p>
   </div>
@@ -179,10 +178,10 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 48; // 48, used to be 72;
+    const numStudy = 48*3; // 48, used to be 72;
     const numPractice = 48; // 48, used to be 72;
     const numTest = 96; // 96, used to be 144;
-    const displayTime = 5000; //5000 ms
+    const displayTime = 3000; //3000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -533,12 +532,12 @@
                     imgNum = Math.round(wrap([angleDeg - randrotate]));
                     startingColor = imgNum;
                     mouseMoved = 1;
-                    start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+                    // start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
                 }, 400);
             }
         } else {
             imgNum = Math.round(wrap([angleDeg - randrotate]));
-            start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+            // start(ctxA, imgNum, 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
         }
         $('#pointer').css({
             'left': centerX + Math.cos(curAngle) * ringSize - 9,
@@ -1232,7 +1231,6 @@
           fileSize = xhr.responseText.length;
           // Calculate band_speed as global variable; the connection-speed in kbps
           band_speed = (fileSize * 8) / ((endTime - startedTime)/1000) / 1024;
-          console.log(band_speed);
           if (window.chrome == undefined) { // not Chrome
             $('body').html('Please run this experiment in Google Chrome.');
           } else { // is Chrome
