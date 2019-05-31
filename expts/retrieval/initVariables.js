@@ -1,6 +1,6 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 16 cats
+let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,12,14,15,16,17,18]); // 16 cats
 
 let RpCats = Cats.slice(0,4); // 4 categories
 let NrpCats = Cats.slice(4,8);
