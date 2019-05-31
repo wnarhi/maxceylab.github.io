@@ -1080,7 +1080,7 @@
       const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
       let cashpoints = basepay + (OverallAcc/100*3);
       cashpoints = cashpoints.toFixed(2);
-      document.getElementById("cashPrize").innerHTML = "Total earnings ($" basepay + " + bonus): $" + cashpoints;
+      document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " + bonus): $" + cashpoints;
       document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>APlease describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
         '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
