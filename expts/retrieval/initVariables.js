@@ -78,7 +78,7 @@ let RpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/RpTestLuresR.len
 let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
 let NrpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/NrpTestLuresR.length))));
 
-let Repeats = chance1.shuffle(counter(1,StudyTrialType.length)).slice(0,30);
+let Repeats = chance1.shuffle(counter(1,StudyTrialType.length)).slice(0,24); // 24/192 = 12.5% of trials are repeats
 
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures,
