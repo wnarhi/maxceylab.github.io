@@ -1,6 +1,8 @@
+let Repeats = chance1.shuffle(counter(1,numStudy)).slice(0,30);
+
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,12,14,15,16,17,18]); // 16 cats
+let Cats = chance1.shuffle([01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16]); // 16 cats
 
 let RpCats = Cats.slice(0,4); // 4 categories
 let NrpCats = Cats.slice(4,8);
@@ -26,9 +28,9 @@ let NrpExemSliceR = chance1.shuffle(counter(11, 18));
 let NrpExemR = NrpExemSliceR.slice(0, 4); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(4, 8); //type 15
 
-let StudyTrialType = [];
-StudyAr = repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length),
-  repmat(repmat([10, 11], RpPlusExemR.length), RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length);
+let StudyTrialType = []; let StudyAr = [];
+StudyAr = StudyAr.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length),repmat(repmat([10, 11], RpPlusExemR.length),
+                 RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length));
 StudyTrialType = StudyTrialType.concat(chance1.shuffle(StudyAr),chance1.shuffle(StudyAr),chance1.shuffle(StudyAr));
 
 let PracTrialType = [];

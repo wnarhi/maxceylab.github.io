@@ -51,12 +51,12 @@
   <!-- Instructions page3 -->
   <div id="instructions3" style="display:none">
     <center>
-        <p>Studied objects will often be similar to each other. For instance, you may encounter several different types of cookie jars.</p>
+        <p>Studied objects will often be similar to each other. For instance, you may encounter several different types of bowties.</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink2.png" width="600px"></p>
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink3.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/Bowtie2b.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/Bowtie1b.png" width="600px"></p>
 
-        <p>It is therefore not sufficient to remember "purple cookie jar". Your memory will need to be as precise as "purple Garfield cookie jar".</p>
+        <p>It is therefore not sufficient to remember "purple bowtie". Your memory will need to be as precise as "striped purple bowtie".</p>
         <p>After you have studied all the objects, we will test your memory.</p>
       </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions3').hide();$('#instructions4').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (3 of 5)</a></p>
@@ -178,9 +178,9 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 48*3; // 48, used to be 72;
-    const numPractice = 48; // 48, used to be 72;
-    const numTest = 96; // 96, used to be 144;
+    const numStudy = 64*3; // 48, used to be 72;
+    const numPractice = 64; // 48, used to be 72;
+    const numTest = 128; // 96, used to be 144;
     const displayTime = 3000; //3000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
@@ -239,6 +239,7 @@
     const centerY = 300;
     let PracTestedImage = [];
     let TestedImage = [];
+    locked = 0; spacebar = 0;
 
     /* Setup reused image and color ring variables */
     let ringStandard = new Image();
@@ -352,6 +353,7 @@
           }
         }
       } else {
+        spacebar=0;
         // Preload the image of next trial
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           curDicX = RpPlus[RpPlusCnt];
@@ -407,10 +409,22 @@
     function ShowStudy() {
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
+        if (spacebar==1 && locked==1) {
+          alert('nice');
+        } else if (spacebar==1 && locked==0) {
+          alert('uh oh');
+        }
+        spacebar=0;
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
-          curStudy++;
-          NextStudyTrial();
+          if (Repeats.includes(curStudy) && locked==0) {
+            locked=1;
+            NextStudyTrial();
+          } else {
+            locked=0;
+            curStudy++;
+            NextStudyTrial();
+          }
         }, itiTime/2); // fulfill rest of itiTime before showing study image
       }, displayTime);
     }
@@ -1006,6 +1020,12 @@
         mouseY = e.pageY;
       });
     });
+    /* always track keypress */
+    $(window).keypress(function(e) {
+      if (e.which === 32) {
+        spacebar = 1;
+      }
+    });
 
     /* Done with the experiment */
     function Done() {
@@ -1140,6 +1160,7 @@
     function ImagesReady() {
       imageDic = [];
       for (var i = 0; i < AllImages.length; i++) {
+          console.log(AllImages[i])
           if (!$('#Obj' + AllImages[i])[0].complete) {
               var percentage = i * 100.0 / (AllImages.length);
               percentage = percentage.toFixed(0).toString() + ' %';
