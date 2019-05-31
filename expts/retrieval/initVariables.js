@@ -1,5 +1,3 @@
-let Repeats = chance1.shuffle(counter(1,numStudy)).slice(0,30);
-
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
 let Cats = chance1.shuffle([01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16]); // 16 cats
@@ -79,6 +77,8 @@ let RpTestLuresR = chance1.shuffle(perm_concat(RpCatsR,RpTestLuresExemR));
 let RpTestLuresRC = wrap(RandStart(counter(1,360,360/RpTestLuresR.length)));
 let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
 let NrpTestLuresRC = wrap(RandStart(counter(1,360,360/NrpTestLuresR.length)));
+
+let Repeats = chance1.shuffle(counter(1,StudyTrialType.length)).slice(0,30);
 
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures,
