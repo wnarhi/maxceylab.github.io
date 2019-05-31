@@ -9,8 +9,13 @@
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
+  <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/TimTurkTools.js"></script>
   <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/jcanvas.min.js"></script>
-  <script>const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
+  <script>
+  let WORKERID = (IsOnTurk()) ? GetWorkerId() : prompt("You don't look like an mTurker! " +
+      "Enter an ID to save your data with (any number/string will do). Note your id is used to seed the experiment rng:", "workID");
+  let ASSIGNMENTID = (IsOnTurk()) ? GetAssignmentId() : prompt("Set assignment number (doesnt matter for testing):", "assignmentId");
+  const startDate = new Date(); const chance1 = Chance(WORKERID); Math.seedrandom(chance1.seed); // Use current workerid as the shuffle seed, so you can trace back their trials</script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
 
   <!-- Preload images -->
@@ -129,6 +134,9 @@
 
   <!-- Screen after submitting expt -->
   <div id="done">
+    <center>
+    <div id="cashPrize">text</div>
+    </center>
     <div id="doneText">
     </div>
     <div>
@@ -181,8 +189,8 @@
     const numStudy = 64*3; // 48, used to be 72;
     const numPractice = 64; // 48, used to be 72;
     const numTest = 128; // 96, used to be 144;
-    const displayTime = 3000; //3000 ms
-    const itiTime = 500; // 500 ms
+    const displayTime = 300; //3000 ms
+    const itiTime = 50; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -239,6 +247,8 @@
     const centerY = 300;
     let PracTestedImage = [];
     let TestedImage = [];
+    let basepay = 4;
+    let spacebarpoints = 0;
     locked = 0; spacebar = 0;
 
     /* Setup reused image and color ring variables */
@@ -270,10 +280,26 @@
 
     /* Start Experiment */
     function StartExperiment() {
+      if (IsOnTurk() && IsTurkPreview()) {
+          alert("Please accept the HIT before continuing.");
+          return false;
+      }
+
+      // save a file letting me know that someone made it this far
+      const blobx = new Blob([JSON.stringify(chance1.seed)], {
+        type: "application/json"
+      });
+      const storageRefx = firebase.storage().ref('started_retrieval/' + WORKERID + '.json');
+      storageRefx.put(blobx);
+
       age = prompt('Before we start, can you tell me how old you are (in years)?');
 
-      while (!(age > 0)) {
-        age = prompt('Can you tell me how old you are (in years)?');
+      while (!(age < 110)) {
+        age = prompt('Can you tell me how old you are (e.g., 18, not the year you were born)?');
+      }
+
+      if (age > 45) {
+        $('body').html('<center><b>Unfortunately, this experiment does not allow participants over 45 years old (we separately study older populations).<br><br>Please return this HIT.<br><br>You will not be paid if you try again and change your age.</b></center>');
       }
 
       sex = prompt('And are you male (M), female (F), non-binary (B), or prefer not to answer (NA)?');
@@ -291,9 +317,8 @@
         sex = 'na';
       }
 
-      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
-
-      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+      // initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
+      // subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
       $('#instructions5').hide();
       $('#pointer').hide();
@@ -309,7 +334,7 @@
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
+        'Experiment will now begin. Good luck!';
       window.location.href = '#openModal';
       checkFlag1();
 
@@ -359,43 +384,61 @@
           curDicX = RpPlus[RpPlusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          if (RpPlusCnt <= RpPlus.length) {
+          if (!(Repeats.includes(curStudy) && locked==0)) {
             RpPlusCnt++;
-          } // prevent problems if on last trial of condition
+            if (RpPlusCnt >= RpPlus.length) {
+              RpPlusCnt=0;
+            } // prevent problems if on last trial of condition
+          }
         } else if (StudyTrialType[curStudy] == 1) { //RpMinus
           curDicX = RpMinus[RpMinusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          if (RpMinusCnt <= RpMinus.length) {
+          if (!(Repeats.includes(curStudy) && locked==0)) {
             RpMinusCnt++;
+            if (RpMinusCnt >= RpMinus.length) {
+              RpMinusCnt=0;
+            }
           }
         } else if (StudyTrialType[curStudy] == 2) { //Nrp
           curDicX = Nrp[NrpCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          if (NrpCnt <= Nrp.length) {
+          if (!(Repeats.includes(curStudy) && locked==0)) {
             NrpCnt++;
+            if (NrpCnt >= Nrp.length) {
+              NrpCnt=0;
+            }
           }
         } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
           curDicX = RpPlusR[RpPlusRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          if (RpPlusRCnt <= RpPlus.length) {
+          if (!(Repeats.includes(curStudy) && locked==0)) {
             RpPlusRCnt++;
+            if (RpPlusRCnt >= RpPlusRC.length) {
+              RpPlusRCnt=0;
+            }
           }
         } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
           curDicX = RpMinusR[RpMinusRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          if (RpMinusRCnt <= RpMinus.length) {
+          if (!(Repeats.includes(curStudy) && locked==0)) {
             RpMinusRCnt++;
+            if (RpMinusRCnt >= RpMinusRC.length) {
+              RpMinusRCnt=0;
+            }
           }
         } else if (StudyTrialType[curStudy] == 12) { //NrpR
           curDicX = NrpR[NrpRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          if (NrpRCnt <= Nrp.length) {
+          if (!(Repeats.includes(curStudy) && locked==0)) {
             NrpRCnt++;
+            if (NrpRCnt >= NrpRC.length) {
+              NrpRCnt=0;
+            }
           }
         }
       }
@@ -410,9 +453,13 @@
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         if (spacebar==1 && locked==1) {
-          alert('nice');
+          spacebarpoints = spacebarpoints+1;
         } else if (spacebar==1 && locked==0) {
-          alert('uh oh');
+          spacebarpoints = spacebarpoints-1;
+          // alert('Incorrect spacebar press. Only press spacebar if the image repeats on back-to-back presentations.')
+        } else if (spacebar==0 && locked==1) {
+          spacebarpoints = spacebarpoints-1;
+          // alert('The last image was repeated back-to-back. Remember to press SPACEBAR when this happens!');
         }
         spacebar=0;
         $('#allItems').css('margin-top', -1000);
@@ -602,7 +649,7 @@
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
       $('#CDitem').show();
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 3)) { // 180000 for 3 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
@@ -1031,7 +1078,10 @@
     function Done() {
       // calculate their overall accuracy (Practice + Test)
       const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Any comments for us? (What strategy did you use? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
+      let cashpoints = basepay + (OverallAcc/100*3);
+      cashpoints = cashpoints.toFixed(2);
+      document.getElementById("cashPrize").innerHTML = "Total earnings ($" basepay + " + bonus): $" + cashpoints;
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>APlease describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
         '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
@@ -1046,7 +1096,8 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": subjID,
+        "ID": WORKERID,
+        "ASSIGNMENTID": ASSIGNMENTID,
         "age": age,
         "sex": sex,
         "StartTime": startDate.getTime(),
@@ -1128,6 +1179,8 @@
         "PracTestedImage": PracTestedImage,
         "PracTypeList": PracTypeList,
         "TestTypeList": TestTypeList,
+        "Repeats": Repeats,
+        "spacebarpoints": spacebarpoints,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
@@ -1136,14 +1189,14 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_Lab_new/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_MTurk/' + WORKERID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
+        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation! You may close this window.";
 
         // close full screen if still full-screened
         if (document.cancelFullScreen) {
