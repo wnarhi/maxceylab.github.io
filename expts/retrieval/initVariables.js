@@ -1,9 +1,9 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 12 cats
+let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 16 cats
 
-let RpCats = Cats.slice(0,3); // 3 categories
-let NrpCats = Cats.slice(3,6);
+let RpCats = Cats.slice(0,4); // 4 categories
+let NrpCats = Cats.slice(4,8);
 
 let RpExemSlice = chance1.shuffle(counter(11, 22)); // used to be 11, 28
 let RpPlusExem = RpExemSlice.slice(0, 2); //type 0
@@ -14,8 +14,8 @@ let NrpExemSlice = chance1.shuffle(counter(11, 18)); // used to be 11, 22
 let NrpExem = NrpExemSlice.slice(0, 4); //type 2
 let NrpTestLuresExem = NrpExemSlice.slice(4, 8); //type 5
 
-let RpCatsR = Cats.slice(6,9); // 3 categories
-let NrpCatsR = Cats.slice(9,12);
+let RpCatsR = Cats.slice(8,12); // 4 categories
+let NrpCatsR = Cats.slice(12,16);
 
 let RpExemSliceR = chance1.shuffle(counter(11, 22));
 let RpPlusExemR = RpExemSliceR.slice(0, 2); //type 10
