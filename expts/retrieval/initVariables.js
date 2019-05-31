@@ -54,13 +54,13 @@ RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),c
 let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
 let RpMinusC = RpC.slice(RpPlus.length,RpC.length);
 let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
-let NrpC = wrap(RandStart(counter(1,360,360/Nrp.length)));
+let NrpC = wrap(RandStart(counter(1,360,Math.round(360/Nrp.length))));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
-let PracLuresC = wrap(RandStart(counter(1,360,360/PracLures.length)));
+let PracLuresC = wrap(RandStart(counter(1,360,Math.round(360/PracLures.length))));
 let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
-let RpTestLuresC = wrap(RandStart(counter(1,360,360/RpTestLures.length)));
+let RpTestLuresC = wrap(RandStart(counter(1,360,Math.round(360/RpTestLures.length))));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
-let NrpTestLuresC = wrap(RandStart(counter(1,360,360/NrpTestLures.length)));
+let NrpTestLuresC = wrap(RandStart(counter(1,360,Math.round(360/NrpTestLures.length))));
 
 let RpPlusR = chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR));
 let RpRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/(RpPlusR.length*2))))));
@@ -70,13 +70,13 @@ RpPlusPracR = RpPlusPracR.concat(chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR
 let RpMinusR = chance1.shuffle(perm_concat(RpCatsR,RpMinusExemR));
 let RpMinusRC = RpRC.slice(RpPlusR.length,RpRC.length);
 let NrpR = chance1.shuffle(perm_concat(NrpCatsR,NrpExemR));
-let NrpRC = wrap(RandStart(counter(1,360,360/NrpR.length)));
+let NrpRC = wrap(RandStart(counter(1,360,Math.round(360/NrpR.length))));
 let PracLuresR = chance1.shuffle(perm_concat(RpCatsR,PracLuresExemR));
-let PracLuresRC = wrap(RandStart(counter(1,360,360/PracLuresR.length)));
+let PracLuresRC = wrap(RandStart(counter(1,360,Math.round(360/PracLuresR.length))));
 let RpTestLuresR = chance1.shuffle(perm_concat(RpCatsR,RpTestLuresExemR));
-let RpTestLuresRC = wrap(RandStart(counter(1,360,360/RpTestLuresR.length)));
+let RpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/RpTestLuresR.length))));
 let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
-let NrpTestLuresRC = wrap(RandStart(counter(1,360,360/NrpTestLuresR.length)));
+let NrpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/NrpTestLuresR.length))));
 
 let Repeats = chance1.shuffle(counter(1,StudyTrialType.length)).slice(0,30);
 
