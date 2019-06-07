@@ -35,7 +35,7 @@
   <!-- Instructions page1 -->
   <div id="instructions">
     <center>
-        <p>This experiment is a memorization task involving visual images. It will take approximately 20-30 minutes to complete.</p>
+        <p>This experiment is a memorization task involving visual images. It will take approximately 1 hour to complete.</p>
       </center>
     <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 5)</a></p>
   </div>
@@ -46,7 +46,7 @@
         <p>You will be presented with 48 objects, one at a time, each presented for 3 seconds. Each object will repeat three times during this study phase.</p>
         <p>Example of an object:</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink1.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval1.png" width="600px"></p>
 
         <p>The task is to study the color and identity of each object for a later memory test.</p>
       </center>
@@ -58,8 +58,8 @@
     <center>
         <p>Studied objects will often be similar to each other. For instance, you may encounter several different types of bowties.</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/Bowtie2b.png" width="600px"></p>
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/Bowtie1b.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval2.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval3.png" width="600px"></p>
 
         <p>It is therefore not sufficient to remember "purple bowtie". Your memory will need to be as precise as "striped purple bowtie".</p>
         <p>After you have studied all the objects, we will test your memory.</p>
@@ -76,13 +76,13 @@
 
         <p>On <i>Recognition</i> test trials, a colored object is presented with two buttons beneath, "Old" and "New". For example:</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink7.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval4.png" width="600px"></p>
 
         <p>If you have seen the object before (i.e., it was one of the 48 objects that you previously studied), then click the "Old" button. In this case, you previously saw this cookie jar so you would click "Old".</p>
 
         <p>If you have never seen the object before, then click the "New" button.</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink6.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval5.png" width="600px"></p>
 
         <p>Since you have not seen the above cookie jar before, you'd click the "New" button.</p>
 
@@ -98,7 +98,7 @@
 
         On <i>Color</i> test trials, an object is presented in <u>grayscale</u> with two buttons beneath, "Old" and "New". For example:
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink4.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval6.png" width="600px"></p>
 
         <p>Just like the <i>Recognition</i> test trials, if you have seen the object before, click the "Old" button. Otherwise, click the "New" button.</p>
 
@@ -106,7 +106,7 @@
 
         <p>After clicking one of the buttons, a color wheel will be presented. Move your mouse around the color wheel to change the color of the displayed object. Find the original color of the object and then click using your mouse to confirm your selection.</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/pink5.png" width="600px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval7.png" width="600px"></p>
 
         <p>If you are unsure of the original color, move your mouse around and click what feels right. Please be as precise as possible in selecting what you think is the object's original color.</p>
 
@@ -114,9 +114,11 @@
 
         <hr>
 
+        <p>The closer you are to selecting the correct color on retrieval trials, and the more accurate you are on the old/new judgments, the more bonus you will receive (up to $3.00).</p>
+
         <p>Ready to start? You will begin by memorizing a series of colored objects.</p>
 
-        <p><i>Please set aside approximately 30 minutes to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 30 minutes!</i></p>
+        <p><i>Please set aside approximately 1 hour to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 1 hour!</i></p>
       </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
     <center><p id=loading>Images loading... Please wait a minute or refresh the page.</p></center>
@@ -186,11 +188,11 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 64*3; // 48, used to be 72;
-    const numPractice = 64; // 48, used to be 72;
-    const numTest = 128; // 96, used to be 144;
-    const displayTime = 300; //3000 ms
-    const itiTime = 50; // 500 ms
+    const numStudy = 96*3;
+    const numPractice = 96;
+    const numTest = 192;
+    const displayTime = 3000; //3000 ms
+    const itiTime = 500; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -205,7 +207,7 @@
     let PracLuresCnt = 0;
     let RpTestLuresCnt = 0;
     let NrpTestLuresCnt = 0;
-    let RpPlusRCnt = 0;
+    let RpPlusRCnt = 0;.
     let RpMinusRCnt = 0;
     let NrpRCnt = 0;
     let PracLuresRCnt = 0;
@@ -651,7 +653,7 @@
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
       $('#CDitem').show();
-      if (now2 < (now + 3)) { // 180000 for 3 minutes long filler task
+      if (now2 < (now + 180000)) { // 180000 for 3 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
