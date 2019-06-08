@@ -191,8 +191,8 @@
     const numStudy = 96*3;
     const numPractice = 96;
     const numTest = 192;
-    const displayTime = 3000; //3000 ms
-    const itiTime = 500; // 500 ms
+    const displayTime = 1000; //3000 ms
+    const itiTime = 50; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -610,56 +610,6 @@
           $('#pointer').hide();
           if (locked==1) {
             curStudy++;
-            // Preload the image of next trial
-            if (StudyTrialType[curStudy] == 0) { //RpPlus
-              curDicX = RpPlus[RpPlusCnt];
-              curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-              start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-              RpPlusCnt++;
-              if (RpPlusCnt >= RpPlus.length) {
-                RpPlusCnt=0;
-              } // prevent problems if on last trial of condition
-            } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-              curDicX = RpMinus[RpMinusCnt];
-              curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-              start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                RpMinusCnt++;
-                if (RpMinusCnt >= RpMinus.length) {
-                  RpMinusCnt=0;
-                }
-            } else if (StudyTrialType[curStudy] == 2) { //Nrp
-              curDicX = Nrp[NrpCnt];
-              curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-              start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                NrpCnt++;
-                if (NrpCnt >= Nrp.length) {
-                  NrpCnt=0;
-                }
-            } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
-              curDicX = RpPlusR[RpPlusRCnt];
-              curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-              start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                RpPlusRCnt++;
-                if (RpPlusRCnt >= RpPlusRC.length) {
-                  RpPlusRCnt=0;
-                }
-            } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
-              curDicX = RpMinusR[RpMinusRCnt];
-              curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-              start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                RpMinusRCnt++;
-                if (RpMinusRCnt >= RpMinusRC.length) {
-                  RpMinusRCnt=0;
-                }
-            } else if (StudyTrialType[curStudy] == 12) { //NrpR
-              curDicX = NrpR[NrpRCnt];
-              curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-              start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                NrpRCnt++;
-                if (NrpRCnt >= NrpRC.length) {
-                  NrpRCnt=0;
-                }
-            }
             $(document).unbind('mousemove.curTrial');
             $(document).unbind('mouseup.curTrial');
             $('#pointer').css('margin-top', -1000);
