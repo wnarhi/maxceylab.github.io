@@ -1384,12 +1384,8 @@
           fileSize = xhr.responseText.length;
           // Calculate band_speed as global variable; the connection-speed in kbps
           band_speed = (fileSize * 8) / ((endTime - startedTime)/1000) / 1024;
-          if (window.chrome == undefined) { // not Chrome
-            $('body').html('Please run this experiment in Google Chrome.');
-          } else { // is Chrome
-            if (band_speed < 3) {
-              $('body').html('Unfortunately your internet speed is too slow for this experiment to operate as intended... Sorry!');
-            }
+          if (band_speed < 3) {
+            $('body').html('Unfortunately your internet speed is too slow for this experiment to operate as intended... Sorry!');
           }
         }
       }
@@ -1414,7 +1410,7 @@
         } else if (window.chrome !== null && typeof window.chrome !== "undefined" && window.navigator.vendor == "Google Inc."){
           bandwidth_test();
         } else {
-            $('body').html('Unfortunately this HIT only works on desktop versions of Chrome. If this is a mistake and you are using Chrome, try updating your browser. Sorry!');
+          $('body').html('Unfortunately this HIT only works on desktop versions of Chrome. If this is a mistake and you are using Chrome, try updating your browser. Sorry!');
         }
     });
 
