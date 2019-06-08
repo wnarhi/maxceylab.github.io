@@ -377,6 +377,7 @@
         if (curStudy == numStudy/3 || curStudy == numStudy/3*2) {
           // open pop-up:
           modalClosed = false;
+          $('#allItems').css('margin-top', -1000);
           if (curStudy == numStudy/3) {
             document.getElementById("openModal_text").innerHTML = 'You are 33% of the way through the study phase. Take a short break if you want, and then close this pop-up to continue.';
           } else if (curStudy == numStudy/3*2){
@@ -446,6 +447,9 @@
                     NrpRCnt=0;
                   }
               }
+              setTimeout(function() {
+                ShowStudy();
+              }, itiTime/2); // wait a tad just to ensure image got switch
             }
           }
         } else {
@@ -506,12 +510,11 @@
                 NrpRCnt=0;
               }
           }
+          setTimeout(function() {
+            ShowStudy();
+          }, itiTime/2); // wait a tad just to ensure image got switch
         }
       }
-
-      setTimeout(function() {
-        ShowStudy();
-      }, itiTime/2); // wait a tad just to ensure image got switch
     }
 
     /* Display Object */
