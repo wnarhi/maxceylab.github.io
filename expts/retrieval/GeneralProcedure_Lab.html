@@ -592,18 +592,20 @@
           }
         }, itiTime/2);
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
+        // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         curDicX = RpPlusPracR[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         PracColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
-        start(ctxA, RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (RpPlusRCnt <= RpPlus.length*2) {
           RpPlusRCnt++;
         }
       } else if (PracTrialType[curPractice] == 13) { //PracLureR
+        // PracLuresRC[PracLuresRCnt]
         PracColOriginal.push(PracLuresRC[PracLuresRCnt]);
         curDicX = PracLuresR[PracLuresRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, PracLuresRC[PracLuresRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (PracLuresRCnt <= PracLures.length) {
           PracLuresRCnt++;
         }
@@ -1079,8 +1081,20 @@
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
 
-        curPractice++;
-        NextPracTrial();
+        if (PracTrialType[curPractice] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curPractice++;
+          NextPracTrial();
+        }
       }
     }
 
@@ -1137,8 +1151,20 @@
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
 
-        curPractice++;
-        NextPracTrial();
+        if (PracTrialType[curPractice] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curPractice++;
+          NextPracTrial();
+        }
       }
     }
 
