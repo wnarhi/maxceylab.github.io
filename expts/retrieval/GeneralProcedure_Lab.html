@@ -294,7 +294,7 @@
       const blobx = new Blob([JSON.stringify(chance1.seed)], {
         type: "application/json"
       });
-      const storageRefx = firebase.storage().ref('started_retrieval/' + WORKERID + '.json');
+      const storageRefx = firebase.storage().ref('started_retrieval_mturk/' + WORKERID + '.json');
       storageRefx.put(blobx);
 
       age = prompt('Before we start, can you tell me how old you are (in years)?');
@@ -322,19 +322,9 @@
         sex = 'na';
       }
 
-      // initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
-      // subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
-
       $('#instructions5').hide();
       $('#pointer').hide();
       $('#ringItemA').hide();
-
-      // // save a file letting me know that someone made it this far
-      // const blobx = new Blob([JSON.stringify(chance1.seed)], {
-      //   type: "application/json"
-      // });
-      // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
-      // storageRefx.put(blobx);
 
       // open pop-up:
       modalClosed = false;
