@@ -35,7 +35,7 @@
   <!-- Instructions page1 -->
   <div id="instructions">
     <center>
-        <p>This experiment is a memorization task involving visual images. It will take approximately 1 hour to complete.</p>
+        <p>This experiment is a memorization task involving visual images. It will take approximately 45 minutes to complete.</p>
       </center>
     <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 5)</a></p>
   </div>
@@ -118,7 +118,7 @@
 
         <p>Ready to start? You will begin by memorizing a series of colored objects.</p>
 
-        <p><i>Please set aside approximately 1 hour to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 1 hour!</i></p>
+        <p><i>Please set aside approximately 45 minutes to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 45 minutes!</i></p>
       </center>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
     <center><p id=loading>Images loading... Please wait a minute or refresh the page.</p></center>
@@ -250,7 +250,7 @@
     const centerY = 300;
     let PracTestedImage = [];
     let TestedImage = [];
-    let basepay = 4;
+    let basepay = 4.5;
     let numRepeats = 0;
     let RepeatObj = [];
     let OrigStudyColors = [];
@@ -592,20 +592,18 @@
           }
         }, itiTime/2);
       } else if (PracTrialType[curPractice] == 10) { //RpPlusR
-        // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         curDicX = RpPlusPracR[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         PracColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        start(ctxA, RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (RpPlusRCnt <= RpPlus.length*2) {
           RpPlusRCnt++;
         }
       } else if (PracTrialType[curPractice] == 13) { //PracLureR
-        // PracLuresRC[PracLuresRCnt]
         PracColOriginal.push(PracLuresRC[PracLuresRCnt]);
         curDicX = PracLuresR[PracLuresRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        start(ctxA, PracLuresRC[PracLuresRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
         if (PracLuresRCnt <= PracLures.length) {
           PracLuresRCnt++;
         }
@@ -616,12 +614,6 @@
       // console.log(imageDic[curDic]);
 
       PracTestedImage.push(imageDic[curDic].id);
-
-      setTimeout(function() {
-        if (PracTrialType[curPractice] > 9) {
-          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
-        }
-      }, itiTime+5); // wait a little bit just to make sure image got switched in time
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
@@ -791,8 +783,13 @@
 
         // open pop-up:
         modalClosed = false;
-        document.getElementById("openModal_text").innerHTML =
-          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see objects one at a time and be asked if you have seen the object before. If so, press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button.';
+        if (curPractice > numPractice) {
+          document.getElementById("openModal_text").innerHTML =
+            'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see objects one at a time and be asked if you have seen the object before. If so, press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button.';
+        } else {
+          document.getElementById("openModal_text").innerHTML =
+            'Great job! <br><br> We will now continue testing your memory, except this time you will occasionally be asked whether you have seen a grayscale object before. <br><br> If you have seen the object before (regardless of its color), press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button. <br><br> You will then be asked to select the original color of the object on the color wheel. If you believe you never saw the object before, then simply click a random color. Otherwise click the color you believe the object originally was to the best of your ability. Good luck!';
+        }
         window.location.href = '#openModal';
         checkFlag6();
 
@@ -1082,21 +1079,8 @@
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
 
-        if (PracTrialType[curPractice] > 9) { // if continuous report trial
-          flip = Math.round(Math.random());
-          flipList.push(flip);
-          randrotate = Math.floor(Math.random() * 360);
-          ringctxA.clearRect(0, 0, 600, 600);
-          ringctxA.restore();
-          ringctxA.save();
-          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-          ringctxA.rotate(randrotate * Math.PI / 180);
-          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-          Continuous();
-        } else { // if recognition test
-          curPractice++;
-          NextPracTrial();
-        }
+        curPractice++;
+        NextPracTrial();
       }
     }
 
@@ -1153,20 +1137,8 @@
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
 
-        if (PracTrialType[curPractice] > 9) { // if continuous report trial
-          flip = Math.round(Math.random());
-          randrotate = Math.floor(Math.random() * 360);
-          ringctxA.clearRect(0, 0, 600, 600);
-          ringctxA.restore();
-          ringctxA.save();
-          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-          ringctxA.rotate(randrotate * Math.PI / 180);
-          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-          Continuous();
-        } else { // if recognition test
-          curPractice++;
-          NextPracTrial();
-        }
+        curPractice++;
+        NextPracTrial();
       }
     }
 
@@ -1186,7 +1158,7 @@
       let cashpoints = basepay + (OverallAcc/100*3);
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " + bonus): $" + cashpoints;
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>APlease describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Please describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
         '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
