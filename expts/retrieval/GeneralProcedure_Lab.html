@@ -787,10 +787,10 @@
         modalClosed = false;
         if (curPractice > numPractice) {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see objects one at a time and be asked if you have seen the object before. If so, press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button.';
+            'Great job! <br><br> We will now continue testing your memory. <br><br> If you have seen the object before (regardless of whether it is displayed in color or in grayscale), press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button. <br><br> You will then be asked to select the original color of the object on the color wheel if the picture was presented in grayscale. In these cases, if you believe you never saw the object before, then simply click a random color. Otherwise click the color you believe the object originally was to the best of your ability. Good luck!';
         } else {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now continue testing your memory, except this time you will occasionally be asked whether you have seen a grayscale object before. <br><br> If you have seen the object before (regardless of its color), press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button. <br><br> You will then be asked to select the original color of the object on the color wheel. If you believe you never saw the object before, then simply click a random color. Otherwise click the color you believe the object originally was to the best of your ability. Good luck!';
+            'Great job! <br><br> We will now test your memory. <br><br> If you have seen the object before (regardless of whether it is displayed in color or in grayscale), press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button. <br><br> You will then be asked to select the original color of the object on the color wheel if the picture was presented in grayscale. In these cases, if you believe you never saw the object before, then simply click a random color. Otherwise click the color you believe the object originally was to the best of your ability. Good luck!';
         }
         window.location.href = '#openModal';
         checkFlag6();
