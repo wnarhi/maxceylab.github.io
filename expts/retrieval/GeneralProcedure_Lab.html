@@ -374,62 +374,138 @@
           }
         }
       } else {
-        // Preload the image of next trial
-        if (curStudy > 0) { curDicPast = curDic; }
-        if (StudyTrialType[curStudy] == 0) { //RpPlus
-          curDicX = RpPlus[RpPlusCnt];
-          curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(RpPlusC[RpPlusCnt]);
-          RpPlusCnt++;
-          if (RpPlusCnt >= RpPlus.length) {
-            RpPlusCnt=0;
-          } // prevent problems if on last trial of condition
-        } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-          curDicX = RpMinus[RpMinusCnt];
-          curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(RpMinusC[RpMinusCnt]);
-            RpMinusCnt++;
-            if (RpMinusCnt >= RpMinus.length) {
-              RpMinusCnt=0;
+        if (curStudy == numStudy/3 || curStudy == numStudy/3*2) {
+          // open pop-up:
+          modalClosed = false;
+          if (curStudy == numStudy/3) {
+            document.getElementById("openModal_text").innerHTML = 'You are 33% of the way through the study phase. Take a break if you want, and then close this pop-up to continue.';
+          } else if (curStudy == numStudy/3*2){
+            document.getElementById("openModal_text").innerHTML = 'You are 66% of the way through the study phase. Take a break if you want, and then close this pop-up to continue.';
+          }
+          window.location.href = '#openModal';
+          checkFlagBreak();
+
+          function checkFlagBreak() {
+            if (modalClosed == false) {
+              window.setTimeout(checkFlagBreak, 100); /* this checks the flag every 100 milliseconds*/
+            } else {
+              // Preload the image of next trial
+              if (curStudy > 0) { curDicPast = curDic; }
+              if (StudyTrialType[curStudy] == 0) { //RpPlus
+                curDicX = RpPlus[RpPlusCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(RpPlusC[RpPlusCnt]);
+                RpPlusCnt++;
+                if (RpPlusCnt >= RpPlus.length) {
+                  RpPlusCnt=0;
+                } // prevent problems if on last trial of condition
+              } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+                curDicX = RpMinus[RpMinusCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(RpMinusC[RpMinusCnt]);
+                  RpMinusCnt++;
+                  if (RpMinusCnt >= RpMinus.length) {
+                    RpMinusCnt=0;
+                  }
+              } else if (StudyTrialType[curStudy] == 2) { //Nrp
+                curDicX = Nrp[NrpCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(NrpC[NrpCnt]);
+                  NrpCnt++;
+                  if (NrpCnt >= Nrp.length) {
+                    NrpCnt=0;
+                  }
+              } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
+                curDicX = RpPlusR[RpPlusRCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
+                  RpPlusRCnt++;
+                  if (RpPlusRCnt >= RpPlusRC.length) {
+                    RpPlusRCnt=0;
+                  }
+              } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
+                curDicX = RpMinusR[RpMinusRCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(RpMinusRC[RpMinusRCnt]);
+                  RpMinusRCnt++;
+                  if (RpMinusRCnt >= RpMinusRC.length) {
+                    RpMinusRCnt=0;
+                  }
+              } else if (StudyTrialType[curStudy] == 12) { //NrpR
+                curDicX = NrpR[NrpRCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(NrpRC[NrpRCnt]);
+                  NrpRCnt++;
+                  if (NrpRCnt >= NrpRC.length) {
+                    NrpRCnt=0;
+                  }
+              }
             }
-        } else if (StudyTrialType[curStudy] == 2) { //Nrp
-          curDicX = Nrp[NrpCnt];
-          curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(NrpC[NrpCnt]);
-            NrpCnt++;
-            if (NrpCnt >= Nrp.length) {
-              NrpCnt=0;
-            }
-        } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
-          curDicX = RpPlusR[RpPlusRCnt];
-          curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
-            RpPlusRCnt++;
-            if (RpPlusRCnt >= RpPlusRC.length) {
-              RpPlusRCnt=0;
-            }
-        } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
-          curDicX = RpMinusR[RpMinusRCnt];
-          curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(RpMinusRC[RpMinusRCnt]);
-            RpMinusRCnt++;
-            if (RpMinusRCnt >= RpMinusRC.length) {
-              RpMinusRCnt=0;
-            }
-        } else if (StudyTrialType[curStudy] == 12) { //NrpR
-          curDicX = NrpR[NrpRCnt];
-          curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-          start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(NrpRC[NrpRCnt]);
-            NrpRCnt++;
-            if (NrpRCnt >= NrpRC.length) {
-              NrpRCnt=0;
-            }
+          }
+        } else {
+          // Preload the image of next trial
+          if (curStudy > 0) { curDicPast = curDic; }
+          if (StudyTrialType[curStudy] == 0) { //RpPlus
+            curDicX = RpPlus[RpPlusCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(RpPlusC[RpPlusCnt]);
+            RpPlusCnt++;
+            if (RpPlusCnt >= RpPlus.length) {
+              RpPlusCnt=0;
+            } // prevent problems if on last trial of condition
+          } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+            curDicX = RpMinus[RpMinusCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(RpMinusC[RpMinusCnt]);
+              RpMinusCnt++;
+              if (RpMinusCnt >= RpMinus.length) {
+                RpMinusCnt=0;
+              }
+          } else if (StudyTrialType[curStudy] == 2) { //Nrp
+            curDicX = Nrp[NrpCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(NrpC[NrpCnt]);
+              NrpCnt++;
+              if (NrpCnt >= Nrp.length) {
+                NrpCnt=0;
+              }
+          } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
+            curDicX = RpPlusR[RpPlusRCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
+              RpPlusRCnt++;
+              if (RpPlusRCnt >= RpPlusRC.length) {
+                RpPlusRCnt=0;
+              }
+          } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
+            curDicX = RpMinusR[RpMinusRCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(RpMinusRC[RpMinusRCnt]);
+              RpMinusRCnt++;
+              if (RpMinusRCnt >= RpMinusRC.length) {
+                RpMinusRCnt=0;
+              }
+          } else if (StudyTrialType[curStudy] == 12) { //NrpR
+            curDicX = NrpR[NrpRCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(NrpRC[NrpRCnt]);
+              NrpRCnt++;
+              if (NrpRCnt >= NrpRC.length) {
+                NrpRCnt=0;
+              }
+          }
         }
       }
 
