@@ -384,6 +384,7 @@
         }
       } else {
         // Preload the image of next trial
+        curDicPast = curDic;
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           curDicX = RpPlus[RpPlusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -449,15 +450,14 @@
           if (Repeats.includes(curStudy) && locked==0) {
             locked=1;
             numRepeats = numRepeats+1;
-            // alert(imageDic[curDic].id)
-            start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-            RepeatObj.push(imageDic[curDic]);
+            start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDicPast], itemA);
+            RepeatObj.push(imageDic[curDicPast]);
             $('#allItems').css('margin-top', 0);
             $('#pointer').css('margin-top', 0);
             // open pop-up:
             modalClosed = false;
             document.getElementById("openModal_text").innerHTML =
-              'Sometimes we will interrupt to gauge your attention. The object you just saw will now appear in grayscale and your task is to click its original color.';
+              'Sometimes we will interrupt to gauge your attention. The object from two presentations prior will now appear in grayscale and your task is to click its original color.';
             window.location.href = '#openModal';
             checkFlagCont();
 
