@@ -385,7 +385,7 @@
         }
       } else {
         // Preload the image of next trial
-        curDicPast = curDic;
+        if (curStudy > 0) { curDicPast = curDic; }
         if (StudyTrialType[curStudy] == 0) { //RpPlus
           curDicX = RpPlus[RpPlusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -679,10 +679,10 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-1]) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-1]) + 'degrees away. Great!')
+            if (wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Great!')
             } else {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-1]) + 'degrees away. Not quite...')
+              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Not quite...')
             }
             setTimeout(function() {
               $('#Old').hide(); // hide Old button
