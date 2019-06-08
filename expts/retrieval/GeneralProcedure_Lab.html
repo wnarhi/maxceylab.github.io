@@ -253,6 +253,7 @@
     let basepay = 4;
     let numRepeats = 0;
     let RepeatObj = [];
+    let OrigStudyColors = [];
     locked = 0;
 
     /* Setup reused image and color ring variables */
@@ -389,6 +390,7 @@
           curDicX = RpPlus[RpPlusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(RpPlusC[RpPlusCnt]);
           RpPlusCnt++;
           if (RpPlusCnt >= RpPlus.length) {
             RpPlusCnt=0;
@@ -397,6 +399,7 @@
           curDicX = RpMinus[RpMinusCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(RpMinusC[RpMinusCnt]);
             RpMinusCnt++;
             if (RpMinusCnt >= RpMinus.length) {
               RpMinusCnt=0;
@@ -405,6 +408,7 @@
           curDicX = Nrp[NrpCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(NrpC[NrpCnt]);
             NrpCnt++;
             if (NrpCnt >= Nrp.length) {
               NrpCnt=0;
@@ -413,6 +417,7 @@
           curDicX = RpPlusR[RpPlusRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
             RpPlusRCnt++;
             if (RpPlusRCnt >= RpPlusRC.length) {
               RpPlusRCnt=0;
@@ -421,6 +426,7 @@
           curDicX = RpMinusR[RpMinusRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(RpMinusRC[RpMinusRCnt]);
             RpMinusRCnt++;
             if (RpMinusRCnt >= RpMinusRC.length) {
               RpMinusRCnt=0;
@@ -429,6 +435,7 @@
           curDicX = NrpR[NrpRCnt];
           curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
           start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(NrpRC[NrpRCnt]);
             NrpRCnt++;
             if (NrpRCnt >= NrpRC.length) {
               NrpRCnt=0;
@@ -668,6 +675,15 @@
             $('#pointer').css('margin-top', -1000);
             $('#allItems').css('margin-top', -1000);
             RepeatColResp.push(wrap(imgNum));
+            if (flip == 1) {
+              a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
+              imgNum = origColors.findIndex(k => k==a);
+            }
+            if (wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-1]) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-1]) + 'degrees away. Great!')
+            } else {
+              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-1]) + 'degrees away. Not quite...')
+            }
             setTimeout(function() {
               $('#Old').hide(); // hide Old button
               $('#New').hide(); // hide New button
@@ -1210,6 +1226,7 @@
         "PracLuresRC": PracLuresRC,
         "RpTestLuresRC": RpTestLuresRC,
         "NrpTestLuresRC": NrpTestLuresRC,
+        "OrigStudyColors": OrigStudyColors,
         "RpPlus": RpPlusT,
         "RpMinus": RpMinusT,
         "Nrp": NrpT,
