@@ -538,6 +538,16 @@
               if (modalClosed == false) {
                 window.setTimeout(checkFlagCont, 100); /* this checks the flag every 100 milliseconds*/
               } else {
+                flip = Math.round(Math.random());
+                flipList.push(flip);
+                randrotate = Math.floor(Math.random() * 360);
+                randrotateList.push(randrotate);
+                ringctxA.clearRect(0, 0, 600, 600);
+                ringctxA.restore();
+                ringctxA.save();
+                ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+                ringctxA.rotate(randrotate * Math.PI / 180);
+                ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
                 Continuous();
               }
             }
