@@ -25,7 +25,7 @@ while (StudyTrialType.slice(0,1)==99) {
 }
 
 let PracTrialType = [];
-PracTrialType = PracTrialType.concat(repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), , repmat(repmat(10, RpPlusExemR.length), RpCatsR.length));
+PracTrialType = PracTrialType.concat(repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(10, RpPlusExemR.length), RpCatsR.length));
 PracTrialType = chance1.shuffle(PracTrialType);
 
 let TestTrialType = [];
