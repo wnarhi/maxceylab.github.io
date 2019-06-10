@@ -283,8 +283,8 @@ function RandStart(array) {
   }
   return array;
 }
-function fisherYates(array,length,exclude) {
-  for (let i = length-1; i <= 0; i--) {
+function fisherYates(array,length) {
+  for (let i = 0; i < length; i++) {
      var j = Math.floor(chance1.random() * ( i + 1 ) );
      var tempi = array[i];
      var tempj = array[j];
