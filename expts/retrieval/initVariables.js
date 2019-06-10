@@ -62,8 +62,13 @@ for (var i = 0; i < CatchCatsR.length/2; i++) {
   CatchRC[i] = wrap(RandStart(counter(1,360,360/numpercat)).slice(0,numpercat));
 }
 
+var CatIndx = new Array(); var ExemIndx = new Array(); var CIndx = new Array();
+CatIndx[0] = RpCatsR; CatIndx[1] = NrpCatsR; CatIndx[2] = CatchCatsR;
+ExemIndx[0] = RpPlusExemR; ExemIndx[1] = RpMinusExemR; ExemIndx[2] = NrpExemR; ExemIndx[3] = CatchExemR;
+CIndx[0] = RpPlusRC; CIndx[1] = RpMinusRC; CIndx[2] = NrpRC; CIndx[3] = CatchRC;
+
 let AllImages = [];
-AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,CatchR,PracLuresR,RpTestLuresR,NrpTestLuresR);
+AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,CatchR);
 
 let RpPlusR_StudyOrder = [];
 let RpMinusR_StudyOrder = [];
