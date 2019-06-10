@@ -2,9 +2,9 @@ let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // rand
 
 let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 12 cats
 
-let RpCatsR = Cats.slice(0,6); // 6 categories
-let NrpCatsR = Cats.slice(6,12);
-let CatchCatsR = [03,12,13];
+let RpCatsR = Cats.slice(0,4); // 4 categories
+let NrpCatsR = Cats.slice(4,8);
+let CatchCatsR = Cats.slice(8,11); // 3 cat
 
 let RpExemSliceR = chance1.shuffle(counter(11, 28));
 let RpPlusExemR = RpExemSliceR.slice(0, 6); //type 10
