@@ -191,9 +191,9 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 96*3;
-    const numPractice = 96;
-    const numTest = 192;
+    const numStudy = 78*3;
+    const numPractice = 72;
+    const numTest = 144;
     const displayTime = 3000; //3000 ms
     const itiTime = 500; // 500 ms
     const imgWidth = 300;
@@ -246,6 +246,7 @@
     const ringSize = 242;
     const centerX = 300;
     const centerY = 300;
+    let StudyImage = [];
     let PracTestedImage = [];
     let TestedImage = [];
     let basepay = 4.5;
@@ -558,6 +559,7 @@
 
     /* Display Object */
     function ShowStudy() {
+      if (curStudy > 0) { StudyImage.push(imageDic[curDicPast].id); }
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
@@ -1179,6 +1181,7 @@
         "AllImages": AllImages,
         "randrotate": randrotateList,
         "flip": flipList,
+        "StudyImage": StudyImage,
         "TestedImage": TestedImage,
         "PracTestedImage": PracTestedImage,
         "PracTypeList": PracTypeList,
