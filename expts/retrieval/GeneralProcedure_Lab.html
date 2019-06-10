@@ -352,168 +352,17 @@
               window.setTimeout(checkFlagBreak, 100); /* this checks the flag every 100 milliseconds*/
             } else {
               // Preload the image of next trial
-              if (curStudy > 0) { curDicPast = curDic; }
-              if (StudyTrialType[curStudy] == 10) { //RpPlusR
-                curDicX = RpPlusR[RpPlusRCnt];
-                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-                color = RpPlusRC.map(function(x) {return x.id; }).indexOf(RpPlusR[RpPlusRCnt]);
-                start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
-                RpPlusRCnt++;
-                if (RpPlusRCnt >= RpPlusRC.length) {
-                  RpPlusRCnt=0;
 
-                  var i=0, len= RpPlusR.length, next, order=[];
-                  while(i<len)order[i]= ++i;
-                  order.sort(function(){return chance1.random()-.5});
-
-                  for(i= 0; i<len; i++){
-                      next= order[i];
-                      RpPlusR.push(RpPlusR[next]);
-                      RpPlusRC.push(RpPlusRC[next]);
-                  }
-                  RpPlusR.splice(1, len);
-                  RpPlusRC.splice(1, len);
-
-                }
-              } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
-                curDicX = RpMinusR[RpMinusRCnt];
-                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-                start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                OrigStudyColors.push(RpMinusRC[RpMinusRCnt]);
-                  RpMinusRCnt++;
-                  if (RpMinusRCnt >= RpMinusRC.length) {
-                    RpMinusRCnt=0;
-
-                    var i=0, len= RpMinusR.length, next, order=[];
-                    while(i<len)order[i]= ++i;
-                    order.sort(function(){return chance1.random()-.5});
-
-                    for(i= 0; i<len; i++){
-                        next= order[i];
-                        RpMinusR.push(RpMinusR[next]);
-                        RpMinusRC.push(RpMinusRC[next]);
-                    }
-                    RpMinusR.splice(1, len);
-                    RpMinusRC.splice(1, len);
-
-                  }
-              } else if (StudyTrialType[curStudy] == 12) { //NrpR
-                curDicX = NrpR[NrpRCnt];
-                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-                start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                OrigStudyColors.push(NrpRC[NrpRCnt]);
-                  NrpRCnt++;
-                  if (NrpRCnt >= NrpRC.length) {
-                    NrpRCnt=0;
-
-                    var i=0, len= NrpR.length, next, order=[];
-                    while(i<len)order[i]= ++i;
-                    order.sort(function(){return chance1.random()-.5});
-
-                    for(i= 0; i<len; i++){
-                        next= order[i];
-                        NrpR.push(NrpR[next]);
-                        NrpRC.push(NrpRC[next]);
-                    }
-                    NrpR.splice(1, len);
-                    NrpRC.splice(1, len);
-
-                  }
-              } else {
-                curDicX = CatchR[CatchRCnt];
-                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-                start(ctxA, CatchRC[CatchRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                OrigStudyColors.push(CatchRC[CatchRCnt]);
-                CatchRCnt++;
-                if (CatchRCnt >= CatchRC.length) {
-                  CatchRCnt=0;
-                }
-              }
-              setTimeout(function() {
-                ShowStudy();
-              }, itiTime/2); // wait a tad just to ensure image got switch
             }
           }
         } else {
           // Preload the image of next trial
           if (curStudy > 0) { curDicPast = curDic; }
-          if (StudyTrialType[curStudy] == 10) { //RpPlusR
-            curDicX = RpPlusR[RpPlusRCnt];
-            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-            start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-            OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
-              RpPlusRCnt++;
-              if (RpPlusRCnt >= RpPlusRC.length) {
-                RpPlusRCnt=0;
-
-                var i=0, len= RpPlusR.length, next, order=[];
-                while(i<len)order[i]= ++i;
-                order.sort(function(){return chance1.random()-.5});
-
-                for(i= 0; i<len; i++){
-                    next= order[i];
-                    RpPlusR.push(RpPlusR[next]);
-                    RpPlusRC.push(RpPlusRC[next]);
-                }
-                RpPlusR.splice(1, len);
-                RpPlusRC.splice(1, len);
-
-              }
-          } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
-            curDicX = RpMinusR[RpMinusRCnt];
-            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-            start(ctxA, RpMinusRC[RpMinusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-            OrigStudyColors.push(RpMinusRC[RpMinusRCnt]);
-              RpMinusRCnt++;
-              if (RpMinusRCnt >= RpMinusRC.length) {
-                RpMinusRCnt=0;
-
-                var i=0, len= RpMinusR.length, next, order=[];
-                while(i<len)order[i]= ++i;
-                order.sort(function(){return chance1.random()-.5});
-
-                for(i= 0; i<len; i++){
-                    next= order[i];
-                    RpMinusR.push(RpMinusR[next]);
-                    RpMinusRC.push(RpMinusRC[next]);
-                }
-                RpMinusR.splice(1, len);
-                RpMinusRC.splice(1, len);
-
-              }
-          } else if (StudyTrialType[curStudy] == 12) { //NrpR
-            curDicX = NrpR[NrpRCnt];
-            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-            start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-            OrigStudyColors.push(NrpRC[NrpRCnt]);
-            NrpRCnt++;
-            if (NrpRCnt >= NrpRC.length) {
-              NrpRCnt=0;
-
-              var i=0, len= NrpR.length, next, order=[];
-              while(i<len)order[i]= ++i;
-              order.sort(function(){return chance1.random()-.5});
-
-              for(i= 0; i<len; i++){
-                  next= order[i];
-                  NrpR.push(NrpR[next]);
-                  NrpRC.push(NrpRC[next]);
-              }
-              NrpR.splice(1, len);
-              NrpRC.splice(1, len);
-
-            }
-          } else {
-            curDicX = CatchR[CatchRCnt];
-            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-            start(ctxA, CatchRC[CatchRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-            OrigStudyColors.push(CatchRC[CatchRCnt]);
-            CatchRCnt++;
-            if (CatchRCnt >= CatchRC.length) {
-              CatchRCnt=0;
-            }
+          if (StudyTrial[curStudy].null==1) {
+            NextStudyTrial()
           }
+          start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          OrigStudyColors.push(NrpRC[NrpRCnt]);
           setTimeout(function() {
             ShowStudy();
           }, itiTime/2); // wait a tad just to ensure image got switch

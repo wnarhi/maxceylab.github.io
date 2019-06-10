@@ -73,6 +73,7 @@ AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,CatchR);
 ObjIndx = new Object();
 for (var a = 0; a < AllImages.length; a++) {a
   ObjIndx[a] = new Object();
+  ObjIndx[a].id = AllImages[a];
   ObjIndx[a].cat = AllImages[a].slice(0,2);
   ObjIndx[a].exem = AllImages[a].slice(3,5);
   if (RpPlusR.includes(AllImages[a])) {
