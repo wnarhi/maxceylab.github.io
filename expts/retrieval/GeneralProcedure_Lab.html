@@ -393,10 +393,10 @@
                 curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
                 start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
                 OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
-                  RpPlusRCnt++;
-                  if (RpPlusRCnt >= RpPlusRC.length) {
-                    RpPlusRCnt=0;
-                  }
+                RpPlusRCnt++;
+                if (RpPlusRCnt >= RpPlusRC.length) {
+                  RpPlusRCnt=0;
+                }
               } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
                 curDicX = RpMinusR[RpMinusRCnt];
                 curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -465,7 +465,7 @@
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
-          if (Repeats.includes(curStudy) && locked==0) {
+          if (imageDic[curDicPast].id.slice(0,1) == 03 || imageDic[curDicPast].id.slice(0,1) == 12 || imageDic[curDicPast].id.slice(0,1) == 13 && locked==0) {
             locked=1;
             numRepeats = numRepeats+1;
             start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDicPast], itemA);
@@ -1079,7 +1079,7 @@
         "PracTypeList": PracTypeList,
         "TestTypeList": TestTypeList,
         "numRepeats": numRepeats,
-        "Repeats": Repeats,
+        "CatchCatsR": CatchCatsR,
         "RepeatObj": RepeatObj,
         "seed": chance1.seed,
         "bonus": (OverallAcc/100*3),

@@ -4,6 +4,7 @@ let Cats = chance1.shuffle([01,02,04,05,06,07,08,09,10,11,15,16]); // 12 cats
 
 let RpCatsR = Cats.slice(0,6); // 6 categories
 let NrpCatsR = Cats.slice(6,12);
+let CatchCatsR = [03,12,13];
 
 let RpExemSliceR = chance1.shuffle(counter(11, 28));
 let RpPlusExemR = RpExemSliceR.slice(0, 3); //type 10
@@ -13,9 +14,10 @@ let RpTestLuresExemR = RpExemSliceR.slice(12, 18); //type 14
 let NrpExemSliceR = chance1.shuffle(counter(11, 22));
 let NrpExemR = NrpExemSliceR.slice(0, 6); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(6, 12); //type 15
+let CatchExemR = counter(11, 18);
 
 let StudyTrialType = []; let StudyAr = [];
-StudyAr = StudyAr.concat(repmat(repmat([10, 11], RpPlusExemR.length),RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length));
+StudyAr = StudyAr.concat(repmat(repmat([10, 11], RpPlusExemR.length),RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length), repmat(repmat(99, CatchExemR.length), CatchCatsR.length));
 StudyTrialType = StudyTrialType.concat(chance1.shuffle(StudyAr),chance1.shuffle(StudyAr),chance1.shuffle(StudyAr));
 
 let PracTrialType = [];
@@ -45,8 +47,6 @@ let RpTestLuresR = chance1.shuffle(perm_concat(RpCatsR,RpTestLuresExemR));
 let RpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/RpTestLuresR.length))));
 let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
 let NrpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/NrpTestLuresR.length))));
-
-let Repeats = chance1.shuffle(counter(2,StudyTrialType.length-1)).slice(0,24); // 24/(288+24) = 7.69% of trials are repeats
 
 let AllImages = [];
 AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,PracLuresR,RpTestLuresR,NrpTestLuresR);
