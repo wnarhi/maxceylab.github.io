@@ -54,7 +54,7 @@ let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
 let NrpTestLuresRC = wrap(RandStart(counter(1,360,Math.round(360/NrpTestLuresR.length))));
 
 let AllImages = [];
-AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,PracLuresR,RpTestLuresR,NrpTestLuresR);
+AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,CatchR,PracLuresR,RpTestLuresR,NrpTestLuresR);
 
 let RpPlusR_StudyOrder = [];
 let RpMinusR_StudyOrder = [];
