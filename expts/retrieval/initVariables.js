@@ -210,6 +210,10 @@ for (var a = 0; a < AllImages.length; a++) {a
 
 StudyTrials=[];
 StudyTrials = StudyTrials.concat(fisherYates(ObjIndx,AllImages.length),fisherYates(ObjIndx2,AllImages.length),fisherYates(ObjIndx3,AllImages.length));
+while (StudyTrials[0][0].type==3){
+  StudyTrials=[];
+  StudyTrials = StudyTrials.concat(fisherYates(ObjIndx,AllImages.length),fisherYates(ObjIndx2,AllImages.length),fisherYates(ObjIndx3,AllImages.length));
+}
 PracticeTrials=[];
 PracticeTrials = PracticeTrials.concat(fisherYates(ObjIndxP,AllImages.length),fisherYates(ObjIndxP,AllImages.length),fisherYates(ObjIndxP,AllImages.length));
 TestTrials = fisherYates(ObjIndxT,AllImages.length,3);

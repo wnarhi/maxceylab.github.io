@@ -168,36 +168,20 @@
     let curStudy = 0;
     let curPractice = 0;
     let curTest = 0;
-    let RpPlusRCnt = 0;
-    let RpMinusRCnt = 0;
-    let NrpRCnt = 0;
-    let CatchRCnt = 0;
-    let PracLuresRCnt = 0;
-    let RpTestLuresRCnt = 0;
-    let NrpTestLuresRCnt = 0;
     let now = new Date().getTime(); // used for 5 min filler task
     let now2 = now;
     let curCD = 0;
     let CDaccuracy = [];
     let CDType = [];
-    let PracticeResp = [];
-    let PracticeAcc = [];
-    let PracticeRT = [];
     let PracticeColRT = [];
     let PracticeColResp = [];
-    let PracColOriginal = [];
-    let TestResp = [];
-    let TestAcc = [];
-    let TestRT = [];
+    let PracticeColDiff = [];
     let TestColRT = [];
     let TestColResp = [];
-    let TestColOriginal = [];
     let RepeatColResp = [];
     let RepeatColDiff = [];
     let flip = 0;
     let flipList = [0];
-    let PracTypeList = [];
-    let TestTypeList = [];
     let randrotate = 0;
     let randrotateList = [];
     const origColors = _.clone(colors); // clone is required to copy a variable without it accidentally referencing the same thing
@@ -211,13 +195,10 @@
     const ringSize = 242;
     const centerX = 300;
     const centerY = 300;
-    let StudyImage = [];
-    let PracTestedImage = [];
-    let TestedImage = [];
     let basepay = 4.5;
     let numRepeats = 0;
     let RepeatObj = [];
-    let OrigStudyColors = [];
+    let RepeatCol = [];
     locked = 0;
 
     /* Setup reused image and color ring variables */
@@ -340,8 +321,12 @@
           modalClosed = false;
           $('#allItems').css('margin-top', -1000);
           if (curStudy == numStudy/3) {
+            curBlock = 1;
+            curStudy=0;
             document.getElementById("openModal_text").innerHTML = 'You are 33% of the way through the study phase. Take a short break if you want, and then close this pop-up to continue.';
           } else if (curStudy == numStudy/3*2){
+            curBlock = 2;
+            curStudy=0;
             document.getElementById("openModal_text").innerHTML = 'You are 66% of the way through the study phase. Take a short break if you want, and then close this pop-up to continue.';
           }
           window.location.href = '#openModal';
@@ -352,17 +337,23 @@
               window.setTimeout(checkFlagBreak, 100); /* this checks the flag every 100 milliseconds*/
             } else {
               // Preload the image of next trial
-
+              if (curStudy > 0) { idPast = StudyTrials[curBlock][curStudy].id; colPast = StudyTrials[curBlock][curStudy].color; }
+              if (StudyTrials[curBlock][curStudy].null==1) {
+                NextStudyTrial();
+              }
+              start(ctxA, StudyTrials[curBlock][curStudy].color, 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy].id, itemA);
+              setTimeout(function() {
+                ShowStudy();
+              }, itiTime/2); // wait a tad just to ensure image got switch
             }
           }
         } else {
           // Preload the image of next trial
-          if (curStudy > 0) { curDicPast = curDic; }
-          if (StudyTrial[curStudy].null==1) {
-            NextStudyTrial()
+          if (curStudy > 0) { idPast = StudyTrials[curBlock][curStudy].id; colPast = StudyTrials[curBlock][curStudy].color; }
+          if (StudyTrials[curBlock][curStudy].null==1) {
+            NextStudyTrial();
           }
-          start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-          OrigStudyColors.push(NrpRC[NrpRCnt]);
+          start(ctxA, StudyTrials[curBlock][curStudy].color, 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy].id, itemA);
           setTimeout(function() {
             ShowStudy();
           }, itiTime/2); // wait a tad just to ensure image got switch
@@ -372,17 +363,17 @@
 
     /* Display Object */
     function ShowStudy() {
-      if (curStudy > 0) { StudyImage.push(imageDic[curDicPast].id); }
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
           if (curStudy > 0) {
-            if ((imageDic[curDicPast].id.slice(0,2) == 03 || imageDic[curDicPast].id.slice(0,2) == 12 || imageDic[curDicPast].id.slice(0,2) == 13) && locked==0) {
+            if (StudyTrials[curBlock][curStudy].type==3 && locked==0) {
               locked=1;
               numRepeats = numRepeats+1;
-              start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDicPast], itemA);
-              RepeatObj.push(imageDic[curDicPast]);
+              start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, colPast, itemA);
+              RepeatObj.push(idPast);
+              RepeatCol.push(colPast);
               $('#allItems').css('margin-top', 0);
               $('#pointer').css('margin-top', 0);
               // open pop-up:
@@ -425,35 +416,18 @@
 
     /* Practice Phase Start */
     function NextPracTrial() {
+      if (curPractice == numStudy/3) {
+        curBlock = 1;
+        curPractice = 0;
+      } else if (curPractice == numStudy/3*2) {
+        curBlock = 2;
+        curPractice = 0;
+      }
       $(document).unbind('mousemove.curTrial');
       $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
-      if (PracTrialType[curPractice] == 10) { //RpPlusR
-        // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
-        curDicX = RpPlusPracR[RpPlusRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        PracColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpPlusRCnt <= RpPlusR.length*2) {
-          RpPlusRCnt++;
-        }
-      } else if (PracTrialType[curPractice] == 13) { //PracLureR
-        // PracLuresRC[PracLuresRCnt]
-        PracColOriginal.push(PracLuresRC[PracLuresRCnt]);
-        curDicX = PracLuresR[PracLuresRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (PracLuresRCnt <= PracLuresR.length) {
-          PracLuresRCnt++;
-        }
-      }
-      // console.log('---p');
-      // console.log(curPractice);
-      // console.log(PracTrialType[curPractice]);
-      // console.log(imageDic[curDic]);
-
-      PracTestedImage.push(imageDic[curDic].id);
+      start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, PracticeTrials[curBlock][curPractice].id, itemA);
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of practice
@@ -479,6 +453,9 @@
               return; // need return; otherwise function below executes
             }
           }
+        } else if (PracticeTrials[curBlock][curPractice].null==1) {
+          NextPracTrial();
+          return;
         }
         OldNewJudgment();
       }, itiTime);
@@ -536,12 +513,12 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Great!')
+            if (wrapDiff(imgNum,RepeatCol[RepeatCol.length-1]) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,RepeatCol[RepeatCol.length-1]) + ' degrees away. Great!')
             } else {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Not quite...')
+              alert('You were ' + wrapDiff(imgNum,RepeatCol[RepeatCol.length-1]) + ' degrees away. Not quite...')
             }
-            RepeatColDiff.push(wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]));
+            RepeatColDiff.push(wrapDiff(imgNum,RepeatCol[RepeatCol.length-1]));
             setTimeout(function() {
               locked=0;
               NextStudyTrial();
@@ -554,13 +531,13 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,TestColOriginal[TestColOriginal.length-2]) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,TestColOriginal[TestColOriginal.length-2]) + ' degrees away. Great!')
+            if (wrapDiff(imgNum,TestTrials[curBlock][curTest].color) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,TestTrials[curBlock][curTest].color) + ' degrees away. Great!')
             } else {
-              alert('You were ' + wrapDiff(imgNum,TestColOriginal[TestColOriginal.length-2]) + ' degrees away. Not quite...')
+              alert('You were ' + wrapDiff(imgNum,TestTrials[curBlock][curTest].color) + ' degrees away. Not quite...')
             }
             TestColResp.push(wrap(imgNum));
-            TestTypeList.push(TestTrialType[curTest]);
+            TestColDiff.push(wrapDiff(imgNum,TestTrials[curBlock][curTest].color));
             curTest++;
             NextTestTrial();
           } else if (locked==0) { // if practice phase
@@ -569,13 +546,13 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,PracColOriginal[PracColOriginal.length-2]) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,PracColOriginal[PracColOriginal.length-2]) + ' degrees away. Great!')
+            if (wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Great!')
             } else {
-              alert('You were ' + wrapDiff(imgNum,PracColOriginal[PracColOriginal.length-2]) + ' degrees away. Not quite...')
+              alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Not quite...')
             }
             PracticeColResp.push(wrap(imgNum));
-            PracTypeList.push(PracTypeList[curPractice]);
+            PracticeColDiff.push(wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color));
             curPractice++;
             NextPracTrial();
           }
@@ -602,6 +579,7 @@
 
     /* Filler Start */
     function ChangeDetection() {
+      curBlock = 0;
       $('#allItems').css('margin-top', 0);
       $('#CDitem').show();
       if (now2 < (now + 180000)) { // 180000 for 3 minutes long filler task
@@ -612,16 +590,6 @@
         $('#DiffButton').hide();
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
         $('#itemA').show();
-
-        RpPlusR_StudyOrder = RpPlusR;
-        RpPlusRCnt = 0; //reset counter for RpPlus
-        RpPlusRT = chance1.shuffle(RpPlusR); //reshuffle ordering of RpPlus
-        RpMinusR_StudyOrder = RpMinusR;
-        RpMinusRCnt = 0;
-        RpMinusRT = chance1.shuffle(RpMinusR);
-        NrpR_StudyOrder = NrpR;
-        NrpRCnt = 0;
-        NrpRT = chance1.shuffle(NrpR);
 
         // open pop-up:
         modalClosed = false;
@@ -731,57 +699,11 @@
       $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
-      if (TestTrialType[curTest] == 10) { //RpPlusR
-        curDicX = RpPlusRT[RpPlusRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        TestColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpPlusRCnt <= RpPlusR.length) {
-          RpPlusRCnt++;
-        }
-      } else if (TestTrialType[curTest] == 11) { //RpMinusR
-        curDicX = RpMinusRT[RpMinusRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        TestColOriginal.push(RpMinusRC[arrayContains(imageDic[curDic].id,RpMinusR)]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpMinusRCnt <= RpMinusR.length) {
-          RpMinusRCnt++;
-        }
-      } else if (TestTrialType[curTest] == 12) { //NrpR
-        curDicX = NrpRT[NrpRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,NrpR)]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (NrpRCnt <= NrpR.length) {
-          NrpRCnt++;
-        }
-      } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
-        curDicX = RpTestLuresR[RpTestLuresRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        TestColOriginal.push(RpTestLuresRC[RpTestLuresRCnt]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpTestLuresRCnt <= RpTestLuresR.length) {
-          RpTestLuresRCnt++;
-        }
-      } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
-        curDicX = NrpTestLuresR[NrpTestLuresRCnt];
-        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-        TestColOriginal.push(NrpTestLuresRC[NrpTestLuresRCnt]);
-        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (NrpTestLuresRCnt <= NrpTestLuresR.length) {
-          NrpTestLuresRCnt++;
-        }
-      }
-      // console.log('---t')
-      // console.log(curTest);
-      // console.log(TestTrialType[curTest]);
-      // console.log(imageDic[curDic]);
-
-      TestedImage.push(imageDic[curDic].id);
+      start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, TestTrials[curBlock][curTest].id, itemA);
 
       setTimeout(function() {
         if (TestTrialType[curTest] > 9) {
-          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, imageDic[curDic], itemA);
+          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, TestTrials[curBlock][curTest].id, itemA);
         }
       }, itiTime+5); // wait a little bit just to make sure image got switched in time
 
@@ -804,6 +726,9 @@
               return; // need return; otherwise function below executes
             }
           }
+        } else if (TestTrials[curBlock][curTest].null==1) {
+          NextTestTrial();
+          return;
         }
         OldNewJudgment();
       }, itiTime);
@@ -847,59 +772,25 @@
         "sex": sex,
         "StartTime": startDate.getTime(),
         "EndTime": endDate,
-        "PracticeResp": PracticeResp,
-        "PracticeAcc": PracticeAcc,
-        "PracColOriginal": PracColOriginal,
-        "PracticeRT": PracticeRT,
         "PracticeColRT": PracticeColRT,
         "PracticeColResp": PracticeColResp,
-        "TestResp": TestResp,
-        "TestAcc": TestAcc,
-        "TestRT": TestRT,
+        "PracticeColDiff": PracticeColDiff,
         "TestColRT": TestColRT,
         "TestColResp": TestColResp,
-        "TestColOriginal": TestColOriginal,
-        "RepeatColResp": RepeatColResp,
-        "RepeatColDiff": RepeatColDiff,
-        "RpPlusRCnt": RpPlusRCnt,
-        "RpMinusRCnt": RpMinusRCnt,
-        "NrpRCnt": NrpRCnt,
-        "CatchR": CatchR,
-        "CatchRCnt": CatchRCnt,
-        "PracLuresRCnt": PracLuresRCnt,
-        "RpTestLuresRCnt": RpTestLuresRCnt,
-        "NrpTestLuresRCnt": NrpTestLuresRCnt,
+        "TestColDiff": TestColDiff,
+        "CDType": CDType,
         "CDaccuracy": CDaccuracy,
-        "RpCatsR": RpCatsR,
-        "NrpCatsR": NrpCatsR,
-        "RpPlusRC": RpPlusRC,
-        "RpMinusRC": RpMinusRC,
-        "NrpRC": NrpRC,
-        "PracLuresRC": PracLuresRC,
-        "RpTestLuresRC": RpTestLuresRC,
-        "NrpTestLuresRC": NrpTestLuresRC,
-        "OrigStudyColors": OrigStudyColors,
-        "PracLuresR": PracLuresR,
-        "RpTestLuresR": RpTestLuresR,
-        "NrpTestLuresR": NrpTestLuresR,
-        "RpPlusR_StudyOrder": RpPlusR_StudyOrder,
-        "RpMinusR_StudyOrder": RpMinusR_StudyOrder,
-        "NrpR_StudyOrder": NrpR_StudyOrder,
-        "RpPlusR_PracticeOrder": RpPlusPracR,
-        "StudyTrialType": StudyTrialType,
-        "PracTrialType": PracTrialType,
-        "TestTrialType": TestTrialType,
         "AllImages": AllImages,
         "randrotate": randrotateList,
         "flip": flipList,
-        "StudyImage": StudyImage,
-        "TestedImage": TestedImage,
-        "PracTestedImage": PracTestedImage,
-        "PracTypeList": PracTypeList,
-        "TestTypeList": TestTypeList,
+        "StudyTrials": StudyTrials,
+        "PracticeTrials": PracticeTrials,
+        "TestTrials": TestTrials,
         "numRepeats": numRepeats,
-        "CatchCatsR": CatchCatsR,
         "RepeatObj": RepeatObj,
+        "RepeatCol": RepeatCol,
+        "RepeatColResp": RepeatColResp,
+        "RepeatColDiff": RepeatColDiff,
         "seed": chance1.seed,
         "bonus": (OverallAcc/100*3),
         "comments": $('#comments').val()
