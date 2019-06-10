@@ -7,12 +7,12 @@ let NrpCatsR = Cats.slice(6,12);
 let CatchCatsR = [03,12,13];
 
 let RpExemSliceR = chance1.shuffle(counter(11, 28));
-let RpPlusExemR = RpExemSliceR.slice(0, 6); //type 10
-let RpMinusExemR = RpExemSliceR.slice(6, 12); //type 11
+let RpPlusExemR = RpExemSliceR.slice(0, 3); //type 10
+let RpMinusExemR = RpExemSliceR.slice(3, 6); //type 11
 let PracLuresExemR = RpExemSliceR.slice(6, 12); //type 13
 let RpTestLuresExemR = RpExemSliceR.slice(12, 18); //type 14
 let NrpExemSliceR = chance1.shuffle(counter(11, 22));
-let NrpExemR = NrpExemSliceR.slice(0, 12); //type 12
+let NrpExemR = NrpExemSliceR.slice(0, 6); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(6, 12); //type 15
 let CatchExemR = counter(11, 16);
 
@@ -25,11 +25,13 @@ while (StudyTrialType.slice(0,1)==99) {
 }
 
 let PracTrialType = [];
-PracTrialType = PracTrialType.concat(repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(10, RpPlusExemR.length), RpCatsR.length));
+PracTrialType = PracTrialType.concat(repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(13, PracLuresExemR.length), RpCatsR.length));
 PracTrialType = chance1.shuffle(PracTrialType);
 
 let TestTrialType = [];
-TestTrialType = TestTrialType.concat(repmat(repmat([10, 11], RpPlusExemR.length), RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length));
+TestTrialType = TestTrialType.concat(repmat(repmat([10, 11], RpPlusExemR.length), RpCatsR.length),
+    repmat(repmat(12, NrpExemR.length), NrpCatsR.length), repmat(repmat(14, RpTestLuresExemR.length),
+    RpCatsR.length), repmat(repmat(15, NrpTestLuresExemR.length), NrpCatsR.length));
 TestTrialType = chance1.shuffle(TestTrialType);
 
 // let RandStart = Math.floor(chance1.random()*360)+1; // random number from 1 to 360

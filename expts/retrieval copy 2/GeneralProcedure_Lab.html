@@ -136,6 +136,8 @@
     <div id="pointer"></div>
     <br><br>
     <center>
+      <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
+      <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
@@ -323,6 +325,8 @@
         now = new Date().getTime();
         now2 = now;
         $('#itemA').hide(); // hide object from last trial
+        $('#Old').hide(); // hide Old button
+        $('#New').hide(); // hide New button
 
         // open pop-up:
         modalClosed = false;
@@ -591,7 +595,7 @@
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         PracColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpPlusRCnt <= RpPlusR.length*2) {
+        if (RpPlusRCnt <= RpPlus.length*2) {
           RpPlusRCnt++;
         }
       } else if (PracTrialType[curPractice] == 13) { //PracLureR
@@ -600,7 +604,7 @@
         curDicX = PracLuresR[PracLuresRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (PracLuresRCnt <= PracLuresR.length) {
+        if (PracLuresRCnt <= PracLures.length) {
           PracLuresRCnt++;
         }
       }
@@ -618,6 +622,8 @@
           now = new Date().getTime();
           now2 = now;
           $('#itemA').hide(); // hide object from last trial
+          $('#Old').hide(); // hide Old button
+          $('#New').hide(); // hide New button
 
           // open pop-up:
           modalClosed = false;
@@ -643,6 +649,8 @@
     function Continuous() {
       $('#ringItemA').show();
       $('#CDitem').hide();
+      $('#Old').hide();
+      $('#New').hide();
 
       flip == 0 ? ringctxA.drawImage(ringStandard, 50, 50, 500, 500) : ringctxA.drawImage(ringFlipped, 50, 50, 500, 500);
 
@@ -699,6 +707,8 @@
             }
             RepeatColDiff.push(wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]));
             setTimeout(function() {
+              $('#Old').hide(); // hide Old button
+              $('#New').hide(); // hide New button
               locked=0;
               NextStudyTrial();
               return;
@@ -734,15 +744,8 @@
     function OldNewJudgment() {
       startTrial = new Date().getTime();
       $('#CDitem').show();
-      flip = Math.round(Math.random());
-      randrotate = Math.floor(Math.random() * 360);
-      ringctxA.clearRect(0, 0, 600, 600);
-      ringctxA.restore();
-      ringctxA.save();
-      ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-      ringctxA.rotate(randrotate * Math.PI / 180);
-      ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-      Continuous();
+      $('#Old').show();
+      $('#New').show();
       $('#allItems').css('margin-top', 0);
     }
 
@@ -773,10 +776,10 @@
         modalClosed = false;
         if (curPractice > numPractice) {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. Good luck!';
+            'Great job! <br><br> We will now continue testing your memory. <br><br> If you have seen the object before (regardless of whether it is displayed in color or in grayscale), press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button. <br><br> You will then be asked to select the original color of the object on the color wheel if the picture was presented in grayscale. In these cases, if you believe you never saw the object before, then simply click a random color. Otherwise click the color you believe the object originally was to the best of your ability. Good luck!';
         } else {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now test your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. Good luck!';
+            'Great job! <br><br> We will now test your memory. <br><br> If you have seen the object before (regardless of whether it is displayed in color or in grayscale), press the <i>old</i> button. If you have not seen the image before, press the <i>new</i> button. <br><br> You will then be asked to select the original color of the object on the color wheel if the picture was presented in grayscale. In these cases, if you believe you never saw the object before, then simply click a random color. Otherwise click the color you believe the object originally was to the best of your ability. Good luck!';
         }
         window.location.href = '#openModal';
         checkFlag6();
@@ -882,7 +885,7 @@
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpPlusRCnt <= RpPlusR.length) {
+        if (RpPlusRCnt <= RpPlus.length) {
           RpPlusRCnt++;
         }
       } else if (TestTrialType[curTest] == 11) { //RpMinusR
@@ -890,7 +893,7 @@
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpMinusRC[arrayContains(imageDic[curDic].id,RpMinusR)]);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpMinusRCnt <= RpMinusR.length) {
+        if (RpMinusRCnt <= RpMinus.length) {
           RpMinusRCnt++;
         }
       } else if (TestTrialType[curTest] == 12) { //NrpR
@@ -898,7 +901,7 @@
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,NrpR)]);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (NrpRCnt <= NrpR.length) {
+        if (NrpRCnt <= Nrp.length) {
           NrpRCnt++;
         }
       } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
@@ -906,7 +909,7 @@
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpTestLuresRC[RpTestLuresRCnt]);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (RpTestLuresRCnt <= RpTestLuresR.length) {
+        if (RpTestLuresRCnt <= RpTestLures.length) {
           RpTestLuresRCnt++;
         }
       } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
@@ -914,7 +917,7 @@
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(NrpTestLuresRC[NrpTestLuresRCnt]);
         start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-        if (NrpTestLuresRCnt <= NrpTestLuresR.length) {
+        if (NrpTestLuresRCnt <= NrpTestLures.length) {
           NrpTestLuresRCnt++;
         }
       }
@@ -934,6 +937,8 @@
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
           $('#itemA').hide(); // hide object from last trial
+          $('#Old').hide(); // hide Old button
+          $('#New').hide(); // hide New button
 
           // open pop-up:
           modalClosed = false;
@@ -955,6 +960,119 @@
       }, itiTime);
     }
 
+    function New() {
+      if (curPractice > numPractice) { // if test phase
+        TestResp.push(1);
+        if (TestTrialType[curTest] == 10) { //RpPlusR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 11) { //RpMinusR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 12) { //NrpR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
+          TestAcc.push(1);
+        }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+
+        // if (TestTrialType[curTest] > 9) { // if continuous report trial
+        //   flip = Math.round(Math.random());
+        //   flipList.push(flip);
+        //   randrotate = Math.floor(Math.random() * 360);
+        //   randrotateList.push(randrotate);
+        //   ringctxA.clearRect(0, 0, 600, 600);
+        //   ringctxA.restore();
+        //   ringctxA.save();
+        //   ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+        //   ringctxA.rotate(randrotate * Math.PI / 180);
+        //   ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+        //   Continuous();
+        // } else { // if recognition test
+          curTest++;
+          NextTestTrial();
+        // }
+      } else { // if practice phase
+        PracticeResp.push(1);
+        if (PracTrialType[curPractice] == 10) { //RpPlusR
+          PracticeAcc.push(0);
+        } else if (PracTrialType[curPractice] == 13) { //PracLureR
+          PracticeAcc.push(1);
+        }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+
+        // if (PracTrialType[curPractice] > 9) { // if continuous report trial
+        //   flip = Math.round(Math.random());
+        //   randrotate = Math.floor(Math.random() * 360);
+        //   ringctxA.clearRect(0, 0, 600, 600);
+        //   ringctxA.restore();
+        //   ringctxA.save();
+        //   ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+        //   ringctxA.rotate(randrotate * Math.PI / 180);
+        //   ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+        //   Continuous();
+        // } else { // if recognition test
+          curPractice++;
+          NextPracTrial();
+        // }
+      }
+    }
+
+    function Old() {
+      if (curPractice > numPractice) { // if test phase
+        TestResp.push(0);
+        if (TestTrialType[curTest] == 10) { //RpPlusR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 11) { //RpMinusR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 12) { //NrpR
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 14) { //RpTestLuresR
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 15) { //NrpTestLuresR
+          TestAcc.push(0);
+        }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+
+        if (TestTrialType[curTest] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curTest++;
+          NextTestTrial();
+        }
+      } else { // if practice phase
+        PracticeResp.push(0);
+        if (PracTrialType[curPractice] == 10) { //RpPlusR
+          PracticeAcc.push(1);
+        } else if (PracTrialType[curPractice] == 13) { //PracLureR
+          PracticeAcc.push(0);
+        }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+
+        if (PracTrialType[curPractice] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
+          curPractice++;
+          NextPracTrial();
+        }
+      }
+    }
 
     /* Always track mouse */
     let mouseX, mouseY;
