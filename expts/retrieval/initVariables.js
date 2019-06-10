@@ -14,7 +14,7 @@ let RpTestLuresExemR = RpExemSliceR.slice(12, 18); //type 14
 let NrpExemSliceR = chance1.shuffle(counter(11, 22));
 let NrpExemR = NrpExemSliceR.slice(0, 6); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(6, 12); //type 15
-let CatchExemR = counter(11, 18);
+let CatchExemR = counter(11, 16);
 
 let StudyTrialType = []; let StudyAr = [];
 StudyAr = StudyAr.concat(repmat(repmat([10, 11], RpPlusExemR.length),RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length), repmat(repmat(99, CatchExemR.length), CatchCatsR.length));

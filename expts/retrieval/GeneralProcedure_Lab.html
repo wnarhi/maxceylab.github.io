@@ -485,7 +485,7 @@
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
           if (curStudy > 0) {
-            if (imageDic[curDicPast].id.slice(0,1) == 03 || imageDic[curDicPast].id.slice(0,1) == 12 || imageDic[curDicPast].id.slice(0,1) == 13 && locked==0) {
+            if ((imageDic[curDicPast].id.slice(0,2) == 03 || imageDic[curDicPast].id.slice(0,2) == 12 || imageDic[curDicPast].id.slice(0,2) == 13) && locked==0) {
               locked=1;
               numRepeats = numRepeats+1;
               start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDicPast], itemA);
