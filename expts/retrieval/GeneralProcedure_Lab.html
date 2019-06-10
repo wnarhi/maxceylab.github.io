@@ -710,10 +710,10 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Great!')
+            if (wrapDiff(imgNum,TestColOriginal[TestColOriginal.length-2]) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,TestColOriginal[TestColOriginal.length-2]) + ' degrees away. Great!')
             } else {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Not quite...')
+              alert('You were ' + wrapDiff(imgNum,TestColOriginal[TestColOriginal.length-2]) + ' degrees away. Not quite...')
             }
             TestColResp.push(wrap(imgNum));
             TestTypeList.push(TestTrialType[curTest]);
@@ -725,10 +725,10 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Great!')
+            if (wrapDiff(imgNum,PracColOriginal[PracColOriginal.length-2]) <= 30) {
+              alert('You were ' + wrapDiff(imgNum,PracColOriginal[PracColOriginal.length-2]) + ' degrees away. Great!')
             } else {
-              alert('You were ' + wrapDiff(imgNum,OrigStudyColors[OrigStudyColors.length-2]) + ' degrees away. Not quite...')
+              alert('You were ' + wrapDiff(imgNum,PracColOriginal[PracColOriginal.length-2]) + ' degrees away. Not quite...')
             }
             PracticeColResp.push(wrap(imgNum));
             PracTypeList.push(PracTypeList[curPractice]);
