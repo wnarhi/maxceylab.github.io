@@ -19,6 +19,9 @@ let CatchExemR = counter(11, 18);
 let StudyTrialType = []; let StudyAr = [];
 StudyAr = StudyAr.concat(repmat(repmat([10, 11], RpPlusExemR.length),RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length), repmat(repmat(99, CatchExemR.length), CatchCatsR.length));
 StudyTrialType = StudyTrialType.concat(chance1.shuffle(StudyAr),chance1.shuffle(StudyAr),chance1.shuffle(StudyAr));
+while (StudyTrialType.slice(0,1)==99) {
+  StudyTrialType = StudyTrialType.concat(chance1.shuffle(StudyAr),chance1.shuffle(StudyAr),chance1.shuffle(StudyAr));
+}
 
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(10, RpPlusExemR.length), RpCatsR.length), repmat(repmat(13, PracLuresExemR.length), RpCatsR.length));
@@ -41,6 +44,7 @@ let RpMinusR = chance1.shuffle(perm_concat(RpCatsR,RpMinusExemR));
 let RpMinusRC = RpRC.slice(RpPlusR.length,RpRC.length);
 let NrpR = chance1.shuffle(perm_concat(NrpCatsR,NrpExemR));
 let NrpRC = wrap(RandStart(counter(1,360,Math.round(360/NrpR.length))));
+let CatchRC = wrap(RandStart(counter(1,360,Math.round(360/CatchR.length))));
 let PracLuresR = chance1.shuffle(perm_concat(RpCatsR,PracLuresExemR));
 let PracLuresRC = wrap(RandStart(counter(1,360,Math.round(360/PracLuresR.length))));
 let RpTestLuresR = chance1.shuffle(perm_concat(RpCatsR,RpTestLuresExemR));

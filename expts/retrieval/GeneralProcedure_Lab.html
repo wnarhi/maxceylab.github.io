@@ -207,6 +207,7 @@
     let RpPlusRCnt = 0;
     let RpMinusRCnt = 0;
     let NrpRCnt = 0;
+    let CatchRCnt = 0;
     let PracLuresRCnt = 0;
     let RpTestLuresRCnt = 0;
     let NrpTestLuresRCnt = 0;
@@ -415,6 +416,15 @@
                   if (NrpRCnt >= NrpRC.length) {
                     NrpRCnt=0;
                   }
+              } else {
+                curDicX = CatchR[CatchRCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, NrpRC[CatchRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(NrpRC[CatchRCnt]);
+                CatchRCnt++;
+                if (CatchRCnt >= NrpRC.length) {
+                  CatchRCnt=0;
+                }
               }
               setTimeout(function() {
                 ShowStudy();
@@ -465,36 +475,42 @@
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
-          if (imageDic[curDicPast].id.slice(0,1) == 03 || imageDic[curDicPast].id.slice(0,1) == 12 || imageDic[curDicPast].id.slice(0,1) == 13 && locked==0) {
-            locked=1;
-            numRepeats = numRepeats+1;
-            start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDicPast], itemA);
-            RepeatObj.push(imageDic[curDicPast]);
-            $('#allItems').css('margin-top', 0);
-            $('#pointer').css('margin-top', 0);
-            // open pop-up:
-            modalClosed = false;
-            document.getElementById("openModal_text").innerHTML =
-              'Sometimes we will interrupt to gauge your attention. The object from two presentations prior will now appear in grayscale and your task is to click its original color.';
-            window.location.href = '#openModal';
-            checkFlagCont();
+          if (curStudy > 0) {
+            if (imageDic[curDicPast].id.slice(0,1) == 03 || imageDic[curDicPast].id.slice(0,1) == 12 || imageDic[curDicPast].id.slice(0,1) == 13 && locked==0) {
+              locked=1;
+              numRepeats = numRepeats+1;
+              start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, imageDic[curDicPast], itemA);
+              RepeatObj.push(imageDic[curDicPast]);
+              $('#allItems').css('margin-top', 0);
+              $('#pointer').css('margin-top', 0);
+              // open pop-up:
+              modalClosed = false;
+              document.getElementById("openModal_text").innerHTML =
+                'Sometimes we will interrupt to gauge your attention. The object from two presentations prior will now appear in grayscale and your task is to click its original color.';
+              window.location.href = '#openModal';
+              checkFlagCont();
 
-            function checkFlagCont() {
-              if (modalClosed == false) {
-                window.setTimeout(checkFlagCont, 100); /* this checks the flag every 100 milliseconds*/
-              } else {
-                flip = Math.round(Math.random());
-                flipList.push(flip);
-                randrotate = Math.floor(Math.random() * 360);
-                randrotateList.push(randrotate);
-                ringctxA.clearRect(0, 0, 600, 600);
-                ringctxA.restore();
-                ringctxA.save();
-                ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-                ringctxA.rotate(randrotate * Math.PI / 180);
-                ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-                Continuous();
+              function checkFlagCont() {
+                if (modalClosed == false) {
+                  window.setTimeout(checkFlagCont, 100); /* this checks the flag every 100 milliseconds*/
+                } else {
+                  flip = Math.round(Math.random());
+                  flipList.push(flip);
+                  randrotate = Math.floor(Math.random() * 360);
+                  randrotateList.push(randrotate);
+                  ringctxA.clearRect(0, 0, 600, 600);
+                  ringctxA.restore();
+                  ringctxA.save();
+                  ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+                  ringctxA.rotate(randrotate * Math.PI / 180);
+                  ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+                  Continuous();
+                }
               }
+            } else {
+              locked=0;
+              curStudy++;
+              NextStudyTrial();
             }
           } else {
             locked=0;
@@ -1048,6 +1064,8 @@
         "RpPlusRCnt": RpPlusRCnt,
         "RpMinusRCnt": RpMinusRCnt,
         "NrpRCnt": NrpRCnt,
+        "CatchR": CatchR,
+        "CatchRCnt": CatchRCnt,
         "PracLuresRCnt": PracLuresRCnt,
         "RpTestLuresRCnt": RpTestLuresRCnt,
         "NrpTestLuresRCnt": NrpTestLuresRCnt,
