@@ -397,6 +397,19 @@
                 RpPlusRCnt++;
                 if (RpPlusRCnt >= RpPlusRC.length) {
                   RpPlusRCnt=0;
+
+                  var i=0, len= RpPlusR.length, next, order=[];
+                  while(i<len)order[i]= ++i;
+                  order.sort(function(){return chance1.random()-.5});
+
+                  for(i= 0; i<len; i++){
+                      next= order[i];
+                      RpPlusR.push(RpPlusR[next]);
+                      RpPlusRC.push(RpPlusRC[next]);
+                  }
+                  RpPlusR.splice(1, len);
+                  RpPlusRC.splice(1, len);
+
                 }
               } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
                 curDicX = RpMinusR[RpMinusRCnt];
@@ -406,6 +419,19 @@
                   RpMinusRCnt++;
                   if (RpMinusRCnt >= RpMinusRC.length) {
                     RpMinusRCnt=0;
+
+                    var i=0, len= RpMinusR.length, next, order=[];
+                    while(i<len)order[i]= ++i;
+                    order.sort(function(){return chance1.random()-.5});
+
+                    for(i= 0; i<len; i++){
+                        next= order[i];
+                        RpMinusR.push(RpMinusR[next]);
+                        RpMinusRC.push(RpMinusRC[next]);
+                    }
+                    RpMinusR.splice(1, len);
+                    RpMinusRC.splice(1, len);
+
                   }
               } else if (StudyTrialType[curStudy] == 12) { //NrpR
                 curDicX = NrpR[NrpRCnt];
@@ -415,6 +441,19 @@
                   NrpRCnt++;
                   if (NrpRCnt >= NrpRC.length) {
                     NrpRCnt=0;
+
+                    var i=0, len= NrpR.length, next, order=[];
+                    while(i<len)order[i]= ++i;
+                    order.sort(function(){return chance1.random()-.5});
+
+                    for(i= 0; i<len; i++){
+                        next= order[i];
+                        NrpR.push(NrpR[next]);
+                        NrpRC.push(NrpRC[next]);
+                    }
+                    NrpR.splice(1, len);
+                    NrpRC.splice(1, len);
+
                   }
               } else {
                 curDicX = CatchR[CatchRCnt];
@@ -442,6 +481,19 @@
               RpPlusRCnt++;
               if (RpPlusRCnt >= RpPlusRC.length) {
                 RpPlusRCnt=0;
+
+                var i=0, len= RpPlusR.length, next, order=[];
+                while(i<len)order[i]= ++i;
+                order.sort(function(){return chance1.random()-.5});
+
+                for(i= 0; i<len; i++){
+                    next= order[i];
+                    RpPlusR.push(RpPlusR[next]);
+                    RpPlusRC.push(RpPlusRC[next]);
+                }
+                RpPlusR.splice(1, len);
+                RpPlusRC.splice(1, len);
+
               }
           } else if (StudyTrialType[curStudy] == 11) { //RpMinusR
             curDicX = RpMinusR[RpMinusRCnt];
@@ -451,6 +503,19 @@
               RpMinusRCnt++;
               if (RpMinusRCnt >= RpMinusRC.length) {
                 RpMinusRCnt=0;
+
+                var i=0, len= RpMinusR.length, next, order=[];
+                while(i<len)order[i]= ++i;
+                order.sort(function(){return chance1.random()-.5});
+
+                for(i= 0; i<len; i++){
+                    next= order[i];
+                    RpMinusR.push(RpMinusR[next]);
+                    RpMinusRC.push(RpMinusRC[next]);
+                }
+                RpMinusR.splice(1, len);
+                RpMinusRC.splice(1, len);
+
               }
           } else if (StudyTrialType[curStudy] == 12) { //NrpR
             curDicX = NrpR[NrpRCnt];
@@ -460,6 +525,19 @@
             NrpRCnt++;
             if (NrpRCnt >= NrpRC.length) {
               NrpRCnt=0;
+
+              var i=0, len= NrpR.length, next, order=[];
+              while(i<len)order[i]= ++i;
+              order.sort(function(){return chance1.random()-.5});
+
+              for(i= 0; i<len; i++){
+                  next= order[i];
+                  NrpR.push(NrpR[next]);
+                  NrpRC.push(NrpRC[next]);
+              }
+              NrpR.splice(1, len);
+              NrpRC.splice(1, len);
+
             }
           } else {
             curDicX = CatchR[CatchRCnt];
