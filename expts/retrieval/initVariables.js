@@ -35,22 +35,32 @@ TestTrialType = chance1.shuffle(TestTrialType);
 // let RandStart = Math.floor(chance1.random()*360)+1; // random number from 1 to 360
 
 let RpPlusR = chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR));
-let RpRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/(RpPlusR.length*2))))));
-let RpPlusRC = RpRC.slice(0,RpPlusR.length);
 let RpPlusPracR = [];
 RpPlusPracR = RpPlusPracR.concat(chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR)),chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR)),chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR))); //thrice because of three practice trials
 let RpMinusR = chance1.shuffle(perm_concat(RpCatsR,RpMinusExemR));
-let RpMinusRC = RpRC.slice(RpPlusR.length,RpRC.length);
 let NrpR = chance1.shuffle(perm_concat(NrpCatsR,NrpExemR));
-let NrpRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/NrpR.length)))));
 let CatchR = chance1.shuffle(perm_concat(CatchCatsR,CatchExemR));
-let CatchRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/CatchR.length)))));
-let PracLuresR = chance1.shuffle(perm_concat(RpCatsR,PracLuresExemR));
-let PracLuresRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/PracLuresR.length)))));
-let RpTestLuresR = chance1.shuffle(perm_concat(RpCatsR,RpTestLuresExemR));
-let RpTestLuresRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/RpTestLuresR.length)))));
 let NrpTestLuresR = chance1.shuffle(perm_concat(NrpCatsR,NrpTestLuresExemR));
-let NrpTestLuresRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/NrpTestLuresR.length)))));
+
+let numpercat = NrpR.length/NrpCatsR.length;
+
+var RpPlusRC = new Array();
+var RpPlusRind = new Array();
+for (var i = 0; i < RpCatsR.length/2; i++) {
+  RpPlusRC[i] = wrap(RandStart(counter(1,360,360/numpercat)).slice(0,numpercat/2));
+}
+var RpMinusRC = new Array();
+for (var i = 0; i < RpCatsR.length/2; i++) {
+  RpMinusRC[i] = wrap(RandStart(counter(1,360,360/numpercat)).slice(0,numpercat/2));
+}
+var NrpRC = new Array();
+for (var i = 0; i < NrpCatsR.length/2; i++) {
+  NrpRC[i] = wrap(RandStart(counter(1,360,360/numpercat)).slice(0,numpercat));
+}
+var CatchRC = new Array();
+for (var i = 0; i < CatchCatsR.length/2; i++) {
+  CatchRC[i] = wrap(RandStart(counter(1,360,360/numpercat)).slice(0,numpercat));
+}
 
 let AllImages = [];
 AllImages = AllImages.concat(RpPlusR,RpMinusR,NrpR,CatchR,PracLuresR,RpTestLuresR,NrpTestLuresR);

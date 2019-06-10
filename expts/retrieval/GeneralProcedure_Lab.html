@@ -73,15 +73,9 @@
   <!-- Instructions page5 -->
   <div id="instructions5" style="display:none">
     <center>
-        After studying the objects, we will test your memory. An object will be presented in <u>grayscale</u> with two buttons beneath, "Old" and "New". For example:
+        After studying the objects, we will test your memory. A previously seen object will be presented in <u>grayscale</u>.
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval6.png" width="600px"></p>
-
-        <p>If you have seen the object before, click the "Old" button. Otherwise, click the "New" button.</p>
-
-        <p>In this case, since you have seen the above object before, you would click the "Old" button (even though it is not presented in its original color).</p>
-
-        <p>If you clicked "Old", a color wheel will be presented. Move your mouse around the color wheel and click what you believe was the original color of the object.</p>
+        Move your mouse around the color wheel and click what you believe was the original color of the object.</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval7.png" width="600px"></p>
 
@@ -362,6 +356,7 @@
               if (StudyTrialType[curStudy] == 10) { //RpPlusR
                 curDicX = RpPlusR[RpPlusRCnt];
                 curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                color = RpPlusRC.map(function(x) {return x.id; }).indexOf(RpPlusR[RpPlusRCnt]);
                 start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
                 OrigStudyColors.push(RpPlusRC[RpPlusRCnt]);
                 RpPlusRCnt++;
