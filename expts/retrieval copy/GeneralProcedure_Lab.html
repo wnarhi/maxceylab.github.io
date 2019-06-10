@@ -204,6 +204,12 @@
     let curStudy = 0;
     let curPractice = 0;
     let curTest = 0;
+    let RpPlusCnt = 0;
+    let RpMinusCnt = 0;
+    let NrpCnt = 0;
+    let PracLuresCnt = 0;
+    let RpTestLuresCnt = 0;
+    let NrpTestLuresCnt = 0;
     let RpPlusRCnt = 0;
     let RpMinusRCnt = 0;
     let NrpRCnt = 0;
@@ -365,6 +371,7 @@
           if (modalClosed == false) {
             window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
           } else {
+            RpPlusCnt = 0; //reset counter for RpPlus
             ChangeDetection(); // start Practice Phase
             return; // need return; otherwise the ShowTrial below executes
           }
@@ -388,7 +395,34 @@
             } else {
               // Preload the image of next trial
               if (curStudy > 0) { curDicPast = curDic; }
-              if (StudyTrialType[curStudy] == 10) { //RpPlusR
+              if (StudyTrialType[curStudy] == 0) { //RpPlus
+                curDicX = RpPlus[RpPlusCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(RpPlusC[RpPlusCnt]);
+                RpPlusCnt++;
+                if (RpPlusCnt >= RpPlus.length) {
+                  RpPlusCnt=0;
+                } // prevent problems if on last trial of condition
+              } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+                curDicX = RpMinus[RpMinusCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(RpMinusC[RpMinusCnt]);
+                  RpMinusCnt++;
+                  if (RpMinusCnt >= RpMinus.length) {
+                    RpMinusCnt=0;
+                  }
+              } else if (StudyTrialType[curStudy] == 2) { //Nrp
+                curDicX = Nrp[NrpCnt];
+                curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+                start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(NrpC[NrpCnt]);
+                  NrpCnt++;
+                  if (NrpCnt >= Nrp.length) {
+                    NrpCnt=0;
+                  }
+              } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
                 curDicX = RpPlusR[RpPlusRCnt];
                 curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
                 start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
@@ -424,7 +458,34 @@
         } else {
           // Preload the image of next trial
           if (curStudy > 0) { curDicPast = curDic; }
-          if (StudyTrialType[curStudy] == 10) { //RpPlusR
+          if (StudyTrialType[curStudy] == 0) { //RpPlus
+            curDicX = RpPlus[RpPlusCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, RpPlusC[RpPlusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(RpPlusC[RpPlusCnt]);
+            RpPlusCnt++;
+            if (RpPlusCnt >= RpPlus.length) {
+              RpPlusCnt=0;
+            } // prevent problems if on last trial of condition
+          } else if (StudyTrialType[curStudy] == 1) { //RpMinus
+            curDicX = RpMinus[RpMinusCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, RpMinusC[RpMinusCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(RpMinusC[RpMinusCnt]);
+              RpMinusCnt++;
+              if (RpMinusCnt >= RpMinus.length) {
+                RpMinusCnt=0;
+              }
+          } else if (StudyTrialType[curStudy] == 2) { //Nrp
+            curDicX = Nrp[NrpCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, NrpC[NrpCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(NrpC[NrpCnt]);
+              NrpCnt++;
+              if (NrpCnt >= Nrp.length) {
+                NrpCnt=0;
+              }
+          } else if (StudyTrialType[curStudy] == 10) { //RpPlusR
             curDicX = RpPlusR[RpPlusRCnt];
             curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
             start(ctxA, RpPlusRC[RpPlusRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
@@ -511,7 +572,29 @@
       $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
-      if (PracTrialType[curPractice] == 10) { //RpPlusR
+      if (PracTrialType[curPractice] == 0) { //RpPlus
+        curDicX = RpPlusPrac[RpPlusCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          PracColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
+          if (RpPlusCnt <= RpPlus.length*2) {
+            RpPlusCnt++;
+          }
+        }, itiTime/2);
+      } else if (PracTrialType[curPractice] == 3) { //PracLure
+        curDicX = PracLures[PracLuresCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, PracLuresC[PracLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          PracColOriginal.push(PracLuresC[PracLuresCnt]);
+          if (PracLuresCnt <= PracLures.length) {
+            PracLuresCnt++;
+          }
+        }, itiTime/2);
+      } else if (PracTrialType[curPractice] == 10) { //RpPlusR
         // RpPlusRC[arrayContains(RpPlusPracR[RpPlusRCnt],RpPlusR)]
         curDicX = RpPlusPracR[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
@@ -683,6 +766,16 @@
         $('#allItems').css('margin-top', -1000); // show object items again and hide them off-screen
         $('#itemA').show();
 
+        RpPlus_StudyOrder = RpPlus;
+        RpPlusCnt = 0; //reset counter for RpPlus
+        RpPlusT = chance1.shuffle(RpPlus); //reshuffle ordering of RpPlus
+        RpMinus_StudyOrder = RpMinus;
+        RpMinusCnt = 0;
+        RpMinusT = chance1.shuffle(RpMinus);
+        Nrp_StudyOrder = Nrp;
+        NrpCnt = 0;
+        NrpT = chance1.shuffle(Nrp);
+
         RpPlusR_StudyOrder = RpPlusR;
         RpPlusRCnt = 0; //reset counter for RpPlus
         RpPlusRT = chance1.shuffle(RpPlusR); //reshuffle ordering of RpPlus
@@ -801,7 +894,62 @@
       $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
-      if (TestTrialType[curTest] == 10) { //RpPlusR
+      if (TestTrialType[curTest] == 0) { //RpPlus
+        curDicX = RpPlusT[RpPlusCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(RpPlusC[arrayContains(imageDic[curDic].id,RpPlus)]);
+          if (RpPlusCnt <= RpPlus.length) {
+            RpPlusCnt++;
+          }
+        }, itiTime/2);
+      } else if (TestTrialType[curTest] == 1) { //RpMinus
+        curDicX = RpMinusT[RpMinusCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(RpMinusC[arrayContains(imageDic[curDic].id,RpMinus)]);
+          if (RpMinusCnt <= RpMinus.length) {
+            RpMinusCnt++;
+          }
+        }, itiTime/2);
+      } else if (TestTrialType[curTest] == 2) { //Nrp
+        curDicX = NrpT[NrpCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, NrpC[arrayContains(imageDic[curDic].id,Nrp)], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(NrpC[arrayContains(imageDic[curDic].id,Nrp)]);
+          if (NrpCnt <= Nrp.length) {
+            NrpCnt++;
+          }
+        }, itiTime/2);
+      } else if (TestTrialType[curTest] == 4) { //RpTestLures
+        curDicX = RpTestLures[RpTestLuresCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, RpTestLuresC[RpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(RpTestLuresC[RpTestLuresCnt]);
+          if (RpTestLuresCnt <= RpTestLures.length) {
+            RpTestLuresCnt++;
+          }
+        }, itiTime/2);
+      } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+        curDicX = NrpTestLures[NrpTestLuresCnt];
+        curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+        start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+        setTimeout(function() {
+          start(ctxA, NrpTestLuresC[NrpTestLuresCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+          TestColOriginal.push(NrpTestLuresC[NrpTestLuresCnt]);
+          if (NrpTestLuresCnt <= NrpTestLures.length) {
+            NrpTestLuresCnt++;
+          }
+        }, itiTime/2);
+      } else if (TestTrialType[curTest] == 10) { //RpPlusR
         curDicX = RpPlusRT[RpPlusRCnt];
         curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
         TestColOriginal.push(RpPlusRC[arrayContains(imageDic[curDic].id,RpPlusR)]);
@@ -884,7 +1032,17 @@
     function New() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(1);
-        if (TestTrialType[curTest] == 10) { //RpPlusR
+        if (TestTrialType[curTest] == 0) { //RpPlus
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 2) { //Nrp
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 10) { //RpPlusR
           TestAcc.push(0);
         } else if (TestTrialType[curTest] == 11) { //RpMinusR
           TestAcc.push(0);
@@ -897,52 +1055,66 @@
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
 
-        // if (TestTrialType[curTest] > 9) { // if continuous report trial
-        //   flip = Math.round(Math.random());
-        //   flipList.push(flip);
-        //   randrotate = Math.floor(Math.random() * 360);
-        //   randrotateList.push(randrotate);
-        //   ringctxA.clearRect(0, 0, 600, 600);
-        //   ringctxA.restore();
-        //   ringctxA.save();
-        //   ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-        //   ringctxA.rotate(randrotate * Math.PI / 180);
-        //   ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-        //   Continuous();
-        // } else { // if recognition test
+        if (TestTrialType[curTest] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          flipList.push(flip);
+          randrotate = Math.floor(Math.random() * 360);
+          randrotateList.push(randrotate);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
           curTest++;
           NextTestTrial();
-        // }
+        }
       } else { // if practice phase
         PracticeResp.push(1);
-        if (PracTrialType[curPractice] == 10) { //RpPlusR
+        if (PracTrialType[curPractice] == 0) { //RpPlus
+          PracticeAcc.push(0);
+        } else if (PracTrialType[curPractice] == 3) { //PracLure
+          PracticeAcc.push(1);
+        } else if (PracTrialType[curPractice] == 10) { //RpPlusR
           PracticeAcc.push(0);
         } else if (PracTrialType[curPractice] == 13) { //PracLureR
           PracticeAcc.push(1);
         }
         PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
 
-        // if (PracTrialType[curPractice] > 9) { // if continuous report trial
-        //   flip = Math.round(Math.random());
-        //   randrotate = Math.floor(Math.random() * 360);
-        //   ringctxA.clearRect(0, 0, 600, 600);
-        //   ringctxA.restore();
-        //   ringctxA.save();
-        //   ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-        //   ringctxA.rotate(randrotate * Math.PI / 180);
-        //   ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-        //   Continuous();
-        // } else { // if recognition test
+        if (PracTrialType[curPractice] > 9) { // if continuous report trial
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+        } else { // if recognition test
           curPractice++;
           NextPracTrial();
-        // }
+        }
       }
     }
 
     function Old() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(0);
-        if (TestTrialType[curTest] == 10) { //RpPlusR
+        if (TestTrialType[curTest] == 0) { //RpPlus
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 2) { //Nrp
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 10) { //RpPlusR
           TestAcc.push(1);
         } else if (TestTrialType[curTest] == 11) { //RpMinusR
           TestAcc.push(1);
@@ -971,7 +1143,11 @@
         }
       } else { // if practice phase
         PracticeResp.push(0);
-        if (PracTrialType[curPractice] == 10) { //RpPlusR
+        if (PracTrialType[curPractice] == 0) { //RpPlus
+          PracticeAcc.push(1);
+        } else if (PracTrialType[curPractice] == 3) { //PracLure
+          PracticeAcc.push(0);
+        } else if (PracTrialType[curPractice] == 10) { //RpPlusR
           PracticeAcc.push(1);
         } else if (PracTrialType[curPractice] == 13) { //PracLureR
           PracticeAcc.push(0);
@@ -1045,6 +1221,12 @@
         "TestColResp": TestColResp,
         "TestColOriginal": TestColOriginal,
         "RepeatColResp": RepeatColResp,
+        "RpPlusCnt": RpPlusCnt,
+        "RpMinusCnt": RpMinusCnt,
+        "NrpCnt": NrpCnt,
+        "PracLuresCnt": PracLuresCnt,
+        "RpTestLuresCnt": RpTestLuresCnt,
+        "NrpTestLuresCnt": NrpTestLuresCnt,
         "RpPlusRCnt": RpPlusRCnt,
         "RpMinusRCnt": RpMinusRCnt,
         "NrpRCnt": NrpRCnt,
@@ -1052,8 +1234,22 @@
         "RpTestLuresRCnt": RpTestLuresRCnt,
         "NrpTestLuresRCnt": NrpTestLuresRCnt,
         "CDaccuracy": CDaccuracy,
+        "RpCats": RpCats,
+        "NrpCats": NrpCats,
+        "RpPlusExem": RpPlusExem,
+        "RpMinusExem": RpMinusExem,
+        "PracLuresExem": PracLuresExem,
+        "RpTestLuresExem": RpTestLuresExem,
+        "NrpExem": NrpExem,
+        "NrpTestLuresExem": NrpTestLuresExem,
         "RpCatsR": RpCatsR,
         "NrpCatsR": NrpCatsR,
+        "RpPlusC": RpPlusC,
+        "RpMinusC": RpMinusC,
+        "NrpC": NrpC,
+        "PracLuresC": PracLuresC,
+        "RpTestLuresC": RpTestLuresC,
+        "NrpTestLuresC": NrpTestLuresC,
         "RpPlusRC": RpPlusRC,
         "RpMinusRC": RpMinusRC,
         "NrpRC": NrpRC,
@@ -1061,13 +1257,26 @@
         "RpTestLuresRC": RpTestLuresRC,
         "NrpTestLuresRC": NrpTestLuresRC,
         "OrigStudyColors": OrigStudyColors,
+        "RpPlus": RpPlusT,
+        "RpMinus": RpMinusT,
+        "Nrp": NrpT,
+        "RpPlusR": RpPlusRT,
+        "RpMinusR": RpMinusRT,
+        "NrpR": NrpRT,
+        "PracLures": PracLures,
+        "RpTestLures": RpTestLures,
+        "NrpTestLures": NrpTestLures,
         "PracLuresR": PracLuresR,
         "RpTestLuresR": RpTestLuresR,
         "NrpTestLuresR": NrpTestLuresR,
+        "RpPlus_StudyOrder": RpPlus_StudyOrder,
+        "RpMinus_StudyOrder": RpMinus_StudyOrder,
+        "Nrp_StudyOrder": Nrp_StudyOrder,
         "RpPlusR_StudyOrder": RpPlusR_StudyOrder,
         "RpMinusR_StudyOrder": RpMinusR_StudyOrder,
         "NrpR_StudyOrder": NrpR_StudyOrder,
-        "RpPlusR_PracticeOrder": RpPlusPracR,
+        "RpPlus_PracticeOrder": RpPlusPrac,
+        "RpPlus_PracticeOrder": RpPlusPracR,
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
