@@ -34,7 +34,7 @@ TestTrialType = TestTrialType.concat(repmat(repmat([10, 11], RpPlusExemR.length)
     RpCatsR.length), repmat(repmat(15, NrpTestLuresExemR.length), NrpCatsR.length));
 TestTrialType = chance1.shuffle(TestTrialType);
 
-// let RandStart = Math.floor(chance1.random()*360)+1; // random number from 1 to 360
+let RandStart = Math.floor(chance1.random()*360)+1; // random number from 1 to 360
 
 let RpPlusR = chance1.shuffle(perm_concat(RpCatsR,RpPlusExemR));
 let RpRC = chance1.shuffle(wrap(RandStart(counter(1,360,Math.round(360/(RpPlusR.length*2))))));

@@ -40,7 +40,7 @@
     <center>
         <p>This HIT is a memorization experiment involving visual images. It will take approximately 45 minutes to complete.</p>
       </center>
-    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 5)</a></p>
+    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').hide();ImagesReady();" id="TextButton">Next (1 of 4)</a></p>
   </div>
 
   <!-- Instructions page2 -->
@@ -53,7 +53,7 @@
 
         <p>The task is to study the color and identity of each object for a later memory test.</p>
       </center>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();$('#instructions3').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (2 of 5)</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();$('#instructions3').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (2 of 4)</a></p>
   </div>
 
   <!-- Instructions page3 -->
@@ -67,53 +67,25 @@
         <p>It is therefore not sufficient to remember "purple bowtie". Your memory will need to be as precise as "striped purple bowtie".</p>
         <p>After you have studied all the objects, we will test your memory.</p>
       </center>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions3').hide();$('#instructions4').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (3 of 5)</a></p>
-  </div>
-
-  <!-- Instructions page4 -->
-  <div id="instructions4" style="display:none">
-    <center>
-        <p><u>There are two possible ways we may test your memory, randomly selected on every test trial.</u></p>
-
-        <p><h2>1. Recognition Test:</h2></p>
-
-        <p>On <i>Recognition</i> test trials, a colored object is presented with two buttons beneath, "Old" and "New". For example:</p>
-
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval4.png" width="600px"></p>
-
-        <p>If you have seen the object before (i.e., it was one of the 48 objects that you previously studied), then click the "Old" button. In this case, you previously saw this bowtie so you would click "Old".</p>
-
-        <p>If you have never seen the object before, then click the "New" button.</p>
-
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval5.png" width="600px"></p>
-
-        <p>Since you have not seen the above bowtie before, you'd click the "New" button.</p>
-
-        <p><b>We will never trick you by presenting a previously seen object in the incorrect color.</b> E.g., we would never present a yellow version of the above polkadot bowtie.</p>
-      </center>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();$('#instructions5').show();document.body.scrollTop = document.documentElement.scrollTop = 0;$('a#TextButton').hide();ImagesReady();" id="TextButton">Next (4 of 5)</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions3').hide();$('#instructions5').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (3 of 4)</a></p>
   </div>
 
   <!-- Instructions page5 -->
   <div id="instructions5" style="display:none">
     <center>
-        <p><h2>2. Color Test:</h2></p>
-
-        On <i>Color</i> test trials, an object is presented in <u>grayscale</u> with two buttons beneath, "Old" and "New". For example:
+        After studying the objects, we will test your memory. An object will be presented in <u>grayscale</u> with two buttons beneath, "Old" and "New". For example:
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval6.png" width="600px"></p>
 
-        <p>Just like the <i>Recognition</i> test trials, if you have seen the object before, click the "Old" button. Otherwise, click the "New" button.</p>
+        <p>If you have seen the object before, click the "Old" button. Otherwise, click the "New" button.</p>
 
         <p>In this case, since you have seen the above object before, you would click the "Old" button (even though it is not presented in its original color).</p>
 
-        <p>After clicking one of the buttons, a color wheel will be presented. Move your mouse around the color wheel and click what you believe was the original color of the object.</p>
+        <p>If you clicked "Old", a color wheel will be presented. Move your mouse around the color wheel and click what you believe was the original color of the object.</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval7.png" width="600px"></p>
 
-        <p>If you are unsure of the original color, move your mouse around and click what feels right. Please be as precise as possible in selecting what you think is the object's original color.</p>
-
-        <p><b>Even if you select "New", you will still need to select a color.</b> This means that you will sometimes be asked to select the color of an object you have never seen before! When this happens, you can make a random selection on the color wheel to continue. We do this because it is possible you think the object is "New" when it was actually "Old", in which case the color you provide could still be correct.</p>
+        <p>If you are uncertain of the original color, move your mouse around and click what feels right. Please be as precise as possible in selecting what you think is the object's original color.</p>
 
         <hr>
 
