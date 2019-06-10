@@ -291,4 +291,5 @@ function fisherYates(array,length,exclude) {
      array[i] = tempj;
      array[j] = tempi;
    }
+   return array;
 }
