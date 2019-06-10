@@ -419,10 +419,10 @@
               } else {
                 curDicX = CatchR[CatchRCnt];
                 curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
-                start(ctxA, NrpRC[CatchRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
-                OrigStudyColors.push(NrpRC[CatchRCnt]);
+                start(ctxA, CatchRC[CatchRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+                OrigStudyColors.push(CatchRC[CatchRCnt]);
                 CatchRCnt++;
-                if (CatchRCnt >= NrpRC.length) {
+                if (CatchRCnt >= CatchRC.length) {
                   CatchRCnt=0;
                 }
               }
@@ -457,10 +457,19 @@
             curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
             start(ctxA, NrpRC[NrpRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
             OrigStudyColors.push(NrpRC[NrpRCnt]);
-              NrpRCnt++;
-              if (NrpRCnt >= NrpRC.length) {
-                NrpRCnt=0;
-              }
+            NrpRCnt++;
+            if (NrpRCnt >= NrpRC.length) {
+              NrpRCnt=0;
+            }
+          } else {
+            curDicX = CatchR[CatchRCnt];
+            curDic = imageDic.map(function(x) {return x.id; }).indexOf(curDicX);
+            start(ctxA, CatchRC[CatchRCnt], 0, 0, imgWidth, imgHeight, 0, imageDic[curDic], itemA);
+            OrigStudyColors.push(CatchRC[CatchRCnt]);
+            CatchRCnt++;
+            if (CatchRCnt >= CatchRC.length) {
+              CatchRCnt=0;
+            }
           }
           setTimeout(function() {
             ShowStudy();

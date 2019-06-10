@@ -44,6 +44,7 @@ let RpMinusR = chance1.shuffle(perm_concat(RpCatsR,RpMinusExemR));
 let RpMinusRC = RpRC.slice(RpPlusR.length,RpRC.length);
 let NrpR = chance1.shuffle(perm_concat(NrpCatsR,NrpExemR));
 let NrpRC = wrap(RandStart(counter(1,360,Math.round(360/NrpR.length))));
+let CatchR = chance1.shuffle(perm_concat(CatchCatsR,CatchExemR));
 let CatchRC = wrap(RandStart(counter(1,360,Math.round(360/CatchR.length))));
 let PracLuresR = chance1.shuffle(perm_concat(RpCatsR,PracLuresExemR));
 let PracLuresRC = wrap(RandStart(counter(1,360,Math.round(360/PracLuresR.length))));
