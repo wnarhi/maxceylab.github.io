@@ -493,7 +493,7 @@
       flip == 0 ? ringctxA.drawImage(ringStandard, 50, 50, 500, 500) : ringctxA.drawImage(ringFlipped, 50, 50, 500, 500);
 
       mouseInit = mouseX;
-      imgNum = -999;
+      imgNum = Math.floor(chance1.random()*360);
       mouseMoved = 0;
       angleDeg = 0;
       startTimeC = new Date();
@@ -535,7 +535,7 @@
             $('#allItems').css('margin-top', -1000);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
-              imgNum = wrap(origColors.findIndex(k => k==a));
+              imgNum = origColors.findIndex(k => k==a);
             }
             if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
               alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
@@ -557,7 +557,7 @@
             TestColRT.push(new Date() - startTimeC);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
-              imgNum = wrap(origColors.findIndex(k => k==a));
+              imgNum = origColors.findIndex(k => k==a);
             }
             // if (wrapDiff(imgNum,TestTrials[curTest].color) <= 30) {
             //   alert('You were ' + wrapDiff(imgNum,TestTrials[curTest].color) + ' degrees away. Great!')
@@ -574,7 +574,7 @@
             PracticeColRT.push(new Date() - startTimeC);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
-              imgNum = wrap(origColors.findIndex(k => k==a));
+              imgNum = origColors.findIndex(k => k==a);
             }
             // if (wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) <= 30) {
             //   alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Great!')
