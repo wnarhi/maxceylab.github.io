@@ -179,6 +179,7 @@
     let PracticeColDiff = [];
     let TestColRT = [];
     let TestColResp = [];
+    let TestColDiff = [];
     let RepeatColResp = [];
     let RepeatColDiff = [];
     let flip = 0;
@@ -436,18 +437,21 @@
 
     /* Practice Phase Start */
     function NextPracTrial() {
-      if (curPractice == numStudy/3) {
+      if (curPractice == numPractice && curBlock==0) {
         curBlock = 1;
         curPractice = 0;
-      } else if (curPractice == numStudy/3*2) {
+      } else if (curPractice == numPractice && curBlock==1) {
         curBlock = 2;
         curPractice = 0;
       }
       $(document).unbind('mousemove.curTrial');
       $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
-      // Preload the image of next trial
-      start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, PracticeTrials[curBlock][curPractice].img, itemA);
+
+      if (curPractice < numPractice) {
+        // Preload the image of next trial
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, PracticeTrials[curBlock][curPractice].img, itemA);
+      }
 
       setTimeout(function() {
         if (curPractice >= numPractice && curBlock==2) { // if end of practice
@@ -531,7 +535,7 @@
             $('#allItems').css('margin-top', -1000);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
-              imgNum = origColors.findIndex(k => k==a);
+              imgNum = wrap(origColors.findIndex(k => k==a));
             }
             if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
               alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
@@ -553,30 +557,30 @@
             TestColRT.push(new Date() - startTimeC);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
-              imgNum = origColors.findIndex(k => k==a);
+              imgNum = wrap(origColors.findIndex(k => k==a));
             }
-            if (wrapDiff(imgNum,TestTrials[curBlock][curTest].color) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,TestTrials[curBlock][curTest].color) + ' degrees away. Great!')
-            } else {
-              alert('You were ' + wrapDiff(imgNum,TestTrials[curBlock][curTest].color) + ' degrees away. Not quite...')
-            }
+            // if (wrapDiff(imgNum,TestTrials[curTest].color) <= 30) {
+            //   alert('You were ' + wrapDiff(imgNum,TestTrials[curTest].color) + ' degrees away. Great!')
+            // } else {
+            //   alert('You were ' + wrapDiff(imgNum,TestTrials[curTest].color) + ' degrees away. Not quite...')
+            // }
             TestColResp.push(wrap(imgNum));
-            TestColDiff.push(wrapDiff(imgNum,TestTrials[curBlock][curTest].color));
-            TestTrials[curBlock][curTest].resp = wrap(imgNum);
-            TestTrials[curBlock][curTest].diff = wrapDiff(imgNum,TestTrials[curBlock][curTest].color);
+            TestColDiff.push(wrapDiff(imgNum,TestTrials[curTest].color));
+            TestTrials[curTest].resp = wrap(imgNum);
+            TestTrials[curTest].diff = wrapDiff(imgNum,TestTrials[curTest].color);
             curTest++;
             NextTestTrial();
           } else if (locked==0) { // if practice phase
             PracticeColRT.push(new Date() - startTimeC);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
-              imgNum = origColors.findIndex(k => k==a);
+              imgNum = wrap(origColors.findIndex(k => k==a));
             }
-            if (wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Great!')
-            } else {
-              alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Not quite...')
-            }
+            // if (wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) <= 30) {
+            //   alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Great!')
+            // } else {
+            //   alert('You were ' + wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color) + ' degrees away. Not quite...')
+            // }
             PracticeColResp.push(wrap(imgNum));
             PracticeColDiff.push(wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color));
             PracticeTrials[curBlock][curPractice].resp = wrap(imgNum);
@@ -726,12 +730,14 @@
       $(document).unbind('mousemove.curTrial');
       $(document).unbind('mouseup.curTrial');
       $('#allItems').css('margin-top', -1000);
-      // Preload the image of next trial
-      start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, TestTrials[curBlock][curTest].img, itemA);
+      if (curTest < numTest) {
+        // Preload the image of next trial
+        start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, TestTrials[curTest].img, itemA);
+      }
 
       setTimeout(function() {
         if (TestTrialType[curTest] > 9) {
-          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, TestTrials[curBlock][curTest].img, itemA);
+          start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, flip, TestTrials[curTest].img, itemA);
         }
       }, itiTime+5); // wait a little bit just to make sure image got switched in time
 
@@ -750,11 +756,12 @@
             if (modalClosed == false) {
               window.setTimeout(checkFlag4, 100); /* this checks the flag every 100 milliseconds*/
             } else {
-              Done(); // finish up experiment
+              alert('done')
+              // Done(); // finish up experiment
               return; // need return; otherwise function below executes
             }
           }
-        } else if (TestTrials[curBlock][curTest].null==1) {
+        } else if (TestTrials[curTest].null==1) {
           curTest++;
           NextTestTrial();
           return;
@@ -776,7 +783,7 @@
     /* Done with the experiment */
     function Done() {
       // calculate their overall accuracy (Practice + Test)
-      const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
+      let OverallAcc = (((TestColDiff.reduce((a, b) => a + b, 0) / TestColDiff.length) + (PracticeColDiff.reduce((a, b) => a + b, 0) / PracticeColDiff.length)) / 2)
       let cashpoints = basepay + (OverallAcc/100*3);
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " + bonus): $" + cashpoints;

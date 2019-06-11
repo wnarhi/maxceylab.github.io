@@ -289,7 +289,27 @@ function wrap(v) {
             v[i] += 360;
         }
     }
+    for (let i = 0; i < v.length; i++) {
+        if (v[i] > 360) {
+            v[i] -= 360;
+        }
+        if (v[i] < 0) {
+            v[i] += 360;
+        }
+    }
     if (v.length == undefined) {
+        if (v > 360) {
+            v -= 360;
+        }
+        if (v < 0) {
+            v += 360;
+        }
+        if (v > 360) {
+            v -= 360;
+        }
+        if (v < 0) {
+            v += 360;
+        }
         if (v > 360) {
             v -= 360;
         }
