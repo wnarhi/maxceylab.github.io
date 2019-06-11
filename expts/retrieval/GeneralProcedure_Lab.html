@@ -155,11 +155,11 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 102*3;
-    const numPractice = 24*3;
-    const numTest = 96;
-    const displayTime = 3000; //3000 ms
-    const itiTime = 500; // 500 ms
+    const numStudy = 114;
+    const numPractice = 114;
+    const numTest = 114;
+    const displayTime = 300; //3000 ms
+    const itiTime = 50; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -292,7 +292,7 @@
 
     /* Study Phase Start */
     function NextStudyTrial() {
-      if (curStudy >= numStudy) { // if end of study
+      if (curStudy >= numStudy && curBlock==2) { // if end of study
         curStudy++;
         locked=0;
         $('#pointer').css('margin-top', 0);
@@ -318,15 +318,15 @@
           }
         }
       } else {
-        if (curStudy == numStudy/3 || curStudy == numStudy/3*2) {
+        if (curStudy == numStudy && curBlock < 2) {
           // open pop-up:
           modalClosed = false;
           $('#allItems').css('margin-top', -1000);
-          if (curStudy == numStudy/3) {
+          if (curBlock==0 && curStudy == numStudy) {
             curBlock = 1;
             curStudy=0;
             document.getElementById("openModal_text").innerHTML = 'You are 33% of the way through the study phase. Take a short break if you want, and then close this pop-up to continue.';
-          } else if (curStudy == numStudy/3*2){
+          } else if (curBlock==1 && curStudy == numStudy){
             curBlock = 2;
             curStudy=0;
             document.getElementById("openModal_text").innerHTML = 'You are 66% of the way through the study phase. Take a short break if you want, and then close this pop-up to continue.';
@@ -367,7 +367,6 @@
 
     /* Display Object */
     function ShowStudy() {
-      console.log(StudyTrials[curBlock][curStudy].type)
       $('#allItems').css('margin-top', 0);
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
@@ -387,7 +386,6 @@
               back = 6;
             }
             if (StudyTrials[curBlock][curStudy-back].type==3 && locked==0 && StudyTrials[curBlock][curStudy-back].null==0) {
-              alert('hi')
               locked=1;
               numRepeats = numRepeats+1;
               start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy-back].img, itemA);
@@ -452,7 +450,7 @@
       start(ctxA, 'gray', 0, 0, imgWidth, imgHeight, 0, PracticeTrials[curBlock][curPractice].img, itemA);
 
       setTimeout(function() {
-        if (curPractice >= numPractice) { // if end of practice
+        if (curPractice >= numPractice && curBlock==2) { // if end of practice
           curPractice++;
 
           now = new Date().getTime();
@@ -531,7 +529,6 @@
             $(document).unbind('mouseup.curTrial');
             $('#pointer').css('margin-top', -1000);
             $('#allItems').css('margin-top', -1000);
-            RepeatColResp.push(wrap(imgNum));
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
@@ -541,6 +538,7 @@
             } else {
               alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
             }
+            RepeatColResp.push(wrap(imgNum));
             RepeatColDiff.push(wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color));
             StudyTrials[curBlock][curStudy-back].resp = wrap(imgNum);
             StudyTrials[curBlock][curStudy-back].diff = wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color);
