@@ -542,6 +542,8 @@
               alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
             }
             RepeatColDiff.push(wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color));
+            StudyTrials[curBlock][curStudy-back].resp = wrap(imgNum);
+            StudyTrials[curBlock][curStudy-back].diff = wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color);
             setTimeout(function() {
               locked=0;
               NextStudyTrial();
@@ -562,6 +564,8 @@
             }
             TestColResp.push(wrap(imgNum));
             TestColDiff.push(wrapDiff(imgNum,TestTrials[curBlock][curTest].color));
+            TestTrials[curBlock][curTest].resp = wrap(imgNum);
+            TestTrials[curBlock][curTest].diff = wrapDiff(imgNum,TestTrials[curBlock][curTest].color);
             curTest++;
             NextTestTrial();
           } else if (locked==0) { // if practice phase
@@ -577,6 +581,8 @@
             }
             PracticeColResp.push(wrap(imgNum));
             PracticeColDiff.push(wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color));
+            PracticeTrials[curBlock][curPractice].resp = wrap(imgNum);
+            PracticeTrials[curBlock][curPractice].diff = wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color);
             curPractice++;
             NextPracTrial();
           }
