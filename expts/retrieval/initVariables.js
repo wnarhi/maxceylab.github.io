@@ -76,6 +76,10 @@ for (var a = 0; a < AllImages.length; a++) {a
   ObjIndx[a].id = AllImages[a];
   ObjIndx[a].cat = AllImages[a].slice(0,2);
   ObjIndx[a].exem = AllImages[a].slice(3,5);
+  ObjIndx[a].img = new Image();
+  ObjIndx[a].img.crossOrigin = "anonymous";
+  ObjIndx[a].img.id = AllImages[a];
+  ObjIndx[a].img.src = $('#Obj' + AllImages[a])[0].src;
   if (RpPlusR.includes(AllImages[a])) {
     ObjIndx[a].type = 0;
     ObjIndx[a].color = RpPlusRC[RpCatsR.indexOf(parseInt(ObjIndx[a].cat))][RpPlusExemR.indexOf(parseInt(ObjIndx[a].exem))]
@@ -105,6 +109,10 @@ for (var a = 0; a < AllImages.length; a++) {
   ObjIndx2[a] = new Object();
   ObjIndx2[a].cat = AllImages[a].slice(0,2);
   ObjIndx2[a].exem = AllImages[a].slice(3,5);
+  ObjIndx2[a].img = new Image();
+  ObjIndx2[a].img.crossOrigin = "anonymous";
+  ObjIndx2[a].img.id = AllImages[a];
+  ObjIndx2[a].img.src = $('#Obj' + AllImages[a])[0].src;
   if (RpPlusR.includes(AllImages[a])) {
     ObjIndx2[a].type = 0;
     ObjIndx2[a].color = RpPlusRC[RpCatsR.indexOf(parseInt(ObjIndx2[a].cat))][RpPlusExemR.indexOf(parseInt(ObjIndx2[a].exem))]
@@ -134,6 +142,10 @@ for (var a = 0; a < AllImages.length; a++) {
   ObjIndx3[a] = new Object();
   ObjIndx3[a].cat = AllImages[a].slice(0,2);
   ObjIndx3[a].exem = AllImages[a].slice(3,5);
+  ObjIndx3[a].img = new Image();
+  ObjIndx3[a].img.crossOrigin = "anonymous";
+  ObjIndx3[a].img.id = AllImages[a];
+  ObjIndx3[a].img.src = $('#Obj' + AllImages[a])[0].src;
   if (RpPlusR.includes(AllImages[a])) {
     ObjIndx3[a].type = 0;
     ObjIndx3[a].color = RpPlusRC[RpCatsR.indexOf(parseInt(ObjIndx3[a].cat))][RpPlusExemR.indexOf(parseInt(ObjIndx3[a].exem))]
@@ -163,6 +175,10 @@ for (var a = 0; a < AllImages.length; a++) {
   ObjIndxP[a] = new Object();
   ObjIndxP[a].cat = AllImages[a].slice(0,2);
   ObjIndxP[a].exem = AllImages[a].slice(3,5);
+  ObjIndxP[a].img = new Image();
+  ObjIndxP[a].img.crossOrigin = "anonymous";
+  ObjIndxP[a].img.id = AllImages[a];
+  ObjIndxP[a].img.src = $('#Obj' + AllImages[a])[0].src;
   if (RpPlusR.includes(AllImages[a])) {
     ObjIndxP[a].type = 0;
     ObjIndxP[a].color = RpPlusRC[RpCatsR.indexOf(parseInt(ObjIndxP[a].cat))][RpPlusExemR.indexOf(parseInt(ObjIndxP[a].exem))]
@@ -189,6 +205,10 @@ for (var a = 0; a < AllImages.length; a++) {a
   ObjIndxT[a] = new Object();
   ObjIndxT[a].cat = AllImages[a].slice(0,2);
   ObjIndxT[a].exem = AllImages[a].slice(3,5);
+  ObjIndxT[a].img = new Image();
+  ObjIndxT[a].img.crossOrigin = "anonymous";
+  ObjIndxT[a].img.id = AllImages[a];
+  ObjIndxT[a].img.src = $('#Obj' + AllImages[a])[0].src;
   if (RpPlusR.includes(AllImages[a])) {
     ObjIndxT[a].type = 0;
     ObjIndxT[a].color = RpPlusRC[RpCatsR.indexOf(parseInt(ObjIndxT[a].cat))][RpPlusExemR.indexOf(parseInt(ObjIndxT[a].exem))]
