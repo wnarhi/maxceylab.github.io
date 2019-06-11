@@ -74,27 +74,8 @@ body {
 #DiffButton {
   display: none;
 }
-#Old {
-  display: inline-block;
-  color: black;
-  border: 3px outset gray;
-  background-color: #CCCCCC;
-  padding: 8px;
-  margin-right: 30px;
-  text-decoration: none;
-  font-family: Arial, Helvetica;
-  font-weight: bold;
-}
-#Old:hover {
-  border: 3px inset gray;
-}
-#Old:active {
-  border: 3px inset gray;
-}
-#Old {
-  display: none;
-}
-#New {
+
+#Unsure {
   display: inline-block;
   color: black;
   border: 3px outset gray;
@@ -105,13 +86,76 @@ body {
   font-family: Arial, Helvetica;
   font-weight: bold;
 }
-#New:hover {
+#Unsure:hover {
   border: 3px inset gray;
 }
-#New:active {
+#Unsure:active {
   border: 3px inset gray;
 }
-#New {
+#Unsure {
+  display: none;
+}
+
+#Unsureish {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#Unsureish:hover {
+  border: 3px inset gray;
+}
+#Unsureish:active {
+  border: 3px inset gray;
+}
+#Unsureish {
+  display: none;
+}
+
+#Sureish {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#Sureish:hover {
+  border: 3px inset gray;
+}
+#Sureish:active {
+  border: 3px inset gray;
+}
+#Sureish {
+  display: none;
+}
+
+#Sure {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  margin-left: 30px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#Sure:hover {
+  border: 3px inset gray;
+}
+#Sure:active {
+  border: 3px inset gray;
+}
+#Sure {
   display: none;
 }
 

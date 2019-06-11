@@ -130,6 +130,10 @@
     <div id="pointer"></div>
     <br><br>
     <center>
+      <a href="javascript:void(0);" onclick="Unsure();" id="Unsure" style="display: hidden;">No idea</a>
+      <a href="javascript:void(0);" onclick="Unsureish();" id="Unsureish" style="display: hidden;">Somewhat unconfident</a>
+      <a href="javascript:void(0);" onclick="Sureish();" id="Sureish" style="display: hidden;">Somewhat confident</a>
+      <a href="javascript:void(0);" onclick="Sure();" id="Sure" style="display: hidden;">Confident</a>
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
@@ -482,7 +486,9 @@
           NextPracTrial();
           return;
         }
-        OldNewJudgment();
+        if (curPractice < numPractice) {
+          OldNewJudgment();
+        }
       }, itiTime);
     }
 
@@ -525,14 +531,11 @@
       });
       $(document).bind('mouseup.curTrial', function(e) {
         if (new Date() - startTimeC > 750) {
-          $('#ringItemA').hide();
           $('#pointer').hide();
           if (locked==1) {
-            curStudy++;
             $(document).unbind('mousemove.curTrial');
             $(document).unbind('mouseup.curTrial');
             $('#pointer').css('margin-top', -1000);
-            $('#allItems').css('margin-top', -1000);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
@@ -546,11 +549,6 @@
             RepeatColDiff.push(wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color));
             StudyTrials[curBlock][curStudy-back].resp = wrap(imgNum);
             StudyTrials[curBlock][curStudy-back].diff = wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color);
-            setTimeout(function() {
-              locked=0;
-              NextStudyTrial();
-              return;
-            }, itiTime);
             return;
           }
           if (curPractice > numPractice && locked==0) { // if test phase
@@ -568,8 +566,7 @@
             TestColDiff.push(wrapDiff(imgNum,TestTrials[curTest].color));
             TestTrials[curTest].resp = wrap(imgNum);
             TestTrials[curTest].diff = wrapDiff(imgNum,TestTrials[curTest].color);
-            curTest++;
-            NextTestTrial();
+            return;
           } else if (locked==0) { // if practice phase
             PracticeColRT.push(new Date() - startTimeC);
             if (flip == 1) {
@@ -585,8 +582,6 @@
             PracticeColDiff.push(wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color));
             PracticeTrials[curBlock][curPractice].resp = wrap(imgNum);
             PracticeTrials[curBlock][curPractice].diff = wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color);
-            curPractice++;
-            NextPracTrial();
           }
           return;
         };
@@ -761,6 +756,7 @@
               return; // need return; otherwise function below executes
             }
           }
+          return;
         } else if (TestTrials[curTest].null==1) {
           curTest++;
           NextTestTrial();
@@ -770,6 +766,90 @@
       }, itiTime);
     }
 
+    function Unsure() {
+      if (locked==1) {
+        StudyTrials[curBlock][curStudy-back].conf = 0;
+        curStudy++;
+        setTimeout(function() {
+          locked=0;
+          $('#ringItemA').hide();
+          $('#allItems').css('margin-top', -1000);
+          NextStudyTrial();
+          return;
+        }, itiTime);
+      } else if (curPractice > numPractice && locked==0) {
+        TestTrials[curBlock][curTest].conf = 0;
+        curTest++;
+        NextTestTrial();
+      } else {
+        PracticeTrials[curBlock][curPractice].conf = 0;
+        curPractice++;
+        NextPracTrial();
+      }
+    }
+    function Unsureish() {
+      if (locked==1) {
+        StudyTrials[curBlock][curStudy-back].conf = 1;
+        curStudy++;
+        setTimeout(function() {
+          locked=0;
+          $('#ringItemA').hide();
+          $('#allItems').css('margin-top', -1000);
+          NextStudyTrial();
+          return;
+        }, itiTime);
+      } else if (curPractice > numPractice && locked==0) {
+        TestTrials[curBlock][curTest].conf = 1;
+        curTest++;
+        NextTestTrial();
+      } else {
+        PracticeTrials[curBlock][curPractice].conf = 1;
+        curPractice++;
+        NextPracTrial();
+      }
+    }
+    function Sureish() {
+      if (locked==1) {
+        StudyTrials[curBlock][curStudy-back].conf = 2;
+        curStudy++;
+        setTimeout(function() {
+          locked=0;
+          $('#ringItemA').hide();
+          $('#allItems').css('margin-top', -1000);
+          NextStudyTrial();
+          return;
+        }, itiTime);
+      } else if (curPractice > numPractice && locked==0) {
+        TestTrials[curBlock][curTest].conf = 2;
+        curTest++;
+        NextTestTrial();
+      } else {
+        PracticeTrials[curBlock][curPractice].conf = 2;
+        curPractice++;
+        NextPracTrial();
+      }
+    }
+    function Sure() {
+      if (locked==1) {
+        StudyTrials[curBlock][curStudy-back].conf = 3;
+        curStudy++;
+        setTimeout(function() {
+          locked=0;
+          $('#ringItemA').hide();
+          $('#allItems').css('margin-top', -1000);
+          NextStudyTrial();
+          return;
+        }, itiTime);
+      } else if (curPractice > numPractice && locked==0) {
+        TestTrials[curBlock][curTest].conf = 3;
+        curTest++;
+        NextTestTrial();
+      } else {
+        PracticeTrials[curBlock][curPractice].conf = 3;
+        curPractice++;
+        NextPracTrial();
+      }
+    }
 
     /* Always track mouse */
     let mouseX, mouseY;
@@ -783,11 +863,22 @@
     /* Done with the experiment */
     function Done() {
       // calculate their overall accuracy (Practice + Test)
-      let OverallAcc = (((TestColDiff.reduce((a, b) => a + b, 0) / TestColDiff.length) + (PracticeColDiff.reduce((a, b) => a + b, 0) / PracticeColDiff.length)) / 2)
-      let cashpoints = basepay + (OverallAcc/100*3);
+      var count = 0;
+      for(var i = 0; i < PracticeColDiff.length; ++i){
+          if (PracticeColDiff[i] <= 30) {
+              count++;
+          }
+      }
+      for(var i = 0; i < TestColDiff.length; ++i){
+          if (TestColDiff[i] <= 30) {
+              count++;
+          }
+      }
+      let OverallAcc = count/(PracticeColDiff.length+TestColDiff.length);
+      let cashpoints = basepay + (OverallAcc*3);
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " + bonus): $" + cashpoints;
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Please describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your overall accuracy: ' + OverallAcc +
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Please describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your approximate accuracy: ' + (OverallAcc*100).toFixed(2) +
         '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
