@@ -130,13 +130,14 @@
     <div id="pointer"></div>
     <br><br>
     <center>
-      <a href="javascript:void(0);" onclick="Unsure();" id="Unsure" style="display: hidden;">No idea</a>
-      <a href="javascript:void(0);" onclick="Unsureish();" id="Unsureish" style="display: hidden;">Somewhat unconfident</a>
-      <a href="javascript:void(0);" onclick="Sureish();" id="Sureish" style="display: hidden;">Somewhat confident</a>
-      <a href="javascript:void(0);" onclick="Sure();" id="Sure" style="display: hidden;">Confident</a>
+      <a href="javascript:void(0);" onclick="Unsure();" id="Unsure" style="position:absolute; bottom:-50px; left:70px">No Idea</a>
+      <a href="javascript:void(0);" onclick="Unsureish();" id="Unsureish" style="position:absolute; bottom:-50px; left:195px">Unconfident</a>
+      <a href="javascript:void(0);" onclick="Sureish();" id="Sureish" style="position:absolute; bottom:-50px; left:320px">Semi-confident</a>
+      <a href="javascript:void(0);" onclick="Sure();" id="Sure" style="position:absolute; bottom:-50px; left:445px">Confident</a>
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
+    <p id="conftext" align="center" style="position:absolute; bottom:0px; left:100px"><b>How confident are you that your response is accurate?</b></p>
   </div>
 
   <!-- Initializing JS -->
@@ -162,7 +163,7 @@
     const numStudy = 114;
     const numPractice = 114;
     const numTest = 114;
-    const displayTime = 300; //3000 ms
+    const displayTime = 100; //3000 ms
     const itiTime = 50; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -277,6 +278,12 @@
       $('#instructions5').hide();
       $('#pointer').hide();
       $('#ringItemA').hide();
+
+      $('#Unsure').hide();
+      $('#Unsureish').hide();
+      $('#Sureish').hide();
+      $('#Sure').hide();
+      $('#conftext').hide();
 
       // open pop-up:
       modalClosed = false;
@@ -540,15 +547,15 @@
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
               imgNum = origColors.findIndex(k => k==a);
             }
-            if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
-              alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
-            } else {
-              alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
-            }
             RepeatColResp.push(wrap(imgNum));
             RepeatColDiff.push(wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color));
             StudyTrials[curBlock][curStudy-back].resp = wrap(imgNum);
             StudyTrials[curBlock][curStudy-back].diff = wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color);
+            $('#Unsure').show();
+            $('#Unsureish').show();
+            $('#Sureish').show();
+            $('#Sure').show();
+            $('#conftext').show();
             return;
           }
           if (curPractice > numPractice && locked==0) { // if test phase
@@ -566,6 +573,11 @@
             TestColDiff.push(wrapDiff(imgNum,TestTrials[curTest].color));
             TestTrials[curTest].resp = wrap(imgNum);
             TestTrials[curTest].diff = wrapDiff(imgNum,TestTrials[curTest].color);
+            $('#Unsure').show();
+            $('#Unsureish').show();
+            $('#Sureish').show();
+            $('#Sure').show();
+            $('#conftext').show();
             return;
           } else if (locked==0) { // if practice phase
             PracticeColRT.push(new Date() - startTimeC);
@@ -582,6 +594,12 @@
             PracticeColDiff.push(wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color));
             PracticeTrials[curBlock][curPractice].resp = wrap(imgNum);
             PracticeTrials[curBlock][curPractice].diff = wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color);
+            $('#Unsure').show();
+            $('#Unsureish').show();
+            $('#Sureish').show();
+            $('#Sure').show();
+            $('#conftext').show();
+            return;
           }
           return;
         };
@@ -769,6 +787,11 @@
     function Unsure() {
       if (locked==1) {
         StudyTrials[curBlock][curStudy-back].conf = 0;
+        if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
+        } else {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
+        }
         curStudy++;
         setTimeout(function() {
           locked=0;
@@ -786,10 +809,20 @@
         curPractice++;
         NextPracTrial();
       }
+      $('#Unsure').hide();
+      $('#Unsureish').hide();
+      $('#Sureish').hide();
+      $('#Sure').hide();
+      $('#conftext').hide();
     }
     function Unsureish() {
       if (locked==1) {
         StudyTrials[curBlock][curStudy-back].conf = 1;
+        if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
+        } else {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
+        }
         curStudy++;
         setTimeout(function() {
           locked=0;
@@ -807,10 +840,20 @@
         curPractice++;
         NextPracTrial();
       }
+      $('#Unsure').hide();
+      $('#Unsureish').hide();
+      $('#Sureish').hide();
+      $('#Sure').hide();
+      $('#conftext').hide();
     }
     function Sureish() {
       if (locked==1) {
         StudyTrials[curBlock][curStudy-back].conf = 2;
+        if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
+        } else {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
+        }
         curStudy++;
         setTimeout(function() {
           locked=0;
@@ -828,10 +871,20 @@
         curPractice++;
         NextPracTrial();
       }
+      $('#Unsure').hide();
+      $('#Unsureish').hide();
+      $('#Sureish').hide();
+      $('#Sure').hide();
+      $('#conftext').hide();
     }
     function Sure() {
       if (locked==1) {
         StudyTrials[curBlock][curStudy-back].conf = 3;
+        if (wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) <= 30) {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Great!')
+        } else {
+          alert('You were ' + wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color) + ' degrees away. Not quite...')
+        }
         curStudy++;
         setTimeout(function() {
           locked=0;
@@ -849,6 +902,11 @@
         curPractice++;
         NextPracTrial();
       }
+      $('#Unsure').hide();
+      $('#Unsureish').hide();
+      $('#Sureish').hide();
+      $('#Sure').hide();
+      $('#conftext').hide();
     }
 
     /* Always track mouse */
