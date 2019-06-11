@@ -626,6 +626,7 @@
     function ChangeDetection() {
       curBlock = 0;
       $('#allItems').css('margin-top', 0);
+      $('#pointer').css('margin-top', -1000);
       $('#CDitem').show();
       if (now2 < (now + 180000)) { // 180000 for 3 minutes long filler task
         ChangeDetectionTrial();
