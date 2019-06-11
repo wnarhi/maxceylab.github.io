@@ -340,6 +340,7 @@
               // Preload the image of next trial
               if (curStudy > 0) { idPast = StudyTrials[curBlock][curStudy].id; colPast = StudyTrials[curBlock][curStudy].color; }
               if (StudyTrials[curBlock][curStudy].null==1) {
+                curStudy++;
                 NextStudyTrial();
               }
               start(ctxA, StudyTrials[curBlock][curStudy].color, 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy].img, itemA);
@@ -352,6 +353,7 @@
           // Preload the image of next trial
           if (curStudy > 0) { idPast = StudyTrials[curBlock][curStudy].id; colPast = StudyTrials[curBlock][curStudy].color; }
           if (StudyTrials[curBlock][curStudy].null==1) {
+            curStudy++;
             NextStudyTrial();
           }
           start(ctxA, StudyTrials[curBlock][curStudy].color, 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy].img, itemA);
@@ -455,6 +457,7 @@
             }
           }
         } else if (PracticeTrials[curBlock][curPractice].null==1) {
+          curPractice++;
           NextPracTrial();
           return;
         }
@@ -728,6 +731,7 @@
             }
           }
         } else if (TestTrials[curBlock][curTest].null==1) {
+          curTest++;
           NextTestTrial();
           return;
         }
