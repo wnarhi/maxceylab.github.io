@@ -40,7 +40,7 @@
     <center>
         <p>This HIT is a memorization experiment involving visual images. It will take approximately 45 minutes to complete.</p>
       </center>
-    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next (1 of 4)</a></p>
+    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();document.body.scrollTop = document.documentElement.scrollTop = 0;GetInfo();" id="TextButton">Next (1 of 4)</a></p>
   </div>
 
   <!-- Instructions page2 -->
@@ -241,29 +241,16 @@
     /* Set up non-canvas contexts */
     const CDitem = document.getElementById("CDitem");
 
-    /* Start Experiment */
-    function StartExperiment() {
-      if (IsOnTurk() && IsTurkPreview()) {
-          alert("Please accept the HIT before continuing.");
-          return false;
-      }
-
-      // save a file letting me know that someone made it this far
-      const blobx = new Blob([JSON.stringify(chance1.seed)], {
-        type: "application/json"
-      });
-      const storageRefx = firebase.storage().ref('started_retrieval_mturk/' + WORKERID + '.json');
-      storageRefx.put(blobx);
-
+    function GetInfo() {
       age = prompt('Before we start, can you tell me how old you are (in years)?');
 
       while (age > 100 || age < 18 || !(age>=18)) {
         age = prompt('Can you tell me how old you are (e.g., 18, not the year you were born)?');
       }
 
-      if (age > 45) {
-        $('body').html('<center><b>Unfortunately, this experiment does not allow participants over 45 years old (we separately study older populations).<br><br>Please return this HIT.<br><br>You will not be paid if you try again and change your age.</b></center>');
-      }
+      // if (age > 45) {
+      //   $('body').html('<center><b>Unfortunately, this experiment does not allow participants over 45 years old (we separately study older populations).<br><br>Please return this HIT.<br><br>You will not be paid if you try again and change your age.</b></center>');
+      // }
 
       sex = prompt('And are you male (M), female (F), non-binary (B), or prefer not to answer (NA)?');
 
@@ -279,6 +266,21 @@
       } else if (sex == 'NA' || sex == 'na') {
         sex = 'na';
       }
+    }
+
+    /* Start Experiment */
+    function StartExperiment() {
+      if (IsOnTurk() && IsTurkPreview()) {
+          alert("Please accept the HIT before continuing.");
+          return false;
+      }
+
+      // save a file letting me know that someone made it this far
+      const blobx = new Blob([JSON.stringify(chance1.seed)], {
+        type: "application/json"
+      });
+      const storageRefx = firebase.storage().ref('started_retrieval_mturk/' + WORKERID + '.json');
+      storageRefx.put(blobx);
 
       $('#instructions5').hide();
       $('#pointer').hide();
