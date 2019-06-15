@@ -567,6 +567,8 @@
             $('#conftext').show();
             return;
           } else if (curPractice > numPractice && locked==0) { // if test phase
+            $(document).unbind('mousemove.curTrial');
+            $(document).unbind('mouseup.curTrial');
             TestColRT.push(new Date() - startTimeC);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
@@ -588,6 +590,8 @@
             $('#conftext').show();
             return;
           } else { // if practice phase
+            $(document).unbind('mousemove.curTrial');
+            $(document).unbind('mouseup.curTrial');
             PracticeColRT.push(new Date() - startTimeC);
             if (flip == 1) {
               a = origColors[arrayContains(flippedColors[wrap(imgNum)],origColors)];
