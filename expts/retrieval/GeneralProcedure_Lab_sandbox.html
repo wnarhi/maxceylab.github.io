@@ -215,6 +215,8 @@
     let RepeatCol = [];
     locked = 0;
     let back = 0;
+    let count = 0;
+    let OverallAcc = 0;
 
     /* Setup reused image and color ring variables */
     let ringStandard = new Image();
@@ -936,7 +938,6 @@
     /* Done with the experiment */
     function Done() {
       // calculate their overall accuracy (Practice + Test)
-      var count = 0;
       for(var i = 0; i < PracticeColDiff.length; ++i){
           if (PracticeColDiff[i] <= 30) {
               count++;
@@ -947,7 +948,7 @@
               count++;
           }
       }
-      const OverallAcc = count/(PracticeColDiff.length+TestColDiff.length);
+      OverallAcc = count/(PracticeColDiff.length+TestColDiff.length);
       let cashpoints = basepay + (OverallAcc*3);
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " base pay + bonus): $" + cashpoints;
