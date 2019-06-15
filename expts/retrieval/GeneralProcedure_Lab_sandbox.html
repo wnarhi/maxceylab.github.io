@@ -103,10 +103,12 @@
     </div>
   </div>
 
-  <form name="turkSubmit" id="turkSubmit" action="https://www.mturk.com/mturk/externalSubmit" method="POST">
+  <form name="turkSubmit" id="turkSubmit" action="https://workersandbox.mturk.com/mturk/externalSubmit" method="POST">
       <input type="hidden" name="assignmentId" id="assignmentId" value="">
       <input type="hidden" name="foo" value="">
       <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
+  <!--    https://workersandbox.mturk.com/mturk/externalSubmit
+      https://www.mturk.com/mturk/externalSubmit    -->
 
   <!-- Screen after submitting expt -->
   <div id="done">
@@ -168,8 +170,8 @@
     const numStudy = 114;
     const numPractice = 114;
     const numTest = 114;
-    const displayTime = 3000; //3000 ms
-    const itiTime = 500; // 500 ms
+    const displayTime = 30; //3000 ms
+    const itiTime = 50; // 500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
