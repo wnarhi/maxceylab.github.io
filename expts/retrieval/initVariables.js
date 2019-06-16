@@ -268,7 +268,12 @@ for (var a = 0; a < AllImages.length; a++) {a
 
 StudyTrials=[];
 StudyTrials = StudyTrials.concat(fisherYates(ObjIndx,AllImages.length),fisherYates(ObjIndx2,AllImages.length),fisherYates(ObjIndx3,AllImages.length),fisherYates(ObjIndx4,AllImages.length));
-while (StudyTrials[0][0].type==3){
+while (StudyTrials[0][0].type==3 || StudyTrials[1][0].type==3 || StudyTrials[2][0].type==3 || StudyTrials[3][0].type==3 ||
+        StudyTrials[0][1].type==3 || StudyTrials[1][1].type==3 || StudyTrials[2][1].type==3 || StudyTrials[3][1].type==3 ||
+        StudyTrials[0][2].type==3 || StudyTrials[1][2].type==3 || StudyTrials[2][2].type==3 || StudyTrials[3][2].type==3 ||
+        StudyTrials[0][3].type==3 || StudyTrials[1][3].type==3 || StudyTrials[2][3].type==3 || StudyTrials[3][3].type==3 ||
+        StudyTrials[0][4].type==3 || StudyTrials[1][4].type==3 || StudyTrials[2][4].type==3 || StudyTrials[3][4].type==3 ||
+        StudyTrials[0][5].type==3 || StudyTrials[1][5].type==3 || StudyTrials[2][5].type==3 || StudyTrials[3][5].type==3){
   StudyTrials=[];
   StudyTrials = StudyTrials.concat(fisherYates(ObjIndx,AllImages.length),fisherYates(ObjIndx2,AllImages.length),fisherYates(ObjIndx3,AllImages.length),fisherYates(ObjIndx4,AllImages.length));
 }
