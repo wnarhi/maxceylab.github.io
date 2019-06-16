@@ -4,7 +4,7 @@ let Cats = chance1.shuffle([01,02,04,06,08,09,10,11,15]); // 9 cats
 
 let RpCatsR = Cats.slice(0,3); // 3 categories
 let NrpCatsR = Cats.slice(3,6);
-let CatchCatsR = Cats.slice(8,11); // 3 cat
+let CatchCatsR = Cats.slice(6,9); // 3 cat
 
 let RpExemSliceR = chance1.shuffle(counter(11, 28));
 let RpPlusExemR = RpExemSliceR.slice(0, 6); //type 10
@@ -14,7 +14,7 @@ let RpTestLuresExemR = RpExemSliceR.slice(12, 18); //type 14
 let NrpExemSliceR = chance1.shuffle(counter(11, 22));
 let NrpExemR = NrpExemSliceR.slice(0, 12); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(6, 12); //type 15
-let CatchExemR = counter(11, 16);
+let CatchExemR = counter(11, 18);
 
 let StudyTrialType = []; let StudyAr = [];
 StudyAr = StudyAr.concat(repmat(repmat([10, 11], RpPlusExemR.length),RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length), repmat(repmat(99, CatchExemR.length), 1));
@@ -90,7 +90,7 @@ for (var a = 0; a < AllImages.length; a++) {a
     ObjIndx[a].type = 2;
     ObjIndx[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) < 6) {
+    if (CatchR.indexOf(AllImages[a]) < 5) {
       ObjIndx[a].type = 3;
       ObjIndx[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx[a].exem))]
     } else {
@@ -124,7 +124,7 @@ for (var a = 0; a < AllImages.length; a++) {
     ObjIndx2[a].type = 2;
     ObjIndx2[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx2[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx2[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) >= 6 && CatchR.indexOf(AllImages[a]) < 12) {
+    if (CatchR.indexOf(AllImages[a]) >= 5 && CatchR.indexOf(AllImages[a]) < 10) {
       ObjIndx2[a].type = 3;
       ObjIndx2[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx2[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx2[a].exem))]
     } else {
@@ -158,7 +158,7 @@ for (var a = 0; a < AllImages.length; a++) {
     ObjIndx3[a].type = 2;
     ObjIndx3[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx3[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx3[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) >= 12) {
+    if (CatchR.indexOf(AllImages[a]) >= 10 && CatchR.indexOf(AllImages[a]) < 15) {
       ObjIndx3[a].type = 3;
       ObjIndx3[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx3[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx3[a].exem))]
     } else {
@@ -169,6 +169,40 @@ for (var a = 0; a < AllImages.length; a++) {
   }
   if (ObjIndx3[a].null == undefined) {
     ObjIndx3[a].null = 0;
+  }
+}
+
+ObjIndx4 = new Object();
+for (var a = 0; a < AllImages.length; a++) {
+  ObjIndx4[a] = new Object();
+  ObjIndx4[a].id = AllImages[a];
+  ObjIndx4[a].cat = AllImages[a].slice(0,2);
+  ObjIndx4[a].exem = AllImages[a].slice(3,5);
+  ObjIndx4[a].img = new Image();
+  ObjIndx4[a].img.crossOrigin = "anonymous";
+  ObjIndx4[a].img.id = AllImages[a];
+  ObjIndx4[a].img.src = $('#Obj' + AllImages[a])[0].src;
+  if (RpPlusR.includes(AllImages[a])) {
+    ObjIndx4[a].type = 0;
+    ObjIndx4[a].color = RpPlusRC[RpCatsR.indexOf(parseInt(ObjIndx4[a].cat))][RpPlusExemR.indexOf(parseInt(ObjIndx4[a].exem))]
+  } else if (RpMinusR.includes(AllImages[a])) {
+    ObjIndx4[a].type = 1;
+    ObjIndx4[a].color = RpMinusRC[RpCatsR.indexOf(parseInt(ObjIndx4[a].cat))][RpMinusExemR.indexOf(parseInt(ObjIndx4[a].exem))]
+  } else if (NrpR.includes(AllImages[a])) {
+    ObjIndx4[a].type = 2;
+    ObjIndx4[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx4[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx4[a].exem))]
+  } else if (CatchR.includes(AllImages[a])) {
+    if (CatchR.indexOf(AllImages[a]) >= 15) {
+      ObjIndx4[a].type = 3;
+      ObjIndx4[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx4[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx4[a].exem))]
+    } else {
+      ObjIndx4[a].type = 3;
+      ObjIndx4[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx4[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx4[a].exem))]
+      ObjIndx4[a].null = 1;
+    }
+  }
+  if (ObjIndx4[a].null == undefined) {
+    ObjIndx4[a].null = 0;
   }
 }
 
