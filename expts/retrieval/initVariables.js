@@ -14,7 +14,7 @@ let RpTestLuresExemR = RpExemSliceR.slice(12, 18); //type 14
 let NrpExemSliceR = chance1.shuffle(counter(11, 22));
 let NrpExemR = NrpExemSliceR.slice(0, 12); //type 12
 let NrpTestLuresExemR = NrpExemSliceR.slice(6, 12); //type 15
-let CatchExemR = counter(11, 16);
+let CatchExemR = counter(11, 18);
 
 let StudyTrialType = []; let StudyAr = [];
 StudyAr = StudyAr.concat(repmat(repmat([10, 11], RpPlusExemR.length),RpCatsR.length), repmat(repmat(12, NrpExemR.length), NrpCatsR.length), repmat(repmat(99, CatchExemR.length), 1));
@@ -90,7 +90,7 @@ for (var a = 0; a < AllImages.length; a++) {a
     ObjIndx[a].type = 2;
     ObjIndx[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) < 5) {
+    if (CatchR.indexOf(AllImages[a]) < 6) {
       ObjIndx[a].type = 3;
       ObjIndx[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx[a].exem))]
     } else {
@@ -124,7 +124,7 @@ for (var a = 0; a < AllImages.length; a++) {
     ObjIndx2[a].type = 2;
     ObjIndx2[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx2[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx2[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) >= 5 && CatchR.indexOf(AllImages[a]) < 10) {
+    if (CatchR.indexOf(AllImages[a]) >= 6 && CatchR.indexOf(AllImages[a]) < 12) {
       ObjIndx2[a].type = 3;
       ObjIndx2[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx2[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx2[a].exem))]
     } else {
@@ -158,7 +158,7 @@ for (var a = 0; a < AllImages.length; a++) {
     ObjIndx3[a].type = 2;
     ObjIndx3[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx3[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx3[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) >= 10 && CatchR.indexOf(AllImages[a]) < 15) {
+    if (CatchR.indexOf(AllImages[a]) >= 12 && CatchR.indexOf(AllImages[a]) < 18) {
       ObjIndx3[a].type = 3;
       ObjIndx3[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx3[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx3[a].exem))]
     } else {
@@ -192,7 +192,7 @@ for (var a = 0; a < AllImages.length; a++) {
     ObjIndx4[a].type = 2;
     ObjIndx4[a].color = NrpRC[NrpCatsR.indexOf(parseInt(ObjIndx4[a].cat))][NrpExemR.indexOf(parseInt(ObjIndx4[a].exem))]
   } else if (CatchR.includes(AllImages[a])) {
-    if (CatchR.indexOf(AllImages[a]) >= 15) {
+    if (CatchR.indexOf(AllImages[a]) >= 18) {
       ObjIndx4[a].type = 3;
       ObjIndx4[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx4[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx4[a].exem))]
     } else {
