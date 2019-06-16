@@ -89,7 +89,7 @@
 
         <p><i>Please set aside approximately 45 minutes to complete this experiment. Please do your best -- the amount of time we will spend analyzing your data far exceeds 45 minutes!</i></p>
       </center>
-    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
+    <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions4').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;SaveData()();" id="TextButton">Start Experiment</a></p>
     <center><p id=loading>Images loading... Please wait a minute or refresh the page.</p></center>
   </div>
 
@@ -104,9 +104,9 @@
   </div>
 
   <form name="turkSubmit" id="turkSubmit" action="https://workersandbox.mturk.com/mturk/externalSubmit" method="POST">
-      <input type="hidden" name="assignmentId" id="assignmentId" value="">
-      <input type="hidden" name="foo" value="">
-      <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
+  <input type="hidden" name="assignmentId" id="assignmentId" value="" >
+  <input type="hidden" name="foo" value="" >
+  <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
   <!--    https://workersandbox.mturk.com/mturk/externalSubmit
       https://www.mturk.com/mturk/externalSubmit    -->
 
@@ -968,40 +968,40 @@
       const endDate = new Date().getTime();
       const d = {
         "ID": WORKERID,
-        "ASSIGNMENTID": ASSIGNMENTID,
-        "age": age,
-        "sex": sex,
-        "StartTime": startDate.getTime(),
-        "EndTime": endDate,
-        "PracticeColRT": PracticeColRT,
-        "PracticeColResp": PracticeColResp,
-        "PracticeColDiff": PracticeColDiff,
-        "TestColRT": TestColRT,
-        "TestColResp": TestColResp,
-        "TestColDiff": TestColDiff,
-        "CDType": CDType,
-        "CDaccuracy": CDaccuracy,
-        "AllImages": AllImages,
-        "randrotate": randrotateList,
-        "flip": flipList,
-        "StudyTrials": StudyTrials,
-        "PracticeTrials": PracticeTrials,
-        "TestTrials": TestTrials,
-        "numRepeats": numRepeats,
-        "RepeatObj": RepeatObj,
-        "RepeatCol": RepeatCol,
-        "RepeatColResp": RepeatColResp,
-        "RepeatColDiff": RepeatColDiff,
-        "seed": chance1.seed,
-        "bonus": (OverallAcc*3).toFixed(2),
-        "comments": $('#comments').val()
+        // "ASSIGNMENTID": ASSIGNMENTID,
+        // "age": age,
+        // "sex": sex,
+        // "StartTime": startDate.getTime(),
+        // "EndTime": endDate,
+        // "PracticeColRT": PracticeColRT,
+        // "PracticeColResp": PracticeColResp,
+        // "PracticeColDiff": PracticeColDiff,
+        // "TestColRT": TestColRT,
+        // "TestColResp": TestColResp,
+        // "TestColDiff": TestColDiff,
+        // "CDType": CDType,
+        // "CDaccuracy": CDaccuracy,
+        // "AllImages": AllImages,
+        // "randrotate": randrotateList,
+        // "flip": flipList,
+        // "StudyTrials": StudyTrials,
+        // "PracticeTrials": PracticeTrials,
+        // "TestTrials": TestTrials,
+        // "numRepeats": numRepeats,
+        // "RepeatObj": RepeatObj,
+        // "RepeatCol": RepeatCol,
+        // "RepeatColResp": RepeatColResp,
+        // "RepeatColDiff": RepeatColDiff,
+        // "seed": chance1.seed,
+        // "bonus": (OverallAcc*3).toFixed(2),
+        // "comments": $('#comments').val()
       };
 
       /* save to Firebase server */
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_MTurk/' + WORKERID + '.json');
+      const storageRef = firebase.storage().ref('sandbox/' + WORKERID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
