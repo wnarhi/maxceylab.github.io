@@ -83,9 +83,9 @@
 
         <hr>
 
-        <p><b>The more accurate your responses, the more bonus money you will receive at the end of the HIT (up to $3.00).</b></p>
+        <p><b>The more accurate your responses, the more bonus money you will receive at the end of the HIT (up to $5.00).</b></p>
 
-        <p><b><u>Every</u> object you see will eventually be tested using the color wheel.</b></p>
+        <p><b><i>Every</i> object you see will eventually be tested using the color wheel.</b></p>
 
         <p>Ready to start? You will begin by memorizing a series of colored objects.</p>
 
@@ -219,6 +219,7 @@
     let count = 0;
     let groundcount = 0;
     let OverallAcc = 0;
+    let bonusmultiplier = 5;
     let ongoingacc = 0;
 
     /* Setup reused image and color ring variables */
@@ -1025,7 +1026,7 @@
         groundcount=groundcount+180;
       }
       OverallAcc = 1-(count/groundcount);
-      let cashpoints = basepay + (OverallAcc*3);
+      let cashpoints = basepay + (OverallAcc*bonusmultiplier);
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " base pay + bonus): $" + cashpoints;
       document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Please describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your approximate accuracy: ' + (OverallAcc*100).toFixed(2) +
