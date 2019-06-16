@@ -142,6 +142,7 @@
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
+    <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p>
     <p id="conftext" align="center" style="position:absolute; bottom:0px; left:90px"><b>How confident are you that your response was accurate?</b></p>
   </div>
 
@@ -214,7 +215,9 @@
     locked = 0;
     let back = 0;
     let count = 0;
+    let groundcount = 0;
     let OverallAcc = 0;
+    let ongoingacc = 0;
 
     /* Setup reused image and color ring variables */
     let ringStandard = new Image();
@@ -654,10 +657,10 @@
         modalClosed = false;
         if (curPractice > numPractice) {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. Keep it up, the HIT is almost over!';
+            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br> Your accuracy will adjust every 5 trials. <br><br>  Keep it up, the HIT is almost over!';
         } else {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now test your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. Good luck!';
+            'Great job! <br><br> We will now test your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br> Your accuracy will adjust every 5 trials. <br><br> Good luck!';
         }
         window.location.href = '#openModal';
         checkFlag6();
@@ -828,6 +831,23 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
+      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+        count=0;groundcount=0;
+        for(var i = 0; i < RepeatColDiff.length; ++i){
+            count=count+RepeatColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < PracticeColDiff.length; ++i){
+            count=count+PracticeColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < TestColDiff.length; ++i){
+          count=count+TestColDiff[i];
+          groundcount=groundcount+180;
+        }
+        ongoingacc = 100*(1-(count/groundcount));
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+      }
     }
     function Unsureish() {
       $('#pointer').css('margin-top', -1000);
@@ -860,6 +880,23 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
+      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+        count=0;groundcount=0;
+        for(var i = 0; i < RepeatColDiff.length; ++i){
+            count=count+RepeatColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < PracticeColDiff.length; ++i){
+            count=count+PracticeColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < TestColDiff.length; ++i){
+          count=count+TestColDiff[i];
+          groundcount=groundcount+180;
+        }
+        ongoingacc = 100*(1-(count/groundcount));
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+      }
     }
     function Sureish() {
       $('#pointer').css('margin-top', -1000);
@@ -892,6 +929,23 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
+      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+        count=0;groundcount=0;
+        for(var i = 0; i < RepeatColDiff.length; ++i){
+            count=count+RepeatColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < PracticeColDiff.length; ++i){
+            count=count+PracticeColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < TestColDiff.length; ++i){
+          count=count+TestColDiff[i];
+          groundcount=groundcount+180;
+        }
+        ongoingacc = 100*(1-(count/groundcount));
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+      }
     }
     function Sure() {
       $('#pointer').css('margin-top', -1000);
@@ -924,6 +978,23 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
+      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+        count=0;groundcount=0;
+        for(var i = 0; i < RepeatColDiff.length; ++i){
+            count=count+RepeatColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < PracticeColDiff.length; ++i){
+            count=count+PracticeColDiff[i];
+            groundcount=groundcount+180;
+        }
+        for(var i = 0; i < TestColDiff.length; ++i){
+          count=count+TestColDiff[i];
+          groundcount=groundcount+180;
+        }
+        ongoingacc = 100*(1-(count/groundcount));
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+      }
     }
 
     /* Always track mouse */
@@ -938,17 +1009,20 @@
     /* Done with the experiment */
     function Done() {
       // calculate their overall accuracy (Practice + Test)
+      count=0;groundcount=0;
+      for(var i = 0; i < RepeatColDiff.length; ++i){
+          count=count+RepeatColDiff[i];
+          groundcount=groundcount+180;
+      }
       for(var i = 0; i < PracticeColDiff.length; ++i){
-          if (PracticeColDiff[i] <= 30) {
-              count++;
-          }
+          count=count+PracticeColDiff[i];
+          groundcount=groundcount+180;
       }
       for(var i = 0; i < TestColDiff.length; ++i){
-          if (TestColDiff[i] <= 30) {
-              count++;
-          }
+        count=count+TestColDiff[i];
+        groundcount=groundcount+180;
       }
-      OverallAcc = count/(PracticeColDiff.length+TestColDiff.length);
+      OverallAcc = 1-(count/groundcount);
       let cashpoints = basepay + (OverallAcc*3);
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " base pay + bonus): $" + cashpoints;
