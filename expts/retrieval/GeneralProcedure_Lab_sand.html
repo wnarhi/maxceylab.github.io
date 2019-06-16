@@ -962,30 +962,52 @@
 
     /* What to save and put it on server */
     function SaveData() {
-      // if ($('#comments').val() == '4115863586') {
-        $('#done').children().hide();
-        $('#saving').show();
-        $('#assignmentId').val(GetAssignmentId());
-        const newDate = new Date();
-        const d = {
-          "WORKERID": WORKERID,
-          "ASSIGNMENTID": ASSIGNMENTID,
-          "curTime": newDate.today() + " @ " + newDate.timeNow(),
-          "userAgent": navigator.userAgent
-        };
+      $('#done').children().hide();
+      $('#saving').show();
+      $('#assignmentId').val(GetAssignmentId());
+      const endDate = new Date().getTime();
+      const d = {
+        "ID": WORKERID,
+        // "ASSIGNMENTID": ASSIGNMENTID,
+        // "age": age,
+        // "sex": sex,
+        // "StartTime": startDate.getTime(),
+        // "EndTime": endDate,
+        // "PracticeColRT": PracticeColRT,
+        // "PracticeColResp": PracticeColResp,
+        // "PracticeColDiff": PracticeColDiff,
+        // "TestColRT": TestColRT,
+        // "TestColResp": TestColResp,
+        // "TestColDiff": TestColDiff,
+        // "CDType": CDType,
+        // "CDaccuracy": CDaccuracy,
+        // "AllImages": AllImages,
+        // "randrotate": randrotateList,
+        // "flip": flipList,
+        // "StudyTrials": StudyTrials,
+        // "PracticeTrials": PracticeTrials,
+        // "TestTrials": TestTrials,
+        // "numRepeats": numRepeats,
+        // "RepeatObj": RepeatObj,
+        // "RepeatCol": RepeatCol,
+        // "RepeatColResp": RepeatColResp,
+        // "RepeatColDiff": RepeatColDiff,
+        // "seed": chance1.seed,
+        // "bonus": (OverallAcc*3).toFixed(2),
+        // "comments": $('#comments').val()
+      };
 
-          /* save to Firebase server */
-          const blob = new Blob([JSON.stringify(d)], {type: "application/json"});
-          const storageRef = firebase.storage().ref('data/' + WORKERID + '.json');
-          storageRef.put(blob);
+      /* save to Firebase server */
+      const blob = new Blob([JSON.stringify(d)], {
+        type: "application/json"
+      });
+      const storageRef = firebase.storage().ref('sandbox/' + WORKERID + '.json');
+      storageRef.put(blob);
 
-          document.getElementById("saving").innerHTML = "Submitting HIT...";
+      document.getElementById("saving").innerHTML = "Submitting...";
 
-          // submit HIT after waiting a few seconds to make sure data got sent
-          setTimeout(function(){ document.forms[0].submit(); }, 3000);
-      // } else {
-      //   alert('Invalid code.');
-      // }
+      // submit HIT after waiting a few seconds to make sure data got sent
+      setTimeout(function(){ document.forms[0].submit(); }, 3000);
     }
 
     /*check all images are loaded before starting*/

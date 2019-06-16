@@ -961,8 +961,8 @@
     /* What to save and put it on server */
     function SaveData() {
       $('#done').children().hide();
-      $('#done').hide();
       $('#saving').show();
+      $('#assignmentId').val(GetAssignmentId());
       const endDate = new Date().getTime();
       const d = {
         "ID": WORKERID,
