@@ -6,7 +6,7 @@ let RpCatsR = Cats.slice(0,3); // 3 categories
 let NrpCatsR = Cats.slice(3,6);
 let CatchCatsR = Cats.slice(6,9); // 3 cat
 
-let RpExemSliceR = chance1.shuffle(counter(11, 22));
+let RpExemSliceR = chance1.shuffle(counter(11, 18));
 let RpPlusExemR = RpExemSliceR.slice(0, 4); //type 10
 let RpMinusExemR = RpExemSliceR.slice(4, 8); //type 11
 let PracLuresExemR = RpExemSliceR.slice(6, 12); //type 13
