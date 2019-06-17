@@ -46,7 +46,7 @@
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
     <center>
-        <p>You will be presented with 96 objects, one at a time, each presented for 2.5 seconds.</p>
+        <p>You will be presented with 72 objects, one at a time, each presented for 3 seconds.</p>
         <p>Example of an object:</p>
 
         <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/retrieval1.png" width="600px"></p>
@@ -144,7 +144,7 @@
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
-    <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p>
+    <!-- <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p> -->
     <p id="conftext" align="center" style="position:absolute; bottom:0px; left:90px"><b>How confident are you that your response was accurate?</b></p>
   </div>
 
@@ -168,10 +168,10 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 96;
-    const numPractice = 96;
-    const numTest = 96;
-    const displayTime = 2500; //2500 ms
+    const numStudy = 72;
+    const numPractice = 72;
+    const numTest = 72;
+    const displayTime = 3000; //3000 ms
     const itiTime = 500; //500 ms
     const imgWidth = 300;
     const imgHeight = 300;
@@ -660,10 +660,10 @@
         modalClosed = false;
         if (curPractice > numPractice) {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br> Your accuracy will adjust every 5 trials. <br><br>  Keep it up, the HIT is almost over!';
+            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br>  Keep it up, the HIT is almost over!';
         } else {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now test your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br> Your accuracy will adjust every 5 trials. <br><br> Good luck!';
+            'Great job! <br><br> We will now test your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br> Good luck!';
         }
         window.location.href = '#openModal';
         checkFlag6();
@@ -849,7 +849,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
+        // document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
     function Unsureish() {
@@ -898,7 +898,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
+        // document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
     function Sureish() {
@@ -947,7 +947,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
+        // document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
     function Sure() {
@@ -996,7 +996,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
+        // document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
 
