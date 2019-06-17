@@ -834,7 +834,7 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
-      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+      if ((PracticeColDiff.length == 0 && TestColDiff.length == 0) || (PracticeColDiff.length != 0 && PracticeColDiff.length % 5 == 0) || (TestColDiff.length != 0 && TestColDiff.length % 5 == 0)) {
         count=0;groundcount=0;
         for(var i = 0; i < RepeatColDiff.length; ++i){
             count=count+RepeatColDiff[i];
@@ -883,7 +883,7 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
-      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+      if ((PracticeColDiff.length == 0 && TestColDiff.length == 0) || (PracticeColDiff.length != 0 && PracticeColDiff.length % 5 == 0) || (TestColDiff.length != 0 && TestColDiff.length % 5 == 0)) {
         count=0;groundcount=0;
         for(var i = 0; i < RepeatColDiff.length; ++i){
             count=count+RepeatColDiff[i];
@@ -898,7 +898,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
     function Sureish() {
@@ -932,7 +932,7 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
-      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+      if ((PracticeColDiff.length == 0 && TestColDiff.length == 0) || (PracticeColDiff.length != 0 && PracticeColDiff.length % 5 == 0) || (TestColDiff.length != 0 && TestColDiff.length % 5 == 0)) {
         count=0;groundcount=0;
         for(var i = 0; i < RepeatColDiff.length; ++i){
             count=count+RepeatColDiff[i];
@@ -947,7 +947,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
     function Sure() {
@@ -981,7 +981,7 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
-      if (PracticeColDiff.length == 0 || PracticeColDiff.length % 5 == 0 || TestColDiff.length % 5 == 0) {
+      if ((PracticeColDiff.length == 0 && TestColDiff.length == 0) || (PracticeColDiff.length != 0 && PracticeColDiff.length % 5 == 0) || (TestColDiff.length != 0 && TestColDiff.length % 5 == 0)) {
         count=0;groundcount=0;
         for(var i = 0; i < RepeatColDiff.length; ++i){
             count=count+RepeatColDiff[i];
@@ -996,7 +996,7 @@
           groundcount=groundcount+180;
         }
         ongoingacc = 100*(1-(count/groundcount));
-        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(4) + '%';
+        document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
       }
     }
 
@@ -1015,22 +1015,23 @@
       count=0;groundcount=0;
       for(var i = 0; i < RepeatColDiff.length; ++i){
           count=count+RepeatColDiff[i];
-          groundcount=groundcount+180;
+          groundcount=groundcount+90;
       }
       for(var i = 0; i < PracticeColDiff.length; ++i){
           count=count+PracticeColDiff[i];
-          groundcount=groundcount+180;
+          groundcount=groundcount+90;
       }
       for(var i = 0; i < TestColDiff.length; ++i){
         count=count+TestColDiff[i];
-        groundcount=groundcount+180;
+        groundcount=groundcount+90;
       }
       OverallAcc = 1-(count/groundcount);
       let cashpoints = basepay + (OverallAcc*bonusmultiplier);
+      if (cashpoints < basepay) { cashpoints = basepay; }
       cashpoints = cashpoints.toFixed(2);
       document.getElementById("cashPrize").innerHTML = "Total earnings ($" + basepay + " base pay + bonus): $" + cashpoints;
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Please describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' + 'Your approximate accuracy: ' + (OverallAcc*100).toFixed(2) +
-        '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Please describe any strategy you used to better remember the images. (Also, do you have any general comments? Any technical difficulties?)<br><br>' +
+        '<textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
     }
