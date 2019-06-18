@@ -172,7 +172,7 @@
     const numPractice = 72;
     const numTest = 72;
     const displayTime = 30; //3000 ms
-    const itiTime = 500; //500 ms
+    let itiTime = 500; //500 ms
     const imgWidth = 300;
     const imgHeight = 300;
     </script>
@@ -346,6 +346,7 @@
         }
       } else {
         if (curStudy == numStudy && curBlock < 3) {
+          itiTime = 500;
           // open pop-up:
           modalClosed = false;
           $('#allItems').css('margin-top', -1000);
@@ -371,12 +372,14 @@
             } else {
               // Preload the image of next trial
               if (StudyTrials[curBlock][curStudy].null==1) {
+                itiTime = 0;
                 curStudy++;
                 NextStudyTrial();
                 return;
               }
               start(ctxA, StudyTrials[curBlock][curStudy].color, 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy].img, itemA);
               setTimeout(function() {
+                itiTime = 500;
                 ShowStudy();
               }, itiTime/2); // wait a tad just to ensure image got switch
             }
@@ -384,12 +387,14 @@
         } else {
           // Preload the image of next trial
           if (StudyTrials[curBlock][curStudy].null==1) {
+            itiTime = 0;
             curStudy++;
             NextStudyTrial();
             return;
           }
           start(ctxA, StudyTrials[curBlock][curStudy].color, 0, 0, imgWidth, imgHeight, 0, StudyTrials[curBlock][curStudy].img, itemA);
           setTimeout(function() {
+            itiTime = 500;
             ShowStudy();
           }, itiTime/2); // wait a tad just to ensure image got switch
         }
@@ -487,6 +492,7 @@
 
           now = new Date().getTime();
           now2 = now;
+          itiTime = 500;
           $('#itemA').hide(); // hide object from last trial
           $('#ringItemA').hide();
 
@@ -507,11 +513,13 @@
             }
           }
         } else if (PracticeTrials[curBlock][curPractice].null==1) {
+          itiTime = 0;
           curPractice++;
           NextPracTrial();
           return;
         }
         if (curPractice < numPractice) {
+          itiTime = 500;
           OldNewJudgment();
         }
       }, itiTime);
@@ -776,6 +784,7 @@
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
+          itiTime = 500;
           $('#itemA').hide(); // hide object from last trial
 
           // open pop-up:
@@ -795,10 +804,12 @@
           }
           return;
         } else if (TestTrials[curTest].null==1) {
+          itiTime = 0;
           curTest++;
           NextTestTrial();
           return;
         }
+        itiTime = 500;
         OldNewJudgment();
       }, itiTime);
     }
