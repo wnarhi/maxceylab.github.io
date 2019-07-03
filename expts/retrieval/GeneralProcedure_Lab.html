@@ -83,7 +83,7 @@
 
         <hr>
 
-        <p><b>The more accurate your responses, the more bonus money you will receive at the end of the HIT (up to $5.00).</b></p>
+        <p><b>The more accurate your responses, the more bonus money you will receive at the end of the HIT (up to $4.00).</b></p>
 
         <p><b><i>Every</i> object you see will eventually be tested using the color wheel.</b></p>
 
@@ -219,7 +219,7 @@
     let count = 0;
     let groundcount = 0;
     let OverallAcc = 0;
-    let bonusmultiplier = 5;
+    let bonusmultiplier = 4;
     let ongoingacc = 0;
 
     /* Setup reused image and color ring variables */
@@ -1090,7 +1090,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_MTurk_3/' + WORKERID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_MTurk_5/' + WORKERID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
