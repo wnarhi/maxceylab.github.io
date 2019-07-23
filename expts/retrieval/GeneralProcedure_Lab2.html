@@ -128,10 +128,10 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
-    <div id="correctOld">Correct! Old image.</div>
-    <div id="incorrectOld">Incorrect. Old image.</div>
-    <div id="correctNew">Correct! New image.</div>
-    <div id="incorrectNew">Incorrect. New image.</div>
+    <div id="correctOld">Correct! Object was "old".</div>
+    <div id="incorrectOld">Incorrect. Object was "old".</div>
+    <div id="correctNew">Correct! Object was "new".</div>
+    <div id="incorrectNew">Incorrect. Object was "new".</div>
     <div id="fixation">+</div>
     <div id="allItems">
       <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
@@ -153,8 +153,8 @@
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
     <!-- <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p> -->
-    <center><p id="idtext" align="center" style="position:absolute; bottom:0px; left:0px"><b>Have you seen this object before ("old") or \n is this the first time you've seen this object ("new")?</b></p>
-    <p id="conftext" align="center" style="position:absolute; bottom:0px; left:0px"><b>How confident are you that your color report was accurate?</b></p></center>
+    <center><p id="idtext" align="center" style="position:relative; top:500px; left:0px"><b>Have you seen this object before ("old") or \n is this the first time you've seen this object ("new")?</b></p>
+    <p id="conftext" align="center" style="position:relative; top:500px; left:0px"><b>How confident are you that your color report was accurate?</b></p></center>
   </div>
 
   <!-- Initializing JS -->
@@ -659,8 +659,9 @@
     /* Display Object & Old/New Judgment */
     function OldNewJudgment() {
       startTrial = new Date().getTime();
-      $('#CDitem').show();
+      $('#CDitem').hide();
       if (curPractice > numPractice) {// if test phase
+        $('#allItems').css('margin-top', 0);
         $('#OldSure').show();
         $('#OldUnsure').show();
         $('#NewUnsure').show();
@@ -699,7 +700,7 @@
         modalClosed = false;
         if (curPractice > numPractice) {
           document.getElementById("openModal_text").innerHTML =
-            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br>  Keep it up, the HIT is almost over!';
+            'Great job! <br><br> We will now continue testing your memory. <br><br> You will see a grayscale object and be asked whether you have seen it before. If you have, you will then select the original color on the color wheel. <br><br>  Keep it up, the HIT is almost over!';
         } else {
           document.getElementById("openModal_text").innerHTML =
             'Great job! <br><br> We will now test your memory. <br><br> You will see a grayscale object and be asked to select the original color on the color wheel. <br><br> Good luck!';
