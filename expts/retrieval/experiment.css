@@ -164,7 +164,7 @@ body {
   text-decoration: none;
   font-family: Arial, Helvetica;
   font-weight: bold;
-  font-size:12pt;
+  font-size:14pt;
 }
 #OldSure:hover {
   border: 3px inset gray;
@@ -182,7 +182,7 @@ body {
   border: 3px outset gray;
   background-color: #CCCCCC;
   padding: 8px;
-  font-size:11pt;
+  font-size:14pt;
   text-decoration: none;
   font-family: Arial, Helvetica;
   font-weight: bold;
@@ -203,7 +203,7 @@ body {
   border: 3px outset gray;
   background-color: #CCCCCC;
   padding: 8px;
-  font-size:10pt;
+  font-size:14pt;
   text-decoration: none;
   font-family: Arial, Helvetica;
   font-weight: bold;
@@ -224,7 +224,7 @@ body {
   border: 3px outset gray;
   background-color: #CCCCCC;
   padding: 8px;
-  font-size:13pt;
+  font-size:14pt;
   text-decoration: none;
   font-family: Arial, Helvetica;
   font-weight: bold;
