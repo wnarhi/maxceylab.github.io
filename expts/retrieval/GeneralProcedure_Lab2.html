@@ -153,7 +153,7 @@
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
     <!-- <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p> -->
-    <p id="idtext" align="center" style="position:absolute; bottom:0px; left:90px"><b>Have you seen this object before?</b></p>
+    <p id="idtext" align="center" style="position:absolute; bottom:0px; left:170px"><b>Have you seen this object before?</b></p>
     <p id="conftext" align="center" style="position:absolute; bottom:0px; left:90px"><b>How confident are you that your color report was accurate?</b></p>
   </div>
 
@@ -660,11 +660,24 @@
     function OldNewJudgment() {
       startTrial = new Date().getTime();
       $('#CDitem').show();
-      $('#OldSure').show();
-      $('#OldUnsure').show();
-      $('#NewUnsure').show();
-      $('#NewSure').show();
-      $('#idtext').show();
+      if (curPractice > numPractice) {// if test phase
+        $('#OldSure').show();
+        $('#OldUnsure').show();
+        $('#NewUnsure').show();
+        $('#NewSure').show();
+        $('#idtext').show();
+      } else { // if practice
+        flip = Math.round(Math.random());
+        randrotate = Math.floor(Math.random() * 360);
+        ringctxA.clearRect(0, 0, 600, 600);
+        ringctxA.restore();
+        ringctxA.save();
+        ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+        ringctxA.rotate(randrotate * Math.PI / 180);
+        ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+        Continuous();
+        $('#allItems').css('margin-top', 0);
+      }
     }
 
     /* Filler Start */
