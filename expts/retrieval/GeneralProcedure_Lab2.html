@@ -128,6 +128,10 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
+    <div id="correctOld">Correct! Old image.</div>
+    <div id="incorrectOld">Incorrect. Old image.</div>
+    <div id="correctNew">Correct! New image.</div>
+    <div id="incorrectNew">Incorrect. New image.</div>
     <div id="fixation">+</div>
     <div id="allItems">
       <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
@@ -141,11 +145,16 @@
       <a href="javascript:void(0);" onclick="Unsureish();" id="Unsureish" style="position:relative; top:585px;">Unconfident</a>
       <a href="javascript:void(0);" onclick="Sureish();" id="Sureish" style="position:relative; top:585px;">Semi-confident</a>
       <a href="javascript:void(0);" onclick="Sure();" id="Sure" style="position:relative; top:585px;">Confident</a>
+      <a href="javascript:void(0);" onclick="OldSure();" id="OldSure" style="position:relative; top:585px;">Old (Confident)</a>
+      <a href="javascript:void(0);" onclick="OldUnsure();" id="OldUnsure" style="position:relative; top:585px;">Old (Unconfident)</a>
+      <a href="javascript:void(0);" onclick="NewUnsure();" id="NewUnsure" style="position:relative; top:585px;">New (Unconfident)</a>
+      <a href="javascript:void(0);" onclick="NewSure();" id="NewSure" style="position:relative; top:585px;">New (Confident)</a>
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
     <!-- <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p> -->
-    <p id="conftext" align="center" style="position:absolute; bottom:0px; left:90px"><b>How confident are you that your response was accurate?</b></p>
+    <p id="idtext" align="center" style="position:absolute; bottom:0px; left:90px"><b>Have you seen this object before?</b></p>
+    <p id="conftext" align="center" style="position:absolute; bottom:0px; left:90px"><b>How confident are you that your color report was accurate?</b></p>
   </div>
 
   <!-- Initializing JS -->
@@ -299,6 +308,17 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
+
+      $('#OldSure').hide();
+      $('#OldUnsure').hide();
+      $('#NewUnsure').hide();
+      $('#NewSure').hide();
+      $('#idtext').hide();
+
+      $('#correctOld').hide();
+      $('#incorrectOld').hide();
+      $('#correctNew').hide();
+      $('#incorrectNew').hide();
 
       // open pop-up:
       modalClosed = false;
@@ -574,6 +594,7 @@
             }
             RepeatColResp.push(wrap(imgNum));
             RepeatColDiff.push(wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color));
+            StudyTrials[curBlock][curStudy-back].rt = new Date() - startTimeC;
             StudyTrials[curBlock][curStudy-back].resp = wrap(imgNum);
             StudyTrials[curBlock][curStudy-back].diff = wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color);
             $('#Unsure').show();
@@ -597,6 +618,7 @@
             // }
             TestColResp.push(wrap(imgNum));
             TestColDiff.push(wrapDiff(imgNum,TestTrials[curTest].color));
+            TestTrials[curTest].rt = new Date() - startTimeC;
             TestTrials[curTest].resp = wrap(imgNum);
             TestTrials[curTest].diff = wrapDiff(imgNum,TestTrials[curTest].color);
             $('#Unsure').show();
@@ -620,6 +642,7 @@
             // }
             PracticeColResp.push(wrap(imgNum));
             PracticeColDiff.push(wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color));
+            PracticeTrials[curBlock][curPractice].rt = new Date() - startTimeC;
             PracticeTrials[curBlock][curPractice].resp = wrap(imgNum);
             PracticeTrials[curBlock][curPractice].diff = wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color);
             $('#Unsure').show();
@@ -637,22 +660,11 @@
     function OldNewJudgment() {
       startTrial = new Date().getTime();
       $('#CDitem').show();
-      if (TestTrials[curTest].type < 4) {
-        // display OLD
-        flip = Math.round(Math.random());
-        randrotate = Math.floor(Math.random() * 360);
-        ringctxA.clearRect(0, 0, 600, 600);
-        ringctxA.restore();
-        ringctxA.save();
-        ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
-        ringctxA.rotate(randrotate * Math.PI / 180);
-        ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
-        Continuous();
-        $('#allItems').css('margin-top', 0);
-      } else {
-        // display NEW
-        $('#allItems').css('margin-top', 0);
-      }
+      $('#OldSure').show();
+      $('#OldUnsure').show();
+      $('#NewUnsure').show();
+      $('#NewSure').show();
+      $('#idtext').show();
     }
 
     /* Filler Start */
@@ -1014,6 +1026,39 @@
         }
         ongoingacc = 100*(1-(count/groundcount));
         // document.getElementById("acctext").innerHTML = 'Accuracy: ' + ongoingacc.toFixed(2) + '%';
+      }
+    }
+
+    function OldSure() {
+      TestTrials[curTest].idconf = 0; //0 is old sure, 1 is old unsure, 2 is new unsure, 3 is new sure
+      $('#OldSure').hide();
+      $('#OldUnsure').hide();
+      $('#NewUnsure').hide();
+      $('#NewSure').hide();
+      $('#idtext').hide();
+      if (TestTrials[curTest].type < 4) { //if old image
+        $('#correctOld').show();
+        setTimeout(function() {
+          $('#correctOld').hide();
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+          $('#allItems').css('margin-top', 0);
+        }, 500);
+      } else {
+        $('#incorrectNew').show();
+        setTimeout(function() {
+          $('#incorrectNew').hide();
+          $('#allItems').css('margin-top', 0);
+          curTest++;
+          NextTestTrial();
+        }, 500);
       }
     }
 
