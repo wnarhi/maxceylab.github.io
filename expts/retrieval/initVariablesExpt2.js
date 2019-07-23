@@ -107,6 +107,8 @@ for (var a = 0; a < AllImages.length; a++) {
       ObjIndx[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx[a].exem))]
       ObjIndx[a].null = 1;
     }
+  } else {
+    ObjIndx[a].null = 1;
   }
   if (ObjIndx[a].null == undefined) {
     ObjIndx[a].null = 0;
@@ -141,6 +143,8 @@ for (var a = 0; a < AllImages.length; a++) {
       ObjIndx2[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx2[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx2[a].exem))]
       ObjIndx2[a].null = 1;
     }
+  } else {
+    ObjIndx2[a].null = 1;
   }
   if (ObjIndx2[a].null == undefined) {
     ObjIndx2[a].null = 0;
@@ -175,6 +179,8 @@ for (var a = 0; a < AllImages.length; a++) {
       ObjIndx3[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx3[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx3[a].exem))]
       ObjIndx3[a].null = 1;
     }
+  } else {
+    ObjIndx3[a].null = 1;
   }
   if (ObjIndx3[a].null == undefined) {
     ObjIndx3[a].null = 0;
@@ -209,6 +215,8 @@ for (var a = 0; a < AllImages.length; a++) {
       ObjIndx4[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndx4[a].cat))][CatchExemR.indexOf(parseInt(ObjIndx4[a].exem))]
       ObjIndx4[a].null = 1;
     }
+  } else {
+    ObjIndx4[a].null = 1;
   }
   if (ObjIndx4[a].null == undefined) {
     ObjIndx4[a].null = 0;
@@ -239,6 +247,8 @@ for (var a = 0; a < AllImages.length; a++) {
   } else if (CatchR.includes(AllImages[a])) {
     ObjIndxP[a].type = 3;
     ObjIndxP[a].color = CatchRC[CatchCatsR.indexOf(parseInt(ObjIndxP[a].cat))][CatchExemR.indexOf(parseInt(ObjIndxP[a].exem))]
+    ObjIndxP[a].null = 1;
+  } else {
     ObjIndxP[a].null = 1;
   }
   if (ObjIndxP[a].null == undefined) {
