@@ -23,7 +23,7 @@ clc; clear; close all;
 imagedir = uigetdir;
 
 addpath(imagedir);
-imagefiles = dir(fullfile(imagedir, ('*.jpg')));
+imagefiles = dir(fullfile(imagedir, ('*.png')));
 nfiles = length(imagefiles);    % Number of files found
 
 r1 = 205;

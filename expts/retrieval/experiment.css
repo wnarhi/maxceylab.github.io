@@ -155,6 +155,86 @@ body {
   display: none;
 }
 
+#OldSure {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#OldSure:hover {
+  border: 3px inset gray;
+}
+#OldSure:active {
+  border: 3px inset gray;
+}
+#OldSure {
+  display: none;
+}
+
+#OldUnsure {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#OldUnsure:hover {
+  border: 3px inset gray;
+}
+#OldUnsure:active {
+  border: 3px inset gray;
+}
+#OldUnsure {
+  display: none;
+}
+
+#NewSure {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#NewSure:hover {
+  border: 3px inset gray;
+}
+#NewSure:active {
+  border: 3px inset gray;
+}
+#NewSure {
+  display: none;
+}
+
+#NewUnsure {
+  display: inline-block;
+  color: black;
+  border: 3px outset gray;
+  background-color: #CCCCCC;
+  padding: 8px;
+  text-decoration: none;
+  font-family: Arial, Helvetica;
+  font-weight: bold;
+}
+#NewUnsure:hover {
+  border: 3px inset gray;
+}
+#NewUnsure:active {
+  border: 3px inset gray;
+}
+#NewUnsure {
+  display: none;
+}
+
 #loading {
   display: inline-block;
   text-align: center;
