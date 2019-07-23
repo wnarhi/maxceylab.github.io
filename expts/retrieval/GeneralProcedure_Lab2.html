@@ -128,10 +128,10 @@
 
   <!-- Display Object HTML -->
   <div id="showTrial">
-    <div id="correctOld">Correct! Object was "old".</div>
-    <div id="incorrectOld">Incorrect. Object was "old".</div>
-    <div id="correctNew">Correct! Object was "new".</div>
-    <div id="incorrectNew">Incorrect. Object was "new".</div>
+    <div id="correctOld">Correct! Object was old.</div>
+    <div id="incorrectOld">Incorrect. Object was old.</div>
+    <div id="correctNew">Correct! Object was new.</div>
+    <div id="incorrectNew">Incorrect. Object was new.</div>
     <div id="fixation">+</div>
     <div id="allItems">
       <canvas id="itemA" width=300 height=300 style="position:absolute; top:150px; left:150px;"></canvas>
@@ -139,23 +139,23 @@
     </div>
     <canvas id="ringItemA" width=600 height=600 style="position: absolute;"></canvas>
     <div id="pointer"></div>
-    <br><br>
+    <br>
     <center>
-      <a href="javascript:void(0);" onclick="Unsure();" id="Unsure" style="position:relative; top:585px;">No Idea</a>
-      <a href="javascript:void(0);" onclick="Unsureish();" id="Unsureish" style="position:relative; top:585px;">Unconfident</a>
-      <a href="javascript:void(0);" onclick="Sureish();" id="Sureish" style="position:relative; top:585px;">Semi-confident</a>
-      <a href="javascript:void(0);" onclick="Sure();" id="Sure" style="position:relative; top:585px;">Confident</a>
-      <a href="javascript:void(0);" onclick="OldSure();" id="OldSure" style="position:relative; top:585px;">Old (Confident)</a>
-      <a href="javascript:void(0);" onclick="OldUnsure();" id="OldUnsure" style="position:relative; top:585px;">Old (Unconfident)</a>
-      <a href="javascript:void(0);" onclick="NewUnsure();" id="NewUnsure" style="position:relative; top:585px;">New (Unconfident)</a>
-      <a href="javascript:void(0);" onclick="NewSure();" id="NewSure" style="position:relative; top:585px;">New (Confident)</a>
+      <a href="javascript:void(0);" onclick="Unsure();" id="Unsure" style="position:relative; top:600px;">No Idea</a>
+      <a href="javascript:void(0);" onclick="Unsureish();" id="Unsureish" style="position:relative; top:600px;">Unconfident</a>
+      <a href="javascript:void(0);" onclick="Sureish();" id="Sureish" style="position:relative; top:600px;">Semi-confident</a>
+      <a href="javascript:void(0);" onclick="Sure();" id="Sure" style="position:relative; top:600px;">Confident</a>
+      <a href="javascript:void(0);" onclick="OldSure();" id="OldSure" style="position:relative; top:600px;">Old (Confident)</a>
+      <a href="javascript:void(0);" onclick="OldUnsure();" id="OldUnsure" style="position:relative; top:600px;">Old (Unconfident)</a>
+      <a href="javascript:void(0);" onclick="NewUnsure();" id="NewUnsure" style="position:relative; top:600px;">New (Unconfident)</a>
+      <a href="javascript:void(0);" onclick="NewSure();" id="NewSure" style="position:relative; top:600px;">New (Confident)</a>
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
     <!-- <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p> -->
-    <center><p id="idtext" align="center" style="position:relative; font-size: 14px; top:500px; left:0px"><b>Have you seen this object before (old) or is it the first time you've seen this object (new)?</b></p>
-      <p id="colortext" align="center" style="position:relative; top:520px; left:0px"><b>What was the original color of this object?</b></p>
-    <p id="conftext" align="center" style="position:relative; top:500px; left:0px"><b>How confident are you that your color report was accurate?</b></p></center>
+    <center><p id="idtext" align="center" style="position:relative; font-size: 14px; top:515px; left:0px"><b>Have you seen this object before (old) or is it the first time you've seen this object (new)?</b></p>
+      <p id="colortext" align="center" style="position:relative; top:535px; left:0px"><b>What was the original color of this object?</b></p>
+    <p id="conftext" align="center" style="position:relative; top:515px; left:0px"><b>How confident are you that your color report was accurate?</b></p></center>
   </div>
 
   <!-- Initializing JS -->
@@ -178,9 +178,9 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 72; //ACTUALLY 54 TRIALS PER BLOCK, note the .null trial attributes
-    const numPractice = 72;
-    const numTest = 72;
+    const numStudy = 120; //ACTUALLY 54 TRIALS PER BLOCK, note the .null trial attributes
+    const numPractice = 120;
+    const numTest = 120;
     const displayTime = 3000; //3000 ms
     let itiTime = 500; //500 ms
     const imgWidth = 300;
@@ -1278,7 +1278,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Retrieval_MTurk_5/' + WORKERID + '.json');
+      const storageRef = firebase.storage().ref('Retrieval_Expt2Turk_/' + WORKERID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
