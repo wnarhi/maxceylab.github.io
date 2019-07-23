@@ -153,7 +153,8 @@
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
     <!-- <p id="acctext" align="center" style="position:absolute; top:-10px; right:10px">Accuracy: 100%</p> -->
-    <center><p id="idtext" align="center" style="position:relative; font-size: 14px; top:490px; left:0px"><b>Have you seen this object before (old) or is it the first time you've seen this object (new)?</b></p>
+    <center><p id="idtext" align="center" style="position:relative; font-size: 14px; top:500px; left:0px"><b>Have you seen this object before (old) or is it the first time you've seen this object (new)?</b></p>
+      <p id="colortext" align="center" style="position:relative; top:520px; left:0px"><b>What was the original color of this object?</b></p>
     <p id="conftext" align="center" style="position:relative; top:500px; left:0px"><b>How confident are you that your color report was accurate?</b></p></center>
   </div>
 
@@ -308,6 +309,7 @@
       $('#Sureish').hide();
       $('#Sure').hide();
       $('#conftext').hide();
+      $('#colortext').hide();
 
       $('#OldSure').hide();
       $('#OldUnsure').hide();
@@ -547,6 +549,7 @@
 
     function Continuous() {
       $('#ringItemA').show();
+      $('#colortext').show();
       $('#CDitem').hide();
       $('#pointer').css('margin-top', 0);
 
@@ -597,6 +600,7 @@
             StudyTrials[curBlock][curStudy-back].rt = new Date() - startTimeC;
             StudyTrials[curBlock][curStudy-back].resp = wrap(imgNum);
             StudyTrials[curBlock][curStudy-back].diff = wrapDiff(imgNum,StudyTrials[curBlock][curStudy-back].color);
+            $('#colortext').hide();
             $('#Unsure').show();
             $('#Unsureish').show();
             $('#Sureish').show();
@@ -621,6 +625,7 @@
             TestTrials[curTest].rt = new Date() - startTimeC;
             TestTrials[curTest].resp = wrap(imgNum);
             TestTrials[curTest].diff = wrapDiff(imgNum,TestTrials[curTest].color);
+            $('#colortext').hide();
             $('#Unsure').show();
             $('#Unsureish').show();
             $('#Sureish').show();
@@ -645,6 +650,7 @@
             PracticeTrials[curBlock][curPractice].rt = new Date() - startTimeC;
             PracticeTrials[curBlock][curPractice].resp = wrap(imgNum);
             PracticeTrials[curBlock][curPractice].diff = wrapDiff(imgNum,PracticeTrials[curBlock][curPractice].color);
+            $('#colortext').hide();
             $('#Unsure').show();
             $('#Unsureish').show();
             $('#Sureish').show();
@@ -661,6 +667,7 @@
       startTrial = new Date().getTime();
       $('#CDitem').hide();
       if (curPractice > numPractice) {// if test phase
+        $('#ringItemA').hide();
         $('#allItems').css('margin-top', 0);
         $('#OldSure').show();
         $('#OldUnsure').show();
@@ -1051,6 +1058,8 @@
       $('#NewSure').hide();
       $('#idtext').hide();
       if (TestTrials[curTest].type < 4) { //if old image
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
         $('#correctOld').show();
         setTimeout(function() {
           $('#correctOld').hide();
@@ -1064,15 +1073,129 @@
           ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
           Continuous();
           $('#allItems').css('margin-top', 0);
-        }, 500);
+        }, 1000);
       } else {
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
         $('#incorrectNew').show();
         setTimeout(function() {
           $('#incorrectNew').hide();
           $('#allItems').css('margin-top', 0);
           curTest++;
           NextTestTrial();
-        }, 500);
+        }, 1000);
+      }
+    }
+
+    function OldUnsure() {
+      TestTrials[curTest].idconf = 1; //0 is old sure, 1 is old unsure, 2 is new unsure, 3 is new sure
+      $('#OldSure').hide();
+      $('#OldUnsure').hide();
+      $('#NewUnsure').hide();
+      $('#NewSure').hide();
+      $('#idtext').hide();
+      if (TestTrials[curTest].type < 4) { //if old image
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
+        $('#correctOld').show();
+        setTimeout(function() {
+          $('#correctOld').hide();
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+          $('#allItems').css('margin-top', 0);
+        }, 1000);
+      } else {
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
+        $('#incorrectNew').show();
+        setTimeout(function() {
+          $('#incorrectNew').hide();
+          $('#allItems').css('margin-top', 0);
+          curTest++;
+          NextTestTrial();
+        }, 1000);
+      }
+    }
+
+    function NewUnsure() {
+      TestTrials[curTest].idconf = 2; //0 is old sure, 1 is old unsure, 2 is new unsure, 3 is new sure
+      $('#OldSure').hide();
+      $('#OldUnsure').hide();
+      $('#NewUnsure').hide();
+      $('#NewSure').hide();
+      $('#idtext').hide();
+      if (TestTrials[curTest].type < 4) { //if old image
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
+        $('#incorrectOld').show();
+        setTimeout(function() {
+          $('#incorrectOld').hide();
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+          $('#allItems').css('margin-top', 0);
+        }, 1000);
+      } else {
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
+        $('#correctNew').show();
+        setTimeout(function() {
+          $('#correctNew').hide();
+          $('#allItems').css('margin-top', 0);
+          curTest++;
+          NextTestTrial();
+        }, 1000);
+      }
+    }
+
+    function NewSure() {
+      TestTrials[curTest].idconf = 3; //0 is old sure, 1 is old unsure, 2 is new unsure, 3 is new sure
+      $('#OldSure').hide();
+      $('#OldUnsure').hide();
+      $('#NewUnsure').hide();
+      $('#NewSure').hide();
+      $('#idtext').hide();
+      if (TestTrials[curTest].type < 4) { //if old image
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
+        $('#incorrectOld').show();
+        setTimeout(function() {
+          $('#incorrectOld').hide();
+          flip = Math.round(Math.random());
+          randrotate = Math.floor(Math.random() * 360);
+          ringctxA.clearRect(0, 0, 600, 600);
+          ringctxA.restore();
+          ringctxA.save();
+          ringctxA.translate(50 + 500 / 2, 50 + 500 / 2);
+          ringctxA.rotate(randrotate * Math.PI / 180);
+          ringctxA.translate(-50 - 500 / 2, -50 - 500 / 2);
+          Continuous();
+          $('#allItems').css('margin-top', 0);
+        }, 1000);
+      } else {
+        $('#fixation').hide();
+        $('#allItems').css('margin-top', -1000);
+        $('#correctNew').show();
+        setTimeout(function() {
+          $('#correctNew').hide();
+          $('#allItems').css('margin-top', 0);
+          curTest++;
+          NextTestTrial();
+          $('#fixation').show();
+        }, 1000);
       }
     }
 
