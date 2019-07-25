@@ -231,6 +231,7 @@
     let OverallAcc = 0;
     let bonusmultiplier = 4;
     let ongoingacc = 0;
+    let targfP = [0,0,0,0];
     let targfR = [0,0,0,0];
     let lurefR = [0,0,0,0];
     let targfB = [0,0,0,0];
@@ -1064,8 +1065,10 @@
       if (TestTrials[curTest].type < 4) { //if old image
         if (TestTrials[curTest].type == 2) {
           targfB[0]=targfB[0]+1;
-        } else if (TestTrials[curTest].type == 0 || TestTrials[curTest].type == 1) {
+        } else if (TestTrials[curTest].type == 1) {
           targfR[0]=targfR[0]+1;
+        } else if (TestTrials[curTest].type == 0) {
+          targfP[0]=targfP[0]+1;
         }
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
@@ -1111,8 +1114,10 @@
       if (TestTrials[curTest].type < 4) { //if old image
         if (TestTrials[curTest].type == 2) {
           targfB[1]=targfB[1]+1;
-        } else if (TestTrials[curTest].type == 0 || TestTrials[curTest].type == 1) {
+        } else if (TestTrials[curTest].type == 1) {
           targfR[1]=targfR[1]+1;
+        } else if (TestTrials[curTest].type == 0) {
+          targfP[1]=targfP[1]+1;
         }
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
@@ -1158,8 +1163,10 @@
       if (TestTrials[curTest].type < 4) { //if old image
         if (TestTrials[curTest].type == 2) {
           targfB[2]=targfB[2]+1;
-        } else if (TestTrials[curTest].type == 0 || TestTrials[curTest].type == 1) {
+        } else if (TestTrials[curTest].type == 1) {
           targfR[2]=targfR[2]+1;
+        } else if (TestTrials[curTest].type == 0) {
+          targfP[2]=targfP[2]+1;
         }
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
@@ -1205,8 +1212,10 @@
       if (TestTrials[curTest].type < 4) { //if old image
         if (TestTrials[curTest].type == 2) {
           targfB[3]=targfB[3]+1;
-        } else if (TestTrials[curTest].type == 0 || TestTrials[curTest].type == 1) {
+        } else if (TestTrials[curTest].type == 1) {
           targfR[3]=targfR[3]+1;
+        } else if (TestTrials[curTest].type == 0) {
+          targfP[3]=targfP[3]+1;
         }
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
@@ -1313,6 +1322,7 @@
         "RepeatCol": RepeatCol,
         "RepeatColResp": RepeatColResp,
         "RepeatColDiff": RepeatColDiff,
+        "targfP": targfP,
         "targfR": targfR,
         "lurefR": lurefR,
         "targfB": targfB,
