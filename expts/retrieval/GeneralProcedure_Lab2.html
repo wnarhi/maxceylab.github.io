@@ -231,6 +231,8 @@
     let OverallAcc = 0;
     let bonusmultiplier = 4;
     let ongoingacc = 0;
+    let targf = [0,0,0,0];
+    let luref = [0,0,0,0];
 
     /* Setup reused image and color ring variables */
     let ringStandard = new Image();
@@ -1058,6 +1060,7 @@
       $('#NewSure').hide();
       $('#idtext').hide();
       if (TestTrials[curTest].type < 4) { //if old image
+        targf[0]=targf[0]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#correctOld').show();
@@ -1075,6 +1078,7 @@
           $('#allItems').css('margin-top', 0);
         }, 1000);
       } else {
+        luref[0]=luref[0]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#incorrectNew').show();
@@ -1095,6 +1099,7 @@
       $('#NewSure').hide();
       $('#idtext').hide();
       if (TestTrials[curTest].type < 4) { //if old image
+        targf[1]=targf[1]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#correctOld').show();
@@ -1112,6 +1117,7 @@
           $('#allItems').css('margin-top', 0);
         }, 1000);
       } else {
+        luref[1]=luref[1]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#incorrectNew').show();
@@ -1132,6 +1138,7 @@
       $('#NewSure').hide();
       $('#idtext').hide();
       if (TestTrials[curTest].type < 4) { //if old image
+        targf[2]=targf[2]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#incorrectOld').show();
@@ -1149,6 +1156,7 @@
           $('#allItems').css('margin-top', 0);
         }, 1000);
       } else {
+        luref[2]=luref[2]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#correctNew').show();
@@ -1169,6 +1177,7 @@
       $('#NewSure').hide();
       $('#idtext').hide();
       if (TestTrials[curTest].type < 4) { //if old image
+        targf[3]=targf[3]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#incorrectOld').show();
@@ -1186,6 +1195,7 @@
           $('#allItems').css('margin-top', 0);
         }, 1000);
       } else {
+        luref[3]=luref[3]+1;
         $('#fixation').hide();
         $('#allItems').css('margin-top', -1000);
         $('#correctNew').show();
@@ -1269,6 +1279,8 @@
         "RepeatCol": RepeatCol,
         "RepeatColResp": RepeatColResp,
         "RepeatColDiff": RepeatColDiff,
+        "targf": targf,
+        "luref": luref,
         "seed": chance1.seed,
         "bonus": (OverallAcc*bonusmultiplier).toFixed(2),
         "comments": $('#comments').val()
