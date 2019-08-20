@@ -151,6 +151,8 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let TestImgs = [];
+    let PracImgs = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -315,6 +317,8 @@
           PracLuresCnt++;
         }
       }
+
+      PracImgs.push($('#itemA')[0].src.slice(-9,-4))
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of study
@@ -517,6 +521,8 @@
         }
       }
 
+      TestImgs.push($('#itemA')[0].src.slice(-9,-4))
+
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
           $('#itemA').hide(); // hide object from last trial
@@ -692,7 +698,7 @@
       // calculate their overall accuracy (Practice + Test)
       // const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
       document.getElementById("doneText").innerHTML = 'Thanks very much for your participation!<br><br>Any comments for us? (What strategy did you use? Any technical difficulties?)<br><br>' +
-        '%<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
+        '<br><br><textarea name="comments" id="comments" style="width: 400px; height: 300px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
     }
@@ -752,6 +758,8 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
+        "TestImgs": TestImgs,
+        "PracImgs": PracImgs,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
