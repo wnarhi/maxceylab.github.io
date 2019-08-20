@@ -91,8 +91,10 @@
     </div>
     <br><br>
     <center>
-      <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
-      <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
+      <a href="javascript:void(0);" onclick="OldSure();" class="OldNewButton" id="OldSure">Old (Confident)</a>
+      <a href="javascript:void(0);" onclick="OldUnsure();" class="OldNewButton" id="OldUnsure">Old (Unconfident)</a>
+      <a href="javascript:void(0);" onclick="NewUnsure();" class="OldNewButton" id="NewUnsure">New (Unconfident)</a>
+      <a href="javascript:void(0);" onclick="NewSure();" class="OldNewButton" id="NewSure">New (Confident)</a>
       <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
       <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
     </center>
@@ -231,8 +233,7 @@
         now = new Date().getTime();
         now2 = now;
         $('#itemA').hide(); // hide object from last trial
-        $('#Old').hide(); // hide Old button
-        $('#New').hide(); // hide New button
+        $('.OldNewButton').hide(); // hide buttons
 
         // open pop-up:
         modalClosed = false;
@@ -326,8 +327,7 @@
           now = new Date().getTime();
           now2 = now;
           $('#itemA').hide(); // hide object from last trial
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
+          $('.OldNewButton').hide(); // hide buttons
 
           // open pop-up:
           modalClosed = false;
@@ -354,8 +354,7 @@
     function OldNewJudgment() {
       startTrial = new Date().getTime();
       $('#allItems').css('margin-top', 0);
-      $('#Old').show();
-      $('#New').show();
+      $('.OldNewButton').show(); // show buttons
     }
 
     /* Filler Start */
@@ -525,8 +524,7 @@
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
           $('#itemA').hide(); // hide object from last trial
-          $('#Old').hide(); // hide Old button
-          $('#New').hide(); // hide New button
+          $('.OldNewButton').hide(); // hide buttons
 
           // open pop-up:
           modalClosed = false;
@@ -548,9 +546,9 @@
       }, itiTime);
     }
 
-    function New() {
+    function NewSure() {
       if (curPractice > numPractice) { // if test phase
-        TestResp.push(1);
+        TestResp.push(3);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(0);
         } else if (TestTrialType[curTest] == 1) { //RpMinus
@@ -570,7 +568,7 @@
         curTest++;
         NextTestTrial();
       } else { // if practice phase
-        PracticeResp.push(1);
+        PracticeResp.push(3);
         if (PracTrialType[curPractice] == 0) { //RpPlus
           PracticeAcc.push(0);
         } else if (PracTrialType[curPractice] == 3) { //PracLure
@@ -582,7 +580,75 @@
       }
     }
 
-    function Old() {
+    function NewUnsure() {
+      if (curPractice > numPractice) { // if test phase
+        TestResp.push(2);
+        if (TestTrialType[curTest] == 0) { //RpPlus
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 2) { //Nrp
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 6) { //Forget
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          TestAcc.push(1);
+        }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curTest++;
+        NextTestTrial();
+      } else { // if practice phase
+        PracticeResp.push(2);
+        if (PracTrialType[curPractice] == 0) { //RpPlus
+          PracticeAcc.push(0);
+        } else if (PracTrialType[curPractice] == 3) { //PracLure
+          PracticeAcc.push(1);
+        }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curPractice++;
+        NextPracTrial();
+      }
+    }
+
+    function OldUnsure() {
+      if (curPractice > numPractice) { // if test phase
+        TestResp.push(1);
+        if (TestTrialType[curTest] == 0) { //RpPlus
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 2) { //Nrp
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          TestAcc.push(0);
+        } else if (TestTrialType[curTest] == 6) { //Forget
+          TestAcc.push(1);
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          TestAcc.push(0);
+        }
+        TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curTest++;
+        NextTestTrial();
+      } else { // if practice phase
+        PracticeResp.push(1);
+        if (PracTrialType[curPractice] == 0) { //RpPlus
+          PracticeAcc.push(1);
+        } else if (PracTrialType[curPractice] == 3) { //PracLure
+          PracticeAcc.push(0);
+        }
+        PracticeRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
+        curPractice++;
+        NextPracTrial();
+      }
+    }
+
+    function OldSure() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(0);
         if (TestTrialType[curTest] == 0) { //RpPlus
