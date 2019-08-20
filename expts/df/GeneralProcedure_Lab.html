@@ -153,6 +153,7 @@
     let TestRT = [];
     let TestImgs = [];
     let PracImgs = [];
+    let StudyImgs = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -273,6 +274,7 @@
             ForgetCnt++;
           }
         }
+        StudyImgs.push($('#itemA')[0].src.slice(-9,-4))
       }
 
       setTimeout(function() {
@@ -760,6 +762,7 @@
         "AllImages": AllImages,
         "TestImgs": TestImgs,
         "PracImgs": PracImgs,
+        "StudyImgs": StudyImgs,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
