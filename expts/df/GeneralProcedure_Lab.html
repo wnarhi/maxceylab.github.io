@@ -32,7 +32,7 @@
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
     <br>
-    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
+    <p style="text-align: center"><a href="javascript:void(0)" onclick="$('#instructions').hide();GetInfo();$('#instructions2').show();$('a#TextButton').hide();ImagesReady();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton">Next
         (1 of 2)</a></p>
   </div>
 
@@ -171,12 +171,11 @@
     const itemA = document.getElementById("itemA");
     const CDitem = document.getElementById("CDitem");
 
-    /* Start Experiment */
-    function StartExperiment() {
+    function GetInfo() {
       age = prompt('Before we start, can you tell me how old you are (in years)?');
 
-      while (!(age > 0)) {
-        age = prompt('Can you tell me how old you are (in years)?');
+      while (age > 100 || age < 18 || !(age>=18)) {
+        age = prompt('Can you tell me how old you are (e.g., 18, not the year you were born)?');
       }
 
       sex = prompt('And are you male (M), female (F), non-binary (B), or prefer not to answer (NA)?');
@@ -199,14 +198,10 @@
       initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
       subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+    }
 
-      // // save a file letting me know that someone made it this far
-      // const blobx = new Blob([JSON.stringify(chance1.seed)], {
-      //   type: "application/json"
-      // });
-      // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
-      // storageRefx.put(blobx);
-
+    /* Start Experiment */
+    function StartExperiment() {
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
