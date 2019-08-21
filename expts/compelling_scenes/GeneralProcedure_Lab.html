@@ -116,7 +116,7 @@
     const numPractice = 48; // 48;
     const numTest = 96; // 96;
     const numFourth = 24; // 24;
-    const displayTime = 5000; //in ms (5000)
+    const displayTime = 2500; //in ms (5000)
     const itiTime = 500; // 500
     const imgWidth = 200;
     const imgHeight = 200;
@@ -738,7 +738,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('CompellingScenes_Lab/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('CompellingScenes_Lab_halfexposure/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
