@@ -197,6 +197,8 @@
       // const storageRefx = firebase.storage().ref('started/' + subjID + '.json');
       // storageRefx.put(blobx);
 
+      ethnicity = prompt('How do you describe your ethnicity?');
+
       initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
       subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
@@ -685,6 +687,7 @@
         "ID": subjID,
         "age": age,
         "sex": sex,
+        "ethnicity": ethnicity,
         "StartTime": startDate.getTime(),
         "EndTime": endDate,
         "PracticeResp": PracticeResp,
