@@ -154,6 +154,13 @@
     let TestImgs = [];
     let PracImgs = [];
     let StudyImgs = [];
+    let targfP = [0,0,0,0];
+    let targfR = [0,0,0,0];
+    let targfB = [0,0,0,0];
+    let lurefR = [0,0,0,0];
+    let lurefB = [0,0,0,0];
+    let targfF = [0,0,0,0];
+    let lurefF = [0,0,0,0];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -553,20 +560,27 @@
     function NewSure() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(3);
-        if (TestTrialType[curTest] == 0) { //RpPlus
+        if (TestTrialType[curTest] == 0) { //RpPlus / targfP
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          targfP[3]=targfP[3]+1;
+        } else if (TestTrialType[curTest] == 1) { //RpMinus / targfR
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 2) { //Nrp
+          targfR[3]=targfR[3]+1;
+        } else if (TestTrialType[curTest] == 2) { //Nrp / targfB
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          targfB[3]=targfB[3]+1;
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures / lurefR
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          lurefR[3]=lurefR[3]+1;
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures / lurefB
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 6) { //Forget
+          lurefB[3]=lurefB[3]+1;
+        } else if (TestTrialType[curTest] == 6) { //Forget / targfF
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          targfF[3]=targfF[3]+1;
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures / lurefF
           TestAcc.push(1);
+          lurefF[3]=lurefF[3]+1;
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -587,20 +601,27 @@
     function NewUnsure() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(2);
-        if (TestTrialType[curTest] == 0) { //RpPlus
+        if (TestTrialType[curTest] == 0) { //RpPlus / targfP
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          targfP[2]=targfP[2]+1;
+        } else if (TestTrialType[curTest] == 1) { //RpMinus / targfR
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 2) { //Nrp
+          targfR[2]=targfR[2]+1;
+        } else if (TestTrialType[curTest] == 2) { //Nrp / targfB
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          targfB[2]=targfB[2]+1;
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures / lurefR
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          lurefR[2]=lurefR[2]+1;
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures / lurefB
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 6) { //Forget
+          lurefB[2]=lurefB[2]+1;
+        } else if (TestTrialType[curTest] == 6) { //Forget / targfF
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          targfF[2]=targfF[2]+1;
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures / lurefF
           TestAcc.push(1);
+          lurefF[2]=lurefF[2]+1;
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -621,20 +642,27 @@
     function OldUnsure() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(1);
-        if (TestTrialType[curTest] == 0) { //RpPlus
+        if (TestTrialType[curTest] == 0) { //RpPlus / targfP
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          targfP[1]=targfP[1]+1;
+        } else if (TestTrialType[curTest] == 1) { //RpMinus / targfR
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 2) { //Nrp
+          targfR[1]=targfR[1]+1;
+        } else if (TestTrialType[curTest] == 2) { //Nrp / targfB
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          targfB[1]=targfB[1]+1;
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures / lurefR
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          lurefR[1]=lurefR[1]+1;
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures / lurefB
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 6) { //Forget
+          lurefB[1]=lurefB[1]+1;
+        } else if (TestTrialType[curTest] == 6) { //Forget / targfF
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          targfF[1]=targfF[1]+1;
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures / lurefF
           TestAcc.push(0);
+          lurefF[1]=lurefF[1]+1;
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -655,21 +683,29 @@
     function OldSure() {
       if (curPractice > numPractice) { // if test phase
         TestResp.push(0);
-        if (TestTrialType[curTest] == 0) { //RpPlus
+        if (TestTrialType[curTest] == 0) { //RpPlus / targfP
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 1) { //RpMinus
+          targfP[0]=targfP[0]+1;
+        } else if (TestTrialType[curTest] == 1) { //RpMinus / targfR
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 2) { //Nrp
+          targfR[0]=targfR[0]+1;
+        } else if (TestTrialType[curTest] == 2) { //Nrp / targfB
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 4) { //RpTestLures
+          targfB[0]=targfB[0]+1;
+        } else if (TestTrialType[curTest] == 4) { //RpTestLures / lurefR
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 5) { //NrpTestLures
+          lurefR[0]=lurefR[0]+1;
+        } else if (TestTrialType[curTest] == 5) { //NrpTestLures / lurefB
           TestAcc.push(0);
-        } else if (TestTrialType[curTest] == 6) { //Forget
+          lurefB[0]=lurefB[0]+1;
+        } else if (TestTrialType[curTest] == 6) { //Forget / targfF
           TestAcc.push(1);
-        } else if (TestTrialType[curTest] == 7) { //ForgetLures
+          targfF[0]=targfF[0]+1;
+        } else if (TestTrialType[curTest] == 7) { //ForgetLures / lurefF
           TestAcc.push(0);
+          lurefF[0]=lurefF[0]+1;
         }
+
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
         NextTestTrial();
@@ -763,6 +799,13 @@
         "TestImgs": TestImgs,
         "PracImgs": PracImgs,
         "StudyImgs": StudyImgs,
+        "targfP": targfP,
+        "targfR": targfR,
+        "targfB": targfB,
+        "lurefR": lurefR,
+        "lurefB": lurefB,
+        "targfF": targfF,
+        "lurefF": lurefF,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
