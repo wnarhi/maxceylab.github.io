@@ -90,17 +90,20 @@
       <img id="itemA" src="https://maxceylab.github.io/stimuli/objects/Obj11_11.png" width=300 height=300 style="position:absolute; top:150px; left:150px;"></img>
       <img id="CDitem" src="https://maxceylab.github.io/stimuli/change_detection/CDfix.png" width=600 height=600></img>
     </div>
+    <center>
+    <br><br>
     <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
     <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
+    </center>
     <br><br>
-    <a href="javascript:void(0);" onclick="OldSure();" class="OldNewButton" id="OldSure" style="margin-right: 160px">Old - Remember (Sure)</a>
-    <a href="javascript:void(0);" onclick="OldUnsure();" class="OldNewButton" id="OldUnsure">Old - Remember (Unsure)</a>
+    <a href="javascript:void(0);" onclick="OldSure();" class="OldNewButton" id="OldSure" style="position:absolute; bottom:100px; left: 80px;">Old - Remember (Sure)</a>
+    <a href="javascript:void(0);" onclick="OldUnsure();" class="OldNewButton" id="OldUnsure" style="position:absolute; bottom:100px; right:80px">Old - Remember (Unsure)</a>
     <br><br><br>
-    <a href="javascript:void(0);" onclick="OldFSure();" class="OldNewButton" id="OldFSure" style="margin-right: 160px">Old - Forget (Sure)</a>
-    <a href="javascript:void(0);" onclick="OldFUnsure();" class="OldNewButton" id="OldFUnsure">Old - Forget (Unsure)</a>
+    <a href="javascript:void(0);" onclick="OldFSure();" class="OldNewButton" id="OldFSure" style="position:absolute; bottom:50px; left: 95px;">Old - Forget (Sure)</a>
+    <a href="javascript:void(0);" onclick="OldFUnsure();" class="OldNewButton" id="OldFUnsure" style="position:absolute; bottom:50px; right: 100px;">Old - Forget (Unsure)</a>
     <br><br><br>
-    <a href="javascript:void(0);" onclick="NewUnsure();" class="OldNewButton" id="NewUnsure" style="margin-right: 190px">New (Unsure)</a>
-    <a href="javascript:void(0);" onclick="NewSure();" class="OldNewButton" id="NewSure">New (Sure)</a>
+    <a href="javascript:void(0);" onclick="NewSure();" class="OldNewButton" id="NewSure" style="position:absolute; bottom:0px; left:120px;">New (Sure)</a>
+    <a href="javascript:void(0);" onclick="NewUnsure();" class="OldNewButton" id="NewUnsure" style="position:absolute; bottom:0px; right: 132px;">New (Unsure)</a>
   </div>
 
   <!-- Initializing JS -->
@@ -315,6 +318,7 @@
 
     /* Practice Phase Start */
     function NextPracTrial() {
+      $('.OldNewButton').hide(); 
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
@@ -396,7 +400,7 @@
         // open pop-up:
         modalClosed = false;
         document.getElementById("openModal_text").innerHTML =
-          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see images one at a time and be asked if you have seen the exact same image before. If you have not seen the image before, press the <i>new</i> button. If you have seen the image before, and it was followed by the instruction to Remember, then press the <i>old-remember</i> button. If you have seen the image before, and it was folled by the instruction to Forget, then press the <i>old-forget</i> button. We also ask that you inform us how confident you are in your response by selecting "Sure" if you are confident, and "Unsure" if you are not confident.';
+          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see images one at a time and be asked if you have seen the exact same image before. <br><br>If you have not seen the image before, press the <i>new</i> button. <br><br>If you have seen the image before, and it was followed by the instruction to Remember, then press the <i>old-remember</i> button. <br><br>If you have seen the image before, and it was folled by the instruction to Forget, then press the <i>old-forget</i> button. <br><br>We also ask that you inform us how confident you are in your response by selecting "Sure" if you are confident, and "Unsure" if you are not confident.';
         window.location.href = '#openModal';
         checkFlag6();
 
@@ -492,6 +496,7 @@
 
     /* Test Phase Start */
     function NextTestTrial() {
+      $('.OldNewButton').hide(); 
       $('#allItems').css('margin-top', -1000);
 
       // Preload the image of next trial
