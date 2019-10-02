@@ -84,10 +84,8 @@ function perm_concat(array1, array2) {
 }
 
 function GetImg(input) {
-  category0 = input.substr(0, input.indexOf('_'));
-  exemplar0 = input.split('_').pop();
-  category = LettersList[category0];
-  exemplar = FontList[exemplar0];
-  imagename = '#' + exemplar + '_' + category.toUpperCase();
+  letter0 = input.substr(0, input.indexOf('_'));
+  font0 = input.split('_').pop();
+  imagename = '#' + font0 + '_' + letter0.toUpperCase();
   return imagename
 }
