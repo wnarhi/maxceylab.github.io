@@ -1,4 +1,4 @@
-let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
+let CDSet = chance1.shuffle(repmat(perm_concat0([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
 LettersList = ["a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; // no I or O
 FontList = [
@@ -73,25 +73,21 @@ function counter(start, end, interval) {
   return result;
 }
 
-// function perm_concat(array1, array2) {
-//   let result = [];
-//   for (let i = 0; i < array1.length; i++) {
-//     for (let j = 0; j < array2.length; j++) {
-//       result = result.concat(array1[i].toString() + '_' + array2[j].toString());
-//     }
-//   }
-//   return result;
-// }
+function perm_concat0(array1, array2) {
+  let result = [];
+  for (let i = 0; i < array1.length; i++) {
+    for (let j = 0; j < array2.length; j++) {
+      result = result.concat(array1[i].toString() + '_' + array2[j].toString());
+    }
+  }
+  return result;
+}
 
 function perm_concat(array1, array2) {
   let result = [];
   for (let i = 0; i < array2.length; i++) {
     // for (let j = 0; j < array2.length; j++) {
-      j = i;
-      if (j > array1.length) {
-        j = 0;
-      }
-      result = result.concat(array1[j].toString() + '_' + array2[i].toString());
+      result = result.concat(array1[i%array1.length].toString() + '_' + array2[i].toString());
     // }
   }
   return result;
