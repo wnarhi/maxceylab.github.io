@@ -85,9 +85,13 @@ function counter(start, end, interval) {
 
 function perm_concat(array1, array2) {
   let result = [];
-  for (let i = 0; i < array1.length; i++) {
+  for (let i = 0; i < array2.length; i++) {
     // for (let j = 0; j < array2.length; j++) {
-      result = result.concat(array1[i].toString() + '_' + array2[i].toString());
+      j = i;
+      if (j > array1.length) {
+        j = 0;
+      }
+      result = result.concat(array1[j].toString() + '_' + array2[i].toString());
     // }
   }
   return result;
