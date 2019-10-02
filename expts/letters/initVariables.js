@@ -6,7 +6,7 @@ FontList = [
   'annieuseyourtelescope','badscript','charm','euphoriascript','lovedbytheking','marckscript','nothingyoucoulddo','parisienne','sacramento','shadowsintolight','thegirlnextdoor','zeyada', // Handwriting
   'anonymouspro','cutivemono','ibmplexmono','inconsolata','nanumgothiccoding','novamono','ptnova','robotomono','sharetechmono','sourcecodepro','spacemono','ubuntomono', // Monospace
   'abel','adventpro','baijamjuree','belleza','carroisgothicsc','chakrapetch','dosis','englebert','gayathri','geo','jura','kodchasan', // Sans Serif
-  'alegreyasc','alemendrasc','anticslab','bellefair','cormorantupright','glegoo','imfelldoublepicasc','italiana','maitree','podkova','trykker','unna'
+  'alegreyasc','alemendrasc','anticslab','bellefair','cormorantupright','glegoo','imfelldoublepicasc','italiana','maitree','podkova','trykker','unna' // Serif
 ];
 
 let Letters = chance1.shuffle(LettersList); // 10 letters/categories (24 letters possible)
