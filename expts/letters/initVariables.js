@@ -87,7 +87,11 @@ function perm_concat(array1, array2) {
   let result = [];
   for (let i = 0; i < array2.length; i++) {
     // for (let j = 0; j < array2.length; j++) {
-      result = result.concat(array1[i%array1.length].toString() + '_' + array2[i].toString());
+      j = i;
+      while (j >= array1.length) {
+        j = j - array1.length;
+      }
+      result = result.concat(array1[j].toString() + '_' + array2[i].toString());
     // }
   }
   return result;
