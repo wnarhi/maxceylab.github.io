@@ -662,7 +662,7 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Letters_Lab/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Letters_Molly/' + subjID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
