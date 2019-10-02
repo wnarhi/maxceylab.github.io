@@ -19,9 +19,6 @@ let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
 let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
 let PracLuresExem = derange(RpExemSlice.slice(0, 15)); //type 3
 let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
-while (RpTestLures.includes(PracLures)) {
-  RpTestLuresExem = derange(RpExemSlice.slice(0, 30));
-}
 let NrpExemSlice = Fonts.slice(0,60);
 let NrpExem = NrpExemSlice.slice(30, 60); //type 2
 let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
