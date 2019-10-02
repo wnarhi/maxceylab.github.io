@@ -136,4 +136,5 @@ function derange(array) {
           u--;
       }
   }
-  retur
+  return array;
+}
