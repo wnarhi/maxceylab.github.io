@@ -73,12 +73,22 @@ function counter(start, end, interval) {
   return result;
 }
 
+// function perm_concat(array1, array2) {
+//   let result = [];
+//   for (let i = 0; i < array1.length; i++) {
+//     for (let j = 0; j < array2.length; j++) {
+//       result = result.concat(array1[i].toString() + '_' + array2[j].toString());
+//     }
+//   }
+//   return result;
+// }
+
 function perm_concat(array1, array2) {
   let result = [];
   for (let i = 0; i < array1.length; i++) {
-    for (let j = 0; j < array2.length; j++) {
-      result = result.concat(array1[i].toString() + '_' + array2[j].toString());
-    }
+    // for (let j = 0; j < array2.length; j++) {
+      result = result.concat(array1[i].toString() + '_' + array2[i].toString());
+    // }
   }
   return result;
 }
