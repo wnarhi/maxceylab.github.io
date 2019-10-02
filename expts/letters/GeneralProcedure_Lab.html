@@ -40,31 +40,8 @@
   <div id="instructions2" style="display:none">
     <center><b>
         <p>You will be presented with 60 letters, one at a time, each presented for 5 seconds.</p>
-        <p><u>Memorize each letter AND its font.</u> You will later be tested on your memory for the studied letters. If you only memorize the letter but not its font, you will not do well on the test. Some letters may be presented in more than one
-          font.<br></p>
-        <p>Take a minute to study all the fonts that will be used throughout the experiment, using the letters A and Z as examples. The letters A and Z will not be used for the actual experiment. We also provide a visual descriptor of each font in
-          parentheses to aid as a mnemonic device.</p>
-        <br>
-        Algerian (Double-lined)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/AlgerianA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/AlgerianZ.png" width="100px" height="100px"></p>
-        Arial (Standard sans-serif)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/arialA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/arialZ.png" width="100px" height="100px"></p>
-        Comic Sans (Child-like)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/ComicsansA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/ComicsansZ.png" width="100px" height="100px"></p>
-        Curlz (Curly)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/CurlzA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/CurlzZ.png" width="100px" height="100px"></p>
-        Elephant (Fat-face)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/elephantA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/elephantZ.png" width="100px" height="100px"></p>
-        Impact (BOLD)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/impactA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/impactZ.png" width="100px" height="100px"></p>
-        Papyrus (Parchment)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/PapyrusA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/PapyrusZ.png" width="100px" height="100px"></p>
-        Times New Roman (Standard serif)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/romanA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/romanZ.png" width="100px" height="100px"></p>
-        Snap (Cartoony)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/snapA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/snapZ.png" width="100px" height="100px"></p>
-        Terminal (Typewriter)
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/TerminalA.png" width="100px" height="100px"><img src="https://maxceylab.github.io/stimuli/letters/letter_examples/TerminalZ.png" width="100px" height="100px"></p>
+        <u>Memorize each letter AND its font.</u> You will later be tested on your memory for the studied letters. If you only memorize the letter but not its font, you will not do well on the test. Some letters may be presented in more than one
+          font.<br>
       </b></center>
     <br>
     <p style="text-align: center"><a href="javascript:void(0);" onclick="$('#instructions2').hide();document.body.scrollTop = document.documentElement.scrollTop = 0;StartExperiment();" id="TextButton">Start Experiment</a></p>
@@ -156,6 +133,11 @@
     let TestResp = [];
     let TestAcc = [];
     let TestRT = [];
+    let targfP = [0,0,0,0];
+    let targfR = [0,0,0,0];
+    let targfB = [0,0,0,0];
+    let lurefR = [0,0,0,0];
+    let lurefB = [0,0,0,0];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -260,17 +242,17 @@
       } else {
         // Preload the image of next trial
         if (StudyTrialType[curStudy] == 0) { //RpPlus
-          $('#itemA').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
+          $('#itemA').attr('src', $(GetImg(RpPlus[RpPlusCnt]))[0].src);
           if (RpPlusCnt <= RpPlus.length) {
             RpPlusCnt++;
           } // prevent problems if on last trial of condition
         } else if (StudyTrialType[curStudy] == 1) { //RpMinus
-          $('#itemA').attr('src', $('#Obj' + RpMinus[RpMinusCnt])[0].src);
+          $('#itemA').attr('src', $(GetImg(RpMinus[RpMinusCnt]))[0].src);
           if (RpMinusCnt <= RpMinus.length) {
             RpMinusCnt++;
           }
         } else if (StudyTrialType[curStudy] == 2) { //Nrp
-          $('#itemA').attr('src', $('#Obj' + Nrp[NrpCnt])[0].src);
+          $('#itemA').attr('src', $(GetImg(Nrp[NrpCnt]))[0].src);
           if (NrpCnt <= Nrp.length) {
             NrpCnt++;
           }
@@ -298,12 +280,12 @@
       $('#allItems').css('margin-top', -1000);
       // Preload the image of next trial
       if (PracTrialType[curPractice] == 0) { //RpPlus
-        $('#itemA').attr('src', $('#Obj' + RpPlusPrac[RpPlusCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(RpPlusPrac[RpPlusCnt]))[0].src);
         if (RpPlusCnt <= RpPlus.length*2) {
           RpPlusCnt++;
         }
       } else if (PracTrialType[curPractice] == 3) { //PracLure
-        $('#itemA').attr('src', $('#Obj' + PracLures[PracLuresCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(PracLures[PracLuresCnt]))[0].src);
         if (PracLuresCnt <= PracLures.length) {
           PracLuresCnt++;
         }
@@ -473,27 +455,27 @@
 
       // Preload the image of next trial
       if (TestTrialType[curTest] == 0) { //RpPlus
-        $('#itemA').attr('src', $('#Obj' + RpPlus[RpPlusCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(RpPlus[RpPlusCnt]))[0].src);
         if (RpPlusCnt <= RpPlus.length) {
           RpPlusCnt++;
         }
       } else if (TestTrialType[curTest] == 1) { //RpMinus
-        $('#itemA').attr('src', $('#Obj' + RpMinus[RpMinusCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(RpMinus[RpMinusCnt]))[0].src);
         if (RpMinusCnt <= RpMinus.length) {
           RpMinusCnt++;
         }
       } else if (TestTrialType[curTest] == 2) { //Nrp
-        $('#itemA').attr('src', $('#Obj' + Nrp[NrpCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(Nrp[NrpCnt]))[0].src);
         if (NrpCnt <= Nrp.length) {
           NrpCnt++;
         }
       } else if (TestTrialType[curTest] == 4) { //RpTestLures
-        $('#itemA').attr('src', $('#Obj' + RpTestLures[RpTestLuresCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(RpTestLures[RpTestLuresCnt]))[0].src);
         if (RpTestLuresCnt <= RpTestLures.length) {
           RpTestLuresCnt++;
         }
       } else if (TestTrialType[curTest] == 5) { //NrpTestLures
-        $('#itemA').attr('src', $('#Obj' + NrpTestLures[NrpTestLuresCnt])[0].src);
+        $('#itemA').attr('src', $(GetImg(NrpTestLures[NrpTestLuresCnt]))[0].src);
         if (NrpTestLuresCnt <= NrpTestLures.length) {
           NrpTestLuresCnt++;
         }
@@ -530,14 +512,19 @@
         TestResp.push(1);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(0);
+          targfP[1]=targfP[1]+1;
         } else if (TestTrialType[curTest] == 1) { //RpMinus
           TestAcc.push(0);
+          targfR[1]=targfR[1]+1;
         } else if (TestTrialType[curTest] == 2) { //Nrp
           TestAcc.push(0);
+          targfB[1]=targfB[1]+1;
         } else if (TestTrialType[curTest] == 4) { //RpTestLures
           TestAcc.push(1);
+          lurefR[1]=lurefR[1]+1;
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(1);
+          lurefB[1]=lurefB[1]+1;
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -560,14 +547,19 @@
         TestResp.push(0);
         if (TestTrialType[curTest] == 0) { //RpPlus
           TestAcc.push(1);
+          targfP[0]=targfP[0]+1;
         } else if (TestTrialType[curTest] == 1) { //RpMinus
           TestAcc.push(1);
+          targfR[0]=targfR[0]+1;
         } else if (TestTrialType[curTest] == 2) { //Nrp
           TestAcc.push(1);
+          targfB[0]=targfB[0]+1;
         } else if (TestTrialType[curTest] == 4) { //RpTestLures
           TestAcc.push(0);
+          lurefR[0]=lurefR[0]+1;
         } else if (TestTrialType[curTest] == 5) { //NrpTestLures
           TestAcc.push(0);
+          lurefB[0]=lurefB[0]+1;
         }
         TestRT.push((new Date().getTime() - startTrial)); // time to respond (in ms)
         curTest++;
@@ -653,6 +645,15 @@
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
         "AllImages": AllImages,
+        "FontList": FontList,
+        "LettersList": LettersList,
+        "Fonts": Fonts,
+        "Letters": Letters,
+        "targfP": targfP,
+        "targfR": targfR,
+        "targfB": targfB,
+        "lurefR": lurefR,
+        "lurefB": lurefB,
         "seed": chance1.seed,
         "comments": $('#comments').val()
       };
@@ -684,7 +685,7 @@
     /*check all images are loaded before starting*/
     function ImagesReady() {
       for (var i = 0; i < AllImages.length; i++) {
-          if (!$('#Obj' + AllImages[i])[0].complete) {
+          if (!$(GetImg(AllImages[i]))[0].complete) {
               var percentage = i * 100.0 / (AllImages.length);
               percentage = percentage.toFixed(0).toString() + ' %';
 

@@ -1,12 +1,12 @@
 clc; clear;
 % cwd = '/Users/scotti.5/Documents/GitHub/maxceylab.github.io/stimuli/pinkobjects';
-cwd = '/Users/scotti.5/Documents/GitHub/paulscotti.github.io/mturk/Yooly_RIF/objects/';
-imagefiles = dir(fullfile(cwd, ('*.jpg')));
+cwd = '/Users/scotti.5/Documents/GitHub/maxceylab.github.io/stimuli/letterbank/';
+imagefiles = dir(fullfile(cwd, ('*.png')));
 nfiles = length(imagefiles);    % Number of files found
 
 % cd output
 
-preset = ['<img id="IDN" src="https://paulscotti.github.io/Yooly_RIF/objects/Object.jpg" style="margin-left:-1000px;margin-top:-2000px">'];
+preset = ['<img id="IDN" src="https://maxceylab.github.io/stimuli/letterbank/Object.jpg" style="margin-left:-1000px;margin-top:-2000px">'];
 code = [];
 for i = 1:nfiles
     presetNew = strrep(preset,'Object.jpg',[imagefiles(i).name]);
@@ -16,7 +16,7 @@ for i = 1:nfiles
     % rename image file
 %     copyfile(fullfile(cwd,[imagefiles(i).name]),['Obj20_',num2str(10+i),'.jpg']);
 end
-
+disp('done');
 % preset = ['<img id="IDN" src="https://maxceylab.github.io/stimuli/compelling_objects/Object.jpg" style="margin-left:-1000px;margin-top:-2000px">'];
 % code = [];
 % for i = 1:nfiles

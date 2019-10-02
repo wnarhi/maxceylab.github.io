@@ -1,15 +1,25 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let Fonts = chance1.shuffle(counter(11,20)); // 10 fonts/categories
+LettersList = ["a", "b", "c", "d", "e", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]; // no I or O
+FontList = [
+  'cherryswash','cinzeldecorative','combo','farsan','glassantiqua','griffy','lancelot','lifesavers','macondo','mountainsofchristmas','pompiere','unkempt', // Display
+  'annieuseyourtelescope','badscript','charm','euphoriascript','lovedbytheking','marckscript','nothingyoucoulddo','parisienne','sacramento','shadowsintolight','thegirlnextdoor','zeyada', // Handwriting
+  'anonymouspro','cutivemono','ibmplexmono','inconsolata','nanumgothiccoding','novamono','ptnova','robotomono','sharetechmono','sourcecodepro','spacemono','ubuntomono', // Monospace
+  'abel','adventpro','baijamjuree','belleza','carroisgothicsc','chakrapetch','dosis','englebert','gayathri','geo','jura','kodchasan', // Sans Serif
+  'alegreyasc','alemendrasc','anticslab','bellefair','cormorantupright','glegoo','imfelldoublepicasc','italiana','maitree','podkova','trykker','unna'
+];
 
-let RpCats = Fonts.slice(0,5); // 5 categories
-let NrpCats = Fonts.slice(5,10); // 5 categories
-let RpExemSlice = chance1.shuffle(counter(11, 32)); // letters I and O were excluded from imagesets due to lacking characteristic features; A and Z excluded due to instructions
+let Letters = chance1.shuffle(LettersList); // 10 letters/categories (24 letters possible)
+let Fonts = chance1.shuffle(FontList);
+
+let RpCats = Letters.slice(0,5); // 5 categories
+let NrpCats = Letters.slice(5,10); // 5 categories
+let RpExemSlice = Fonts.slice(0,22); // letters I and O were excluded from imagesets due to lacking characteristic features; A and Z excluded due to instructions
 let RpPlusExem = RpExemSlice.slice(0, 3); //type 0
 let RpMinusExem = RpExemSlice.slice(3, 6); //type 1
 let PracLuresExem = RpExemSlice.slice(6, 12); //type 3
 let RpTestLuresExem = RpExemSlice.slice(12, 18); //type 4
-let NrpExemSlice = chance1.shuffle(counter(11, 32));
+let NrpExemSlice = Fonts.slice(22,44);
 let NrpExem = NrpExemSlice.slice(0, 6); //type 2
 let NrpTestLuresExem = NrpExemSlice.slice(6, 12); //type 5
 
@@ -71,4 +81,13 @@ function perm_concat(array1, array2) {
     }
   }
   return result;
+}
+
+function GetImg(input) {
+  category0 = input.substr(0, input.indexOf('_'));
+  exemplar0 = input.split('_').pop();
+  category = LettersList[category0];
+  exemplar = FontList[exemplar0];
+  imagename = '#' + exemplar + '_' + category.toUpperCase();
+  return imagename
 }
