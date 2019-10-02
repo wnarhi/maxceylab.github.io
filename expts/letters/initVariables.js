@@ -17,11 +17,11 @@ let NrpCats = Letters.slice(5,10); // 5 categories
 let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features; A and Z excluded due to instructions
 let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
 let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
-let PracLuresExem = RpExemSlice.slice(0, 15); //type 3
-let RpTestLuresExem = RpExemSlice.slice(0, 30); //type 4
+let PracLuresExem = RpExemSlice.slice(0, 15).reverse(); //type 3
+let RpTestLuresExem = RpExemSlice.slice(0, 30).reverse(); //type 4
 let NrpExemSlice = Fonts.slice(0,60);
 let NrpExem = NrpExemSlice.slice(30, 60); //type 2
-let NrpTestLuresExem = NrpExemSlice.slice(30, 60); //type 5
+let NrpTestLuresExem = NrpExemSlice.slice(30, 60).reverse(); //type 5
 
 let StudyTrialType = [];
 StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length));
