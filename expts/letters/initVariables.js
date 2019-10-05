@@ -17,22 +17,22 @@ let NrpCats = Letters.slice(5,10); // 5 categories
 let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
 let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
 let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
-let PracLuresExem = derange(RpExemSlice.slice(0, 15)); //type 3
+let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
 let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
 let NrpExemSlice = Fonts.slice(0,60);
 let NrpExem = NrpExemSlice.slice(30, 60); //type 2
 let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
 
 let StudyTrialType = [];
-StudyTrialType = StudyTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length), repmat(repmat(2, NrpExem.length), NrpCats.length));
+StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat([0, 1], NrpExem.length));
 StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
-PracTrialType = PracTrialType.concat(repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(0, RpPlusExem.length), RpCats.length), repmat(repmat(3, PracLuresExem.length), RpCats.length));
+PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
 PracTrialType = chance1.shuffle(PracTrialType);
 let TestTrialType = [];
-TestTrialType = TestTrialType.concat(repmat(repmat([0, 1], RpPlusExem.length), RpCats.length),
-  repmat(repmat(2, NrpExem.length), NrpCats.length), repmat(repmat(4, RpTestLuresExem.length),
-    RpCats.length), repmat(repmat(5, NrpTestLuresExem.length), NrpCats.length));
+TestTrialType = TestTrialType.concat(repmat([0, 1], RpPlusExem.length),
+    repmat(2, NrpExem.length), repmat(4, RpTestLuresExem.length),
+    repmat(5, NrpTestLuresExem.length));
 TestTrialType = chance1.shuffle(TestTrialType);
 
 let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
