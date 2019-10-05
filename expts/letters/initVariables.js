@@ -24,7 +24,7 @@ let NrpExem = NrpExemSlice.slice(30, 60); //type 2
 let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
 
 let StudyTrialType = [];
-StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat([0, 1], NrpExem.length/2));
+StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat(2, NrpExem.length/2));
 StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
