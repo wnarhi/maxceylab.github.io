@@ -17,14 +17,14 @@ let NrpCats = Letters.slice(5,10); // 5 categories
 let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
 let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
 let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
-let PracLuresExem = derange(RpExemSlice.slice(0, 15)); //type 3
+let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
 let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
 let NrpExemSlice = Fonts.slice(0,60);
 let NrpExem = NrpExemSlice.slice(30, 60); //type 2
 let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
 
 let StudyTrialType = [];
-StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat([0, 1], NrpExem.length));
+StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat([0, 1], NrpExem.length/2));
 StudyTrialType = chance1.shuffle(StudyTrialType);
 let PracTrialType = [];
 PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
