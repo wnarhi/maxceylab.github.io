@@ -138,6 +138,9 @@
     let targfB = [0,0];
     let lurefR = [0,0];
     let lurefB = [0,0];
+    let StudyImages = [];
+    let PracImages = [];
+    let TestImages = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -266,6 +269,7 @@
     /* Display Object */
     function ShowStudy() {
       $('#allItems').css('margin-top', 0);
+      PracImages.push($('#itemA')[0].src)
       setTimeout(function() {
         $('#allItems').css('margin-top', -1000);
         setTimeout(function() {
@@ -290,6 +294,7 @@
           PracLuresCnt++;
         }
       }
+      PracImages.push($('#itemA')[0].src)
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of study
@@ -480,6 +485,7 @@
           NrpTestLuresCnt++;
         }
       }
+      TestImages.push($('#itemA')[0].src)
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
@@ -644,6 +650,9 @@
         "StudyTrialType": StudyTrialType,
         "PracTrialType": PracTrialType,
         "TestTrialType": TestTrialType,
+        "StudyImages": StudyImages,
+        "PracImages": PracImages,
+        "TestImages": TestImages,
         "AllImages": AllImages,
         "FontList": FontList,
         "LettersList": LettersList,
