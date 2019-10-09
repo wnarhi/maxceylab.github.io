@@ -295,7 +295,7 @@
     function NextPracTrial() {
       document.getElementById("temp").innerHTML = "Trial: " + curPractice + "<br>" + 
       $('#itemA')[0].src + "<br>" 
-      + "Trial Type: " + PracTrialType[curStudy] 
+      + "Trial Type: " + PracTrialType[curPrac] 
       + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
 
       $('#allItems').css('margin-top', -1000);
@@ -475,7 +475,7 @@
     function NextTestTrial() {
       document.getElementById("temp").innerHTML = "Trial: " + curTest + "<br>" + 
       $('#itemA')[0].src + "<br>" 
-      + "Trial Type: " + TestTrialType[curStudy] 
+      + "Trial Type: " + TestTrialType[curTest] 
       + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
 
       $('#allItems').css('margin-top', -1000);
