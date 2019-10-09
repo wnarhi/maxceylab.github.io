@@ -185,6 +185,8 @@
         sex = 'na';
       }
 
+      fluent = prompt('Is your first language English? If so, enter 0. \n If not, are you fluent in English? If so, enter 1. \n If none of the above, enter 2.');
+
       initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
       subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
@@ -630,6 +632,7 @@
         "ID": subjID,
         "age": age,
         "sex": sex,
+        "fluent": fluent,
         "StartTime": startDate.getTime(),
         "EndTime": endDate,
         "PracticeResp": PracticeResp,
