@@ -142,6 +142,7 @@
     let StudyImages = [];
     let PracImages = [];
     let TestImages = [];
+    let fluent = [];
 
     /* Setup reused image variable */
     let imgA = new Image();
@@ -185,7 +186,10 @@
         sex = 'na';
       }
 
-      fluent = prompt('Is your first language English? If so, enter 0. \n If not, are you fluent in English? If so, enter 1. \n If none of the above, enter 2.');
+      fluent = prompt('Is your first language English? If so, enter 1. \n If not, are you fluent in English? If so, enter 2. \n If none of the above, enter 3.');
+      while (!(fluent > 0 && fluent < 4)) {
+        fluent = prompt('Is your first language English? If so, enter 1. \n If not, are you fluent in English? If so, enter 2. \n If none of the above, enter 3.');
+      }
 
       initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
