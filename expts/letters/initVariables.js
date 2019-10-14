@@ -19,6 +19,26 @@ let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
 let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
 let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
 let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
+
+locket=1;
+while (locket>0) {
+  for (let i = 0; i < PracLuresExem.length; i++) {
+    if (PracLuresExem[i] == RpTestLuresExem[i]) {
+      locket = 2;
+      i = PracLuresExem.length-1;
+    }
+    if (i == PracLuresExem.length-1) {
+      if (locket==1) {
+        console.log('shuffle complete');
+        locket=0; 
+      } else {
+        locket=1;
+        RpTestLuresExem = derange(RpExemSlice.slice(0, 30));
+      }
+    }
+  }
+}
+
 let NrpExemSlice = Fonts.slice(0,60);
 let NrpExem = NrpExemSlice.slice(30, 60); //type 2
 let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
