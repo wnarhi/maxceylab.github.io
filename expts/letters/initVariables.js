@@ -178,3 +178,32 @@ function derange(array) {
   }
   return array;
 }
+
+for (let i = 0; i < RpPlus.length; i++) {
+  for (let j = 0; i < RpTestLures; j++) {
+    if (RpPlus[i] == RpTestLures[j]) {
+      console.log(RpPlus[i]);
+    }
+  }
+  for (let k = 0; i < RpTestLures; k++) {
+    if (RpPlus[i] == PracLures[k]) {
+      console.log(RpPlus[i]);
+    }
+  }
+}
+
+for (let i = 0; i < RpMinus.length; i++) {
+  for (let j = 0; i < RpTestLures; j++) {
+    if (RpMinus[i] == RpTestLures[j]) {
+      console.log(RpMinus[i]);
+    }
+  }
+}
+
+for (let i = 0; i < Nrp.length; i++) {
+  for (let j = 0; i < NrpTestLures; j++) {
+    if (Nrp[i] == NrpTestLures[j]) {
+      console.log(Nrp[i]);
+    }
+  }
+}
