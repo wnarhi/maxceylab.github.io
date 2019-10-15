@@ -34,6 +34,7 @@ while (locket>0) {
       } else {
         locket=1;
         RpTestLuresExem = derange(RpExemSlice.slice(0, 30));
+        PracLuresExem = derange(RpExemSlice.slice(0, 30));
       }
     }
   }
@@ -42,6 +43,25 @@ while (locket>0) {
 let NrpExemSlice = Fonts.slice(0,60);
 let NrpExem = NrpExemSlice.slice(30, 60); //type 2
 let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
+
+locket=1;
+while (locket>0) {
+  for (let i = 0; i < NrpTestLuresExem.length; i++) {
+    if (NrpExem[i] == NrpTestLuresExem[i]) {
+      locket = 2;
+      i = NrpTestLuresExem.length-1;
+    }
+    if (i == NrpTestLuresExem.length-1) {
+      if (locket==1) {
+        console.log('shuffle complete');
+        locket=0; 
+      } else {
+        locket=1;
+        NrpTestLuresExem = derange(RpExemSlice.slice(0, 30));
+      }
+    }
+  }
+}
 
 let StudyTrialType = [];
 StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat(2, NrpExem.length));
