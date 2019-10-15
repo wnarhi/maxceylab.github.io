@@ -192,6 +192,14 @@ for (let i = 0; i < RpPlus.length; i++) {
   }
 }
 
+for (let i = 0; i < RpTestLures.length; i++) {
+  for (let j = 0; i < PracLures; j++) {
+    if (RpTestLures[i] == PracLures[j]) {
+      console.log(RpTestLures[i]);
+    }
+  }
+}
+
 for (let i = 0; i < RpMinus.length; i++) {
   for (let j = 0; i < RpTestLures; j++) {
     if (RpMinus[i] == RpTestLures[j]) {
