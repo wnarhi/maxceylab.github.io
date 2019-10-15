@@ -23,7 +23,7 @@ let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
 locket=1;
 while (locket>0) {
   for (let i = 0; i < PracLuresExem.length; i++) {
-    if (PracLuresExem[i] == RpTestLuresExem[i]) {
+    if ((PracLuresExem[i] == RpTestLuresExem[i]) || (RpMinusExem[i] == RpTestLuresExem[i]) || (PracLuresExem[i] == RpMinusExem[i])) {
       locket = 2;
       i = PracLuresExem.length-1;
     }
