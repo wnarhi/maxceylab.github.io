@@ -188,6 +188,6 @@ while (no>0) {
   if (no==2) {
     no = 0;
   } else (
-    setup();
+    setup()
   )
 }
