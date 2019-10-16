@@ -12,47 +12,43 @@ FontList = [
 let Letters = chance1.shuffle(LettersList); // 10 letters/categories (24 letters possible)
 let Fonts = chance1.shuffle(FontList);
 
-function setup() {
+let RpCats = Letters.slice(0,5); // 5 categories
+let NrpCats = Letters.slice(5,10); // 5 categories
+let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
+let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
+let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
+let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
+let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
+let NrpExemSlice = Fonts.slice(0,60);
+let NrpExem = NrpExemSlice.slice(30, 60); //type 2
+let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
 
-  let RpCats = Letters.slice(0,5); // 5 categories
-  let NrpCats = Letters.slice(5,10); // 5 categories
-  let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
-  let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
-  let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
-  let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
-  let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
-  let NrpExemSlice = Fonts.slice(0,60);
-  let NrpExem = NrpExemSlice.slice(30, 60); //type 2
-  let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
+let StudyTrialType = [];
+StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat(2, NrpExem.length));
+StudyTrialType = chance1.shuffle(StudyTrialType);
+let PracTrialType = [];
+PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
+PracTrialType = chance1.shuffle(PracTrialType);
+let TestTrialType = [];
+TestTrialType = TestTrialType.concat(repmat([0, 1], RpPlusExem.length),
+    repmat(2, NrpExem.length), repmat(4, RpTestLuresExem.length),
+    repmat(5, NrpTestLuresExem.length));
+TestTrialType = chance1.shuffle(TestTrialType);
 
-  let StudyTrialType = [];
-  StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat(2, NrpExem.length));
-  StudyTrialType = chance1.shuffle(StudyTrialType);
-  let PracTrialType = [];
-  PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
-  PracTrialType = chance1.shuffle(PracTrialType);
-  let TestTrialType = [];
-  TestTrialType = TestTrialType.concat(repmat([0, 1], RpPlusExem.length),
-      repmat(2, NrpExem.length), repmat(4, RpTestLuresExem.length),
-      repmat(5, NrpTestLuresExem.length));
-  TestTrialType = chance1.shuffle(TestTrialType);
+let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
+let RpPlusPrac = [];
+RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
+let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
+let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
+let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
+let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
+let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
+let AllImages = [];
+AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
-  let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
-  let RpPlusPrac = [];
-  RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
-  let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
-  let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
-  let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
-  let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
-  let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
-  let AllImages = [];
-  AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
-
-  let RpPlus_StudyOrder = [];
-  let RpMinus_StudyOrder = [];
-  let Nrp_StudyOrder = [];
-}
-setup()
+let RpPlus_StudyOrder = [];
+let RpMinus_StudyOrder = [];
+let Nrp_StudyOrder = [];
 
 function repmat(array, count) {
   let result = [];
@@ -189,6 +185,38 @@ while (no>0) {
   if (no==2) {
     no = 0;
   } else (
-    setup()
+    let RpCats = Letters.slice(0,5); // 5 categories
+    let NrpCats = Letters.slice(5,10); // 5 categories
+    let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
+    let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
+    let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
+    let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
+    let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
+    let NrpExemSlice = Fonts.slice(0,60);
+    let NrpExem = NrpExemSlice.slice(30, 60); //type 2
+    let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
+
+    let StudyTrialType = [];
+    StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat(2, NrpExem.length));
+    StudyTrialType = chance1.shuffle(StudyTrialType);
+    let PracTrialType = [];
+    PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
+    PracTrialType = chance1.shuffle(PracTrialType);
+    let TestTrialType = [];
+    TestTrialType = TestTrialType.concat(repmat([0, 1], RpPlusExem.length),
+        repmat(2, NrpExem.length), repmat(4, RpTestLuresExem.length),
+        repmat(5, NrpTestLuresExem.length));
+    TestTrialType = chance1.shuffle(TestTrialType);
+
+    let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
+    let RpPlusPrac = [];
+    RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
+    let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
+    let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
+    let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
+    let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
+    let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
+    let AllImages = [];
+    AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
   )
 }
