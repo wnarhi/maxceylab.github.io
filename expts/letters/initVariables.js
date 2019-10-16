@@ -143,7 +143,7 @@ function derange(array) {
 }
 
 no=2;
-while (no==2) {
+while (no>0) {
   for (let i = 0; i < RpPlus.length; i++) {
     for (let j = 0; j < RpTestLures.length; j++) {
       if (RpPlus[i] == RpTestLures[j]) {
