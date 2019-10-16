@@ -218,5 +218,6 @@ while (no>0) {
     let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
     let AllImages = [];
     AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
+    n=2;
   }
 }
