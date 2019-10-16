@@ -52,17 +52,15 @@ no=2;
 while (no>0) {
   for (let i = 0; i < RpPlus.length; i++) {
     for (let j = 0; j < RpTestLures.length; j++) {
-      for (let k = 0; k < PracLures.length; k++) {
-        if ((RpPlus[i] == PracLures[k]) || (RpPlus[i] == RpTestLures[j]) || (PracLures[k] == RpTestLures[j])) {
-          no=1;
-          console.log('a')
-          RpPlusExem = RpExemSlice.slice(0, 15); //type 0
-          RpTestLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30));
-          PracLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30)); //type 3
-          RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
-          RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
-          PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
-        }
+      if ((RpPlus[i] == PracLures[j]) || (RpPlus[i] == RpTestLures[j]) || (PracLures[i] == RpTestLures[j])) {
+        no=1;
+        console.log('a')
+        RpPlusExem = RpExemSlice.slice(0, 15); //type 0
+        RpTestLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30));
+        PracLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30)); //type 3
+        RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
+        RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
+        PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
       }
     }
   }
