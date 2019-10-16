@@ -139,7 +139,7 @@ function derange(array) {
   return array;
 }
 
-no=2;
+no=2;iter=0;
 while (no>0) {
   for (let i = 0; i < RpPlus.length; i++) {
     for (let j = 0; j < RpTestLures.length; j++) {
@@ -219,5 +219,7 @@ while (no>0) {
     let AllImages = [];
     AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
     n=2;
+    iter=iter+1;
+    console.log(iter)
   }
 }
