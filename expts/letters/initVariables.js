@@ -75,7 +75,7 @@ no=2;
 while (no>0) {
   for (let i = 0; i < RpMinus.length; i++) {
     for (let j = 0; j < RpTestLures.length; j++) {
-      if (RpMinus[i] == RpTestLures[j]) {
+      if ((RpMinus[i] == RpTestLures[j]) || (RpMinus[i] == PracLures[j])) {
         no=1;
         console.log('a')
         RpMinusExem = chance1.shuffle(RpExemSlice.slice(15, 30)); //type 1
