@@ -43,6 +43,77 @@ let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
 let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
 let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
 let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
+
+
+
+
+
+no=2;
+while (no>0) {
+  for (let i = 0; i < RpPlus.length; i++) {
+    for (let j = 0; j < RpTestLures.length; j++) {
+      if ((RpPlus[i] == PracLures[j]) || (RpPlus[i] == RpTestLures[j])) {
+        no=1;
+        console.log('a')
+        RpPlusExem = RpExemSlice.slice(0, 15); //type 0
+        RpTestLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30));
+        PracLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30)); //type 3
+        RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
+        RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
+        PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
+      }
+    }
+  }
+  if (no==2) {
+    no=0;
+  } else {
+    no=2;
+  }
+}
+
+no=2;
+while (no>0) {
+  for (let i = 0; i < RpMinus.length; i++) {
+    for (let j = 0; j < RpTestLures.length; j++) {
+      if (RpMinus[i] == RpTestLures[j]) {
+        no=1;
+        console.log('a')
+        RpMinusExem = chance1.shuffle(RpExemSlice.slice(15, 30)); //type 1
+        RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
+      }
+    }
+  }
+  if (no==2) {
+    no=0;
+  } else {
+    no=2;
+  }
+}
+
+no=2;
+while (no>0) {
+  for (let i = 0; i < Nrp.length; i++) {
+    for (let j = 0; j < NrpTestLures.length; j++) {
+      if (Nrp[i] == NrpTestLures[j]) {
+        no=1;
+        console.log('f')
+        NrpExemSlice = Fonts.slice(0,60);
+        NrpExem = NrpExemSlice.slice(30, 60); //type 2
+        NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
+        Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
+        NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
+      }
+    }
+  }
+  if (no==2) {
+    no=0;
+  } else {
+    no=2;
+  }
+}
+
+
+
 let AllImages = [];
 AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
 
@@ -138,88 +209,3 @@ function derange(array) {
   }
   return array;
 }
-
-no=2;iter=0;
-// while (no>0) {
-//   for (let i = 0; i < RpPlus.length; i++) {
-//     for (let j = 0; j < RpTestLures.length; j++) {
-//       if (RpPlus[i] == RpTestLures[j]) {
-//         no=1;
-//       }
-//     }
-//     for (let k = 0; k < PracLures.length; k++) {
-//       if (RpPlus[i] == PracLures[k]) {
-//         no=1;
-//       }
-//     }
-//     for (let k = 0; k < PracLures.length; k++) {
-//       if (RpMinus[i] == PracLures[k]) {
-//         no=1;
-//       }
-//     }
-//   }
-
-//   for (let i = 0; i < RpTestLures.length; i++) {
-//     for (let j = 0; i < PracLures; j++) {
-//       if (RpTestLures[i] == PracLures[j]) {
-//         no=1;
-//       }
-//     }
-//   }
-
-//   for (let i = 0; i < RpMinus.length; i++) {
-//     for (let j = 0; i < RpTestLures; j++) {
-//       if (RpMinus[i] == RpTestLures[j]) {
-//         no=1;
-//       }
-//     }
-//   }
-
-//   for (let i = 0; i < Nrp.length; i++) {
-//     for (let j = 0; i < NrpTestLures; j++) {
-//       if (Nrp[i] == NrpTestLures[j]) {
-//         no=1;
-//       }
-//     }
-//   }
-//   if (no==2) {
-//     no = 0;
-//   } else {
-//     let RpCats = Letters.slice(0,5); // 5 categories
-//     let NrpCats = Letters.slice(5,10); // 5 categories
-//     let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
-//     let RpPlusExem = RpExemSlice.slice(0, 15); //type 0
-//     let RpMinusExem = RpExemSlice.slice(15, 30); //type 1
-//     let PracLuresExem = derange(RpExemSlice.slice(0, 30)); //type 3
-//     let RpTestLuresExem = derange(RpExemSlice.slice(0, 30)); //type 4
-//     let NrpExemSlice = Fonts.slice(0,60);
-//     let NrpExem = NrpExemSlice.slice(30, 60); //type 2
-//     let NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
-
-//     let StudyTrialType = [];
-//     StudyTrialType = StudyTrialType.concat(repmat([0, 1], RpPlusExem.length), repmat(2, NrpExem.length));
-//     StudyTrialType = chance1.shuffle(StudyTrialType);
-//     let PracTrialType = [];
-//     PracTrialType = PracTrialType.concat(repmat(0, RpPlusExem.length), repmat(0, RpPlusExem.length), repmat(3, PracLuresExem.length));
-//     PracTrialType = chance1.shuffle(PracTrialType);
-//     let TestTrialType = [];
-//     TestTrialType = TestTrialType.concat(repmat([0, 1], RpPlusExem.length),
-//         repmat(2, NrpExem.length), repmat(4, RpTestLuresExem.length),
-//         repmat(5, NrpTestLuresExem.length));
-//     TestTrialType = chance1.shuffle(TestTrialType);
-
-//     let RpPlus = chance1.shuffle(perm_concat(RpCats,RpPlusExem));
-//     let RpPlusPrac = [];
-//     RpPlusPrac = RpPlusPrac.concat(chance1.shuffle(perm_concat(RpCats,RpPlusExem)),chance1.shuffle(perm_concat(RpCats,RpPlusExem))); //twice because of two practice trials
-//     let RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
-//     let Nrp = chance1.shuffle(perm_concat(NrpCats,NrpExem));
-//     let PracLures = chance1.shuffle(perm_concat(RpCats,PracLuresExem));
-//     let RpTestLures = chance1.shuffle(perm_concat(RpCats,RpTestLuresExem));
-//     let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
-//     let AllImages = [];
-//     AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
-//     n=2;
-//     iter=iter+1;
-//     console.log(iter)
-//   }
-// }
