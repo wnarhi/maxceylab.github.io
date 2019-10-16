@@ -52,6 +52,7 @@ function setup() {
   let RpMinus_StudyOrder = [];
   let Nrp_StudyOrder = [];
 }
+setup()
 
 function repmat(array, count) {
   let result = [];
