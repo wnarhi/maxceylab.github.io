@@ -184,7 +184,7 @@ while (no>0) {
   }
   if (no==2) {
     no = 0;
-  } else (
+  } else {
     let RpCats = Letters.slice(0,5); // 5 categories
     let NrpCats = Letters.slice(5,10); // 5 categories
     let RpExemSlice = Fonts.slice(0,60); // letters I and O were excluded from imagesets due to lacking characteristic features
@@ -218,5 +218,5 @@ while (no>0) {
     let NrpTestLures = chance1.shuffle(perm_concat(NrpCats,NrpTestLuresExem));
     let AllImages = [];
     AllImages = AllImages.concat(RpPlus,RpMinus,Nrp,PracLures,RpTestLures,NrpTestLures);
-  )
+  }
 }
