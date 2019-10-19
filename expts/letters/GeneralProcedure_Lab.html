@@ -275,10 +275,10 @@
 
     /* Display Object */
     function ShowStudy() {
-      document.getElementById("temp").innerHTML = "Trial: " + curStudy + "<br>" + 
-      $('#itemA')[0].src + "<br>" 
-      + "Trial Type: " + StudyTrialType[curStudy] 
-      + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
+      // document.getElementById("temp").innerHTML = "Trial: " + curStudy + "<br>" + 
+      // $('#itemA')[0].src + "<br>" 
+      // + "Trial Type: " + StudyTrialType[curStudy] 
+      // + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
 
       $('#allItems').css('margin-top', 0);
       StudyImages.push($('#itemA')[0].src)
@@ -308,10 +308,10 @@
       }
       PracImages.push($('#itemA')[0].src)
 
-      document.getElementById("temp").innerHTML = "Trial: " + curPractice + "<br>" + 
-      $('#itemA')[0].src + "<br>" 
-      + "Trial Type: " + PracTrialType[curPractice] 
-      + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
+      // document.getElementById("temp").innerHTML = "Trial: " + curPractice + "<br>" + 
+      // $('#itemA')[0].src + "<br>" 
+      // + "Trial Type: " + PracTrialType[curPractice] 
+      // + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
 
       setTimeout(function() {
         if (curPractice >= numPractice) { // if end of study
@@ -504,10 +504,10 @@
       }
       TestImages.push($('#itemA')[0].src)
 
-      document.getElementById("temp").innerHTML = "Trial: " + curTest + "<br>" + 
-      $('#itemA')[0].src + "<br>" 
-      + "Trial Type: " + TestTrialType[curTest] 
-      + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
+      // document.getElementById("temp").innerHTML = "Trial: " + curTest + "<br>" + 
+      // $('#itemA')[0].src + "<br>" 
+      // + "Trial Type: " + TestTrialType[curTest] 
+      // + "<br>( 0=practiced, 1=related, 2=baseline, 3=praclure, 4=nonbase_lure, 5=base_lure )"
 
       setTimeout(function() { // fixation at beginning of trial for itiTime
         if (curTest >= numTest) { // if end of test
