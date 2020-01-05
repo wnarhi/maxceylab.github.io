@@ -39,7 +39,7 @@
   <!-- Instructions page2 -->
   <div id="instructions2" style="display:none">
     <center><b>
-        <p>You will be presented with 60 letters, one at a time, each presented for 5 seconds.</p>
+        <p>You will be presented with 60 letters one at a time. Sometimes these letters will repeat.</p>
         <p></p><u>Memorize each letter AND its font.</u> You will later be tested on your memory for the studied letters.<br></p>
         <p>As an example, one of the 60 studied letters may be the letter H displayed in Comic Sans. During test, we may ask you whether you have previously seen a Comic Sans H or a Times New Roman H. You will therefore need to memorize letter/font combinations to do well on this experiment.</p>
       </b></center>
@@ -223,6 +223,15 @@
 
     /* Study Phase Start */
     function NextStudyTrial() {
+      if (curStudy == 60){
+        RpPlusCnt = 0; //reset counter 
+        RpMinusCnt = 0;
+        NrpCnt = 0;
+      } else if (curStudy == 120) {
+        RpPlusCnt = 0; 
+        RpMinusCnt = 0;
+        NrpCnt = 0;
+      }
       if (curStudy >= numStudy) { // if end of study
         curStudy++;
 
@@ -244,7 +253,9 @@
           if (modalClosed == false) {
             window.setTimeout(checkFlag2, 100); /* this checks the flag every 100 milliseconds*/
           } else {
-            RpPlusCnt = 0; //reset counter for RpPlus
+            RpPlusCnt = 0; //reset counter 
+            RpMinusCnt = 0;
+            NrpCnt = 0;
             ChangeDetection(); // start Practice Phase
             return; // need return; otherwise the ShowTrial below executes
           }
