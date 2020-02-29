@@ -5,6 +5,11 @@
 <!-- Preload javascript and css files -->
 
 <head>
+  <script>
+    const numStudy = 100; // 100;
+    const numPractice = -1; // no practice
+    const numTest = 200; // 200;
+  </script>
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
@@ -13,15 +18,15 @@
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
 
   <!-- Preload images -->
-  <script src="https://maxceylab.github.io/expts/df/loadimg.js"></script>
-  <script src="https://maxceylab.github.io/expts/df/initVariables.js"> </script>
+  <script src="https://maxceylab.github.io/expts/dfsolo/loadimg.js"></script>
+  <script src="https://maxceylab.github.io/expts/dfsolo/initVariables.js"> </script>
 
   <!-- load Firebase server javascript, we are using it for storage -->
   <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/df/contReport.css">
-  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/df/showTrials.css">
-  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/df/experiment.css">
+  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/dfsolo/contReport.css">
+  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/dfsolo/showTrials.css">
+  <link rel="stylesheet" type="text/css" href="https://maxceylab.github.io/expts/dfsolo/experiment.css">
 
 </head>
 
@@ -124,9 +129,9 @@
 
     /* Define more variables */
     let modalClosed = false;
-    const numStudy = 100; // 100;
-    const numPractice = -1; // no practice
-    const numTest = 200; // 200;
+    // const numStudy = 100; // 100;
+    // const numPractice = -1; // no practice
+    // const numTest = 200; // 200;
     const displayTime = 2000; //2000 ms
     const itiTime = 500; // 500 ms
     const RemForgetTime = 2500; // 2500 ms remember or forget text
