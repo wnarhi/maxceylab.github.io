@@ -1,6 +1,13 @@
 let CDSet = chance1.shuffle(repmat(perm_concat([0,1],counter(1,25)),4)); // randomized 200 CD trials
 
-let objects = chance1.shuffle(counter(1,200))
+let objectsnum = chance1.shuffle(counter(1,200))
+
+let pad = "000"
+let objects = []
+for (let i = 0; i < objectsnum.length; i++) {
+  str = String(objectsnum[i])
+  objects.push(pad.substring(0, pad.length - str.length) + str)
+}
 
 let StudyTrialType = [];
 StudyTrialType = StudyTrialType.concat(repmat(2, numStudy/2), repmat(6, numStudy/2));
