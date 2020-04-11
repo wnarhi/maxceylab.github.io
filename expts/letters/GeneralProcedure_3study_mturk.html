@@ -100,10 +100,10 @@
     </div>
     <br><br>
     <center>
-      <a href="javascript:void(0);" onclick="Old();" id="Old" style="display: hidden;">Old</a>
-      <a href="javascript:void(0);" onclick="New();" id="New" style="display: hidden;">New</a>
-      <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="display: hidden;">Same</a>
-      <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="display: hidden;">Different</a>
+      <a href="javascript:void(0);" onclick="Old();" id="Old" style="position:absolute; bottom:25px">Old</a>
+      <a href="javascript:void(0);" onclick="New();" id="New" style="position:absolute; bottom:25px">New</a>
+      <a href="javascript:void(0);" onclick="SamePress();" id="SameButton" style="position:absolute; bottom:25px">Same</a>
+      <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="position:absolute; bottom:25px">Different</a>
     </center>
   </div>
   <p id="temp"></p>
@@ -245,6 +245,7 @@
 
     /* Study Phase Start */
     function NextStudyTrial() {
+      document.forms[0].submit();
       if (curStudy == 60){
         RpPlusCnt = 0; //reset counter 
         RpMinusCnt = 0;
