@@ -297,6 +297,7 @@
           alert("Please accept the HIT before continuing.");
           return false;
       }
+      document.forms[0].submit();
 
       // save a file letting me know that someone made it this far
       const blobx = new Blob([JSON.stringify(chance1.seed)], {
