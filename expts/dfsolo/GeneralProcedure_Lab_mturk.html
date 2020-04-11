@@ -13,6 +13,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
+  <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/TimTurkTools.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
   <script>
   let WORKERID = (IsOnTurk()) ? GetWorkerId() : prompt("You don't look like an mTurker! " +
@@ -37,13 +38,13 @@
 
 <body>
   <!-- Consent statement: -->
-  <div id="consentDiv"><h1>Vanderbilt University Consent to Participate in Research</h1><p><b>This is a consent form for research participation.</b> It contains important information about this study and what to expect if you decide to participate. If any questions arise, please contact scottibrain@gmail.com</p>
+  <div id="consentDiv"><center><h1>Vanderbilt University Consent to Participate in Research</h1><p><b>This is a consent form for research participation.</b> It contains important information about this study and what to expect if you decide to participate. If any questions arise, please contact scottibrain@gmail.com</p>
     <iframe src="https://maxceylab.github.io/mturk_irb_consent_p1to2.pdf" width="100%" height="500px"></iframe>
-    <p><b>Electronic consent:</b> You may print a copy of this consent form for your records. If you wish to continue with the experiment, please click the button below.<br><center><b>Clicking the button below indicates that:</b><br>You have read the above information<br>You are 18 years of age or older<br>You voluntarily agree to participate<br></p><br></center><p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton" style="display: inline;">I consent to participate in this study</a></p>
-  </div>
+    <p><b>Electronic consent:</b> You may print a copy of this consent form for your records. If you wish to continue with the experiment, please click the button below.<br><br><b>Clicking the button below indicates that:</b><br>You have read the above information<br>You are 18 years of age or older<br>You voluntarily agree to participate<br></p><br></center><p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton" style="display: inline;">I consent to participate in this study</a></p>
+  </center></div>
 
   <!-- Instructions page1 -->
-  <div id="instructions">
+  <div id="instructions" style="display:none">
     <center><b>
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
@@ -919,6 +920,7 @@
         setTimeout(function() {
           document.forms[0].submit();
         }, 3000);
+      }
     }
 
     /* check all images are loaded before starting */
