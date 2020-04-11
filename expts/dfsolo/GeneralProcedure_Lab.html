@@ -14,7 +14,12 @@
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
-  <script>const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
+  <script>
+  let WORKERID = (IsOnTurk()) ? GetWorkerId() : prompt("You don't look like an mTurker! " +
+    "Enter an ID to save your data with (any number/string will do). Note your id is used to seed the experiment rng:", "workID");
+  let ASSIGNMENTID = (IsOnTurk()) ? GetAssignmentId() : prompt("Set assignment number (doesnt matter for testing):", "assignmentId");
+  const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials
+  </script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
 
   <!-- Preload images -->
@@ -31,6 +36,12 @@
 </head>
 
 <body>
+  <!-- Consent statement: -->
+  <div id="consentDiv"><h1>Vanderbilt University Consent to Participate in Research</h1><p><b>This is a consent form for research participation.</b> It contains important information about this study and what to expect if you decide to participate. If any questions arise, please contact scottibrain@gmail.com</p>
+    <iframe src="https://maxceylab.github.io/mturk_irb_consent_p1to2.pdf" width="100%" height="500px"></iframe>
+    <p><b>Electronic consent:</b> You may print a copy of this consent form for your records. If you wish to continue with the experiment, please click the button below.<br><center><b>Clicking the button below indicates that:</b><br>You have read the above information<br>You are 18 years of age or older<br>You voluntarily agree to participate<br></p><br></center><p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton" style="display: inline;">I consent to participate in this study</a></p>
+  </div>
+
   <!-- Instructions page1 -->
   <div id="instructions">
     <center><b>
@@ -67,10 +78,15 @@
   <!-- Modal Pop-up Box -->
   <div id="openModal" class="modalDialog">
     <div>
-      <a href="#close" onclick="requestFullScreen();modalContinue();" title="Close" class="close">X</a>
+      <a href="#close" onclick="modalContinue();" title="Close" class="close">X</a>
       <p id="openModal_text">Hi!</p>
     </div>
   </div>
+
+  <form name="turkSubmit" id="turkSubmit" action="https://www.mturk.com/mturk/externalSubmit" method="POST">
+  <input type="hidden" name="assignmentId" id="assignmentId" value="" >
+  <input type="hidden" name="foo" value="" >
+  <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
 
   <!-- Screen after submitting expt -->
   <div id="done">
@@ -217,10 +233,22 @@
 
     /* Start Experiment */
     function StartExperiment() {
+      if (IsOnTurk() && IsTurkPreview()) {
+          alert("Please accept the HIT before continuing.");
+          return false;
+      }
+
+      // save a file letting me know that someone made it this far
+      const blobx = new Blob([JSON.stringify(chance1.seed)], {
+        type: "application/json"
+      });
+      const storageRefx = firebase.storage().ref('started_dfsolo_mturk/' + WORKERID + '.json');
+      storageRefx.put(blobx);
+
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
+        'Experiment will now begin. Good luck!';
       window.location.href = '#openModal';
       checkFlag1();
 
@@ -842,7 +870,8 @@
         $('#saving').show();
         const endDate = new Date().getTime();
         const d = {
-          "ID": subjID,
+          "ID": WORKERID,
+          "ASSIGNMENTID": ASSIGNMENTID,
           "age": age,
           "sex": sex,
           "ethnicity": ethnicity,
@@ -881,25 +910,15 @@
         const blob = new Blob([JSON.stringify(d)], {
           type: "application/json"
         });
-        const storageRef = firebase.storage().ref('DFsolo/' + subjID + '.json');
+        const storageRef = firebase.storage().ref('DFsolo_mturk_/' + subjID + '.json');
         storageRef.put(blob);
 
         document.getElementById("saving").innerHTML = "Submitting...";
 
         /* submit after waiting a few seconds to make sure data got sent */
         setTimeout(function() {
-          document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. Please see your experimenter.";
-
-          // close full screen if still full-screened
-          if (document.cancelFullScreen) {
-              document.cancelFullScreen();
-          } else if (document.mozCancelFullScreen) {
-              document.mozCancelFullScreen();
-          } else if (document.webkitCancelFullScreen) {
-              document.webkitCancelFullScreen();
-          }
+          document.forms[0].submit();
         }, 3000);
-      }
     }
 
     /* check all images are loaded before starting */
@@ -942,54 +961,6 @@
           $('body').html('Unfortunately this HIT only works on desktop versions of Chrome. If this is a mistake and you are using Chrome, try updating your browser. Sorry!');
         }
     });
-
-    function requestFullScreen() {
-
-      var el = document.body;
-
-      // Supports most browsers and their versions.
-      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen ||
-        el.mozRequestFullScreen || el.msRequestFullScreen;
-
-      if (requestMethod) {
-
-        // Native full screen.
-        requestMethod.call(el);
-
-      } else if (typeof window.ActiveXObject !== "undefined") {
-
-        // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-
-        if (wscript !== null) {
-          wscript.SendKeys("{F11}");
-        }
-      }
-    }
-
-    function requestFullScreen() {
-
-      var el = document.body;
-
-      // Supports most browsers and their versions.
-      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen ||
-        el.mozRequestFullScreen || el.msRequestFullScreen;
-
-      if (requestMethod) {
-
-        // Native full screen.
-        requestMethod.call(el);
-
-      } else if (typeof window.ActiveXObject !== "undefined") {
-
-        // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-
-        if (wscript !== null) {
-          wscript.SendKeys("{F11}");
-        }
-      }
-    }
 
     function modalContinue() {
       modalClosed = true;
