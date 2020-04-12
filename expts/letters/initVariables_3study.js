@@ -55,7 +55,6 @@ while (no>0) {
     for (let j = 0; j < RpTestLures.length; j++) {
       if ((RpPlus[i] == PracLures[j]) || (RpPlus[i] == RpTestLures[j]) || (PracLures[i] == RpTestLures[j])) {
         no=1;
-        console.log('a')
         RpPlusExem = RpExemSlice.slice(0, 15); //type 0
         RpTestLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30));
         PracLuresExem = chance1.shuffle(RpExemSlice.slice(0, 30)); //type 3
@@ -78,7 +77,6 @@ while (no>0) {
     for (let j = 0; j < RpTestLures.length; j++) {
       if ((RpMinus[i] == RpTestLures[j]) || (RpMinus[i] == PracLures[j])) {
         no=1;
-        console.log('a')
         RpMinusExem = chance1.shuffle(RpExemSlice.slice(15, 30)); //type 1
         RpMinus = chance1.shuffle(perm_concat(RpCats,RpMinusExem));
       }
@@ -97,7 +95,6 @@ while (no>0) {
     for (let j = 0; j < NrpTestLures.length; j++) {
       if (Nrp[i] == NrpTestLures[j]) {
         no=1;
-        console.log('f')
         NrpExemSlice = Fonts.slice(0,60);
         NrpExem = NrpExemSlice.slice(30, 60); //type 2
         NrpTestLuresExem = derange(NrpExemSlice.slice(30, 60)); //type 5
