@@ -64,14 +64,12 @@
   <!-- Modal Pop-up Box -->
   <div id="openModal" class="modalDialog">
     <div>
-      <a href="#close" onclick="requestFullScreen();modalContinue();" title="Close" class="close">X</a>
+      <a href="#close" onclick="modalContinue();" title="Close" class="close">X</a>
       <p id="openModal_text">Hi!</p>
     </div>
   </div>
 
   <form name="turkSubmit" id="turkSubmit" action="" method="POST">
-  <!-- <input type="hidden" name="assignmentId" id="assignmentId" value="" >
-  <input type="hidden" name="foo" value="" > -->
   <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
   <script>
     let formtxt = "https://www.mturk.com/mturk/externalSubmit?assignmentId="+ASSIGNMENTID+"&foo=bar"
@@ -194,7 +192,6 @@
           alert("Please accept the HIT before continuing.");
           return false;
       }
-      document.forms[0].submit();
       age = prompt('Before we start, can you tell me how old you are (in years)?');
 
       while (age > 100 || age < 18 || !(age>=18)) {
@@ -785,54 +782,6 @@
         $('body').html('Unfortunately this experiment does not work on mobile devices. It works on desktop versions of Chrome, Firefox, or Opera. Sorry!'); // dont allow mobile
       }
     });
-
-    function requestFullScreen() {
-
-      var el = document.body;
-
-      // Supports most browsers and their versions.
-      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen ||
-        el.mozRequestFullScreen || el.msRequestFullScreen;
-
-      if (requestMethod) {
-
-        // Native full screen.
-        requestMethod.call(el);
-
-      } else if (typeof window.ActiveXObject !== "undefined") {
-
-        // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-
-        if (wscript !== null) {
-          wscript.SendKeys("{F11}");
-        }
-      }
-    }
-
-    function requestFullScreen() {
-
-      var el = document.body;
-
-      // Supports most browsers and their versions.
-      var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen ||
-        el.mozRequestFullScreen || el.msRequestFullScreen;
-
-      if (requestMethod) {
-
-        // Native full screen.
-        requestMethod.call(el);
-
-      } else if (typeof window.ActiveXObject !== "undefined") {
-
-        // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-
-        if (wscript !== null) {
-          wscript.SendKeys("{F11}");
-        }
-      }
-    }
 
     function modalContinue() {
       modalClosed = true;
