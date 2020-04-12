@@ -69,10 +69,14 @@
     </div>
   </div>
 
-  <form name="turkSubmit" id="turkSubmit" action="https://www.mturk.com/mturk/externalSubmit" method="POST">
-  <input type="hidden" name="assignment_id" id="assignment_id" value="" >
-  <input type="hidden" name="foo" value="" >
+  <form name="turkSubmit" id="turkSubmit" action="" method="POST">
+  <!-- <input type="hidden" name="assignmentId" id="assignmentId" value="" >
+  <input type="hidden" name="foo" value="" > -->
   <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
+  <script>
+    let formtxt = "https://www.mturk.com/mturk/externalSubmit?assignmentId="+ASSIGNMENTID+"&foo=bar"
+    document.getElementById('turkSubmit').action = formtxt
+  </script>
     <!-- submit to turk
     https://workersandbox.mturk.com/mturk/externalSubmit
     https://www.mturk.com/mturk/externalSubmit
