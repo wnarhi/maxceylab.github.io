@@ -236,10 +236,6 @@
       }
 
       ethnicity = prompt('How do you describe your ethnicity?');
-
-      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
-
-      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
     }
 
     /* Start Experiment */
@@ -921,7 +917,7 @@
         const blob = new Blob([JSON.stringify(d)], {
           type: "application/json"
         });
-        const storageRef = firebase.storage().ref('DFsolo_mturk_/' + subjID + '.json');
+        const storageRef = firebase.storage().ref('DFsolo_mturk_/' + WORKERID + '.json');
         storageRef.put(blob);
 
         document.getElementById("saving").innerHTML = "Submitting...";
