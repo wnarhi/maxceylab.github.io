@@ -852,6 +852,11 @@
 
     /* Done with the experiment */
     function Done() {
+      // if (TestAcc.reduce(function(p,c,i,a){return p + (c/a.length)},0).toFixed(3)*100 > 65) {
+      //   bonus = 1
+      // } else {
+      //   bonus = 0
+      // }
       // calculate their overall accuracy (Practice + Test)
       // const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
       document.getElementById("doneText").innerHTML = 'Thanks very much for your participation! One question before you finish:' + 
