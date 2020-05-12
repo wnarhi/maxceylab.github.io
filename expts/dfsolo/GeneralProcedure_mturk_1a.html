@@ -855,12 +855,17 @@
       // }
       // calculate their overall accuracy (Practice + Test)
       // const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation! One question before you finish:' + 
-        '<br><br><i>When you first studied the pictures, did you expect that you might be tested on pictures that were followed by the instruction to Forget?</i><br>' +
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation! A few questions before you finish:' + 
+        '<br><br><i>When you first studied the pictures, did you expect that you would be tested on pictures that were followed by the instruction to Forget?</i><br>' +
         '<br><input type="radio" name="q1" value="0"> No ' +
         '<input type="radio" name="q1" value="1"> Yes<br>' +
-        '<br><br>Any comments for us?<br><br>' +
-        '<textarea name="comments" id="comments" style="width: 400px; height: 200px"></textarea><br><br>';
+        '<br><br><i>If yes, what was your strategy when memorizing these pictures followed by Forget? Did you intentionally ignore the Forget instruction?</i><br>' +
+        '<textarea name="comments_strat" id="comments_strat" style="width: 400px; height: 100px"></textarea><br><br><br>' +
+        '<br><br><i>When you were tested on a picture that you think was originally studied and followed by the Forget instruction, did you select Old or New?</i><br>' +
+        '<br><input type="radio" name="q2" value="0"> Old ' +
+        '<input type="radio" name="q2" value="1"> New<br>' +
+        '<br><br><br>Any comments for us?<br><br>' +
+        '<textarea name="comments" id="comments" style="width: 400px; height: 100px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
     }
@@ -870,8 +875,11 @@
     /* What to save and put it on server */
     function SaveData() {
       radios = document.getElementsByName("q1");
+      radios2 = document.getElementsByName("q2");
       if (radios[0].checked + radios[1].checked == 0) {
-        alert('Please answer post-experiment question.');
+        alert('Please answer all post-experiment questions.');
+      } else if (radios2[0].checked + radios2[1].checked == 0) {
+        alert('Please answer all post-experiment questions.');
       } else {
         $('#done').children().hide();
         $('#done').hide();
@@ -911,6 +919,9 @@
           "seed": chance1.seed,
           "radio0": radios[0].checked,
           "radio1": radios[1].checked,
+          "radio_old": radios2[0].checked,
+          "radio_new": radios2[1].checked,
+          "comments_strat": $('#comments_strat').val(),
           "comments": $('#comments').val()
         };
 

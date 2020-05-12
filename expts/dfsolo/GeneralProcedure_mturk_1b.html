@@ -858,12 +858,14 @@
       // }
       // calculate their overall accuracy (Practice + Test)
       // const OverallAcc = (((TestAcc.reduce((a, b) => a + b, 0) + PracticeAcc.reduce((a, b) => a + b, 0)) / (TestAcc.length + PracticeAcc.length)) * 100).toFixed(2);
-      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation! One question before you finish:' + 
-        '<br><br><i>When you first studied the pictures, did you expect that you might be tested on pictures that were followed by the instruction to Forget?</i><br>' +
+      document.getElementById("doneText").innerHTML = 'Thanks very much for your participation! A few questions before you finish:' + 
+        '<br><br><i>When you first studied the pictures, did you expect that you would be tested on pictures that were followed by the instruction to Forget?</i><br>' +
         '<br><input type="radio" name="q1" value="0"> No ' +
         '<input type="radio" name="q1" value="1"> Yes<br>' +
+        '<br><br><i>If yes, what was your strategy when memorizing these pictures followed by Forget? Did you intentionally ignore the Forget instruction?</i><br>' +
+        '<textarea name="comments_strat" id="comments_strat" style="width: 400px; height: 100px"></textarea><br><br><br>' +
         '<br><br>Any comments for us?<br><br>' +
-        '<textarea name="comments" id="comments" style="width: 400px; height: 200px"></textarea><br><br>';
+        '<textarea name="comments" id="comments" style="width: 400px; height: 100px"></textarea><br><br>';
       $('#showTrial').hide();
       $('#done').show();
     }
@@ -914,6 +916,7 @@
           "seed": chance1.seed,
           "radio0": radios[0].checked,
           "radio1": radios[1].checked,
+          "comments_strat": $('#comments_strat').val(),
           "comments": $('#comments').val()
         };
 
