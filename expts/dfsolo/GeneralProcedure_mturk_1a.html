@@ -59,14 +59,13 @@
         <p>You will be presented with 100 objects, one at a time, each presented for 2 seconds.</p>
         <p>Study the visual details of these objects when presented.</p><br>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
-
         <p>After every object, you will see the word "remember" or the word "forget".</p>
         <p>If "forget" is displayed, this means that you should forget about the previously displayed object.</p>
         <p>If "remember" is displayed, you should retain the previously displayed object in memory. You will later be tested on your memory for this object.</p>
 
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/remember.png" width="350px"></p>
-        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/forget.png" width="350px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/white_grand_piano.jpg" width="200px"></p>
+        <p align="center"><img src="https://maxceylab.github.io/stimuli/instruction_images/remember.png" width="350px">
+        <img src="https://maxceylab.github.io/stimuli/instruction_images/forget.png" width="350px"></p>
 
         <p>The rest of the instructions will be provided when relevant via text pop-ups.</p>
       </b></center>
@@ -122,11 +121,8 @@
     <a href="javascript:void(0);" onclick="DiffPress();" id="DiffButton" style="position:absolute; bottom:25px; right:200px;">Different</a>
     </center>
     <br><br>
-    <a href="javascript:void(0);" onclick="OldUnsure();" class="OldNewButton" id="OldUnsure" style="position:absolute; bottom:100px; left:80px">Old - Remember (Unsure)</a>
-    <a href="javascript:void(0);" onclick="OldSure();" class="OldNewButton" id="OldSure" style="position:absolute; bottom:100px; right: 80px;">Old - Remember (Sure)</a>
-    <br><br><br>
-    <a href="javascript:void(0);" onclick="OldFUnsure();" class="OldNewButton" id="OldFUnsure" style="position:absolute; bottom:50px; left: 100px;">Old - Forget (Unsure)</a>
-    <a href="javascript:void(0);" onclick="OldFSure();" class="OldNewButton" id="OldFSure" style="position:absolute; bottom:50px; right: 95px;">Old - Forget (Sure)</a>
+    <a href="javascript:void(0);" onclick="OldUnsure();" class="OldNewButton" id="OldUnsure" style="position:absolute; bottom:50px; left: 136px;">Old (Unsure)</a>
+    <a href="javascript:void(0);" onclick="OldSure();" class="OldNewButton" id="OldSure" style="position:absolute; bottom:50px; right: 122px;">Old (Sure)</a>
     <br><br><br>
     <a href="javascript:void(0);" onclick="NewUnsure();" class="OldNewButton" id="NewUnsure" style="position:absolute; bottom:0px; left: 132px;">New (Unsure)</a>
     <a href="javascript:void(0);" onclick="NewSure();" class="OldNewButton" id="NewSure" style="position:absolute; bottom:0px; right:120px;">New (Sure)</a>
@@ -249,7 +245,7 @@
       const blobx = new Blob([JSON.stringify(chance1.seed)], {
         type: "application/json"
       });
-      const storageRefx = firebase.storage().ref('started_dfsolo_mturk/' + WORKERID + '.json');
+      const storageRefx = firebase.storage().ref('started_dfsolo_mturk_1a/' + WORKERID + '.json');
       storageRefx.put(blobx);
 
       // open pop-up:
@@ -410,7 +406,7 @@
     /* Filler Start */
     function ChangeDetection() {
       $('#allItems').css('margin-top', 0);
-      if (now2 < (now + 300000)) { // 300000 for 5 minutes long filler task
+      if (now2 < (now + 120000)) { // 300000 for 5 minutes long filler task
         ChangeDetectionTrial();
       } else {
         $('#CDitem').attr('src', CDfix.src); // reset last CD trial to CDfix; make sure all components of CD task are hidden before moving on
@@ -429,7 +425,7 @@
         // open pop-up:
         modalClosed = false;
         document.getElementById("openModal_text").innerHTML =
-          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see images one at a time and be asked if you have seen the exact same image before. <br><br>If you have not seen the image before, press the <i>new</i> button. <br><br>If you have seen the image before, and it was followed by the instruction to Remember, then press the <i>old-remember</i> button. <br><br>If you have seen the image before, and it was followed by the instruction to Forget, then press the <i>old-forget</i> button. <br><br>We also ask that you inform us how confident you are in your response by selecting "Sure" if you are confident, and "Unsure" if you are not confident.';
+          'Great job! <br><br> We will now test your memory for the initial study images. <br><br> You will see images one at a time and be asked if you have seen the exact same image before. <br><br>If you have not seen the image before, press the <i>new</i> button. <br><br>If you have seen the image before, press the <i>old</i> button. <br><br>We also ask that you inform us how confident you are in your response by selecting "Sure" if you are confident, and "Unsure" if you are not confident.';
         window.location.href = '#openModal';
         checkFlag6();
 
@@ -922,7 +918,7 @@
         const blob = new Blob([JSON.stringify(d)], {
           type: "application/json"
         });
-        const storageRef = firebase.storage().ref('DFsolo_mturk_/' + WORKERID + '.json');
+        const storageRef = firebase.storage().ref('DFsolo_1a/' + WORKERID + '.json');
         storageRef.put(blob);
 
         document.getElementById("saving").innerHTML = "Submitting...";
