@@ -433,7 +433,7 @@
           if (modalClosed == false) {
             window.setTimeout(checkFlag6, 100); /* this checks the flag every 100 milliseconds*/
           } else {
-            sanity = prompt('To check your knowledge before starting the test, if we present an image that was originally followed by the "Forget" instruction, what should you select? \r\n \r\n "Seen before" \r\n or \r\n "Never seen" \r\n \r\n Please type either "Seen before" or "Never seen".');
+            sanity = prompt('To check your knowledge before starting the test, if we present an image that you saw before and which was originally followed by the "Forget" instruction, what should you select? \r\n \r\n "Seen before" \r\n or \r\n "Never seen" \r\n \r\n Please type either "Seen before" or "Never seen".');
             while (!(sanity == "seen before" || sanity == "Seen before" || sanity == "Seen Before" || sanity == "Seen before " || sanity == " Seen before")) {
               sanity = prompt('Incorrect response. \r\n \r\n If we present an image that was originally followed by the "Forget" instruction, what should you select? \r\n \r\n "Seen before" \r\n or \r\n "Never seen" \r\n \r\n Please type and enter either "Seen before" or "Never seen".');
             }
