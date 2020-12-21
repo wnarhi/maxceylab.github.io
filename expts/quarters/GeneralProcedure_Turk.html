@@ -8,9 +8,15 @@
   <script src="https://maxceylab.github.io/expts/js_code/jquery.min.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/seedrandom.js"></script>
   <script src="https://maxceylab.github.io/expts/js_code/chance.js"></script>
+  <script src="https://paulscotti.github.io/mturk/Cont_LTM_101_files/TimTurkTools.js"></script>
   <script>const startDate = new Date(); const chance1 = Chance(startDate); Math.seedrandom(chance1.seed); // Use current time as the shuffle seed, so you can trace back their trials</script>
   <script src="https://maxceylab.github.io/expts/js_code/lodash.core.js">// Allows _clone</script>
-
+  <script>
+  let WORKERID = (IsOnTurk()) ? GetWorkerId() : prompt("You don't look like an mTurker! " +
+    "Enter an ID to save your data with (any number/string will do). Note your id is used to seed the experiment rng:", "workID");
+  let ASSIGNMENTID = (IsOnTurk()) ? GetAssignmentId() : prompt("Set assignment number (doesnt matter for testing):", "assignmentId");
+  const startDate = new Date(); const chance1 = Chance(WORKERID); Math.seedrandom(chance1.seed); // Use current workerid as the shuffle seed, so you can trace back their trials
+  </script>
   <!-- Preload images -->
   <script src="https://maxceylab.github.io/expts/quarters/loadimg.js"></script>
   <script src="https://maxceylab.github.io/expts/quarters/initVariables.js"> </script>
@@ -25,8 +31,14 @@
 </head>
 
 <body>
+  <!-- Consent statement: -->
+  <div id="consentDiv"><center><h1>Vanderbilt University Consent to Participate in Research</h1><p><b>This is a consent form for research participation.</b> It contains important information about this study and what to expect if you decide to participate. If any questions arise, please contact scottibrain@gmail.com</p>
+    <iframe src="https://maxceylab.github.io/mturk_irb_consent_p1to2.pdf" width="100%" height="500px"></iframe>
+    <p><b>Electronic consent:</b> You may print a copy of this consent form for your records. If you wish to continue with the experiment, please click the button below.<br><br><b>Clicking the button below indicates that:</b><br>You have read the above information<br>You are 18 years of age or older<br>You voluntarily agree to participate<br></p><br></center><p style="text-align: center"><a href="javascript:void(0);" onclick="$('#consentDiv').hide();$('#instructions').show();document.body.scrollTop = document.documentElement.scrollTop = 0;" id="TextButton" style="display: inline;">I consent to participate in this study</a></p>
+  </center></div>
+
   <!-- Instructions page1 -->
-  <div id="instructions">
+  <div id="instructions" style="display:none">
     <center><b>
         <p>This experiment is a memorization task involving visual images. It will take approximately 30 - 45 minutes to complete.</p>
       </b></center>
@@ -55,10 +67,21 @@
   <!-- Modal Pop-up Box -->
   <div id="openModal" class="modalDialog">
     <div>
-      <a href="#close" onclick="requestFullScreen();modalContinue();" title="Close" class="close">X</a>
+      <a href="#close" onclick="modalContinue();" title="Close" class="close">X</a>
       <p id="openModal_text">Hi!</p>
     </div>
   </div>
+
+  <form name="turkSubmit" id="turkSubmit" action="" method="POST">
+  <input type="submit" value="Submit" name="submitButton" id="submitButton" style="display: none"></form>
+  <script>
+    let formtxt = "https://www.mturk.com/mturk/externalSubmit?assignmentId="+ASSIGNMENTID+"&foo=bar"
+    document.getElementById('turkSubmit').action = formtxt
+  </script>
+    <!-- submit to turk
+    https://workersandbox.mturk.com/mturk/externalSubmit
+    https://www.mturk.com/mturk/externalSubmit
+    -->
 
   <!-- Screen after submitting expt -->
   <div id="done">
@@ -162,10 +185,17 @@
 
     /* Start Experiment */
     function StartExperiment() {
+      if (IsOnTurk() && IsTurkPreview()) {
+        alert("Please accept the HIT before continuing.");
+        return false;
+      }
       age = prompt('Before we start, can you tell me how old you are (in years)?');
 
-      while (!(age > 0)) {
-        age = prompt('Can you tell me how old you are (in years)?');
+      while (age > 100 || age < 18 || !(age>=18)) {
+        age = prompt('Can you tell me how old you are (e.g., 18, not the year you were born)?');
+      }
+      if (age > 35) {
+        $('body').html('<center><b>Unfortunately, this experiment does not allow participants over 35 years old (we separately study older populations).<br><br>Please return this HIT.<br><br>You will not be paid if you try again and change your age.</b></center>');
       }
 
       sex = prompt('And are you male (M), female (F), non-binary (B), or prefer not to answer (NA)?');
@@ -185,9 +215,9 @@
 
       ethnicity = prompt('How do you describe your ethnicity?');
 
-      initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
+    //   initials = prompt('What are your initials (e.g., John Smith would be "JS")?');
 
-      subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
+    //   subjID = initials + '_' + startDate.getMonth() + '_' + startDate.getDate() + '_' + startDate.getHours();
 
       // // save a file letting me know that someone made it this far
       // const blobx = new Blob([JSON.stringify(chance1.seed)], {
@@ -199,7 +229,7 @@
       // open pop-up:
       modalClosed = false;
       document.getElementById("openModal_text").innerHTML =
-        'Your subject ID is: ' + subjID + '<br>Experiment will now begin. Good luck!';
+        'Experiment will now begin. Good luck!';
       window.location.href = '#openModal';
       checkFlag1();
 
@@ -628,7 +658,8 @@
       $('#saving').show();
       const endDate = new Date().getTime();
       const d = {
-        "ID": subjID,
+        "ID": WORKERID,
+        "ASSIGNMENTID": ASSIGNMENTID,
         "age": age,
         "sex": sex,
         "ethnicity": ethnicity,
@@ -683,23 +714,14 @@
       const blob = new Blob([JSON.stringify(d)], {
         type: "application/json"
       });
-      const storageRef = firebase.storage().ref('Quarters_Lab_new/' + subjID + '.json');
+      const storageRef = firebase.storage().ref('Quarters_Lab_turk/' + WORKERID + '.json');
       storageRef.put(blob);
 
       document.getElementById("saving").innerHTML = "Submitting...";
 
       /* submit after waiting a few seconds to make sure data got sent */
       setTimeout(function() {
-        document.getElementById("saving").innerHTML = "Data saved. Thanks for your participation. You may close this window.";
-
-        // close full screen if still full-screened
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
+        document.forms[0].submit();
       }, 3000);
     }
 
